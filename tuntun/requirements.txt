@@ -1,4 +1,7 @@
 django-extensions==3.1.5
 djangorestframework==3.13.1
+<<<<<<< HEAD
 beautifulsoup4==4.11.1
+=======
+>>>>>>> b984062 (feat: db-kakao)
 mysqlclient

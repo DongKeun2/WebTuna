@@ -1,6 +1,11 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from webtoons.models import Tag, Webtoon
+=======
+from django.contrib.auth.models import AbstractUser
+from webtoons.models import Genre, Tag, Webtoon
+>>>>>>> b984062 (feat: db-kakao)
 
   
 class UserManager(BaseUserManager):
@@ -41,6 +46,7 @@ class Member(AbstractBaseUser):
     gender = models.CharField(default='', max_length=100, null=False, blank=False,)
     birth = models.IntegerField(default = 0, blank=False)
     profile_image_url = models.TextField(blank=True)
+<<<<<<< HEAD
     count = models.IntegerField(default=0)
     liked_thumnail = models.CharField(max_length=100, null=False)
     resigned_time = models.DateTimeField(blank=True, null=True)
@@ -48,6 +54,16 @@ class Member(AbstractBaseUser):
     tags = models.ManyToManyField(Tag,related_name="tag_users")
     view_webtoons = models.ManyToManyField(Webtoon,related_name="view_webtoon_users")
     liked_webtoons = models.ManyToManyField(Webtoon,related_name="liked_webtoon_users")
+=======
+    created_time = models.DateTimeField(auto_now_add=True)
+    is_removed = models.BooleanField(default=False)
+    resigned_time = models.DateTimeField(auto_now = True)
+    tag = models.ManyToManyField(Tag,related_name="tag_users")
+    fav_genres = models.ManyToManyField(Genre,related_name="genres")
+    view_webtoon = models.ManyToManyField(Webtoon,related_name="clicked_webtoons")
+    liked_webtoon = models.ManyToManyField(Webtoon,related_name="fav_webtoons")
+    followings = models.ManyToManyField('self', symmetrical=False, related_name="follwers")
+>>>>>>> b984062 (feat: db-kakao)
     
     # User 모델의 필수 field
     is_active = models.BooleanField(default=True)    

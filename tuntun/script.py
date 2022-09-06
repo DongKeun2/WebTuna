@@ -4,6 +4,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tuntun.settings")
 import django
 django.setup()
 
+<<<<<<< HEAD
 import urllib
 import requests
 import json
@@ -238,6 +239,38 @@ if __name__ == '__main__':
     # {'로맨스', '공포/스릴러', '학원/판타지', '로맨스 판타지', '드라마', '액션/무협', '판타지 드라마', '코믹/일상'}
     
     
+=======
+import requests
+import json
+from webtoons.models import Author, Webtoon, Genre
+from bs4 import BeautifulSoup
+
+headers = {'User-Agent':'mozilla/5.0'}
+data = requests.get('https://webtoon.kakao.com/content/트레이스/1047', headers=headers)
+soup = BeautifulSoup(data.text, 'html.parser')
+genre = soup.select_one('#root > main > div > div > div > div.h-full.overflow-hidden.w-full.z-1.fixed.inset-0.bg-dark-background > div.w-full.left-0.top-0.relative > div.content-main-wrapper.opacity-0.invisible.relative.current-content-main.opacity-100.\!visible.z-1 > div.pb-20.pt-96.relative.z-1 > div.relative.mx-auto.my-0.w-full.lg\:w-default-max-width > div.mx-20.flex.justify-between.relative.z-1.pointer-events-auto.pt-12 > div > div > p.whitespace-pre-wrap.break-all.break-words.support-break-word.s12-regular-white.ml-3.opacity-85').text
+print(genre.split("/"))
+# if __name__ == '__main__':
+#     Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+#     path = '/kakao/week'
+
+
+#     response = requests.get(Base_URL+path)
+#     webtoons_popular = response.json()
+#     kakao_genre = set()
+#     for webtoon in webtoons_popular:
+#         try:
+#             webtoon_url = webtoon['url']
+#             # 카카오 장르 크롤링
+#             headers = {'User-Agent':'mozilla/5.0'}
+#             data = requests.get(f'{webtoon_url}', headers=headers)
+#             soup = BeautifulSoup(data.text, 'html.parser')
+#             genre = soup.select_one('#root > main > div > div > div > div.h-full.overflow-hidden.w-full.z-1.fixed.inset-0.bg-dark-background > div.w-full.left-0.top-0.relative > div.content-main-wrapper.opacity-0.invisible.relative.current-content-main.opacity-100.\!visible.z-1 > div.pb-20.pt-96.relative.z-1 > div.relative.mx-auto.my-0.w-full.lg\:w-default-max-width > div.mx-20.flex.justify-between.relative.z-1.pointer-events-auto.pt-12 > div > div > p.whitespace-pre-wrap.break-all.break-words.support-break-word.s12-regular-white.ml-3.opacity-85').text
+#             kakao_genre.add(genre)
+#         except:
+#             pass
+#     print(kakao_genre)
+>>>>>>> b984062 (feat: db-kakao)
 
     # # author 데이터 넣기
     # authors = set()
@@ -266,3 +299,109 @@ if __name__ == '__main__':
 #         genre_type = genre
 #     )
 
+<<<<<<< HEAD
+=======
+
+
+
+# if __name__ == '__main__':
+#     for j in range(45, 60):
+#         Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+#         path = '/naver/week'
+#         params = {
+#             'api_key' : 'e73cf3371bb27a97420ed90450a7bbce',
+#             'language' : 'ko-KR',
+#             'page' : j,
+#         }
+
+#         response = requests.get(Base_URL+path, params = params)
+#         movie_popular = response.json()
+
+#         for movie in movie_popular['results']:
+#             movie_title = movie['title']
+#             movie_releasedate = movie['release_date']
+#             movie_voteaverage = movie['vote_average']
+#             movie_votecount = movie['vote_count']
+#             movie_posterpath = movie['poster_path']
+#             movie_popularity = int(movie['popularity']*1000)
+#             movie_id = movie['id']
+#             movie_overview = movie['overview']
+#             movie_genre = movie['genre_ids']
+
+#             path=f'/movie/{movie_id}'
+#             params = {
+#             'api_key' : 'e73cf3371bb27a97420ed90450a7bbce',
+#             'language' : 'ko-KR',
+#             }
+#             response2 = requests.get(Base_URL+path, params = params)
+#             movie_detail = response2.json()
+#             movie_runtime = movie_detail['runtime']
+
+#             movie = Movie.objects.create(
+#                 title = movie_title,
+#                 release_date = movie_releasedate,
+#                 popularity = movie_popularity,
+#                 vote_count = movie_votecount,
+#                 vote_average = movie_voteaverage,
+#                 overview = movie_overview,
+#                 poster_path = movie_posterpath,
+#                 runtime = movie_runtime,
+#             )
+#             for i in movie_genre:
+#                 movie.genres.add(i)
+
+# movie = Movie.objects.all()[96]
+
+# title = movie.title
+# params = {
+#     'key': 'AIzaSyA0ZPLyvp_6Eas5z78e0M9mJXEAxOSsBog',
+#     'part': 'snippet',
+#     'q': title + ' official trailer',
+#     'type': 'video',
+#     'maxResults': '1'
+# }
+# URL = "https://www.googleapis.com/youtube/v3/search"
+# response = requests.get(URL, params=params)
+# src = 'https://www.youtube.com/embed/' + \
+#     json.loads(response.text)['items'][0]['id']['videoId']
+# data = {
+#     'src': src+'?autoplay=1&mute=0&enablejsapi=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0'
+# }
+# movie.src = data['src']
+# movie.save()
+
+
+# m = 15814
+# C = 6.6366635249764325
+
+# if __name__ == '__main__':
+#     for j in range(1, 100):
+#         Base_URL = 'https://api.themoviedb.org/3'
+#         path = '/movie/popular'
+#         params = {
+#             'api_key' : 'e73cf3371bb27a97420ed90450a7bbce',
+#             'language' : 'ko-KR',
+#             'page' : j,
+#         }
+
+#         response = requests.get(Base_URL+path, params = params)
+#         movie_popular = response.json()
+
+#         for movie in movie_popular['results']:
+#             movie_title = movie['title']
+#             new_movie = Movie.objects.filter(title=movie_title)
+#             movie_original_title = movie['original_title']
+#             for i in new_movie:
+#                 i.original_title = movie_original_title
+#                 i.save()
+
+# m = 15814
+# C = 6.6366635249764325
+# movies = Movie.objects.all()
+# for movie in movies:
+#     v = movie.vote_count
+#     R = movie.vote_average
+#     ans = ((v/(v+m))*R) + ((m/(v+m))*C)
+#     movie.wr = ans
+#     movie.save()
+>>>>>>> b984062 (feat: db-kakao)
