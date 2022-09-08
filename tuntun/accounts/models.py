@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from webtoons.models import Genre, Webtoon
+from webtoons.models import Genre, Tag, Webtoon
 
-class User(AbstractUser):
+class Member(AbstractUser):
     member_id = models.AutoField(primary_key=True)
     nickname = models.CharField(max_length=50)
     gender = models.TextChoices('gender', 'M F')
@@ -11,14 +11,11 @@ class User(AbstractUser):
     created_time = models.DateTimeField(auto_now_add=True)
     is_removed = models.BooleanField(default=False)
     resigned_time = models.DateTimeField(auto_now = True)
+    tags = models.ManyToManyField(Tag,related_name="tag_users")
     fav_genres = models.ManyToManyField(Genre,related_name="genres")
-    view_webtoon = models.ManyToManyField(Webtoon,related_name="clicked_webtoons")
-    liked_webtoon = models.ManyToManyField(Webtoon,related_name="fav_webtoons")
+    view_webtoons = models.ManyToManyField(Webtoon,related_name="clicked_webtoons")
+    liked_webtoons = models.ManyToManyField(Webtoon,related_name="fav_webtoons")
     followings = models.ManyToManyField('self', symmetrical=False, related_name="follwers")
     
 
-class Badge(models.Model):
-    badge_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    acquired_members = models.ManyToManyField(User, related_name='get_badges')
-    image_url = models.TextField(blank=True)
+
