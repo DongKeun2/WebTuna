@@ -1,4 +1,4 @@
-function RecommendPage() {
+function ToonToonPage() {
   return (
     <div>
       <h1>추천 페이지</h1>
@@ -6,4 +6,4 @@ function RecommendPage() {
   );
 }
 
-export default RecommendPage;
+export default ToonToonPage;

@@ -9,10 +9,16 @@ function NavBar() {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/recommend">추천페이지</Link>
+          <Link to="/webtoonList">웹툰목록페이지</Link>
         </li>
         <li>
-          <Link to="/WebtoonList">웹툰목록페이지</Link>
+          <Link to="/toontoon">툰툰추천페이지</Link>
+        </li>
+        <li>
+          <Link to="/quiz">퀴즈</Link>
+        </li>
+        <li>
+          <Link to="/profile">프로필</Link>
         </li>
       </ul>
     </div>

@@ -1,4 +1,4 @@
-function GamePage() {
+function MainPage() {
   return (
     <div>
       <h1>메인 페이지</h1>
@@ -6,4 +6,4 @@ function GamePage() {
   );
 }
 
-export default GamePage;
+export default MainPage;
