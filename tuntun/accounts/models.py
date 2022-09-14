@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from webtoons.models import Genre, Tag, Webtoon
+from webtoons.models import Tag, Webtoon
 
 class Member(AbstractUser):
     member_id = models.AutoField(primary_key=True)
@@ -11,11 +11,8 @@ class Member(AbstractUser):
     created_time = models.DateTimeField(auto_now_add=True)
     is_removed = models.BooleanField(default=False)
     resigned_time = models.DateTimeField(auto_now = True)
+    count = models.IntegerField(default=0)
+    liked_thumnail = models.CharField(max_length=100)
     tags = models.ManyToManyField(Tag,related_name="tag_users")
-    fav_genres = models.ManyToManyField(Genre,related_name="genres")
-    view_webtoons = models.ManyToManyField(Webtoon,related_name="clicked_webtoons")
-    liked_webtoons = models.ManyToManyField(Webtoon,related_name="fav_webtoons")
-    followings = models.ManyToManyField('self', symmetrical=False, related_name="follwers")
-    
-
-
+    view_webtoons = models.ManyToManyField(Webtoon,related_name="view_webtoon_users")
+    liked_webtoons = models.ManyToManyField(Webtoon,related_name="liked_webtoon_users")
