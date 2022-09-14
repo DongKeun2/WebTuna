@@ -3,10 +3,12 @@ import axios from "axios";
 import api from "../../api";
 
 const login = createAsyncThunk("login", async (data, { rejectWithValue }) => {
+  console.log(data);
   try {
     const res = await axios.post(api.login(), data, {});
     return res.data;
   } catch (err) {
+    console.log(err);
     return rejectWithValue(err.response.data);
   }
 });
@@ -30,6 +32,8 @@ export const loginSlice = createSlice({
       state.loginState = true;
     },
     [login.rejected]: (state, action) => {
+      console.log("로그인 실패 ㅠㅠ");
+      console.log(action.payload);
       state.loginState = false;
     },
   },
