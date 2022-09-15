@@ -1,49 +1,49 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const Nav = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%; //1920px
+  left: 0;
+  background-color: #feec91;
+  height: 65px;
+  border-top: solid 2px black;
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+`;
+
+const Items = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+
+const LeftItem = styled.div`
+  float: left;
+  padding-top: 5px;
+  padding-left: 200px;
+  padding-right: 100px;
+`;
+
+const RightItem = styled.div`
+  float: right;
+  padding-top: 5px;
+  padding-left: 100px;
+  padding-right: 200px;
+`;
+
+const Toontoon = styled.div`
+  position: absolute;
+  left: 46%;
+  bottom: 15px;
+  box-shadow: 5px 5px;
+  border-radius: 50px;
+  overflow: hidden;
+`;
+
 function NavBar() {
-  const Nav = styled.div`
-    position: fixed;
-    bottom: 0;
-    width: 100%; //1920px
-    left: 0;
-    background-color: #feec91;
-    height: 65px;
-    border-top: solid 2px black;
-    border-right: solid 2px black;
-    border-left: solid 2px black;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-  `;
-
-  const Items = styled.div`
-    width: 100%;
-    text-align: center;
-  `;
-
-  const LeftItem = styled.div`
-    float: left;
-    padding-top: 5px;
-    padding-left: 200px;
-    padding-right: 100px;
-  `;
-
-  const RightItem = styled.div`
-    float: right;
-    padding-top: 5px;
-    padding-left: 100px;
-    padding-right: 200px;
-  `;
-
-  const Toontoon = styled.div`
-    position: absolute;
-    left: 46%;
-    bottom: 15px;
-    box-shadow: 5px 5px;
-    border-radius: 50px;
-    overflow: hidden;
-  `;
-
   return (
     <Nav>
       <Items>
