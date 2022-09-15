@@ -25,7 +25,7 @@ const logout = createAsyncThunk("logout", async (data, { rejectWithValue }) => {
 export const loginSlice = createSlice({
   name: "login",
   initialState: {
-    userInfo: {
+    loginInfo: {
       email: "",
       password: "",
     },
@@ -33,11 +33,16 @@ export const loginSlice = createSlice({
   },
   reducers: {
     changeEmail: (state, action) => {
-      state.userInfo.email = action.payload;
+      state.loginInfo.email = action.payload;
+    },
+    changePassword: (state, action) => {
+      state.loginInfo.password = action.payload;
     },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
+      console.log("로그인 성공");
+      console.log(action.payload);
       state.loginState = true;
     },
     [login.rejected]: (state, action) => {
@@ -56,6 +61,6 @@ export const loginSlice = createSlice({
 
 export { login, logout };
 // Action creators are generated for each case reducer function
-export const { changeEmail } = loginSlice.actions;
+export const { changeEmail, changePassword } = loginSlice.actions;
 
 export default loginSlice.reducer;
