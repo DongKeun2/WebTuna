@@ -5,15 +5,31 @@ function UploadPage() {
 
   const saveFileImage = (event) => {
     setFileImage(URL.createObjectURL(event.target.files[0]));
-    console.log(event.target.files[0]);
-    console.log(fileImage);
   };
 
   const deleteFileImage = () => {
     URL.revokeObjectURL(fileImage);
-    console.log(fileImage);
     setFileImage("");
   };
+
+  function checkImage(e) {
+    if (fileImage) {
+      predict();
+    } else {
+      console.log("이미지 업로드하세요 ^^");
+    }
+  }
+
+  async function predict() {
+    const baseURL = "https://teachablemachine.withgoogle.com/models/eWqWOghSi/";
+    const modelURL = baseURL + "model.json";
+    const metadataURL = baseURL + "metadata.json";
+    // eslint-disable-next-line
+    const model = await tmImage.load(modelURL, metadataURL);
+    const tempImage = document.getElementById("canvas");
+    const prediction = await model.predict(tempImage, false);
+    console.log(prediction);
+  }
 
   return (
     <div>
@@ -26,7 +42,12 @@ function UploadPage() {
       />
       <div>
         {fileImage && (
-          <img alt="sample" src={fileImage} style={{ margin: "auto" }} />
+          <img
+            id="canvas"
+            alt="sample"
+            src={fileImage}
+            style={{ margin: "auto" }}
+          />
         )}
         <button
           style={{
@@ -38,6 +59,16 @@ function UploadPage() {
         >
           {" "}
           삭제{" "}
+        </button>
+        <button
+          style={{
+            width: "50px",
+            height: "30px",
+            cursor: "pointer",
+          }}
+          onClick={() => checkImage()}
+        >
+          제출
         </button>
       </div>
     </div>
