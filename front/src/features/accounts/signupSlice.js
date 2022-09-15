@@ -79,11 +79,14 @@ export const singupSlice = createSlice({
     [checkEmail.fulfilled]: (state, action) => {
       state.isPossibleEmail = action.payload;
     },
-    [checkEmail.rejected]: (state, action) => {
+    [checkEmail.rejected]: (state) => {
       state.isPossibleEmail = false;
     },
     [checkNickname.fulfilled]: (state, action) => {
       state.isPossibleNickname = action.payload;
+    },
+    [checkNickname.rejected]: (state) => {
+      state.isPossibleNickname = false;
     },
   },
 });
