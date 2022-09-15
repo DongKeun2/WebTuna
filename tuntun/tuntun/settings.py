@@ -94,6 +94,7 @@ WSGI_APPLICATION = 'tuntun.wsgi.application'
 
 DATABASES = {
     'default': {
+<<<<<<< HEAD
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'tuntun',
     'USER': 'root',
@@ -101,8 +102,14 @@ DATABASES = {
     'HOST': 'localhost',
     'PORT': 3306,
     }
+=======
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS' : {
+            'read_default_file' : os.path.join(BASE_DIR, 'mysql.cnf')
+        }   
+    },
+>>>>>>> 0d8b258 (fix: settings.py에서 mysql.cnf 인식못하는 오류 수정 및 쓸모없는 파일 지우기)
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
