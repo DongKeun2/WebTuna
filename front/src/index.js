@@ -6,6 +6,7 @@ import App from "./App";
 import store from "./store";
 import MainPage from "./pages/common/MainPage";
 import SignupPage from "./pages/accounts/SignupPage";
+import AddInfoPage from "./pages/accounts/AddInfoPage";
 import LoginPage from "./pages/accounts/LoginPage";
 import ProfilePage from "./pages/accounts/ProfilePage";
 import ToonToonPage from "./pages/common/ToonToonPage";
@@ -22,6 +23,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="signup" element={<SignupPage />} />
+          <Route path="addinfo" element={<AddInfoPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="webtoonlist" element={<WebtoonPage />} />

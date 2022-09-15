@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   signup,
@@ -15,6 +16,7 @@ import {
 
 function SignupPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const signupInfo = useSelector((state) => state.signup.signupInfo);
 
   const [isCheckNickname, setIsCheckNickname] = useState(false);
@@ -75,7 +77,9 @@ function SignupPage() {
 
   function signupSubmit(e) {
     e.preventDefault();
-    dispatch(signup(signupInfo));
+    dispatch(signup(signupInfo)).then(() => {
+      navigate("/addinfo");
+    });
   }
   return (
     <div>
@@ -85,6 +89,7 @@ function SignupPage() {
         <input
           type="email"
           value={signupInfo.email}
+          autoComplete="on"
           placeholder="이메일을 입력해주세요."
           onChange={onEmailHandler}
         />
@@ -98,6 +103,7 @@ function SignupPage() {
         <input
           type="text"
           value={signupInfo.nickname}
+          autoComplete="on"
           placeholder="닉네임을 입력해주세요."
           onChange={onNicknameHandler}
         />
@@ -111,6 +117,7 @@ function SignupPage() {
         <input
           type="password"
           value={signupInfo.password}
+          autoComplete="off"
           placeholder="비밀번호를 입력해주세요."
           onChange={onPasswordHandler}
         />
@@ -118,9 +125,11 @@ function SignupPage() {
         <input
           type="password"
           value={signupInfo.pwdVerify}
+          autoComplete="off"
           placeholder="비밀번호를 입력해주세요."
           onChange={onPwdVerifyHandler}
         />
+        <button>다음</button>
       </SignupForm>
     </div>
   );
