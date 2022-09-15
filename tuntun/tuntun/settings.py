@@ -95,6 +95,7 @@ WSGI_APPLICATION = 'tuntun.wsgi.application'
 DATABASES = {
     'default': {
 <<<<<<< HEAD
+<<<<<<< HEAD
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'tuntun',
     'USER': 'root',
@@ -107,6 +108,14 @@ DATABASES = {
         'OPTIONS' : {
             'read_default_file' : os.path.join(BASE_DIR, 'mysql.cnf')
         }   
+=======
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'tuntun',
+    'USER': 'admin',
+    'PASSWORD': 'hongtun1!',
+    'HOST': 'tuntun.csnx9owbfgoh.ap-northeast-2.rds.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+    'PORT': '3306',   
+>>>>>>> 8a5a04a (Change Question in games/models.py)
     },
 >>>>>>> 0d8b258 (fix: settings.py에서 mysql.cnf 인식못하는 오류 수정 및 쓸모없는 파일 지우기)
 }
