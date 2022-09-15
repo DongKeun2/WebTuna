@@ -24,14 +24,14 @@ const LeftItem = styled.div`
   float: left;
   padding-top: 5px;
   padding-left: 200px;
-  padding-right: 100px;
+  padding-right: 50px;
 `;
 
 const RightItem = styled.div`
   float: right;
   padding-top: 5px;
-  padding-left: 100px;
-  padding-right: 200px;
+  padding-left: 50px;
+  padding-right: 155px;
 `;
 
 const Toontoon = styled.div`
