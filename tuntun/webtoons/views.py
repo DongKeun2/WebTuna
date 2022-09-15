@@ -1,3 +1,4 @@
+from re import L
 from django.shortcuts import render
 <<<<<<< HEAD
 
@@ -10,7 +11,14 @@ from rest_framework import status
 import requests
 import csv
 from bs4 import BeautifulSoup
+<<<<<<< HEAD
 from webtoons.models import Webtoon, Genre, Author, Tag
+=======
+from .serializers import WebtoonSerializer
+from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
+from django.shortcuts import get_object_or_404, get_list_or_404
+from django.core.paginator import Paginator
+>>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 # webtoon 데이터가공-Naver API : http://localhost:8000/webtoons/naver/week
 # Author -> Genre -> Tag -> Webtoon 순으로
 @api_view(['GET'])
@@ -94,10 +102,15 @@ def webtoonsResponse(request,platfrom,type):
             summary = summary, 
             day=week[webtoon['week'][0]],
             thumbnail=webtoon['img'],
+<<<<<<< HEAD
             page=page_url,
             adult=webtoon['additional']['adult'],
             image_type = 0,
             service = webtoon['service'])
+=======
+            page=webtoon['url'].replace("m.",""),
+            adult=webtoon['additional']['adult'])
+>>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 
         for i in insert_genres:
             toon.genres.add(i)
@@ -134,4 +147,41 @@ def webtoonsResponse(request,platfrom,type):
    
 
     return Response(webtoon_list, status.HTTP_200_OK)
+<<<<<<< HEAD
 >>>>>>> ad07346 (refactor: Naver 웹툰 데이터 삽입 코드 정리)
+=======
+
+
+@api_view(['GET'])
+def webtoonDetail(request,webtoonId):
+    
+    webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
+    serializer = WebtoonSerializer(webtoon)
+    return Response(serializer.data, status.HTTP_200_OK)
+
+
+page_cut = 20
+
+
+@api_view(['GET'])
+def webtoonList(request,pageNum):
+    webtoon_list = Webtoon.objects.all().order_by('title')
+    paginator = Paginator(webtoon_list, page_cut)
+    webtoons = paginator.get_page(int(pageNum))
+    serializer = WebtoonSerializer(webtoons, many = True)
+    return Response(serializer.data, status.HTTP_200_OK)
+
+@api_view(['GET'])
+def searchWebtoon(request,search,keyword,pageNum):
+    webtoon_list = []
+    if(search == "title"):
+        webtoon_list = Webtoon.objects.filter(title__contains=keyword).order_by('title')
+    elif(search == "author"):
+        webtoon_list = Webtoon.objects.filter(authors__name__contains=keyword).order_by('title')
+            
+
+    paginator = Paginator(webtoon_list, page_cut)
+    webtoons = paginator.get_page(int(pageNum))
+    serializer = WebtoonSerializer(webtoons, many = True)
+    return Response(serializer.data, status.HTTP_200_OK)
+>>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
