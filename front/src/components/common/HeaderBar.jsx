@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Avatar from "./Avatar";
+import AccountMenu from "./AccountMenu";
 import SearchBar from "./SearchBar";
 
 function HeaderBar() {
@@ -7,7 +7,7 @@ function HeaderBar() {
     <HeaderSt>
       <h1>로고</h1>
       <SearchBar></SearchBar>
-      <Avatar></Avatar>
+      <AccountMenu></AccountMenu>
     </HeaderSt>
   );
 }

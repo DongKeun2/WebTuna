@@ -1,8 +1,18 @@
-import { Link } from "react-router-dom";
+import * as React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { Link } from "react-router-dom";
+import { logout } from "../../features/accounts/loginSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 
+// 로그아웃 구현해야 함
 function Avatar() {
+  const dispatch = useDispatch();
+  // 내 프로필 사진 아이디 확인해서 넘겨줘야 함
   function isMine(item) {
     if (item.id === 1) {
       return true;
@@ -10,28 +20,82 @@ function Avatar() {
   }
   const myImg = profileImgItem.find(isMine);
 
-  // 로그인 비로그인 나눠야 한다!
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
-    <div>
-      <AccountMenu>
-        <Link to="/login" style={{ textDecoration: "none" }}>
-          로그인
+    <React.Fragment>
+      <Tooltip title={`눌러보시던가~`}>
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ ml: 2 }}
+          aria-controls={open ? "account-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+        >
+          <ImgBox>
+            <ProfileImg src={myImg.img} />
+          </ImgBox>
+        </IconButton>
+      </Tooltip>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <Link to={`/profile`}>
+          <MenuItem>프로필</MenuItem>
         </Link>
-        <Link to="/signup" style={{ textDecoration: "none" }}>
-          회원가입
+        <Link to={`/edit`}>
+          <MenuItem>정보 수정</MenuItem>
         </Link>
-      </AccountMenu>
-      <ImgBox>
-        <ProfileImg src={myImg.img} />
-      </ImgBox>
-    </div>
+        <MenuItem
+          onClick={() => {
+            dispatch(logout());
+          }}
+        >
+          로그아웃
+        </MenuItem>
+      </Menu>
+    </React.Fragment>
   );
 }
-
-const AccountMenu = styled.div`
-  display: flex;
-  gap: 20px;
-`;
 
 const ImgBox = styled.div`
   width: 70px;

@@ -13,6 +13,15 @@ const login = createAsyncThunk("login", async (data, { rejectWithValue }) => {
   }
 });
 
+const logout = createAsyncThunk("logout", async (data, { rejectWithValue }) => {
+  try {
+    const res = await axios.post(api.login(), {}, {});
+    return res.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+});
+
 export const loginSlice = createSlice({
   name: "login",
   initialState: {
@@ -36,10 +45,16 @@ export const loginSlice = createSlice({
       console.log(action.payload);
       state.loginState = false;
     },
+    [logout.fulfilled]: (state) => {
+      state.loginState = false;
+    },
+    [logout.rejected]: (state) => {
+      state.loginState = false;
+    },
   },
 });
 
-export { login };
+export { login, logout };
 // Action creators are generated for each case reducer function
 export const { changeEmail } = loginSlice.actions;
 

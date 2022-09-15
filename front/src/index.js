@@ -15,6 +15,7 @@ import MBTIPage from "./pages/common/MBTIPage";
 import UploadPage from "./pages/common/UploadPage";
 import NotFoundPage from "./pages/common/NotFoundPage";
 import DetailPage from "./pages/DetailPage";
+import EditPage from "./pages/accounts/EditPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,6 +26,7 @@ root.render(
           <Route path="signup" element={<SignupPage />} />
           <Route path="addinfo" element={<AddInfoPage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="edit" element={<EditPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="webtoonlist" element={<WebtoonPage />} />
           <Route path="toontoon" element={<ToonToonPage />} />
