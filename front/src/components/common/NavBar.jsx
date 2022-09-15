@@ -72,7 +72,7 @@ padding-right: 200px;
           </Link>
         </RightItem>
         <RightItem>
-          <Link to="/quiz" style={{ textDecoration: "none" }}>
+          <Link to="/mbti" style={{ textDecoration: "none" }}>
             <div><img src={'./images/ToonBTI.png'} alt="툰비티아이" /></div>
             <div>ToonBTI</div>
           </Link>
