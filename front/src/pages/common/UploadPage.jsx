@@ -15,7 +15,16 @@ function UploadPage() {
 
   function checkImage(e) {
     if (fileImage) {
-      predict()
+      predict().then(prediction => {
+        const probability = prediction.map(item => {
+          return (item.probability * 100).toFixed(2)
+        })
+        const data = {
+          probability,
+        }
+        // 여기서 요청보내기
+        // dispatch(어쩌구(data))
+      })
     } else {
       console.log('이미지 업로드하세요 ^^')
     }
@@ -29,7 +38,7 @@ function UploadPage() {
     const model = await tmImage.load(modelURL, metadataURL)
     const tempImage = document.getElementById('canvas')
     const prediction = await model.predict(tempImage, false)
-    console.log(prediction)
+    return prediction
   }
 
   return (
