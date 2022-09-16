@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4c745517-2e1c-44b5-b762-d8f461b1357c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../server/accounts/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/accounts/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/accounts/migrations/0002_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/accounts/migrations/0002_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/accounts/migrations/0003_auto_20220916_1028.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/accounts/migrations/0004_alter_member_resigned_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/games/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/games/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/webtoons/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/webtoons/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/webtoons/migrations/0002_auto_20220916_1028.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/webtoons/migrations/0002_remove_tag_validation_remove_webtoon_image_type_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/webtoons/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/webtoons/urls.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="back" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2En0QUIC1pRdGgYJNq0RvZE4wtU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/user/Documents/S07P12A804/Troupe/backend"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c745517-2e1c-44b5-b762-d8f461b1357c" name="Changes" comment="" />
+      <created>1663216024280</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663216024280</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
