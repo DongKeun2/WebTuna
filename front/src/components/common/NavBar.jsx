@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import Home from "../../assets/navbar/Home.png"
-import All from "../../assets/navbar/All.png"
-import PaintStyleRecommend from "../../assets/navbar/PaintStyleRecommend.png"
-import ToonBTI from "../../assets/navbar/ToonBTI.png"
-import ToonToonRecommend from "../../assets/navbar/ToonToonRecommend.png"
-
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import Home from '../../assets/navbar/Home.png'
+import All from '../../assets/navbar/All.png'
+import PaintStyleRecommend from '../../assets/navbar/PaintStyleRecommend.png'
+import ToonBTI from '../../assets/navbar/ToonBTI.png'
+import ToonToonRecommend from '../../assets/navbar/ToonToonRecommend.png'
 
 const Nav = styled.div`
   position: fixed;
@@ -19,26 +18,26 @@ const Nav = styled.div`
   border-left: solid 2px black;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-`;
+`
 
 const Items = styled.div`
   width: 100%;
   text-align: center;
-`;
+`
 
 const LeftItem = styled.div`
   float: left;
   padding-top: 5px;
   padding-left: 200px;
   padding-right: 50px;
-`;
+`
 
 const RightItem = styled.div`
   float: right;
   padding-top: 5px;
   padding-left: 50px;
   padding-right: 155px;
-`;
+`
 
 const Toontoon = styled.div`
   position: absolute;
@@ -47,14 +46,14 @@ const Toontoon = styled.div`
   box-shadow: 5px 5px;
   border-radius: 50px;
   overflow: hidden;
-`;
+`
 
 function NavBar() {
   return (
     <Nav>
       <Items>
         <LeftItem>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: 'none' }}>
             <div>
               <img src={Home} alt="홈" />
             </div>
@@ -62,7 +61,7 @@ function NavBar() {
           </Link>
         </LeftItem>
         <LeftItem>
-          <Link to="/webtoonList" style={{ textDecoration: "none" }}>
+          <Link to="/webtoonList" style={{ textDecoration: 'none' }}>
             <div>
               <img src={All} alt="전체 웹툰" />
             </div>
@@ -70,23 +69,20 @@ function NavBar() {
           </Link>
         </LeftItem>
         <Toontoon>
-          <Link to="/toontoon" style={{ textDecoration: "none" }}>
+          <Link to="/toontoon" style={{ textDecoration: 'none' }}>
             <img src={ToonToonRecommend} alt="툰툰추천" />
           </Link>
         </Toontoon>
         <RightItem>
-          <Link to="/upload" style={{ textDecoration: "none" }}>
+          <Link to="/upload" style={{ textDecoration: 'none' }}>
             <div>
-              <img
-                src={PaintStyleRecommend}
-                alt="그림체로 웹툰 검색"
-              />
+              <img src={PaintStyleRecommend} alt="그림체로 웹툰 검색" />
             </div>
             <div>그림체로 웹툰 검색</div>
           </Link>
         </RightItem>
         <RightItem>
-          <Link to="/mbti" style={{ textDecoration: "none" }}>
+          <Link to="/toonbti" style={{ textDecoration: 'none' }}>
             <div>
               <img src={ToonBTI} alt="툰비티아이" />
             </div>
@@ -95,7 +91,7 @@ function NavBar() {
         </RightItem>
       </Items>
     </Nav>
-  );
+  )
 }
 
-export default NavBar;
+export default NavBar

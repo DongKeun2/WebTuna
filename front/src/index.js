@@ -11,12 +11,19 @@ import LoginPage from './pages/accounts/LoginPage'
 import ProfilePage from './pages/accounts/ProfilePage'
 import ToonToonPage from './pages/common/ToonToonPage'
 import WebtoonPage from './pages/common/WebtoonPage'
+<<<<<<< HEAD
 import MBTIPage from './pages/common/MBTIPage'
+=======
+import ToonBTIPage from './pages/common/ToonBTIPage'
+>>>>>>> 55ed512 (feat: toonBTI 이름&경로 수정)
 import UploadPage from './pages/common/UploadPage'
 import NotFoundPage from './pages/common/NotFoundPage'
 import DetailPage from './pages/DetailPage'
 import EditPage from './pages/accounts/EditPage'
+<<<<<<< HEAD
 import UploadResultPage from './pages/common/UploadResultPage'
+=======
+>>>>>>> 55ed512 (feat: toonBTI 이름&경로 수정)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -31,7 +38,7 @@ root.render(
           <Route path="profile" element={<ProfilePage />} />
           <Route path="webtoonlist" element={<WebtoonPage />} />
           <Route path="toontoon" element={<ToonToonPage />} />
-          <Route path="mbti" element={<MBTIPage />} />
+          <Route path="toonbti" element={<ToonBTIPage />} />
           <Route path="upload" element={<UploadPage />} />
           <Route path="upload/result" element={<UploadResultPage />} />
           <Route path="detail/:toonId" element={<DetailPage />} />
