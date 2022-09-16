@@ -23,20 +23,21 @@ function UploadPage() {
 
   function checkImage(e) {
     if (fileImage) {
+      setIsLoading(true)
       predict().then(prediction => {
-        setIsLoading(true)
         const probability = prediction.map(item => {
           return (item.probability * 100).toFixed(2)
         })
         const data = {
           probability,
         }
+        console.log(data)
         dispatch(fetchUpload(data))
-        setTimeout(() => {
-          setIsLoading(false)
-          navigate('./result')
-        }, 3000)
       })
+      setTimeout(() => {
+        setIsLoading(false)
+        navigate('./result')
+      }, 3000)
     } else {
       console.log('이미지 업로드하세요 ^^')
     }
@@ -57,7 +58,17 @@ function UploadPage() {
   return (
     <div>
       {isLoading ? (
-        <Loading></Loading>
+        <div>
+          <Loading></Loading>
+          {fileImage && (
+            <img
+              id="canvas"
+              alt="sample"
+              src={fileImage}
+              style={{ margin: 'auto', display: 'none' }}
+            />
+          )}
+        </div>
       ) : (
         <div>
           <h1>사진 업로드 페이지</h1>
