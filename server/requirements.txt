@@ -2,6 +2,11 @@ django-extensions==3.1.5
 djangorestframework==3.13.1
 <<<<<<< HEAD
 beautifulsoup4==4.11.1
+<<<<<<< HEAD
 =======
 >>>>>>> b984062 (feat: db-kakao)
 mysqlclient
+=======
+mysqlclient
+drf-yasg==1.21.3
+>>>>>>> be8c1d2 (chore: 배포 설정 추가)
