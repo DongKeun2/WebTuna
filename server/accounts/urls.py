@@ -3,6 +3,7 @@ from . import views
 from rest_framework import urls
 
 urlpatterns =[
-    path('signup/', views.UserCreate.as_view()),
-    path('', include('rest_framework.urls')),
+    path('user/signup/', views.UserCreate.as_view()),
+    path('user/', include('rest_framework.urls')),
+    path("user/update/", views.ProfileUpdate.as_view()),
  ]

@@ -117,6 +117,8 @@ DATABASES = {
 >>>>>>> 0d8b258 (fix: settings.py에서 mysql.cnf 인식못하는 오류 수정 및 쓸모없는 파일 지우기)
 }
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

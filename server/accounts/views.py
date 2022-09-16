@@ -9,3 +9,9 @@ from .models import *
 class UserCreate(generics.CreateAPIView):
     queryset = Member.objects.all()
     serializer_class = MemberSignupSerializer
+
+
+class ProfileUpdate(generics.UpdateAPIView):
+    lookup_field = 'member_id'
+    queryset = Member.objects.all()
+    serializer_class = ProfileUpdateSerializer
