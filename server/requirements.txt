@@ -13,6 +13,7 @@ django-extensions==3.1.5
 djangorestframework==3.13.1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 beautifulsoup4==4.11.1
 <<<<<<< HEAD
 =======
@@ -23,6 +24,8 @@ mysqlclient
 drf-yasg==1.21.3
 >>>>>>> be8c1d2 (chore: 배포 설정 추가)
 =======
+=======
+>>>>>>> 86fecf2 (Fix game api ver_0.5)
 drf-yasg==1.21.3
 idna==3.4
 inflection==0.5.1
@@ -46,4 +49,7 @@ sqlparse==0.4.2
 tzdata==2022.2
 uritemplate==4.1.1
 urllib3==1.26.12
+<<<<<<< HEAD
 >>>>>>> 7aafae9 (Update requirements.txt)
+=======
+>>>>>>> 86fecf2 (Fix game api ver_0.5)

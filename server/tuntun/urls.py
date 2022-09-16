@@ -46,5 +46,9 @@ urlpatterns = [
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
     path('api/webtoons/', include('webtoons.urls')),
+<<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
+=======
+    path('api/games/', include('games.urls')),
+>>>>>>> 86fecf2 (Fix game api ver_0.5)
 ]
