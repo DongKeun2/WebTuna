@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Home from "../../assets/navbar/Home.png"
+import All from "../../assets/navbar/All.png"
+import PaintStyleRecommend from "../../assets/navbar/PaintStyleRecommend.png"
+import ToonBTI from "../../assets/navbar/ToonBTI.png"
+import ToonToonRecommend from "../../assets/navbar/ToonToonRecommend.png"
+
 
 const Nav = styled.div`
   position: fixed;
@@ -50,7 +56,7 @@ function NavBar() {
         <LeftItem>
           <Link to="/" style={{ textDecoration: "none" }}>
             <div>
-              <img src={"./images/Home.png"} alt="홈" />
+              <img src={Home} alt="홈" />
             </div>
             <div>홈</div>
           </Link>
@@ -58,21 +64,21 @@ function NavBar() {
         <LeftItem>
           <Link to="/webtoonList" style={{ textDecoration: "none" }}>
             <div>
-              <img src={"./images/All.png"} alt="전체 웹툰" />
+              <img src={All} alt="전체 웹툰" />
             </div>
             <div>전체 목록</div>
           </Link>
         </LeftItem>
         <Toontoon>
           <Link to="/toontoon" style={{ textDecoration: "none" }}>
-            <img src={"./images/ToonToonRecommend.png"} alt="툰툰추천" />
+            <img src={ToonToonRecommend} alt="툰툰추천" />
           </Link>
         </Toontoon>
         <RightItem>
           <Link to="/upload" style={{ textDecoration: "none" }}>
             <div>
               <img
-                src={"./images/PaintStyleRecommend.png"}
+                src={PaintStyleRecommend}
                 alt="그림체로 웹툰 검색"
               />
             </div>
@@ -82,7 +88,7 @@ function NavBar() {
         <RightItem>
           <Link to="/mbti" style={{ textDecoration: "none" }}>
             <div>
-              <img src={"./images/ToonBTI.png"} alt="툰비티아이" />
+              <img src={ToonBTI} alt="툰비티아이" />
             </div>
             <div>ToonBTI</div>
           </Link>
