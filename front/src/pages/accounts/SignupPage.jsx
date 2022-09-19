@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
-  signup,
   checkEmail,
   checkNickname,
   changeEmail,
@@ -77,9 +76,7 @@ function SignupPage() {
 
   function signupSubmit(e) {
     e.preventDefault();
-    dispatch(signup(signupInfo)).then(() => {
-      navigate("/addinfo");
-    });
+    navigate("/addinfo");
   }
   return (
     <div>

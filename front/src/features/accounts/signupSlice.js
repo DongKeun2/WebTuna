@@ -51,6 +51,8 @@ export const singupSlice = createSlice({
       pwdVerify: "",
       gender: "M",
       birth: "",
+      // 이 후 수정 필요
+      liked_thumbnail: "1, 5",
     },
     isPossibleNickname: false,
     isPossibleEmail: false,
