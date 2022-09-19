@@ -17,6 +17,7 @@ const EMAIL_URL = '/email'
 const NICKNAME_URL = '/nickname'
 
 const SEARCH_IMG_URL = '/search/image'
+<<<<<<< HEAD
 =======
 const BASE_URL = "http://localhost:8000/api/";
 =======
@@ -42,6 +43,9 @@ const SEARCH_IMG_URL = "search/image/";
 const TOONBTI_URL = "games/question/";
 
 const TOON_LIST_URL = 'list/'
+=======
+const DETAIL_URL = '/detail'
+>>>>>>> 7bb19ad (feat: detai l페이지 UI 구성)
 
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
@@ -60,12 +64,18 @@ const api = {
   fetchUpload: () => BASE_URL + WEBTOONS_URL + SEARCH_IMG_URL,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
   //toonlistSlice
   fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum,
 <<<<<<< HEAD
 >>>>>>> 921bee3 (feat: 웹툰 전체 목록 api 연결)
+=======
+
+  //detailSlice
+  detail:(webtoonId) => BASE_URL + WEBTOONS_URL + '/' + webtoonId + DETAIL_URL,
+>>>>>>> 7bb19ad (feat: detai l페이지 UI 구성)
 }
 =======
 =======
