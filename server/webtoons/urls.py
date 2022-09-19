@@ -5,7 +5,8 @@ app_name = 'webtoons'
 
 urlpatterns = [
     # path('<platfrom>/<type>',views.webtoonsResponse),
-    path('<int:webtoonId>/detail',views.webtoonDetail),
-    path('list/<int:pageNum>',views.webtoonList),
-    path('<search>/<keyword>/<int:pageNum>',views.searchWebtoon)
+    path('<int:webtoonId>/detail/',views.webtoonDetail),
+    path('<int:webtoonId>/like/',views.webtoonLike),
+    path('list/<int:pageNum>/',views.webtoonList),
+    path('<search>/<keyword>/<int:pageNum>/',views.searchWebtoon)
 ]

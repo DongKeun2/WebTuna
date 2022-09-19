@@ -184,4 +184,21 @@ def searchWebtoon(request,search,keyword,pageNum):
     webtoons = paginator.get_page(int(pageNum))
     serializer = WebtoonSerializer(webtoons, many = True)
     return Response(serializer.data, status.HTTP_200_OK)
+<<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
+=======
+
+
+@api_view(['POST'])
+def webtoonLike(request, webtoonId):
+    webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
+    print(webtoonId)
+    if webtoon.liked_webtoon_users.filter(pk = request.user.pk).exists():
+        webtoon.liked_webtoon_users.remove(request.user)
+    
+    else:
+        webtoon.liked_webtoon_users.add(request.user)
+        
+    serializer = WebtoonSerializer(webtoon)
+    return Response(serializer.data, status.HTTP_200_OK)
+>>>>>>> 2711023 (feat: 웹툰 찜 기능 구현 (50%))
