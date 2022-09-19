@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8000/api'
+const BASE_URL = 'http://j7a403.p.ssafy.io/api'
 
 const ACCOUNTS_URL = '/accounts'
 const WEBTOONS_URL = '/webtoons'
