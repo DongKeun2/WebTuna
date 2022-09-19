@@ -49,7 +49,7 @@ export const singupSlice = createSlice({
       nickname: "",
       password: "",
       pwdVerify: "",
-      gender: 1,
+      gender: "M",
       birth: "",
     },
     isPossibleNickname: false,

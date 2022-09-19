@@ -140,9 +140,9 @@ function SignupPage() {
         <div>
           <div onChange={onGenderHandler}>
             <p>성별</p>
-            <GenderInput id="female" type="radio" value="2" name="gender" />
+            <GenderInput id="female" type="radio" value="F" name="gender" />
             <FemaleLabel htmlFor="female">여</FemaleLabel>
-            <GenderInput id="male" type="radio" value="1" name="gender" />
+            <GenderInput id="male" type="radio" value="M" name="gender" />
             <MaleLabel htmlFor="male">남</MaleLabel>
           </div>
           <div>
