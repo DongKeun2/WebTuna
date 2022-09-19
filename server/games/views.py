@@ -20,9 +20,53 @@ def question(request):
     elif request.method == 'POST':
         user_answer = request.data['answer']
 
-        if user_answer == [0, 1, 1, 0]:
-            webtoon = get_object_or_404(Webtoon, pk=201)
+        if user_answer == [1, 0, 0, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=1115)
+        
+        elif user_answer == [1, 0, 0, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=64)
+            
+        elif user_answer == [1, 0, 1, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=167)
+            
+        elif user_answer == [1, 0, 1, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=1613)
+        
+        elif user_answer == [1, 1, 1, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=12)
+        
+        elif user_answer == [1, 1, 1, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=234)
+            
+        elif user_answer == [1, 1, 0, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=732)
+            
+        elif user_answer == [1, 1, 0, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=1592)
+            
+        elif user_answer == [0, 1, 1, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=275)
+            
+        elif user_answer == [0, 1, 1, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=280)
+            
+        elif user_answer == [0, 1, 0, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=23)
+            
+        elif user_answer == [0, 1, 0, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=502)
+            
+        elif user_answer == [0, 0, 1, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=49)
+            
+        elif user_answer == [0, 0, 1, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=193)
+        
+        elif user_answer == [0, 0, 0, 1]:
+            webtoon = get_object_or_404(Webtoon, pk=632)
+            
+        elif user_answer == [0, 0, 0, 0]:
+            webtoon = get_object_or_404(Webtoon, pk=244)
 
-            serializer = WebtoonSerializer(webtoon)
-
-            return Response(serializer.data)
+        serializer = WebtoonSerializer(webtoon)
+        return Response(serializer.data)
