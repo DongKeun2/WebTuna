@@ -12,6 +12,8 @@ const NICKNAME_URL = '/nickname'
 
 const SEARCH_IMG_URL = '/search/image'
 
+const TOONBTI_URL = "/games/question";
+
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
 
@@ -22,6 +24,11 @@ const api = {
 
   //uploadSlice
   fetchUpload: () => BASE_URL + WEBTOONS_URL + SEARCH_IMG_URL,
+<<<<<<< HEAD
 }
+=======
+  fetchToonBTI: () => BASE_URL + TOONBTI_URL,
+};
+>>>>>>> 7ddf941 (feat: toonbti slice&api 생성 및 store 등록)
 
 export default api
