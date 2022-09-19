@@ -7,6 +7,7 @@ const fetchToonBTI = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.get(api.fetchToonBTI(), {});
+      console.log(res);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -18,20 +19,25 @@ const fetchToonBTI = createAsyncThunk(
 export const toonBTISlice = createSlice({
   name: "toonBTI",
   initialState: {
-    info: {},
+    question: {},
+    answer: [],
   },
-  reducers: {},
+  reducers: {
+    addAnswer: (state, action) => {
+      state.answer = action.payload;
+    },
+  },
   extraReducers: {
     [fetchToonBTI.fulfilled]: (state, action) => {
       console.log("데이터 받기 성공");
       console.log(action.payload);
-      state.info = action.payload;
+      state.question = action.payload.question;
     },
   },
 });
 
 export { fetchToonBTI };
 // Action creators are generated for each case reducer function
-// export const { } = uploadSlice.actions;
+export const { addAnswer } = toonBTISlice.actions;
 
 export default toonBTISlice.reducer;

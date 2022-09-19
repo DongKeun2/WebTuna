@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const BASE_URL = 'http://j7a403.q.ssafy.io:8443/api'
 
 const ACCOUNTS_URL = '/accounts'
@@ -11,8 +12,23 @@ const EMAIL_URL = '/email'
 const NICKNAME_URL = '/nickname'
 
 const SEARCH_IMG_URL = '/search/image'
+=======
+const BASE_URL = "http://localhost:8000/api/";
 
-const TOONBTI_URL = "/games/question";
+const ACCOUNTS_URL = "accounts/";
+const WEBTOONS_URL = "webtoons/";
+
+const USER_URL = "user/";
+
+const LOGIN_URL = "login/";
+const SIGNUP_URL = "signup/";
+const EMAIL_URL = "email/";
+const NICKNAME_URL = "nickname/";
+
+const SEARCH_IMG_URL = "search/image/";
+>>>>>>> 6e82ed7 (feat: toonbti 질문&보기 구현)
+
+const TOONBTI_URL = "games/question/";
 
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
