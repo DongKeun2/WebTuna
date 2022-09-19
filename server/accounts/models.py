@@ -10,7 +10,7 @@ from webtoons.models import Genre, Tag, Webtoon
   
 class UserManager(BaseUserManager):
     # 일반 user 생성
-    def create_user(self, email, nickname, birth, gender, password=None):
+    def create_user(self, email, nickname, birth, gender, liked_thumbnail, password=None):
         if not email:
             raise ValueError('must have user email')
         if not nickname:
@@ -19,20 +19,22 @@ class UserManager(BaseUserManager):
             email = self.normalize_email(email),
             nickname = nickname,
             birth = birth,
-            gender = gender
+            gender = gender,
+            liked_thumbnail= liked_thumbnail
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     # 관리자 user 생성
-    def create_superuser(self, email, nickname, birth, gender, password=None):
+    def create_superuser(self, email, nickname, birth, gender, liked_thumbnail, password=None):
         user = self.create_user(
             email,
             password = password,
             nickname = nickname,
             birth = birth,
-            gender = gender
+            gender = gender,
+            liked_thumbnail = liked_thumbnail
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -45,9 +47,13 @@ class Member(AbstractBaseUser):
     nickname = models.CharField(default='', max_length=100, null=False, blank=False, unique=True)
     gender = models.CharField(default='', max_length=100, null=False, blank=False,)
     birth = models.IntegerField(default = 0, blank=False)
+<<<<<<< HEAD
     profile_image_url = models.TextField(blank=True)
 <<<<<<< HEAD
     count = models.IntegerField(default=0)
+=======
+    profile_image_id = models.IntegerField(default = 0, blank=True)
+>>>>>>> 611a376 (feat: 비밀번호 확인/ 닉네임,이메일 중복확인)
     liked_thumbnail = models.CharField(max_length=100, null=False)
     resigned_time = models.DateTimeField(blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -75,7 +81,8 @@ class Member(AbstractBaseUser):
     # 사용자의 username field는 nickname으로 설정
     USERNAME_FIELD = 'email'
     # 필수로 작성해야하는 field
-    REQUIRED_FIELDS = ['nickname', 'gender', 'birth']
+    REQUIRED_FIELDS = ['nickname', 'gender', 'birth', 'liked_thumbnail']
 
     def __str__(self):
         return self.email
+    

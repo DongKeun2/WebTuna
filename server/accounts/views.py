@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from rest_framework import generics 
 from .serializers import *
@@ -26,3 +27,50 @@ def Profile(request):
     member = get_object_or_404(Member, member_id=request.user.member_id)
     serializer = ProfileSerializer(member)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def MainProfile(request):
+    member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
+    serializer = ProfileMainSerializer(member)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def EmailCheck(request):
+    user_email = request.data['email']
+    if Member.objects.filter(email=user_email).exists():
+        return Response(False)
+
+    return Response(True)
+    
+    
+@api_view(['POST'])
+def NicknameCheck(request):
+    user_nickname = request.data['nickname']
+    if Member.objects.filter(nickname=user_nickname).exists():
+        return Response(False)
+
+    return Response(True)
+
+
+@api_view(['POST'])
+def PasswordCheck(request):
+    user_password = request.data['password']
+    member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
+    
+    if not member.check_password(user_password) :
+        return Response(False)
+    
+    return Response(True)
+
+
+@api_view(['GET'])
+def LikeWebtoon(request, pageNum):
+    member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
+    likewebtoons = member.liked_webtoons[pageNum*10:(pageNum+1)*10]
+    serializer = MyLikedWebtoon(likewebtoons)
+    return Response(serializer.data)
+    
+    
+# @api_view(['POST'])

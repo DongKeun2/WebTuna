@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'games',
 
     # 추가한 라이브러리들
+    'corsheaders',
+    
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -54,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -166,3 +169,6 @@ AUTH_USER_MODEL = 'accounts.Member'
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True

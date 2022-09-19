@@ -10,12 +10,14 @@ class MemberSignupSerializer(serializers.ModelSerializer):
             nickname = validated_data['nickname'],
             gender = validated_data['gender'],
             birth = validated_data['birth'],
-            password = validated_data['password']
+            password = validated_data['password'],
+            liked_thumbnail = validated_data['liked_thumbnail']
         )
         return user
+    
     class Meta:
         model = Member
-        fields = ('nickname', 'email', 'birth', 'gender', 'password')
+        fields = ('nickname', 'email', 'birth', 'gender', 'password', 'liked_thumbnail')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -31,7 +33,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Webtoon
-            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6')
+            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'authors')
 
     
     class LookWebtoonSerializer(serializers.ModelSerializer):
@@ -44,7 +46,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Webtoon
-            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6')
+            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'authors')
 
     
     class TagSerializer(serializers.ModelSerializer):
@@ -55,7 +57,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('member_id', 'nickname', 'profile_image_url', 'liked_thumbnail', 'resigned_time', 'password', 'tags', 'view_webtoons', 'liked_webtoons')
+        fields = ('member_id', 'nickname', 'profile_image_id', 'liked_thumbnail', 'resigned_time', 'password', 'tags', 'view_webtoons', 'liked_webtoons', 'authors')
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
@@ -64,3 +66,49 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('member_id', 'nickname', 'password' )
+        
+
+class ProfileMainSerializer(serializers.ModelSerializer):
+    
+
+    class LikeWebtoonSerializer(serializers.ModelSerializer):
+
+        class AuthorSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = Author
+                fields = ('name')
+
+        class Meta:
+            model = Webtoon
+            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'authors')
+
+    
+    class TagSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Tag
+            fields = ('tag_id', 'name')
+
+    class Meta:
+        model = get_user_model()
+        fields = ('member_id', 'nickname', 'profile_image_id', 'tags', 'liked_webtoons')
+        
+        
+class MyLikedWebtoon(serializers.ModelSerializer):
+    
+    class LikeWebtoonSerializer(serializers.ModelSerializer):
+
+        class AuthorSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = Author
+                fields = ('name')
+
+        class Meta:
+            model = Webtoon
+            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'authors')
+        
+    class Meta:
+        model = Member
+        fields = ('member_id', 'liked_webtoons')
