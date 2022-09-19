@@ -16,11 +16,27 @@ const fetchToonBTI = createAsyncThunk(
   }
 );
 
+const submitToonBTI = createAsyncThunk(
+  "submitToonBTI",
+  async (data, { rejectWithValue }) => {
+    console.log(data);
+    try {
+      const res = await axios.post(api.fetchToonBTI(), data, {});
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const toonBTISlice = createSlice({
   name: "toonBTI",
   initialState: {
     question: {},
     answer: [],
+    result: {},
   },
   reducers: {
     addAnswer: (state, action) => {
@@ -33,10 +49,14 @@ export const toonBTISlice = createSlice({
       console.log(action.payload);
       state.question = action.payload.question;
     },
+    [submitToonBTI.fulfilled]: (state, action) => {
+      console.log("제출 성공");
+      state.result = action.payload;
+    },
   },
 });
 
-export { fetchToonBTI };
+export { fetchToonBTI, submitToonBTI };
 // Action creators are generated for each case reducer function
 export const { addAnswer } = toonBTISlice.actions;
 

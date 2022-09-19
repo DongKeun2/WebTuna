@@ -1,16 +1,31 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addAnswer, fetchToonBTI } from "../../features/toons/toonBTISlice";
+import {
+  addAnswer,
+  fetchToonBTI,
+  submitToonBTI,
+} from "../../features/toons/toonBTISlice";
 
 function ToonBTIPage() {
   const dispatch = useDispatch();
+
+  const result = useSelector((state) => state.toonBTI.result);
 
   useEffect(() => {
     dispatch(fetchToonBTI());
   }, [dispatch]);
 
-  function onNext() {
+  function onNext(submitAnswer) {
+    if (page === 4) {
+      const data = {
+        answer: submitAnswer,
+      };
+      console.log(data);
+      dispatch(submitToonBTI(data)).then(() => {
+        console.log(result);
+      });
+    }
     setPage(page + 1);
     console.log(question);
   }
@@ -26,7 +41,7 @@ function ToonBTIPage() {
     const newAnswer = [...answerList, answer];
     console.log(newAnswer);
     dispatch(addAnswer(newAnswer));
-    onNext();
+    onNext(newAnswer);
   }
 
   function startToonBTI() {
@@ -44,7 +59,7 @@ function ToonBTIPage() {
           <div>
             <h2>{questionItem.question}</h2>
             <button onClick={() => onAnswer(1)}>{questionItem.option1}</button>
-            <button onClick={() => onAnswer(2)}>{questionItem.option2}</button>
+            <button onClick={() => onAnswer(0)}>{questionItem.option2}</button>
           </div>
         );
     }
