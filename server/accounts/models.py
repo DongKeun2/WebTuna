@@ -48,7 +48,7 @@ class Member(AbstractBaseUser):
     profile_image_url = models.TextField(blank=True)
 <<<<<<< HEAD
     count = models.IntegerField(default=0)
-    liked_thumnail = models.CharField(max_length=100, null=False)
+    liked_thumbnail = models.CharField(max_length=100, null=False)
     resigned_time = models.DateTimeField(blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag,related_name="tag_users")
