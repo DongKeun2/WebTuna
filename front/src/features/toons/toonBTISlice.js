@@ -5,9 +5,8 @@ import api from "../../api";
 const fetchToonBTI = createAsyncThunk(
   "fetchToonBTI",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     try {
-      const res = await axios.post(api.fetchToonBTI(), data, {});
+      const res = await axios.get(api.fetchToonBTI(), {});
       return res.data;
     } catch (err) {
       console.log(err);
