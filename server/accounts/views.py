@@ -1,4 +1,3 @@
-from rest_framework import status
 from django.shortcuts import render
 from rest_framework import generics 
 from .serializers import *
@@ -6,10 +5,6 @@ from .models import *
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-
 
 
 # Create your views here.
@@ -22,11 +17,12 @@ class UserCreate(generics.CreateAPIView):
 
 # 프로필 수정하기
 class ProfileUpdate(generics.UpdateAPIView):
-    lookup_field = 'member_id'
+    lookup_field = 'id'
     queryset = Member.objects.all()
     serializer_class = ProfileUpdateSerializer
     
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # 프로필 보기
 =======
@@ -45,10 +41,12 @@ class ProfileUpdate(generics.UpdateAPIView):
 
 
 >>>>>>> 4ad957b (fix:로그인 수정)
+=======
+# 프로필 정보 받기
+>>>>>>> f81c1cd (fix: 회원 로그인/로그아웃 등 수정)
 @api_view(['GET'])
 def Profile(request):
-    Member = get_user_model()
-    member = get_object_or_404(Member, member_id=request.user.member_id)
+    member = get_object_or_404(get_user_model(), id=request.user.id)
     serializer = ProfileSerializer(member)
     return Response(serializer.data)
 
@@ -56,7 +54,7 @@ def Profile(request):
 # 메인 프로필 정보 받기
 @api_view(['GET'])
 def MainProfile(request):
-    member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
+    member = get_object_or_404(get_user_model(), id=request.user.id)
     serializer = ProfileMainSerializer(member)
     return Response(serializer.data)
 
@@ -85,7 +83,7 @@ def NicknameCheck(request):
 @api_view(['POST'])
 def PasswordCheck(request):
     user_password = request.data['password']
-    member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
+    member = get_object_or_404(get_user_model(), id=request.user.id)
     
     if not member.check_password(user_password) :
         return Response(False)
@@ -96,7 +94,7 @@ def PasswordCheck(request):
 # 찜한 웹툰 목록보기
 @api_view(['GET'])
 def LikeWebtoon(request, pageNum):
-    member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
+    member = get_object_or_404(get_user_model(), id=request.user.id)
     likewebtoons = member.liked_webtoons[pageNum*10:(pageNum+1)*10]
     serializer = MyLikedWebtoon(likewebtoons)
     return Response(serializer.data)

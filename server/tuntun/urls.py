@@ -48,6 +48,7 @@ urlpatterns = [
     path('api/webtoons/', include('webtoons.urls')),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 =======
     path('api/games/', include('games.urls')),
@@ -55,4 +56,6 @@ urlpatterns = [
 =======
     path('api/v1/accounts/', include('dj_rest_auth.urls')),
 >>>>>>> 4ad957b (fix:로그인 수정)
+=======
+>>>>>>> f81c1cd (fix: 회원 로그인/로그아웃 등 수정)
 ]

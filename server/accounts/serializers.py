@@ -22,46 +22,6 @@ class MemberSignupSerializer(serializers.ModelSerializer):
         fields = ('nickname', 'email', 'birth', 'gender', 'password', 'liked_thumbnail')
 
 
-class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    password = serializers.CharField(max_length=128, write_only=True)
-    last_login = serializers.CharField(max_length=255, read_only=True)
-
-    def validate(self, data):
-        email = data.get('email', None)
-        password = data.get('password', None)
-
-        if email is None:
-            raise serializers.ValidationError(
-                'An email address is required to log in.'
-            )
-        
-        if password is None:
-            raise serializers.ValidationError(
-                'A password is required to log in.'
-            )
-        
-        user = authenticate(email = email, password = password)
-
-        if user is None:
-            raise serializers.ValidationError(
-                'A user with this email and password was not found'
-            )
-        
-        if not user.is_active:
-            raise serializers.ValidationError(
-                'This user has been deactivated.'
-            )
-
-        user.last_login = timezone.now()
-        user.save(update_fields = ['last_login'])
-
-        return {
-            'email': user.email,
-            'last_login': user.last_login
-        }
-
-
 
 class ProfileSerializer(serializers.ModelSerializer):
     
@@ -100,7 +60,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('member_id', 'nickname', 'profile_image_id', 'liked_thumbnail', 'resigned_time', 'password', 'tags', 'view_webtoons', 'liked_webtoons')
+        fields = ('id', 'nickname', 'profile_image_id', 'liked_thumbnail', 'resigned_time', 'password', 'tags', 'view_webtoons', 'liked_webtoons')
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
@@ -108,7 +68,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('member_id', 'nickname', 'password' )
+        fields = ('id', 'nickname', 'password' )
         
 
 class ProfileMainSerializer(serializers.ModelSerializer):
@@ -135,7 +95,7 @@ class ProfileMainSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('member_id', 'nickname', 'profile_image_id', 'tags', 'liked_webtoons')
+        fields = ('id', 'nickname', 'profile_image_id', 'tags', 'liked_webtoons')
         
         
 class MyLikedWebtoon(serializers.ModelSerializer):
@@ -154,4 +114,4 @@ class MyLikedWebtoon(serializers.ModelSerializer):
         
     class Meta:
         model = Member
-        fields = ('member_id', 'liked_webtoons')
+        fields = ('id', 'liked_webtoons')
