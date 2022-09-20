@@ -29,7 +29,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             class Meta:
                 model = Author
-                fields = ('name')
+                fields = ('author_id', 'name')
 
         class Meta:
             model = Webtoon
@@ -42,7 +42,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             class Meta:
                 model = Author
-                fields = ('name')
+                fields = ('author_id', 'name')
 
         class Meta:
             model = Webtoon
@@ -57,7 +57,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('member_id', 'nickname', 'profile_image_id', 'liked_thumbnail', 'resigned_time', 'password', 'tags', 'view_webtoons', 'liked_webtoons', 'authors')
+        fields = ('member_id', 'nickname', 'profile_image_id', 'liked_thumbnail', 'resigned_time', 'password', 'tags', 'view_webtoons', 'liked_webtoons')
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):

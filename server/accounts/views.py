@@ -15,12 +15,14 @@ class UserCreate(generics.CreateAPIView):
     serializer_class = MemberSignupSerializer
 
 
+# 프로필 수정하기
 class ProfileUpdate(generics.UpdateAPIView):
     lookup_field = 'member_id'
     queryset = Member.objects.all()
     serializer_class = ProfileUpdateSerializer
     
 
+# 프로필 보기
 @api_view(['GET'])
 def Profile(request):
     Member = get_user_model()
@@ -29,6 +31,7 @@ def Profile(request):
     return Response(serializer.data)
 
 
+# 메인 프로필 정보 받기
 @api_view(['GET'])
 def MainProfile(request):
     member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
@@ -36,6 +39,7 @@ def MainProfile(request):
     return Response(serializer.data)
 
 
+# 이메일 중복 체크하기
 @api_view(['POST'])
 def EmailCheck(request):
     user_email = request.data['email']
@@ -44,7 +48,8 @@ def EmailCheck(request):
 
     return Response(True)
     
-    
+
+# 닉네임 중복 체크하기
 @api_view(['POST'])
 def NicknameCheck(request):
     user_nickname = request.data['nickname']
@@ -54,6 +59,7 @@ def NicknameCheck(request):
     return Response(True)
 
 
+# 회원 수정페이지 비밀번호 확인
 @api_view(['POST'])
 def PasswordCheck(request):
     user_password = request.data['password']
@@ -65,6 +71,7 @@ def PasswordCheck(request):
     return Response(True)
 
 
+# 찜한 웹툰 목록보기
 @api_view(['GET'])
 def LikeWebtoon(request, pageNum):
     member = get_object_or_404(get_user_model(), member_id=request.user.member_id)
