@@ -1,20 +1,25 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 
 function AccountMenu() {
   // 로그인 비로그인 나눠야 함!
+  const isAuthenticated = useSelector((state) => state.login.loginState);
   return (
     <div>
-      <AccountBox>
-        <Link to="/login" style={{ textDecoration: "none" }}>
-          로그인
-        </Link>
-        <Link to="/signup" style={{ textDecoration: "none" }}>
-          회원가입
-        </Link>
-      </AccountBox>
-      <Avatar />
+      {isAuthenticated ? (
+        <Avatar />
+      ) : (
+        <AccountBox>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            로그인
+          </Link>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            회원가입
+          </Link>
+        </AccountBox>
+      )}
     </div>
   );
 }

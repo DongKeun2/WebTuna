@@ -25,6 +25,7 @@ const WEBTOONS_URL = "webtoons/";
 const USER_URL = "user/";
 
 const LOGIN_URL = "login/";
+const LOGOUT_URL = "logout/";
 const SIGNUP_URL = "signup/";
 const EMAIL_URL = "email/";
 const NICKNAME_URL = "nickname/";
@@ -36,6 +37,7 @@ const TOONBTI_URL = "games/question/";
 
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
+  logout: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGOUT_URL,
 
   // signupSlice
   signup: () => BASE_URL + ACCOUNTS_URL + USER_URL + SIGNUP_URL,

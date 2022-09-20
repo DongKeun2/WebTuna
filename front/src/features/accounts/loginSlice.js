@@ -15,7 +15,7 @@ const login = createAsyncThunk("login", async (data, { rejectWithValue }) => {
 
 const logout = createAsyncThunk("logout", async (data, { rejectWithValue }) => {
   try {
-    const res = await axios.post(api.login(), {}, {});
+    const res = await axios.post(api.logout(), {}, {});
     return res.data;
   } catch (err) {
     return rejectWithValue(err.response.data);
@@ -30,6 +30,7 @@ export const loginSlice = createSlice({
       password: "",
     },
     loginState: false,
+    currentUser: {},
   },
   reducers: {
     changeEmail: (state, action) => {
@@ -38,11 +39,16 @@ export const loginSlice = createSlice({
     changePassword: (state, action) => {
       state.loginInfo.password = action.payload;
     },
+    changeLoginState: (state) => {
+      state.loginState = true;
+    },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
       console.log("로그인 성공");
       console.log(action.payload);
+      sessionStorage.setItem("token", action.payload.access_token);
+      sessionStorage.setItem("user", action.payload.user);
       state.loginState = true;
     },
     [login.rejected]: (state, action) => {
@@ -51,6 +57,8 @@ export const loginSlice = createSlice({
       state.loginState = false;
     },
     [logout.fulfilled]: (state) => {
+      console.log("로그아웃 성공 ^^");
+      sessionStorage.clear();
       state.loginState = false;
     },
     [logout.rejected]: (state) => {
@@ -61,6 +69,7 @@ export const loginSlice = createSlice({
 
 export { login, logout };
 // Action creators are generated for each case reducer function
-export const { changeEmail, changePassword } = loginSlice.actions;
+export const { changeEmail, changePassword, changeLoginState } =
+  loginSlice.actions;
 
 export default loginSlice.reducer;
