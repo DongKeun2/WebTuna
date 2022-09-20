@@ -18,6 +18,9 @@ function ToonBTIPage() {
 
   useEffect(() => {
     dispatch(fetchToonBTI());
+    return () => {
+      dispatch(addAnswer([]));
+    };
   }, [dispatch]);
 
   function onNext(submitAnswer) {
