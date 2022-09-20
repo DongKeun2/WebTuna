@@ -1,5 +1,4 @@
 from platform import platform
-import statistics
 
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
@@ -59,7 +58,7 @@ class WebtoonSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Webtoon
-        fields= ('webtoon_id','title','summary','thumbnail','page','adult','days','genres','authors','tags','platforms', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'webtoon_rate')
+        fields= ('webtoon_id','title','summary','thumbnail','page','adult','days','genres','authors','tags','platforms', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'webtoon_rate', 'liked_webtoon_users')
 
     def get_webtoon_rate(self, obj):
         rate_list = []        
@@ -74,3 +73,9 @@ class WebtoonSerializer(serializers.ModelSerializer):
             i += 0.5
 
         return ratings
+
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ('rating_id', 'created_time', 'rating', 'webtoon')
+        read_only_fields = ('webtoon', )

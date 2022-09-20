@@ -7,6 +7,8 @@ urlpatterns = [
     # path('<platfrom>/<type>',views.webtoonsResponse),
     path('<int:webtoonId>/detail/',views.webtoonDetail),
     path('<int:webtoonId>/like/',views.webtoonLike),
+    path('<int:webtoonId>/rating/',views.webtoonRate),
+    path('<int:webtoonId>/log/',views.webtoonLog),
     path('list/<int:pageNum>/',views.webtoonList),
-    path('<search>/<keyword>/<int:pageNum>/',views.searchWebtoon)
+    path('<search>/<keyword>/<int:pageNum>/',views.searchWebtoon),
 ]
