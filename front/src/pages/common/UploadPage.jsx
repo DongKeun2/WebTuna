@@ -70,8 +70,21 @@ function UploadPage() {
           )}
         </div>
       ) : (
-        <div>
-          <h1>사진 업로드 페이지</h1>
+        <PageBox>
+          <h1>그림을 업로드 하면 그림체가 비슷한 웹툰을 추천해줄게!</h1>
+
+          <div>
+            {fileImage ? (
+              <img
+                id="canvas"
+                alt="sample"
+                src={fileImage}
+                style={{ margin: "auto" }}
+              />
+            ) : (
+              <div>하이요</div>
+            )}
+          </div>
           <input
             name="imggeUpload"
             type="file"
@@ -79,6 +92,7 @@ function UploadPage() {
             onChange={saveFileImage}
           />
           <div>
+<<<<<<< HEAD
             {fileImage && (
               <img
                 id="canvas"
@@ -87,6 +101,8 @@ function UploadPage() {
                 style={{ margin: 'auto' }}
               />
             )}
+=======
+>>>>>>> b748805 (feat: upload페이지 배치 조정)
             <button
               style={{
                 width: '50px',
@@ -105,7 +121,7 @@ function UploadPage() {
               제출
             </SubmitBtn>
           </div>
-        </div>
+        </PageBox>
       )}
     </div>
   )
@@ -121,4 +137,15 @@ const SubmitBtn = styled.button`
   }
 `
 
+<<<<<<< HEAD
 export default UploadPage
+=======
+const PageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default UploadPage;
+>>>>>>> b748805 (feat: upload페이지 배치 조정)
