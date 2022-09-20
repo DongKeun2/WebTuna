@@ -1,24 +1,36 @@
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { detail } from "../features/details/detailSlice";
 import styled from "styled-components";
 import ToonToonRecommend from "../assets/navbar/ToonToonRecommend.png"
 import ChartShow from "../components/common/Chart";
+import Loading from "../components/common/Loading";
 
 function DetailPage() {
   const { toonId } = useParams();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const [webToonInfo, setWebToonInfo] = useState();
+  const day = ['None', '월', '화', '수', '목', '금', '토', '일', '완결'];
   function getDetail() {
-    dispatch(detail(toonId)).then(() => {
-      console.log();
+    dispatch(detail(toonId)).then((res) => {
+      setWebToonInfo(res.payload);
+      setIsLoading(false);
+      console.log(res.payload);
     });
   }
-  getDetail();
+
+  useEffect(() => {
+    getDetail();
+  }, []);
+
+
 
   const PaintStyleData = {
     margintop: 50,
     marginleft: 50,
-    width : 300,
+    width: 300,
     labels: ["순정", "무협", "양산형", "우산형", "우비형", "우리형"],
     datasets: [
       {
@@ -38,7 +50,7 @@ function DetailPage() {
   const AgeGroupData = {
     margintop: 50,
     marginleft: 50,
-    width : 300,
+    width: 300,
     labels: ["10대 남성", "20대 남성", "20대 여성", "10대 여성", "90대 중성",],
     datasets: [
       {
@@ -82,7 +94,7 @@ function DetailPage() {
   const RatingGraphData = {
     margintop: 50,
     marginleft: 175,
-    width : 700,
+    width: 700,
     labels: ["★", "★★", "★★★", "★★★★", "★★★★★",],
     datasets: [
       {
@@ -105,73 +117,74 @@ function DetailPage() {
         ],
         pointBorderColor: "#fff",
         pointBackgroundColor: "rgba(179,181,198,1)",
-        data: [10,12,38,21,19],
+        data: [10, 12, 38, 21, 19],
       },
     ],
   };
 
   return (
-    <BackBorder>
-      <BackGround>
-        <DetailZone>
-          <Thumbnail>
-            <ThumbnailImage src={ToonToonRecommend} alt="썸네일"></ThumbnailImage>
-          </Thumbnail>
-          <Info>
-            <Title>웹툰제목</Title>
-            <Author>작가이름</Author>
-            <Rating>별점 ★★★★☆</Rating>
-            <Genre>장르 노잼 꿀잼 핵꿀잼</Genre>
-            <Day>?요일 연재 / </Day>
-            <Total>총 ??회</Total>
-          </Info>
-          <SubInfo>
-            <WebToonLink>
-              <a href="https://www.naver.com/" target="_blank" rel="noreferrer">웹툰 보러가자</a>
-            </WebToonLink>
-            <Like>♥</Like>
-            <Summary>줄거리다 귀찮으면 읽지 말던가</Summary>
-          </SubInfo>
-        </DetailZone>
-        <TagZone>
-          태그 컴포넌트로 뿌리기
-        </TagZone>
-        <PaintStyleRecommendZone>
-          <h2>그림체가 비슷한 웹툰</h2>
-          <PSRecommends>
-            API 요청 보내고 받아서 그림체 기반 추천 뿌리자
-          </PSRecommends>
-        </PaintStyleRecommendZone>
-        <SameAuthorRecommendZone>
-          <h2>같은 작가의 다른 작품</h2>
-          <SARecommends>
-            API 요청 보내고 받아서 같은 작가의 다른 작품 뿌리자
-          </SARecommends>
-        </SameAuthorRecommendZone>
-        <WebToonAnalysisZone>
-          <h2>웹툰 분석</h2>
-          <AnalysisBack>
-            <Analysis>
-              <PaintStyleAnalysis>
-              <ChartTitle1>그림체 분석</ChartTitle1>
-                <ChartShow data={PaintStyleData}></ChartShow>
-              </PaintStyleAnalysis>
-              <AgeGroupAnalysis>
-              <ChartTitle1>연령대 분석</ChartTitle1>
-                <ChartShow data={AgeGroupData} options={AgeGrouoOptions}></ChartShow>
-              </AgeGroupAnalysis>
-            </Analysis>
-            <Graph>
-              <RatingGraph>
-                <ChartTitle2>별점 그래프</ChartTitle2>
-                <ChartShow data={RatingGraphData}></ChartShow>
-              </RatingGraph>
-            </Graph>
-          </AnalysisBack>
-
-        </WebToonAnalysisZone>
-      </BackGround>
-    </BackBorder>
+    <div>
+      {isLoading ? <Loading></Loading> : <BackBorder>
+        <BackGround>
+          <DetailZone>
+            <Thumbnail>
+              <ThumbnailImage src={webToonInfo.thumbnail} alt="썸네일"></ThumbnailImage>
+            </Thumbnail>
+            <Info>
+              <Title>{webToonInfo.title}</Title>
+              <Author>{webToonInfo.authors.map(author => author.name + " ")}</Author>
+              <Rating>별점 ★★★★☆</Rating>
+              <Genre>장르 {webToonInfo.genres.map(genre => genre.genre_type + " ")}</Genre>
+              <Day>{webToonInfo.days[0].day_id == 8 ? "완결 웹툰" : `${day[webToonInfo.days[0].day_id]}요일 연재`} / </Day>
+              <Total>총 ??회</Total>
+            </Info>
+            <SubInfo>
+              <WebToonLink>
+                <a href={webToonInfo.page} target="_blank" rel="noreferrer">웹툰 보러가기</a>
+              </WebToonLink>
+              <Like>♥</Like>
+              <Summary>{webToonInfo.summary}</Summary>
+            </SubInfo>
+          </DetailZone>
+          <TagZone>
+            태그 컴포넌트로 뿌리기
+          </TagZone>
+          <PaintStyleRecommendZone>
+            <h2>그림체가 비슷한 웹툰</h2>
+            <PSRecommends>
+              API 요청 보내고 받아서 그림체 기반 추천 뿌리자
+            </PSRecommends>
+          </PaintStyleRecommendZone>
+          <SameAuthorRecommendZone>
+            <h2>같은 작가의 다른 작품</h2>
+            <SARecommends>
+              API 요청 보내고 받아서 같은 작가의 다른 작품 뿌리자
+            </SARecommends>
+          </SameAuthorRecommendZone>
+          <WebToonAnalysisZone>
+            <h2>웹툰 분석</h2>
+            <AnalysisBack>
+              <Analysis>
+                <PaintStyleAnalysis>
+                  <ChartTitle1>그림체 분석</ChartTitle1>
+                  <ChartShow data={PaintStyleData}></ChartShow>
+                </PaintStyleAnalysis>
+                <AgeGroupAnalysis>
+                  <ChartTitle1>연령대 분석</ChartTitle1>
+                  <ChartShow data={AgeGroupData} options={AgeGrouoOptions}></ChartShow>
+                </AgeGroupAnalysis>
+              </Analysis>
+              <Graph>
+                <RatingGraph>
+                  <ChartTitle2>별점 그래프</ChartTitle2>
+                  <ChartShow data={RatingGraphData}></ChartShow>
+                </RatingGraph>
+              </Graph>
+            </AnalysisBack>
+          </WebToonAnalysisZone>
+        </BackGround>
+      </BackBorder>}
+    </div>
   );
 }
 
@@ -208,7 +221,7 @@ const ThumbnailImage = styled.img`
 const Info = styled.div`
   flex: 1;
   margin-top: 100px;
-  margin-left: -100px;
+  margin-left: -300px;
 `;
 
 const SubInfo = styled.div`
@@ -222,7 +235,7 @@ const Title = styled.h1`
   display: inline;
 `;
 
-const Author = styled.h1`
+const Author = styled.h2`
   display: inline;
   margin-left: 50px;
 `;

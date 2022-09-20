@@ -43,6 +43,10 @@ const Toontoon = styled.div`
   position: absolute;
   left: 50%;
   margin-left: -50px;
+<<<<<<< HEAD
+=======
+  bottom: 15px;
+>>>>>>> 596aad8 (detail 페이지 수정)
   box-shadow: 5px 5px;
   border-radius: 50px;
   overflow: hidden;
