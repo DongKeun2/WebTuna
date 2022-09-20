@@ -227,6 +227,19 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f81c1cd (fix: 회원 로그인/로그아웃 등 수정)
 =======
 >>>>>>> f476a7b (fix : database 코드 수정)
+=======
+
+# SECURITY     -   http     
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = True #     SSL        SSL
+SESSION_COOKIE_SECURE = True #    https  cookie
+CSRF_COOKIE_SECURE = True #    https  cookie
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True #       https    
+SECURE_HSTS_PRELOAD = True # HSTS 
+SECURE_HSTS_SECONDS = 60
+SECURE_CONTENT_TYPE_NOSNIFF = True
+>>>>>>> cc8563b (chore: ssl 관련 settings 추가)
