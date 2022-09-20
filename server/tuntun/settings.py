@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
 
     'allauth',
     'allauth.account',
@@ -60,6 +64,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -97,6 +102,7 @@ DATABASES = {
     'default': {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'tuntun',
     'USER': 'root',
@@ -110,13 +116,18 @@ DATABASES = {
             'read_default_file' : os.path.join(BASE_DIR, 'mysql.cnf')
         }   
 =======
+=======
+>>>>>>> 4ad957b (fix:로그인 수정)
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'tuntun',
     'USER': 'admin',
     'PASSWORD': 'hongtun1!',
     'HOST': 'tuntun.csnx9owbfgoh.ap-northeast-2.rds.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
     'PORT': '3306',   
+<<<<<<< HEAD
 >>>>>>> 8a5a04a (Change Question in games/models.py)
+=======
+>>>>>>> 4ad957b (fix:로그인 수정)
     },
 >>>>>>> 0d8b258 (fix: settings.py에서 mysql.cnf 인식못하는 오류 수정 및 쓸모없는 파일 지우기)
 }
@@ -175,6 +186,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+<<<<<<< HEAD
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -183,3 +195,19 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
+=======
+SITE_ID = 1
+REST_USE_JWT = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None # username 필드 사용 x
+ACCOUNT_EMAIL_REQUIRED = True            # email 필드 사용 o
+ACCOUNT_USERNAME_REQUIRED = False        # username 필드 사용 x
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입 과정에서 이메일 인증 사용 X
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+>>>>>>> 4ad957b (fix:로그인 수정)

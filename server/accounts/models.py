@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
 
 
 class Member(AbstractBaseUser):
-    member_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     email = models.EmailField(default='', max_length=255, null=False, blank=False, unique=True)
     nickname = models.CharField(default='', max_length=100, null=False, blank=False, unique=True)
     gender = models.CharField(default='', max_length=100, null=False, blank=False,)

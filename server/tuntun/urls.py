@@ -47,8 +47,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/webtoons/', include('webtoons.urls')),
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 =======
     path('api/games/', include('games.urls')),
 >>>>>>> 86fecf2 (Fix game api ver_0.5)
+=======
+    path('api/v1/accounts/', include('dj_rest_auth.urls')),
+>>>>>>> 4ad957b (fix:로그인 수정)
 ]
