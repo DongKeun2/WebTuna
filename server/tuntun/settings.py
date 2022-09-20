@@ -104,6 +104,7 @@ DATABASES = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'tuntun',
     'USER': 'root',
@@ -112,10 +113,13 @@ DATABASES = {
     'PORT': 3306,
     }
 =======
+=======
+>>>>>>> f476a7b (fix : database 코드 수정)
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS' : {
             'read_default_file' : os.path.join(BASE_DIR, 'mysql.cnf')
         }   
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 4ad957b (fix:로그인 수정)
@@ -129,9 +133,12 @@ DATABASES = {
 >>>>>>> 8a5a04a (Change Question in games/models.py)
 =======
 >>>>>>> 4ad957b (fix:로그인 수정)
+=======
+>>>>>>> f476a7b (fix : database 코드 수정)
     },
 >>>>>>> 0d8b258 (fix: settings.py에서 mysql.cnf 인식못하는 오류 수정 및 쓸모없는 파일 지우기)
 }
+
 
 
 
@@ -219,4 +226,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
+<<<<<<< HEAD
 >>>>>>> f81c1cd (fix: 회원 로그인/로그아웃 등 수정)
+=======
+>>>>>>> f476a7b (fix : database 코드 수정)
