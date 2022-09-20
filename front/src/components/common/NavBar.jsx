@@ -41,8 +41,8 @@ const RightItem = styled.div`
 
 const Toontoon = styled.div`
   position: absolute;
-  left: 46%;
-  bottom: 15px;
+  left: 50%;
+  margin-left: -50px;
   box-shadow: 5px 5px;
   border-radius: 50px;
   overflow: hidden;
