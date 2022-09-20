@@ -6,7 +6,6 @@ import {
   changePassword,
 } from "../../features/accounts/loginSlice";
 import { login } from "../../features/accounts/loginSlice";
-import CSRFToken from "../../csrfToken";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -35,7 +34,6 @@ function LoginPage() {
     <div>
       <h1>로그인 페이지</h1>
       <LoginForm onSubmit={loginSubmit}>
-        <CSRFToken></CSRFToken>
         <div>
           <p>이메일</p>
           <input
