@@ -7,10 +7,9 @@ function AllToonList({toons}) {
   }
 
   return (
-    // <button onClick={checkInfo}>웹툰확인</button>
     toons.map(toon => (
       <div>
-        <ToonItem item={toon} key={toon.id} />
+        <ToonItem item={toon} key={toon.webtoon_id} />
         <button onClick={checkInfo}>웹툰확인</button>
       </div>
     ))

@@ -11,16 +11,27 @@ function WebtoonPage() {
     dispatch(fetchToonlist());
   }, [dispatch]);
 
-  const toons = useSelector((state) => state.toonlist.toons);
+  const toons = useSelector((state) => state.toonlist.toons) || [];
 
-  return (
-    <div>
-      <h1>웹툰 목록 페이지</h1>
-      <ToonListBox>
-        <AllToonList toons={toons}/>
-      </ToonListBox>
-    </div>
-  );
+  if (toons.length > 0) {
+    return (
+      <div>
+        <h1>웹툰 목록 페이지</h1>
+        <ToonListBox>
+          <AllToonList toons={toons}/>
+        </ToonListBox>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>웹툰 목록 페이지</h1>
+        <ToonListBox>
+          <EmptyBox></EmptyBox>
+        </ToonListBox>
+      </div>
+    )
+  }
 }
 
 const ToonListBox = styled.div`
@@ -29,11 +40,12 @@ const ToonListBox = styled.div`
   height: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
   border: solid 2px;
   border-radius: 0.5rem;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+`
+const EmptyBox = styled.div`
+  height: 400px;
 `
 
 export default WebtoonPage;

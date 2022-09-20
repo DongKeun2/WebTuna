@@ -41,7 +41,7 @@ const SEARCH_IMG_URL = "search/image/";
 
 const TOONBTI_URL = "games/question/";
 
-const TOON_LIST_URL = '/list/'
+const TOON_LIST_URL = 'list/'
 
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
@@ -64,9 +64,14 @@ const api = {
 
   //toonlistSlice
   fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum,
+<<<<<<< HEAD
 >>>>>>> 921bee3 (feat: 웹툰 전체 목록 api 연결)
 }
 =======
+=======
+
+  //toonBTISlice
+>>>>>>> 71b23ff (feat: 각각의 웹툰 상세페이지 이동 구현)
   fetchToonBTI: () => BASE_URL + TOONBTI_URL,
 };
 >>>>>>> 7ddf941 (feat: toonbti slice&api 생성 및 store 등록)
