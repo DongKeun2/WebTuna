@@ -128,6 +128,10 @@ const ArrowBox = styled.div`
     border-width: 21px;
     margin-top: -21px;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 85%;
+  }
 `;
 
 const QuestionTitle = styled.p`
@@ -160,19 +164,15 @@ function ToonBTIResult({ setPage }) {
     <ArticleBox>
       <ToonBTIBox>
         <ResultBox>
-          <h1>ToonBTI</h1>
-
-          <p>{toonInfo.title}</p>
-          <p>{toonInfo.summary}</p>
+          <TitleBox>
+            <h1>ToonBTI</h1>
+            <p>{toonInfo.title}</p>
+            <p>{toonInfo.summary}</p>
+          </TitleBox>
           <ImgBox>
             <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
           </ImgBox>
-          <div>
-            <OuterBtn active={true} result={true}>
-              <SelectBtn active={true} result={true}>
-                <ToonLink href={toonInfo.page}>웹툰 보러가기</ToonLink>
-              </SelectBtn>
-            </OuterBtn>
+          <BtnGroup>
             <OuterBtn active={true} result={true}>
               <SelectBtn active={true} onClick={moveDetail}>
                 상세정보 바로가기
@@ -191,7 +191,7 @@ function ToonBTIResult({ setPage }) {
                 다시 하기
               </SelectBtn>
             </OuterBtn>
-          </div>
+          </BtnGroup>
         </ResultBox>
       </ToonBTIBox>
     </ArticleBox>
@@ -200,10 +200,16 @@ function ToonBTIResult({ setPage }) {
 
 const ArticleBox = styled.div`
   display: flex;
+  gap: 50px;
   height: 790px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+  }
 `;
 
 const ToonBTIBox = styled.div`
@@ -214,6 +220,9 @@ const ToonBTIBox = styled.div`
   border: 3px solid black;
   border-radius: 10px;
   height: 790px;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const ResultBox = styled.div`
@@ -226,6 +235,17 @@ const ResultBox = styled.div`
   background-color: white;
   flex-direction: column;
   align-items: center;
+  gap: 30px;
+  @media screen and (max-width: 600px) {
+    gap: 10px;
+  }
+`;
+
+const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ImgBox = styled.div`
@@ -238,7 +258,14 @@ const ToonImg = styled.img`
   object-fit: cover;
 `;
 
-const ToonLink = styled.a`
-  color: black;
-  text-decoration: none;
+const BtnGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  @media screen and (max-width: 600px) {
+    gap: 20px;
+  }
 `;

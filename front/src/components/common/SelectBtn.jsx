@@ -12,14 +12,17 @@ const OuterBtn = styled.div`
   :hover {
     background-color: ${(props) => (props.active ? "white" : null)};
   }
+  @media screen and (max-width: 600px) {
+    width: 300px;
+  }
 `;
 
 const SelectBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 385px;
-  height: 90px;
+  width: 98%;
+  height: 90%;
   border-radius: 10px;
   background-color: ${(props) => (props.active ? "white" : "#feec91")};
   :hover {
