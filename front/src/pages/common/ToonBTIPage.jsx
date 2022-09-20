@@ -11,6 +11,7 @@ import {
 import { OuterBtn, SelectBtn } from "../../components/common/SelectBtn";
 import Loading from "../../components/common/Loading";
 import { useNavigate } from "react-router-dom";
+import talkToon from "../../assets/test/cute.png";
 
 function ToonBTIPage() {
   const dispatch = useDispatch();
@@ -47,15 +48,13 @@ function ToonBTIPage() {
     switch (page) {
       case 0:
         return (
-          <ArticleBox>
+          <PageBox>
             <StartBox>
-              <OuterBtn onClick={onNext} active={true} result={true}>
-                <SelectBtn active={true} result={true}>
-                  시작하기
-                </SelectBtn>
+              <OuterBtn onClick={onNext} active={true}>
+                <SelectBtn active={true}>시작하기</SelectBtn>
               </OuterBtn>
             </StartBox>
-          </ArticleBox>
+          </PageBox>
         );
       case 5:
         return <ToonBTIResult setPage={setPage}></ToonBTIResult>;
@@ -65,10 +64,17 @@ function ToonBTIPage() {
         })[0];
         console.log(questionItem);
         return (
-          <ArticleBox>
-            <ArrowBox>
-              <QuestionTitle>{questionItem.question}</QuestionTitle>
-            </ArrowBox>
+          <PageBox>
+            <Header>
+              <TalkBox>
+                <TalkImgBox>
+                  <TalkImg src={talkToon} alt="thumbnail_image" />
+                </TalkImgBox>
+                <ArrowBox>
+                  <QuestionTitle>{questionItem.question}</QuestionTitle>
+                </ArrowBox>
+              </TalkBox>
+            </Header>
             <OuterBtn active={true}>
               <SelectBtn active={true} onClick={() => onAnswer(1)}>
                 {questionItem.option1}
@@ -79,7 +85,7 @@ function ToonBTIPage() {
                 {questionItem.option2}
               </SelectBtn>
             </OuterBtn>
-          </ArticleBox>
+          </PageBox>
         );
     }
   }
@@ -89,17 +95,67 @@ function ToonBTIPage() {
   return <div>{startToonBTI()}</div>;
 }
 
+const PageBox = styled.div`
+  display: flex;
+  padding-top: 100px;
+  gap: 50px;
+  height: 600px;
+  flex-direction: column;
+  align-items: center;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+  }
+`;
+
 const StartBox = styled.div`
   height: 300px;
 `;
 
+const Header = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: end;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
+`;
+
+const TalkBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 50px;
+  width: 70%;
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
+
+const TalkImgBox = styled.div`
+  width: 150px;
+  height: 150px;
+  border-radius: 70%;
+  overflow: hidden;
+`;
+
+const TalkImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 const ArrowBox = styled.div`
   position: relative;
-  width: 500px;
-  height: 100px;
+  padding: 0px 50px;
+  height: 80px;
   display: inline-block;
   background: #ffffff;
-  border: 4px solid #feec91;
+  border: 3px solid #feec91;
+  border-radius: 10px;
   :after {
     right: 100%;
     top: 50%;
@@ -111,8 +167,8 @@ const ArrowBox = styled.div`
     pointer-events: none;
     border-color: rgba(255, 255, 255, 0);
     border-right-color: #ffffff;
-    border-width: 15px;
-    margin-top: -15px;
+    border-width: 16px;
+    margin-top: -16px;
   }
   :before {
     right: 100%;
@@ -125,8 +181,8 @@ const ArrowBox = styled.div`
     pointer-events: none;
     border-color: rgba(254, 236, 145, 0);
     border-right-color: #feec91;
-    border-width: 21px;
-    margin-top: -21px;
+    border-width: 20px;
+    margin-top: -20px;
   }
 
   @media screen and (max-width: 600px) {
@@ -135,7 +191,13 @@ const ArrowBox = styled.div`
 `;
 
 const QuestionTitle = styled.p`
-  text-align: center;
+  position: relative;
+  top: -10%;
+  font-size: 28px;
+  @media screen and (max-width: 600px) {
+    top: 2%;
+    font-size: 18px;
+  }
 `;
 
 export default ToonBTIPage;
@@ -173,15 +235,14 @@ function ToonBTIResult({ setPage }) {
             <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
           </ImgBox>
           <BtnGroup>
-            <OuterBtn active={true} result={true}>
+            <OuterBtn active={true}>
               <SelectBtn active={true} onClick={moveDetail}>
                 상세정보 바로가기
               </SelectBtn>
             </OuterBtn>
-            <OuterBtn active={true} result={true}>
+            <OuterBtn active={true}>
               <SelectBtn
                 active={true}
-                result={true}
                 onClick={() => {
                   dispatch(addAnswer([]));
                   setPage(0);
@@ -201,10 +262,9 @@ function ToonBTIResult({ setPage }) {
 const ArticleBox = styled.div`
   display: flex;
   gap: 50px;
-  height: 790px;
+  height: 750px;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   @media screen and (max-width: 600px) {
     width: 100%;
     height: 100%;
@@ -219,7 +279,7 @@ const ToonBTIBox = styled.div`
   background-color: #feec91;
   border: 3px solid black;
   border-radius: 10px;
-  height: 790px;
+  height: 750px;
   @media screen and (max-width: 600px) {
     width: 100%;
   }
@@ -260,12 +320,12 @@ const ToonImg = styled.img`
 
 const BtnGroup = styled.div`
   display: flex;
-  flex-direction: column;
   gap: 30px;
   justify-content: center;
   align-items: center;
   width: 100%;
   @media screen and (max-width: 600px) {
+    flex-direction: column;
     gap: 20px;
   }
 `;
