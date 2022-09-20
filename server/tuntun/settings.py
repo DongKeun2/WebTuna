@@ -38,7 +38,6 @@ INSTALLED_APPS = [
 
     # 추가한 라이브러리들
     'corsheaders',
-    'sslserver',
     
     'rest_framework',
     'rest_framework.authtoken',
