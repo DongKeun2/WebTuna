@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { detail } from "../features/details/detailSlice";
 import styled from "styled-components";
 import ToonToonRecommend from "../assets/navbar/ToonToonRecommend.png"
+import BookMark from "../assets/detail/BookMark.png"
 import ChartShow from "../components/common/Chart";
 import Loading from "../components/common/Loading";
 
@@ -12,20 +13,37 @@ function DetailPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [webToonInfo, setWebToonInfo] = useState();
+  const [paintGraphData, setPaintGraphData] = useState();
+  const [ratingGraphData, setRatingGraphData] = useState();
+  const [averageRating, setAverageRating] = useState();
   const day = ['None', '월', '화', '수', '목', '금', '토', '일', '완결'];
   function getDetail() {
     dispatch(detail(toonId)).then((res) => {
       setWebToonInfo(res.payload);
+      setPaintGraphData([res.payload.image_type1, res.payload.image_type2, res.payload.image_type3, res.payload.image_type4, res.payload.image_type5, res.payload.image_type6]);
+      setRatingGraphData([res.payload.webtoon_rate[0], res.payload.webtoon_rate[1], res.payload.webtoon_rate[2], res.payload.webtoon_rate[3], res.payload.webtoon_rate[4], res.payload.webtoon_rate[5], res.payload.webtoon_rate[6], res.payload.webtoon_rate[7], res.payload.webtoon_rate[8], res.payload.webtoon_rate[9], res.payload.webtoon_rate[10]]);
+      setAverageRating(getAverageRating(res.payload));
       setIsLoading(false);
       console.log(res.payload);
     });
   }
 
+  function getAverageRating(data) {
+    let average = 0;
+    let total = 0;
+    for (let i = 0; i < 10; i++) {
+      average += data.webtoon_rate[i] * (0.5 * i);
+      total += data.webtoon_rate[i];
+    }
+    if (total === 0) {
+      return 0;
+    }
+    return average / total;
+  }
+
   useEffect(() => {
     getDetail();
   }, []);
-
-
 
   const PaintStyleData = {
     margintop: 50,
@@ -41,7 +59,7 @@ function DetailPage() {
         borderColor: "rgba(179,181,198,1)",
         pointBorderColor: "#fff",
         pointBackgroundColor: "rgba(179,181,198,1)",
-        data: [40.33, 32.17, 25.53, 17.53, 9.53, 23.0],
+        data: paintGraphData,
       },
 
     ],
@@ -95,7 +113,7 @@ function DetailPage() {
     margintop: 50,
     marginleft: 175,
     width: 700,
-    labels: ["★", "★★", "★★★", "★★★★", "★★★★★",],
+    labels: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
     datasets: [
       {
         type: "bar",
@@ -117,7 +135,7 @@ function DetailPage() {
         ],
         pointBorderColor: "#fff",
         pointBackgroundColor: "rgba(179,181,198,1)",
-        data: [10, 12, 38, 21, 19],
+        data: ratingGraphData,
       },
     ],
   };
@@ -133,10 +151,9 @@ function DetailPage() {
             <Info>
               <Title>{webToonInfo.title}</Title>
               <Author>{webToonInfo.authors.map(author => author.name + " ")}</Author>
-              <Rating>별점 ★★★★☆</Rating>
+              <Rating>별점 ★ {averageRating.toFixed(1)}</Rating>
               <Genre>장르 {webToonInfo.genres.map(genre => genre.genre_type + " ")}</Genre>
-              <Day>{webToonInfo.days[0].day_id == 8 ? "완결 웹툰" : `${day[webToonInfo.days[0].day_id]}요일 연재`} / </Day>
-              <Total>총 ??회</Total>
+              <Day>{webToonInfo.days[0].day_id === 8 ? "완결 웹툰" : `${day[webToonInfo.days[0].day_id]}요일 연재`}</Day>
             </Info>
             <SubInfo>
               <WebToonLink>
@@ -147,7 +164,7 @@ function DetailPage() {
             </SubInfo>
           </DetailZone>
           <TagZone>
-            태그 컴포넌트로 뿌리기
+            {webToonInfo.tags.map(tag => <Tag key={tag.tag_id}><BookMarkImage><img src={BookMark} alt="북마크" width="20px"></img></BookMarkImage><TagName>{tag.name}</TagName></Tag>)}
           </TagZone>
           <PaintStyleRecommendZone>
             <h2>그림체가 비슷한 웹툰</h2>
@@ -221,11 +238,11 @@ const ThumbnailImage = styled.img`
 const Info = styled.div`
   flex: 1;
   margin-top: 100px;
-  margin-left: -300px;
+  margin-left: -200px;
 `;
 
 const SubInfo = styled.div`
-  flex: 1;
+  flex: 2;
   margin-top: 100px;
   margin-left: -50px;
 `;
@@ -248,10 +265,6 @@ const Genre = styled.h1`
 `;
 
 const Day = styled.h1`
-  display: inline;
-`;
-
-const Total = styled.h1`
   display: inline;
 `;
 
@@ -278,6 +291,7 @@ const Summary = styled.div`
 `;
 
 const TagZone = styled.div`
+  display: flex;
   background-color: white;
   border: 2px solid black;
   border-radius: 20px;
@@ -285,6 +299,27 @@ const TagZone = styled.div`
   margin-left: 120px;
   margin-right: 100px;
   height: 100px;
+`;
+
+const Tag = styled.div`
+
+  width: auto;
+  margin: 30px 30px 30px 100px;
+  border: 1px solid black;
+  border-radius: 20px;
+`;
+
+const BookMarkImage = styled.div`
+  display: inline;
+  padding-left: 20px;
+`;
+
+const TagName = styled.div`
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 18pt;
+
 `;
 
 const PaintStyleRecommendZone = styled.div`
