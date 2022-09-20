@@ -35,6 +35,7 @@ function UploadPage() {
 =======
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
   function checkImage(e) {
+<<<<<<< HEAD
     if (fileImage) {
       setIsLoading(true)
       predict().then(prediction => {
@@ -54,6 +55,22 @@ function UploadPage() {
     } else {
       console.log('이미지 업로드하세요 ^^')
     }
+=======
+    setIsLoading(true);
+    predict().then((prediction) => {
+      const probability = prediction.map((item) => {
+        return (item.probability * 100).toFixed(2);
+      });
+      const data = {
+        probability,
+      };
+      dispatch(fetchUpload(data));
+    });
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate("./result");
+    }, 3000);
+>>>>>>> 79d4088 (feat: 미리보기 여부 확인 논리 수정)
   }
 
   async function predict() {
@@ -146,7 +163,7 @@ function UploadPage() {
 =======
           <SubmitBtn
             active={fileImage ? true : false}
-            onClick={() => checkImage()}
+            onClick={fileImage ? checkImage : null}
           >
             확인
           </SubmitBtn>
