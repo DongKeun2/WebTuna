@@ -1,12 +1,23 @@
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchToonlist } from "../../features/toons/toonlistSlice"
 import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
 
 function WebtoonPage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchToonlist());
+  }, [dispatch]);
+
+  const toons = useSelector((state) => state.toonlist.toons);
+
   return (
     <div>
       <h1>웹툰 목록 페이지</h1>
       <ToonListBox>
-        <AllToonList />
+        <AllToonList toons={toons}/>
       </ToonListBox>
     </div>
   );

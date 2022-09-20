@@ -1,26 +1,18 @@
 import ToonItem from "./ToonItem"
 
-function AllToonList() {
-  const toons = [
-    {
-      id: 1,
-      title: "제목 1",
-      author: "작가 1"
-    },
-    {
-      id: 2,
-      title: "제목 2",
-      author: "작가 2"
-    },
-    {
-      id: 3,
-      title: "제목 3",
-      author: "작가 3"
-    }, 
-  ];
+function AllToonList({toons}) {
+  
+  function checkInfo() {
+    console.log(toons);
+  }
+
   return (
+    // <button onClick={checkInfo}>웹툰확인</button>
     toons.map(toon => (
-      <ToonItem item={toon} key={toon.id} />
+      <div>
+        <ToonItem item={toon} key={toon.id} />
+        <button onClick={checkInfo}>웹툰확인</button>
+      </div>
     ))
   );
 }

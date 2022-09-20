@@ -41,6 +41,8 @@ const SEARCH_IMG_URL = "search/image/";
 
 const TOONBTI_URL = "games/question/";
 
+const TOON_LIST_URL = '/list/'
+
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
   logout: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGOUT_URL,
@@ -57,6 +59,12 @@ const api = {
   //uploadSlice
   fetchUpload: () => BASE_URL + WEBTOONS_URL + SEARCH_IMG_URL,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+  //toonlistSlice
+  fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum,
+>>>>>>> 921bee3 (feat: 웹툰 전체 목록 api 연결)
 }
 =======
   fetchToonBTI: () => BASE_URL + TOONBTI_URL,
