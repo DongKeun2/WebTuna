@@ -99,95 +99,95 @@ from bs4 import BeautifulSoup
 #         )
 
 
-if __name__ == '__main__':
-    weeks = { 0: "Mon", 1: "Tue", 2: "Wed", 3:"Thu",4:"Fri",5:"Sat",6:"Sun", 7: "Fin"}
+# if __name__ == '__main__':
+#     weeks = { 0: "Mon", 1: "Tue", 2: "Wed", 3:"Thu",4:"Fri",5:"Sat",6:"Sun", 7: "Fin"}
 
-    genre_change = {
-        '학원': '일상',
-        '무협': '무협/사극',
-        '코믹': '개그',
-    }
+#     genre_change = {
+#         '학원': '일상',
+#         '무협': '무협/사극',
+#         '코믹': '개그',
+#     }
 
-    Base_URL = 'https://korea-webtoon-api.herokuapp.com'
-    path = '/kakao'
-    response = requests.get(Base_URL+path)
-    webtoons_popular = response.json()
-    i = 0
-    for webtoon in webtoons_popular:
-        webtoon_title = webtoon['title']
-        webtoon_author = webtoon['author']
-        webtoon_url = webtoon['url']
-        webtoon_img = webtoon['img']
-        webtoon_platform = webtoon['service']
-        webtoon_adult = webtoon['additional']['adult']
-        webtoon_day = webtoon['week']
-
-
-        webtoon_author = webtoon_author.split(",")
+#     Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+#     path = '/kakao'
+#     response = requests.get(Base_URL+path)
+#     webtoons_popular = response.json()
+#     i = 0
+#     for webtoon in webtoons_popular:
+#         webtoon_title = webtoon['title']
+#         webtoon_author = webtoon['author']
+#         webtoon_url = webtoon['url']
+#         webtoon_img = webtoon['img']
+#         webtoon_platform = webtoon['service']
+#         webtoon_adult = webtoon['additional']['adult']
+#         webtoon_day = webtoon['week']
 
 
-        ## 카카오 줄거리 크롤링
-        try: 
-            headers = {'User-Agent':'mozilla/5.0'}
-            data = requests.get(f'{webtoon_url}', headers=headers)
-            soup = BeautifulSoup(data.text, 'html.parser')
-            webtoon_summary = soup.select_one('head > meta:nth-child(4)')['content']
-        except:
-            webtoon_summary = ''
+#         webtoon_author = webtoon_author.split(",")
 
 
-        ## 카카오 장르 크롤링
-        try:
-            webtoon_genres = soup.select_one('#root > main > div > div > div > div.h-full.overflow-hidden.w-full.z-1.fixed.inset-0.bg-dark-background > div.w-full.left-0.top-0.relative > div.content-main-wrapper.opacity-0.invisible.relative.current-content-main.opacity-100.\!visible.z-1 > div.pb-20.pt-96.relative.z-1 > div.relative.mx-auto.my-0.w-full.lg\:w-default-max-width > div.mx-20.flex.justify-between.relative.z-1.pointer-events-auto.pt-12 > div > div > p.whitespace-pre-wrap.break-all.break-words.support-break-word.s12-regular-white.ml-3.opacity-85').text
-            if webtoon_genres == '공포/스릴러':
-                webtoon_genres = '스릴러'
-                webtoon_genres = webtoon_genres.split()
+#         ## 카카오 줄거리 크롤링
+#         try: 
+#             headers = {'User-Agent':'mozilla/5.0'}
+#             data = requests.get(f'{webtoon_url}', headers=headers)
+#             soup = BeautifulSoup(data.text, 'html.parser')
+#             webtoon_summary = soup.select_one('head > meta:nth-child(4)')['content']
+#         except:
+#             webtoon_summary = ''
 
-            elif webtoon_genres.find('/') != -1:
-                webtoon_genres = webtoon_genres.split('/')
-                for idx in range(2):
-                    if webtoon_genres[idx] in ['학원', '무협', '코믹']:
-                        webtoon_genres[idx] = genre_change[webtoon_genres[idx]]
+
+#         ## 카카오 장르 크롤링
+#         try:
+#             webtoon_genres = soup.select_one('#root > main > div > div > div > div.h-full.overflow-hidden.w-full.z-1.fixed.inset-0.bg-dark-background > div.w-full.left-0.top-0.relative > div.content-main-wrapper.opacity-0.invisible.relative.current-content-main.opacity-100.\!visible.z-1 > div.pb-20.pt-96.relative.z-1 > div.relative.mx-auto.my-0.w-full.lg\:w-default-max-width > div.mx-20.flex.justify-between.relative.z-1.pointer-events-auto.pt-12 > div > div > p.whitespace-pre-wrap.break-all.break-words.support-break-word.s12-regular-white.ml-3.opacity-85').text
+#             if webtoon_genres == '공포/스릴러':
+#                 webtoon_genres = '스릴러'
+#                 webtoon_genres = webtoon_genres.split()
+
+#             elif webtoon_genres.find('/') != -1:
+#                 webtoon_genres = webtoon_genres.split('/')
+#                 for idx in range(2):
+#                     if webtoon_genres[idx] in ['학원', '무협', '코믹']:
+#                         webtoon_genres[idx] = genre_change[webtoon_genres[idx]]
             
-            else:
-                webtoon_genres = webtoon_genres.split()
-        except:
-            webtoon_genres = []
+#             else:
+#                 webtoon_genres = webtoon_genres.split()
+#         except:
+#             webtoon_genres = []
 
 
-        ## 카카오 태그 크롤링
-        webtoon_data_url = webtoon_url.split("/")
-        webtoon_id = webtoon_data_url[-1]
-        data = requests.get(f'https://gateway-kw.kakao.com/decorator/v1/decorator/contents/{webtoon_id}/profile', headers=headers)
-        webtoon_tags = data.json()['data']['seoKeywords']
+#         ## 카카오 태그 크롤링
+#         webtoon_data_url = webtoon_url.split("/")
+#         webtoon_id = webtoon_data_url[-1]
+#         data = requests.get(f'https://gateway-kw.kakao.com/decorator/v1/decorator/contents/{webtoon_id}/profile', headers=headers)
+#         webtoon_tags = data.json()['data']['seoKeywords']
 
-        if Webtoon.objects.filter(title = webtoon_title).exists():
-            pass
-        else:
-            webtoon_data = Webtoon.objects.create(
-                title = webtoon_title,
-                thumbnail = webtoon_img,
-                page = webtoon_url,
-                adult = webtoon_adult,
-                view_count = 0,
-                summary = webtoon_summary,
-            )
+#         if Webtoon.objects.filter(title = webtoon_title).exists():
+#             pass
+#         else:
+#             webtoon_data = Webtoon.objects.create(
+#                 title = webtoon_title,
+#                 thumbnail = webtoon_img,
+#                 page = webtoon_url,
+#                 adult = webtoon_adult,
+#                 view_count = 0,
+#                 summary = webtoon_summary,
+#             )
 
-            for author in webtoon_author:
-                webtoon_data.authors.add(Author.objects.get(name = author).author_id)
+#             for author in webtoon_author:
+#                 webtoon_data.authors.add(Author.objects.get(name = author).author_id)
 
-            for week in webtoon_day:
-                webtoon_data.days.add(week+1)
+#             for week in webtoon_day:
+#                 webtoon_data.days.add(week+1)
 
-            if webtoon_genres:
-                for genre in webtoon_genres:
-                    webtoon_data.genres.add(Genre.objects.get(genre_type=genre).genre_id)
+#             if webtoon_genres:
+#                 for genre in webtoon_genres:
+#                     webtoon_data.genres.add(Genre.objects.get(genre_type=genre).genre_id)
 
-            for tag in webtoon_tags:
-                tag = tag.replace('#','')
-                webtoon_data.tags.add(Tag.objects.get(name=tag).tag_id)
+#             for tag in webtoon_tags:
+#                 tag = tag.replace('#','')
+#                 webtoon_data.tags.add(Tag.objects.get(name=tag).tag_id)
             
-            webtoon_data.platforms.add(Platform.objects.get(name=webtoon_platform).platform_id)
+#             webtoon_data.platforms.add(Platform.objects.get(name=webtoon_platform).platform_id)
 
 
 
@@ -298,7 +298,9 @@ print(genre.split("/"))
 #     genre_create = Genre.objects.create(
 #         genre_type = genre
 #     )
+a = open('./Webtoon_Label_6.json', encoding='utf-8-sig')
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -405,3 +407,28 @@ print(genre.split("/"))
 #     movie.wr = ans
 #     movie.save()
 >>>>>>> b984062 (feat: db-kakao)
+=======
+webtoon_list = json.load(a)
+
+for webtoons in webtoon_list:
+
+    webtoon_title = webtoons['img_name']
+    img_0 = webtoons['0']
+    img_1 = webtoons['1']
+    img_2 = webtoons['2']
+    img_3 = webtoons['3']
+    img_4 = webtoons['4']
+    img_5 = webtoons['5']
+
+    if Webtoon.objects.filter(title = webtoon_title).exists():
+        toon = Webtoon.objects.filter(title = webtoon_title)
+
+        toon.update(
+            image_type1 = img_0,
+            image_type2 = img_1,
+            image_type3 = img_2,
+            image_type4 = img_3,
+            image_type5 = img_4,
+            image_type6 = img_5,
+        )
+>>>>>>> 953a554 (Feat: 웹툰 그림체 데이터 DB 반영 / 웹툰 상세정보 API 작성)
