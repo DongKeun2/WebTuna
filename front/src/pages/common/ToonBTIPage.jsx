@@ -10,6 +10,7 @@ import {
 } from "../../features/toons/toonBTISlice";
 import SelectBtn from "../../components/common/SelectBtn";
 import Loading from "../../components/common/Loading";
+import { useNavigate } from "react-router-dom";
 
 function ToonBTIPage() {
   const dispatch = useDispatch();
@@ -23,11 +24,9 @@ function ToonBTIPage() {
       const data = {
         answer: submitAnswer,
       };
-      console.log(data);
-      dispatch(submitToonBTI(data)).then(() => {});
+      dispatch(submitToonBTI(data));
     }
     setPage(page + 1);
-    console.log(question);
   }
 
   function findQuestion(item) {
@@ -73,12 +72,7 @@ function ToonBTIPage() {
 
   const [page, setPage] = useState(0);
   const question = useSelector((state) => state.toonBTI.question);
-  return (
-    <div>
-      <h1>설문 페이지</h1>
-      {startToonBTI()}
-    </div>
-  );
+  return <div>{startToonBTI()}</div>;
 }
 
 const ArrowBox = styled.div`
@@ -125,6 +119,7 @@ const QuestionTitle = styled.p`
 export default ToonBTIPage;
 
 function ToonBTIResult({ setPage }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const toonInfo = useSelector((state) => state.toonBTI.result);
 
@@ -135,36 +130,84 @@ function ToonBTIResult({ setPage }) {
       setIsLoading(false);
     }, 2000);
   });
+
+  function moveDetail() {
+    navigate(`/detail/${toonInfo.webtoon_id}`);
+  }
+
   if (isLoading) {
     return <Loading></Loading>;
   }
   return (
-    <div>
-      <p>링크</p>
-      <a href={toonInfo.page}>웹툰 보러가기</a>
-      <div>
-        <p>제목</p>
-        <p>{toonInfo.title}</p>
-      </div>
-      <div>
-        <p>썸네일</p>
-        <img src={toonInfo.thumbnail} alt="thumbnail_image" />
-      </div>
-      <div>
-        <p>줄거리</p>
-        <p>{toonInfo.summary}</p>
-      </div>
-      <div>
-        <SelectBtn
-          onClick={() => {
-            dispatch(addAnswer([]));
-            setPage(0);
-          }}
-        >
-          <RestartAltIcon />
-          다시 하기
-        </SelectBtn>
-      </div>
-    </div>
+    <ArticleBox>
+      <ToonBTIBox>
+        <ResultBox>
+          <h1>ToonBTI</h1>
+
+          <p>{toonInfo.title}</p>
+          <p>{toonInfo.summary}</p>
+          <ImgBox>
+            <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
+          </ImgBox>
+          <div>
+            <SelectBtn>
+              <ToonLink href={toonInfo.page}>웹툰 보러가기</ToonLink>
+            </SelectBtn>
+            <SelectBtn onClick={moveDetail}>상세정보 바로가기</SelectBtn>
+            <SelectBtn
+              onClick={() => {
+                dispatch(addAnswer([]));
+                setPage(0);
+              }}
+            >
+              <RestartAltIcon />
+              다시 하기
+            </SelectBtn>
+          </div>
+        </ResultBox>
+      </ToonBTIBox>
+    </ArticleBox>
   );
 }
+
+const ArticleBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const ToonBTIBox = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  background-color: #feec91;
+  border: 3px solid black;
+  border-radius: 10px;
+  height: 790px;
+`;
+
+const ResultBox = styled.div`
+  display: flex;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin-top: 30px;
+  height: 100%;
+  width: 98%;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ImgBox = styled.div`
+  border: 5px solid black;
+  border-radius: 10%;
+  overflow: hidden;
+`;
+
+const ToonImg = styled.img`
+  object-fit: cover;
+`;
+
+const ToonLink = styled.a`
+  color: black;
+  text-decoration: none;
+`;
