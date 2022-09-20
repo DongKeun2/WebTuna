@@ -1,16 +1,31 @@
 import styled from "styled-components";
 
-const SelectBtn = styled.div`
-  display: inline-block;
-  padding: 20px;
-  border: 0.3rem outset #feec91;
-  outline: black 1px;
-  border-radius: 5%;
+const OuterBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 100px;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: ${(props) => (props.active ? "#feec91" : "white")};
   :hover {
-    border: 0.3rem inset #feec91;
-
-    background-color: white;
+    background-color: ${(props) => (props.active ? "white" : null)};
   }
 `;
 
-export default SelectBtn;
+const SelectBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 385px;
+  height: 90px;
+  border-radius: 10px;
+  background-color: ${(props) => (props.active ? "white" : "#feec91")};
+  :hover {
+    cursor: ${(props) => (props.active ? "pointer" : null)};
+    background-color: ${(props) => (props.active ? "#feec91" : null)};
+  }
+`;
+
+export { OuterBtn, SelectBtn };

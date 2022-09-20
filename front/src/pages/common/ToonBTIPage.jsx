@@ -8,7 +8,7 @@ import {
   fetchToonBTI,
   submitToonBTI,
 } from "../../features/toons/toonBTISlice";
-import SelectBtn from "../../components/common/SelectBtn";
+import { OuterBtn, SelectBtn } from "../../components/common/SelectBtn";
 import Loading from "../../components/common/Loading";
 import { useNavigate } from "react-router-dom";
 
@@ -46,7 +46,17 @@ function ToonBTIPage() {
   function startToonBTI() {
     switch (page) {
       case 0:
-        return <button onClick={onNext}>시작하기</button>;
+        return (
+          <ArticleBox>
+            <StartBox>
+              <OuterBtn onClick={onNext} active={true} result={true}>
+                <SelectBtn active={true} result={true}>
+                  시작하기
+                </SelectBtn>
+              </OuterBtn>
+            </StartBox>
+          </ArticleBox>
+        );
       case 5:
         return <ToonBTIResult setPage={setPage}></ToonBTIResult>;
       default:
@@ -55,17 +65,21 @@ function ToonBTIPage() {
         })[0];
         console.log(questionItem);
         return (
-          <div>
+          <ArticleBox>
             <ArrowBox>
               <QuestionTitle>{questionItem.question}</QuestionTitle>
             </ArrowBox>
-            <SelectBtn onClick={() => onAnswer(1)}>
-              {questionItem.option1}
-            </SelectBtn>
-            <SelectBtn onClick={() => onAnswer(0)}>
-              {questionItem.option2}
-            </SelectBtn>
-          </div>
+            <OuterBtn active={true}>
+              <SelectBtn active={true} onClick={() => onAnswer(1)}>
+                {questionItem.option1}
+              </SelectBtn>
+            </OuterBtn>
+            <OuterBtn active={true}>
+              <SelectBtn active={true} onClick={() => onAnswer(0)}>
+                {questionItem.option2}
+              </SelectBtn>
+            </OuterBtn>
+          </ArticleBox>
         );
     }
   }
@@ -74,6 +88,10 @@ function ToonBTIPage() {
   const question = useSelector((state) => state.toonBTI.question);
   return <div>{startToonBTI()}</div>;
 }
+
+const StartBox = styled.div`
+  height: 300px;
+`;
 
 const ArrowBox = styled.div`
   position: relative;
@@ -150,19 +168,29 @@ function ToonBTIResult({ setPage }) {
             <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
           </ImgBox>
           <div>
-            <SelectBtn>
-              <ToonLink href={toonInfo.page}>웹툰 보러가기</ToonLink>
-            </SelectBtn>
-            <SelectBtn onClick={moveDetail}>상세정보 바로가기</SelectBtn>
-            <SelectBtn
-              onClick={() => {
-                dispatch(addAnswer([]));
-                setPage(0);
-              }}
-            >
-              <RestartAltIcon />
-              다시 하기
-            </SelectBtn>
+            <OuterBtn active={true} result={true}>
+              <SelectBtn active={true} result={true}>
+                <ToonLink href={toonInfo.page}>웹툰 보러가기</ToonLink>
+              </SelectBtn>
+            </OuterBtn>
+            <OuterBtn active={true} result={true}>
+              <SelectBtn active={true} onClick={moveDetail}>
+                상세정보 바로가기
+              </SelectBtn>
+            </OuterBtn>
+            <OuterBtn active={true} result={true}>
+              <SelectBtn
+                active={true}
+                result={true}
+                onClick={() => {
+                  dispatch(addAnswer([]));
+                  setPage(0);
+                }}
+              >
+                <RestartAltIcon />
+                다시 하기
+              </SelectBtn>
+            </OuterBtn>
           </div>
         </ResultBox>
       </ToonBTIBox>
@@ -172,6 +200,9 @@ function ToonBTIResult({ setPage }) {
 
 const ArticleBox = styled.div`
   display: flex;
+  height: 790px;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;
 
