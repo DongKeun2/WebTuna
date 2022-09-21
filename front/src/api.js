@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const BASE_URL = 'http://j7a403.q.ssafy.io:8443/api'
 =======
 const BASE_URL = 'https://j7a403.q.ssafy.io:8443/api'
@@ -18,6 +19,9 @@ const NICKNAME_URL = '/nickname'
 const SEARCH_IMG_URL = '/search/image'
 =======
 const BASE_URL = "http://localhost:8000/api/";
+=======
+const BASE_URL = 'https://j7a403.p.ssafy.io:8443/api'
+>>>>>>> 1013f2b (fix: backend 통신 api 수정)
 
 const ACCOUNTS_URL = "accounts/";
 const WEBTOONS_URL = "webtoons/";
