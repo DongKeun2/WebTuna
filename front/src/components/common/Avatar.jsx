@@ -16,12 +16,7 @@ function Avatar() {
     (state) => state.login.currentUser
   ).profile_image_id;
 
-  function isMine(item) {
-    if (item.id === myProfileImgNum) {
-      return true;
-    }
-  }
-  const myImg = profileImgItem.find(isMine);
+  const myImg = profileImgItem[myProfileImgNum - 1];
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
