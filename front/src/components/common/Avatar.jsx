@@ -37,9 +37,7 @@ function Avatar() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <ImgBox>
-            <ProfileImg src={myImg.img} />
-          </ImgBox>
+          <ImgBox>{myImg && <ProfileImg src={myImg.img} />}</ImgBox>
         </IconButton>
       </Tooltip>
       <Menu
