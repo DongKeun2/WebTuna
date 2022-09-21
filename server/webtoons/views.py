@@ -259,6 +259,7 @@ def searchWebtoon(request,search,keyword,pageNum):
     webtoons = paginator.get_page(int(pageNum))
     serializer = WebtoonSerializer(webtoons, many = True)
 <<<<<<< HEAD
+<<<<<<< HEAD
     return Response(serializer.data, status.HTTP_200_OK)
 <<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
@@ -266,6 +267,9 @@ def searchWebtoon(request,search,keyword,pageNum):
 =======
     return Response({'webtoonList':serializer.data}, status.HTTP_200_OK)
 >>>>>>> 4681354 (feat: 웹툰 필터 api 구현 / 검색 기능 대소문자 구분 제거)
+=======
+    return Response(serializer.data, status.HTTP_200_OK)
+>>>>>>> de4eb85 (fix: json 파일 형식 변경 (webtoonList 삭제))
 
 @api_view(['POST'])
 def filterWebtoon(request, pageNum):
@@ -284,7 +288,7 @@ def filterWebtoon(request, pageNum):
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
     serializer = WebtoonSerializer(webtoons, many = True)
-    return Response({'webtoonList':serializer.data}, status.HTTP_200_OK)
+    return Response(serializer.data, status.HTTP_200_OK)
 
 @api_view(['POST'])
 def webtoonLike(request, webtoonId):
