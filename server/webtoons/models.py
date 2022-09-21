@@ -49,6 +49,7 @@ class Webtoon(models.Model):
     authors = models.ManyToManyField('Author', related_name='author_webtoons' )
     genres = models.ManyToManyField('Genre', related_name='genre_webtoons')
     tags = models.ManyToManyField('Tag', related_name='tag_webtoons')
+    # similar_webtoon = models.ManyToManyField('self', related_name='similar_webtoon')
     platforms = models.ManyToManyField('Platform', related_name='platform_webtoons')
 
 

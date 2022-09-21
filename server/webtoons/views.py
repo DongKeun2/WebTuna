@@ -30,6 +30,9 @@ from django.core.paginator import Paginator
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 =======
 from django.db.models import Q
+import statistics
+
+from webtoons import serializers
 
 >>>>>>> 4681354 (feat: 웹툰 필터 api 구현 / 검색 기능 대소문자 구분 제거)
 # webtoon 데이터가공-Naver API : http://localhost:8000/webtoons/naver/week
@@ -297,11 +300,12 @@ def filterWebtoon(request, pageNum):
 @api_view(['POST'])
 def webtoonLike(request, webtoonId):
     webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
-    if webtoon.liked_webtoon_users.filter(pk = request.user.pk).exists():
-        webtoon.liked_webtoon_users.remove(request.user)
+    if webtoon.liked_webtoon_users.filter(id = request.user.pk).exists():
+        webtoon.liked_webtoon_users.remove(request.user.pk)
     
         return Response({'data': False})
     else:
+<<<<<<< HEAD
         webtoon.liked_webtoon_users.add(request.user)
 <<<<<<< HEAD
         
@@ -309,6 +313,9 @@ def webtoonLike(request, webtoonId):
     return Response(serializer.data, status.HTTP_200_OK)
 >>>>>>> 2711023 (feat: 웹툰 찜 기능 구현 (50%))
 =======
+=======
+        webtoon.liked_webtoon_users.add(request.user.pk)
+>>>>>>> b432986 (feat: CF 기반 웹툰 추천 api 구현(웹툰 추천 전체 구현은 미완성))
         return Response({'data': True})
 
 
@@ -329,4 +336,47 @@ def webtoonLog(request, webtoonId):
 
     webtoon.view_webtoon_users.add(request.user)
     return Response({'data': True})
+<<<<<<< HEAD
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
+=======
+
+
+@api_view(['GET'])
+def recommendWebtoon(request,typeId):
+    if typeId == 1:
+        my_webtoons = Webtoon.objects.filter(liked_webtoon_users = request.user.pk)
+        
+        user_list = []
+        
+        for my_webtoon in my_webtoons:
+            now_users = my_webtoon.liked_webtoon_users.all()
+            
+            for now_user in now_users:
+                if now_user not in user_list and now_user != request.user:
+                    user_list.append(now_user)
+                    
+        recommended_webtoons = []
+        for webtoon_like_user in user_list:
+            now_webtoons = Webtoon.objects.filter(liked_webtoon_users = webtoon_like_user.id)
+            
+            for now_webtoon in now_webtoons:
+                if now_webtoon not in recommended_webtoons:
+                    recommended_webtoons.append(now_webtoon)
+                    
+        for my_webtoon in my_webtoons:
+            if my_webtoon in recommended_webtoons:
+                recommended_webtoons.remove(my_webtoon)
+                
+        recommended_webtoons.sort(key=lambda x : -x.view_count)
+        recommended_webtoons = recommended_webtoons[:5]
+        
+        recommended_webtoon_ids = []
+        
+        for recommended_webtoon in recommended_webtoons:
+            recommended_webtoon_ids.append(recommended_webtoon.webtoon_id)
+        
+        webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoon_ids)
+        serializer = WebtoonListSerializer(webtoons, many=True)
+        
+        return Response(serializer.data)
+>>>>>>> b432986 (feat: CF 기반 웹툰 추천 api 구현(웹툰 추천 전체 구현은 미완성))

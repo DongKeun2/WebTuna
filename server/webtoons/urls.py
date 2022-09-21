@@ -12,4 +12,5 @@ urlpatterns = [
     path('list/<int:pageNum>/',views.webtoonList),
     path('filter/<int:pageNum>/', views.filterWebtoon),
     path('<search>/<keyword>/<int:pageNum>/',views.searchWebtoon),
+    path('recommend/<int:typeId>/', views.recommendWebtoon),
 ]
