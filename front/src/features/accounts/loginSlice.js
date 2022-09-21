@@ -56,6 +56,10 @@ export const loginSlice = createSlice({
     changeLoginState: (state) => {
       state.loginState = true;
     },
+    changeCurrentUser: (state, action) => {
+      console.log(action.payload);
+      state.currentUser = action.payload;
+    },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
@@ -71,8 +75,8 @@ export const loginSlice = createSlice({
       state.loginState = false;
     },
     [fetchInfo.fulfilled]: (state, action) => {
-      console.log(action.payload);
-      sessionStorage.setItem("user", action.payload);
+      state.currentUser = action.payload;
+      sessionStorage.setItem("user", JSON.stringify(action.payload));
     },
     [fetchInfo.rejected]: (state, action) => {
       console.log(action.payload);
@@ -90,7 +94,11 @@ export const loginSlice = createSlice({
 
 export { login, logout, fetchInfo };
 // Action creators are generated for each case reducer function
-export const { changeEmail, changePassword, changeLoginState } =
-  loginSlice.actions;
+export const {
+  changeEmail,
+  changePassword,
+  changeLoginState,
+  changeCurrentUser,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

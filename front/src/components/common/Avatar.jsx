@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,9 +12,12 @@ import profileImgItem from "../../assets/profile/profileImgItem";
 // 로그아웃 구현해야 함
 function Avatar() {
   const dispatch = useDispatch();
-  // 내 프로필 사진 아이디 확인해서 넘겨줘야 함
+  const myProfileImgNum = useSelector(
+    (state) => state.login.currentUser
+  ).profile_image_id;
+
   function isMine(item) {
-    if (item.id === 1) {
+    if (item.id === myProfileImgNum) {
       return true;
     }
   }

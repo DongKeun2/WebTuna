@@ -3,7 +3,10 @@ import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import HeaderBar from "./components/common/HeaderBar";
 import NavBar from "./components/common/NavBar";
-import { changeLoginState } from "./features/accounts/loginSlice";
+import {
+  changeLoginState,
+  changeCurrentUser,
+} from "./features/accounts/loginSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -12,6 +15,8 @@ function App() {
     if (token) {
       console.log(token);
       dispatch(changeLoginState());
+      const userInfo = JSON.parse(sessionStorage.getItem("user"));
+      dispatch(changeCurrentUser(userInfo));
     }
   }, [dispatch]);
   return (

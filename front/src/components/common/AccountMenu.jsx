@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Avatar from "./Avatar";
 
 function AccountMenu() {
-  // 로그인 비로그인 나눠야 함!
   const isAuthenticated = useSelector((state) => state.login.loginState);
   return (
     <div>
