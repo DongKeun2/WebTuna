@@ -4,6 +4,7 @@ import {
   checkPassword,
   changeConfirmPassword,
   changePassword,
+  changePwdVerify,
   changeGender,
   changeBirth,
 } from "../../features/accounts/editSlice";
@@ -33,6 +34,11 @@ function EditPage() {
     dispatch(changePassword(e.target.value));
   }
 
+  function onPwdVerifyHandler(e) {
+    e.preventDefault();
+    dispatch(changePwdVerify(e.target.value));
+  }
+
   function onGenderHandler(e) {
     console.log(e.target.value);
     dispatch(changeGender(e.target.value));
@@ -60,12 +66,25 @@ function EditPage() {
           <EditForm onSubmit={editSubmit}>
             <div>
               <p>비밀번호</p>
-              <input
+              <PasswordInput
                 type="password"
                 value={editInfo.password}
                 autoComplete="off"
                 placeholder="비밀번호를 입력해주세요."
                 onChange={onPasswordHandler}
+                error={editInfo.password !== editInfo.pwdVerify}
+              />
+            </div>
+            {editInfo.password !== editInfo.pwdVerify &&
+              "비밀번호 확인이 일치하지 않는다."}
+            <div>
+              <p>비밀번호 확인</p>
+              <input
+                type="password"
+                value={editInfo.pwdVerify}
+                autoComplete="off"
+                placeholder="비밀번호를 입력해주세요."
+                onChange={onPwdVerifyHandler}
               />
             </div>
             <div>
@@ -109,6 +128,10 @@ function EditPage() {
 }
 
 const EditForm = styled.form``;
+
+const PasswordInput = styled.input`
+  border: ${(props) => (props.error ? "1px solid red" : "1px solid black")};
+`;
 
 const GenderInput = styled.input`
   display: none;

@@ -24,6 +24,7 @@ export const editSlice = createSlice({
       password: "",
       gender: "M",
       birth: "",
+      pwdVerify: "",
     },
     possible: false,
     password: "",
@@ -59,6 +60,7 @@ export { checkPassword };
 export const {
   changeConfirmPassword,
   changePassword,
+  changePwdVerify,
   changeGender,
   changeBirth,
 } = editSlice.actions;
