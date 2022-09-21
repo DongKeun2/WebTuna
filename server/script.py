@@ -23,7 +23,7 @@ from bs4 import BeautifulSoup
 
 
 # ## 플랫폼 데이터 넣기
-# platforms = ["naver", "kakao", "kakao-page"]
+# platforms = ["kakao", "kakao-page"]
 # for platform in platforms:
 #     Platform.objects.create(
 #         name = platform
@@ -109,7 +109,7 @@ from bs4 import BeautifulSoup
 #     }
 
 #     Base_URL = 'https://korea-webtoon-api.herokuapp.com'
-#     path = '/kakao'
+#     path = '/kakao-page'
 #     response = requests.get(Base_URL+path)
 #     webtoons_popular = response.json()
 #     i = 0
@@ -298,8 +298,8 @@ print(genre.split("/"))
 #     genre_create = Genre.objects.create(
 #         genre_type = genre
 #     )
-a = open('./Webtoon_Label_6.json', encoding='utf-8-sig')
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -409,20 +409,16 @@ a = open('./Webtoon_Label_6.json', encoding='utf-8-sig')
 >>>>>>> b984062 (feat: db-kakao)
 =======
 webtoon_list = json.load(a)
+=======
+>>>>>>> 2ee8aa1 (fix: profile 수정)
 
-for webtoons in webtoon_list:
+# a = open('./Webtoon_Label_6.json', encoding='utf-8-sig')
 
-    webtoon_title = webtoons['img_name']
-    img_0 = webtoons['0']
-    img_1 = webtoons['1']
-    img_2 = webtoons['2']
-    img_3 = webtoons['3']
-    img_4 = webtoons['4']
-    img_5 = webtoons['5']
+# webtoon_list = json.load(a)
 
-    if Webtoon.objects.filter(title = webtoon_title).exists():
-        toon = Webtoon.objects.filter(title = webtoon_title)
+# for webtoons in webtoon_list:
 
+<<<<<<< HEAD
         toon.update(
             image_type1 = img_0,
             image_type2 = img_1,
@@ -432,3 +428,24 @@ for webtoons in webtoon_list:
             image_type6 = img_5,
         )
 >>>>>>> 953a554 (Feat: 웹툰 그림체 데이터 DB 반영 / 웹툰 상세정보 API 작성)
+=======
+#     webtoon_title = webtoons['img_name']
+#     img_0 = webtoons['0']
+#     img_1 = webtoons['1']
+#     img_2 = webtoons['2']
+#     img_3 = webtoons['3']
+#     img_4 = webtoons['4']
+#     img_5 = webtoons['5']
+
+#     if Webtoon.objects.filter(title = webtoon_title).exists():
+#         toon = Webtoon.objects.filter(title = webtoon_title)
+
+#         toon.update(
+#             image_type1 = img_0,
+#             image_type2 = img_1,
+#             image_type3 = img_2,
+#             image_type4 = img_3,
+#             image_type5 = img_4,
+#             image_type6 = img_5,
+#         )
+>>>>>>> 2ee8aa1 (fix: profile 수정)

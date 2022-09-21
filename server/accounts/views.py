@@ -100,4 +100,10 @@ def LikeWebtoon(request, pageNum):
     return Response(serializer.data)
     
     
+<<<<<<< HEAD
 # @api_view(['POST'])
+=======
+@api_view(['GET'])
+def Test_req(request):
+    print(request.user)
+>>>>>>> 2ee8aa1 (fix: profile 수정)
