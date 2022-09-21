@@ -13,12 +13,16 @@ import csv
 from bs4 import BeautifulSoup
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 from webtoons.models import Webtoon, Genre, Author, Tag
 =======
 from .serializers import WebtoonSerializer
 =======
 from .serializers import WebtoonSerializer, RatingSerializer
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
+=======
+from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer
+>>>>>>> 9f3add1 (fix: 웹툰 전체 페이지 성능개선(WebtoonListSerializer 수정))
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator
@@ -240,10 +244,10 @@ page_cut = 20
 
 @api_view(['GET'])
 def webtoonList(request,pageNum):
-    webtoon_list = Webtoon.objects.all().order_by('title')
+    webtoon_list = Webtoon.objects.order_by('title')
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
-    serializer = WebtoonSerializer(webtoons, many = True)
+    serializer = WebtoonListSerializer(webtoons, many = True)
     return Response(serializer.data, status.HTTP_200_OK)
 
 @api_view(['GET'])
