@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchToonlist } from "../../features/toons/toonlistSlice"
 import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
+import Loading from "../../components/common/Loading";
 
 function WebtoonPage() {
   const dispatch = useDispatch();
@@ -17,8 +18,8 @@ function WebtoonPage() {
     return (
       <PageBox>
         <HeaderBox>
-          <h1>웹툰 목록 페이지</h1>
-          <button>버튼</button>
+          <PageTitle>전체 웹툰 목록</PageTitle>
+          <FilterBtn>필터</FilterBtn>
         </HeaderBox>
         <ToonListBox>
           <AllToonList toons={toons}/>
@@ -29,11 +30,11 @@ function WebtoonPage() {
     return (
       <PageBox>
         <HeaderBox>
-          <h1>웹툰 목록 페이지</h1>
-          <button>버튼</button>
+          <PageTitle>전체 웹툰 목록</PageTitle>
+          <FilterBtn>필터</FilterBtn>
         </HeaderBox>
         <ToonListBox>
-          <EmptyBox></EmptyBox>
+          <Loading></Loading>
         </ToonListBox>
       </PageBox>
     )
@@ -58,14 +59,27 @@ const HeaderBox = styled.div`
   padding-right: 0.8vw;
 `
 
+const PageTitle = styled.p`
+  font-size: 1.8vw;
+  font-weight: 700;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  margin-left: 1vw;
+`
+
+const FilterBtn = styled.button`
+  font-size: 1vw;
+  width: 8vw;
+  height: 2.5vw;
+  margin-right: 1vw;
+  cursor: pointer;
+`
+
 const ToonListBox = styled.div`
   display: grid;
   width: 100%;
   margin-bottom: 70px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-`
-const EmptyBox = styled.div`
-  height: 60vh;
 `
 
 export default WebtoonPage;

@@ -21,11 +21,11 @@ function ToonItem({ item }) {
   }
 
   return (
-    <OneToon onClick={moveDetail}>
-      <ImgBox>
+    <OneToon>
+      <ImgBox onClick={moveDetail}>
         <ToonThumbnail src={item.thumbnail} alt="" />
       </ImgBox>
-      <ToonInfo>
+      <ToonInfo onClick={moveDetail}>
         <ToonTitle>{item.title}</ToonTitle>
         <ToonAuthor>{authors}</ToonAuthor>
       </ToonInfo>
@@ -44,6 +44,7 @@ const ImgBox = styled.div`
   height: 15vw;
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
+  cursor: pointer;
 `
 
 const ToonThumbnail = styled.img`
@@ -63,6 +64,7 @@ const ToonInfo = styled.div`
   background-color: white;
   border-bottom-left-radius: 0.8vw;
   border-bottom-right-radius: 0.8vw;
+  cursor: pointer;
 `
 
 const ToonTitle = styled.p`
