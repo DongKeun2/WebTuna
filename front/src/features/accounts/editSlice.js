@@ -20,13 +20,26 @@ const checkPassword = createAsyncThunk(
 export const editSlice = createSlice({
   name: "edit",
   initialState: {
+    editInfo: {},
     possible: false,
     password: "",
   },
   reducers: {
-    changePassword: (state, action) => {
+    changeConfirmPassword: (state, action) => {
       console.log(action.payload);
       state.password = action.payload;
+    },
+    changePassword: (state, action) => {
+      state.editInfo.password = action.payload;
+    },
+    changePwdVerify: (state, action) => {
+      state.editInfo.pwdVerify = action.payload;
+    },
+    changeGender: (state, action) => {
+      state.editInfo.gender = action.payload;
+    },
+    changeBirth: (state, action) => {
+      state.editInfo.birth = action.payload;
     },
   },
   extraReducers: {
@@ -39,6 +52,11 @@ export const editSlice = createSlice({
 
 export { checkPassword };
 // Action creators are generated for each case reducer function
-export const { changePassword } = editSlice.actions;
+export const {
+  changeConfirmPassword,
+  changePassword,
+  changeGender,
+  changeBirth,
+} = editSlice.actions;
 
 export default editSlice.reducer;

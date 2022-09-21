@@ -144,7 +144,12 @@ function SignupPage() {
           </div>
           <div>
             <p>생년월일</p>
-            <input type="text" maxLength="8" onKeyUp={onBirthHandler} />
+            <input
+              type="text"
+              maxLength="8"
+              onKeyUp={onBirthHandler}
+              placeholder="ex) 20220921"
+            />
           </div>
         </div>
         <button>다음</button>
