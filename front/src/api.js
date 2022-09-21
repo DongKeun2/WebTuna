@@ -40,6 +40,8 @@ const PASSWORD_URL = "check/";
 const SEARCH_IMG_URL = "search/image/";
 >>>>>>> 6e82ed7 (feat: toonbti 질문&보기 구현)
 
+const TOON_LIST_URL = "list/";
+
 const TOONBTI_URL = "games/question/";
 
 const TOON_LIST_URL = 'list/'
@@ -74,11 +76,16 @@ const api = {
 =======
 
   //detailSlice
+<<<<<<< HEAD
   detail:(webtoonId) => BASE_URL + WEBTOONS_URL + '/' + webtoonId + DETAIL_URL,
 >>>>>>> 7bb19ad (feat: detai l페이지 UI 구성)
 }
 =======
 =======
+=======
+  detail: (webtoonId) => BASE_URL + WEBTOONS_URL + webtoonId + DETAIL_URL,
+};
+>>>>>>> 6b4f421 (fix: api 수정)
 
   //toonBTISlice
 >>>>>>> 71b23ff (feat: 각각의 웹툰 상세페이지 이동 구현)
