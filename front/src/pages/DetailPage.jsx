@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { detail } from "../features/details/detailSlice";
 import styled from "styled-components";
-import ToonToonRecommend from "../assets/navbar/ToonToonRecommend.png";
 import BookMark from "../assets/detail/BookMark.png";
 import ChartShow from "../components/common/Chart";
 import Loading from "../components/common/Loading";
 import ModalFrame from "../components/common/ModalFrame";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
+import FullHeart from "../assets/detail/FullHeart.png";
+import EmptyHeart from "../assets/detail/EmptyHeart.png";
 
 function DetailPage() {
   const { toonId } = useParams();
@@ -19,8 +22,11 @@ function DetailPage() {
   const [ratingGraphData, setRatingGraphData] = useState();
   const [averageRating, setAverageRating] = useState();
   const [modal, setModal] = useState(false);
+  const [modalRating, setModalRating] = useState(3);
+  // const [userData, setUserData] = useState();
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
-  const _handleModal = [modal, setModal];
+  const userData = useSelector((state) => state.login.currentUser);
+
   function getDetail() {
     dispatch(detail(toonId)).then((res) => {
       setWebToonInfo(res.payload);
@@ -46,7 +52,6 @@ function DetailPage() {
         res.payload.webtoon_rate[10],
       ]);
       setAverageRating(getAverageRating(res.payload));
-      console.log(res.payload.authors.length);
       let tempArr = [];
       for (let i = 0; i < res.payload.authors.length; i++) {
         for (
@@ -60,7 +65,7 @@ function DetailPage() {
       let tempSet = [...new Set([...tempArr])];
       tempSet = tempSet.filter((temp) => temp.webtoon_id !== Number(toonId));
       setOtherWebToons(tempSet);
-      console.log(tempSet);
+      // setUserData(JSON.parse(sessionStorage.getItem("userData")));
       setIsLoading(false);
       console.log(res.payload);
     });
@@ -81,6 +86,11 @@ function DetailPage() {
 
   function switchModal() {
     setModal((prev) => !prev);
+  }
+
+  function changeRating(e) {
+    setModalRating(e.target.value);
+    setModal(false);
   }
 
   useEffect(() => {
@@ -209,15 +219,34 @@ function DetailPage() {
                 <Author>
                   {webToonInfo.authors.map((author) => author.name + " ")}
                 </Author>
-                <Rating>
+                <RatingZone>
                   별점 ★ {averageRating.toFixed(1)}{" "}
                   <RatingButton onClick={switchModal}>별점 주기</RatingButton>
                   {modal ? (
                     <ModalFrame _handleModal={switchModal}>
                       <h1>빛나라 지식의 별</h1>
+                      <Rating
+                        name="half-rating"
+                        defaultValue={5.0}
+                        precision={0.5}
+                        icon={
+                          <StarIcon
+                            style={{ width: "64px", height: "64px" }}
+                          ></StarIcon>
+                        }
+                        emptyIcon={
+                          <StarIcon
+                            style={{
+                              width: "64px",
+                              height: "64px",
+                            }}
+                          />
+                        }
+                        onChange={changeRating}
+                      />
                     </ModalFrame>
                   ) : null}
-                </Rating>
+                </RatingZone>
                 <Genre>
                   장르{" "}
                   {webToonInfo.genres.map((genre) => genre.genre_type + " ")}
@@ -234,7 +263,13 @@ function DetailPage() {
                     웹툰 보러가기
                   </a>
                 </WebToonLink>
-                <Like>♥</Like>
+                <Like>
+                  {userData.liked_webtoons.includes(Number(toonId)) ? (
+                    <img src={FullHeart} alt="찜" width="50px"></img>
+                  ) : (
+                    <img src={EmptyHeart} alt="노찜" width="50px"></img>
+                  )}
+                </Like>
                 <Summary>{webToonInfo.summary}</Summary>
               </SubInfo>
             </DetailZone>
@@ -257,21 +292,30 @@ function DetailPage() {
             <SameAuthorRecommendZone>
               <h2>같은 작가의 다른 작품</h2>
               <SARecommends>
-                {otherWebToons.map((otherWebToon) => (
-                  <OtherWebToon>
-                    <OtherWebToonImage>
-                      <img
-                        src={otherWebToon.thumbnail}
-                        alt="같은 작가의 다른 작품 이미지"
-                      ></img>
-                    </OtherWebToonImage>
-                    <OtherWebToonTitle>{otherWebToon.title}</OtherWebToonTitle>
-                    <OtherWebToonAuthor>
-                      {otherWebToon.author_name.map((author) => author + " ")}
-                    </OtherWebToonAuthor>
-                  </OtherWebToon>
-                ))}
-                ;
+                {otherWebToons.length === 0 ? (
+                  <h1>텅~</h1>
+                ) : (
+                  otherWebToons.map((otherWebToon) => (
+                    <OtherWebToon key={otherWebToon.webtoon_id}>
+                      <OtherWebToonImage>
+                        <OtherWebToonThumbnail
+                          src={otherWebToon.thumbnail}
+                          alt="같은 작가의 다른 작품 이미지"
+                        ></OtherWebToonThumbnail>
+                      </OtherWebToonImage>
+                      <OtherWebToonInfo>
+                        <OtherWebToonTitle>
+                          {otherWebToon.title}
+                        </OtherWebToonTitle>
+                        <OtherWebToonAuthor>
+                          {otherWebToon.author_name.map(
+                            (author) => author + " "
+                          )}
+                        </OtherWebToonAuthor>
+                      </OtherWebToonInfo>
+                    </OtherWebToon>
+                  ))
+                )}
               </SARecommends>
             </SameAuthorRecommendZone>
             <WebToonAnalysisZone>
@@ -341,35 +385,33 @@ const ThumbnailImage = styled.img`
 const Info = styled.div`
   flex: 1;
   margin-top: 100px;
-  margin-left: -200px;
+  margin-left: -10%;
 `;
 
 const SubInfo = styled.div`
-  flex: 2;
+  flex: 1;
   margin-top: 100px;
-  margin-left: -50px;
+  margin-left: -10%;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   display: inline;
 `;
 
-const Author = styled.h2`
-  display: inline;
-  margin-left: 50px;
-`;
+const Author = styled.h3``;
 
-const Rating = styled.h1`
+const RatingZone = styled.h2`
   margin-top: 80px;
 `;
 
 const RatingButton = styled.button`
+  cursor: pointer;
   margin-left: 80px;
 `;
 
-const Genre = styled.h1``;
+const Genre = styled.h2``;
 
-const Day = styled.h1`
+const Day = styled.h2`
   display: inline;
 `;
 
@@ -446,18 +488,64 @@ const SARecommends = styled.div`
   height: 300px;
 `;
 
-const OtherWebToon = styled.div``;
+const OtherWebToon = styled.div`
+  padding: 0.8vw;
+  padding-bottom: 0.3vw;
+`;
 
-const OtherWebToonImage = styled.div``;
+const OtherWebToonImage = styled.div`
+  background-color: white;
+  width: 100%;
+  height: 15vw;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
+`;
 
-const OtherWebToonTitle = styled.div``;
+const OtherWebToonThumbnail = styled.img`
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
+`;
+
+const OtherWebToonInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 0.2vw;
+  padding-bottom: 0.2vw;
+  background-color: white;
+  border-bottom-left-radius: 0.8vw;
+  border-bottom-right-radius: 0.8vw;
+`;
+
+const OtherWebToonTitle = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.3vw;
+  font-weight: 600;
+  margin: 0;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+`;
+
+const OtherWebToonAuthor = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1vw;
+  font-weight: 500;
+  margin: 0;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+`;
 
 const WebToonAnalysisZone = styled.div`
   margin-left: 120px;
   margin-right: 100px;
 `;
-
-const OtherWebToonAuthor = styled.div``;
 
 const AnalysisBack = styled.div`
   height: 900px;

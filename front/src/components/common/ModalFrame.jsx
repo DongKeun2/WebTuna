@@ -35,8 +35,8 @@ const Background = styled.div`
 
 const ModalBlock = styled.div`
   position: absolute;
-  top: 6.5rem;
-  border: 2px solid black;
+  top: 20rem;
+  border: 1px black solid;
   border-radius: 10px;
   padding: 1.5rem;
   background-color: white;
@@ -47,7 +47,7 @@ const ModalBlock = styled.div`
   @media (max-width: 50rem) {
     width: 80%;
   }
-  min-height: 35rem;
+  min-height: 20rem;
   animation: modal-show 1s;
   @keyframes modal-show {
     from {
