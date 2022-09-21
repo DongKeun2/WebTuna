@@ -34,40 +34,57 @@ function ToonItem({ item }) {
 }
 
 const OneToon = styled.div`
-  height: 93%;
   padding: 0.8vw;
   padding-bottom: 0.3vw;
 `
 
 const ImgBox = styled.div`
+  background-color: white;
   width: 100%;
   height: 15vw;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
 `
 
 const ToonThumbnail = styled.img`
   object-fit: fill;
   width: 100%;
   height: 100%;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
 `
 
 const ToonInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 0.2vw;
+  padding-bottom: 0.2vw;
+  background-color: white;
+  border-bottom-left-radius: 0.8vw;
+  border-bottom-right-radius: 0.8vw;
 `
 
 const ToonTitle = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 1.3vw;
   font-weight: 600;
-  margin-top: 0.2vw;
-  margin-bottom: 0;
+  margin: 0;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
 `
 
 const ToonAuthor = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 1vw;
   font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0.2vw;
+  margin: 0;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
 `
 
 export default ToonItem;
