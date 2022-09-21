@@ -4,8 +4,9 @@ import styled from "styled-components";
 import {
   changeEmail,
   changePassword,
+  login,
+  fetchInfo,
 } from "../../features/accounts/loginSlice";
-import { login } from "../../features/accounts/loginSlice";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -16,9 +17,13 @@ function LoginPage() {
   function loginSubmit(e) {
     e.preventDefault();
     console.log(loginInfo);
-    dispatch(login(loginInfo)).then(() => {
-      navigate("/");
-    });
+    dispatch(login(loginInfo))
+      .then(() => {
+        dispatch(fetchInfo());
+      })
+      .then(() => {
+        navigate("/");
+      });
   }
 
   function onEmailHandler(e) {
