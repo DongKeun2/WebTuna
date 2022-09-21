@@ -234,6 +234,7 @@ SIMPLE_JWT = {
 =======
 
 # SECURITY     -   http     
+<<<<<<< HEAD
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = True #     SSL        SSL
 SESSION_COOKIE_SECURE = True #    https  cookie
@@ -243,3 +244,13 @@ SECURE_HSTS_PRELOAD = True # HSTS
 SECURE_HSTS_SECONDS = 60
 SECURE_CONTENT_TYPE_NOSNIFF = True
 >>>>>>> cc8563b (chore: ssl 관련 settings 추가)
+=======
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SECURE_SSL_REDIRECT = True #     SSL        SSL
+# SESSION_COOKIE_SECURE = True #    https  cookie
+# CSRF_COOKIE_SECURE = True #    https  cookie
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True #       https    
+# SECURE_HSTS_PRELOAD = True # HSTS 
+# SECURE_HSTS_SECONDS = 60
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+>>>>>>> 23dfc89 (chore: 잠시 주석처리)
