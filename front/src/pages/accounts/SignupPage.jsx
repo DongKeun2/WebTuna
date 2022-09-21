@@ -13,7 +13,6 @@ import {
   changeBirth,
   cleanupSignup,
 } from "../../features/accounts/signupSlice";
-import { SelectBtn } from "../../components/common/SelectBtn";
 import { useEffect } from "react";
 
 function SignupPage() {
