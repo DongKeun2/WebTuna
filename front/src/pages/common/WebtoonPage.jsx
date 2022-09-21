@@ -37,15 +37,19 @@ function WebtoonPage() {
 const ToonListBox = styled.div`
   display: grid;
   width: 90%;
-  height: 100%;
+  margin-bottom: 80px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0.5vw;
   border: solid 2px;
   border-radius: 0.5rem;
+  background-color: #FFF5C3;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `
 const EmptyBox = styled.div`
   height: 400px;
+  margin-bottom: 80px;
+  background-color: #FFF5C3;
 `
 
 export default WebtoonPage;
