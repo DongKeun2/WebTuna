@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const BASE_URL = 'http://j7a403.q.ssafy.io:8443/api'
+=======
+const BASE_URL = 'https://j7a403.q.ssafy.io:8443/api'
+>>>>>>> 65b58c3 (chore: API https 적용)
 
 const ACCOUNTS_URL = '/accounts'
 const WEBTOONS_URL = '/webtoons'
