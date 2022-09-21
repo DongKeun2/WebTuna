@@ -5,13 +5,14 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../features/accounts/loginSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 
 // 로그아웃 구현해야 함
 function Avatar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const myProfileImgNum = useSelector(
     (state) => state.login.currentUser
   ).profile_image_id;
@@ -83,7 +84,10 @@ function Avatar() {
         </Link>
         <MenuItem
           onClick={() => {
-            dispatch(logout());
+            dispatch(logout()).then(() => {
+              alert("로그아웃 됨 ^^");
+              navigate("/");
+            });
           }}
         >
           로그아웃

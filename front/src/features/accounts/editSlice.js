@@ -31,6 +31,7 @@ export const editSlice = createSlice({
   },
   extraReducers: {
     [checkPassword.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.possible = action.payload;
     },
   },

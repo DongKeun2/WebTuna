@@ -16,7 +16,11 @@ function EditPage() {
     const data = {
       password,
     };
-    dispatch(checkPassword(data));
+    dispatch(checkPassword(data)).then((res) => {
+      if (res.payload === false) {
+        alert("틀림요");
+      }
+    });
   }
 
   function onPasswordHandler(e) {

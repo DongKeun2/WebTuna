@@ -17,13 +17,16 @@ function LoginPage() {
   function loginSubmit(e) {
     e.preventDefault();
     console.log(loginInfo);
-    dispatch(login(loginInfo))
-      .then(() => {
-        dispatch(fetchInfo());
-      })
-      .then(() => {
-        navigate("/");
-      });
+    dispatch(login(loginInfo)).then((res) => {
+      if (res.error) {
+        alert("로그인 실패요");
+      } else {
+        dispatch(fetchInfo()).then(() => {
+          alert("성공요^^");
+          navigate("/");
+        });
+      }
+    });
   }
 
   function onEmailHandler(e) {
