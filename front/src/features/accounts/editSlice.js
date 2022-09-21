@@ -20,7 +20,11 @@ const checkPassword = createAsyncThunk(
 export const editSlice = createSlice({
   name: "edit",
   initialState: {
-    editInfo: {},
+    editInfo: {
+      password: "",
+      gender: "M",
+      birth: "",
+    },
     possible: false,
     password: "",
   },
