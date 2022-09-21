@@ -22,7 +22,12 @@ from .serializers import WebtoonSerializer, RatingSerializer
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator
+<<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
+=======
+from django.db.models import Q
+
+>>>>>>> 4681354 (feat: 웹툰 필터 api 구현 / 검색 기능 대소문자 구분 제거)
 # webtoon 데이터가공-Naver API : http://localhost:8000/webtoons/naver/week
 # Author -> Genre -> Tag -> Webtoon 순으로
 # @api_view(['GET'])
@@ -233,7 +238,6 @@ def webtoonDetail(request,webtoonId):
 
 page_cut = 20
 
-
 @api_view(['GET'])
 def webtoonList(request,pageNum):
     webtoon_list = Webtoon.objects.all().order_by('title')
@@ -246,19 +250,41 @@ def webtoonList(request,pageNum):
 def searchWebtoon(request,search,keyword,pageNum):
     webtoon_list = []
     if(search == "title"):
-        webtoon_list = Webtoon.objects.filter(title__contains=keyword).order_by('title')
+        webtoon_list = Webtoon.objects.filter(title__icontains=keyword).order_by('title')
     elif(search == "author"):
-        webtoon_list = Webtoon.objects.filter(authors__name__contains=keyword).order_by('title')
+        webtoon_list = Webtoon.objects.filter(authors__name__icontains=keyword).order_by('title')
             
 
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
     serializer = WebtoonSerializer(webtoons, many = True)
+<<<<<<< HEAD
     return Response(serializer.data, status.HTTP_200_OK)
 <<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 =======
+=======
+    return Response({'webtoonList':serializer.data}, status.HTTP_200_OK)
+>>>>>>> 4681354 (feat: 웹툰 필터 api 구현 / 검색 기능 대소문자 구분 제거)
 
+@api_view(['POST'])
+def filterWebtoon(request, pageNum):
+    platform_list = request.data['platform']
+    day_list = request.data['day']
+    genre_list = request.data['genre']
+    tag_list = request.data['tag']
+    
+    webtoon_list = Webtoon.objects.filter(
+        Q(platforms__in = platform_list) &
+        Q(days__in = day_list) &
+        Q(genres__in = genre_list) &
+        Q(tags__in = tag_list)
+    ).order_by('title')
+    
+    paginator = Paginator(webtoon_list, page_cut)
+    webtoons = paginator.get_page(int(pageNum))
+    serializer = WebtoonSerializer(webtoons, many = True)
+    return Response({'webtoonList':serializer.data}, status.HTTP_200_OK)
 
 @api_view(['POST'])
 def webtoonLike(request, webtoonId):

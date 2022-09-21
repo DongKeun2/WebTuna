@@ -10,5 +10,6 @@ urlpatterns = [
     path('<int:webtoonId>/rating/',views.webtoonRate),
     path('<int:webtoonId>/log/',views.webtoonLog),
     path('list/<int:pageNum>/',views.webtoonList),
+    path('filter/<int:pageNum>/', views.filterWebtoon),
     path('<search>/<keyword>/<int:pageNum>/',views.searchWebtoon),
 ]
