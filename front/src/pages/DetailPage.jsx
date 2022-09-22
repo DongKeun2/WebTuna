@@ -310,7 +310,7 @@ function DetailPage() {
                 </Author>
                 <RatingZone>
                   별점 ★ {averageRating.toFixed(1)}{" "}
-                  {(loginState === false || webToonInfo.is_rated === 1) ? null :
+                  {(loginState === null || webToonInfo.is_rated === 1) ? null :
                     <RatingButton onClick={switchModal}>별점 주기</RatingButton>}
                   {modal ? (
                     <ModalFrame _handleModal={switchModal}>
