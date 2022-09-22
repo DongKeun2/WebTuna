@@ -600,31 +600,12 @@ const OtherWebToon = styled.div`
   padding-bottom: 0.3vw;
 `;
 
-const OtherWebToonImage = styled.div`
-  background-color: white;
-  width: 100%;
-  height: 15vw;
-  border-top-left-radius: 0.8vw;
-  border-top-right-radius: 0.8vw;
-`;
-
 const OtherWebToonThumbnail = styled.img`
   object-fit: fill;
   width: 100%;
   height: 100%;
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
-`;
-
-const OtherWebToonInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-top: 0.2vw;
-  padding-bottom: 0.2vw;
-  background-color: white;
-  border-bottom-left-radius: 0.8vw;
-  border-bottom-right-radius: 0.8vw;
 `;
 
 const OtherWebToonTitle = styled.div`
