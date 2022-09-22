@@ -5,6 +5,10 @@ import django
 django.setup()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import json
+>>>>>>> 97b8855 (feat : 카카오페이지 db 업데이트)
 import urllib
 import requests
 import json
@@ -79,7 +83,7 @@ from bs4 import BeautifulSoup
 
 # ## 카카오 작가 데이터 넣기
 # Base_URL = 'https://korea-webtoon-api.herokuapp.com'
-# path = '/kakao'
+# path = '/kakao-page'
 # response = requests.get(Base_URL+path)
 # webtoons_popular = response.json()
 # authors = set()
@@ -97,6 +101,42 @@ from bs4 import BeautifulSoup
 #         Author.objects.create(
 #             name = author
 #         )
+
+# ## 카카오 줄거리 넣기
+
+# Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+# path = '/kakao'
+# response = requests.get(Base_URL+path)
+# webtoons_popular = response.json()
+# webtoons = Webtoon.objects.filter(summary='')
+# for webtoon in webtoons:
+#     webtoon_url = webtoon.page
+#     try: 
+#         headers = {'User-Agent':'mozilla/5.0'}
+#         data = requests.get(f'{webtoon_url}', headers=headers)
+#         soup = BeautifulSoup(data.text, 'html.parser')
+#         webtoon_summary = soup.select_one('head > meta:nth-child(6)')['content']
+#     except:
+#         webtoon_summary = ''
+#     webtoon.summary = webtoon_summary
+#     webtoon.save()
+
+
+# ## 카카오 줄거리 넣기
+# Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+# path = '/kakao'
+# response = requests.get(Base_URL+path)
+# webtoons_popular = response.json()
+# webtoons = Webtoon.objects.filter(summary='')
+# headers = {'User-Agent':'mozilla/5.0'}
+# for webtoon in webtoons:
+#     webtoon_url = webtoon.page
+#     webtoon_data_url = webtoon_url.split("/")
+#     webtoon_id = webtoon_data_url[-1]
+#     data = requests.get(f'https://gateway-kw.kakao.com/decorator/v1/decorator/contents/{webtoon_id}/profile', headers=headers)
+#     webtoon_summary = data.json()['data']['synopsis']
+#     webtoon.summary = webtoon_summary
+#     webtoon.save()
 
 
 # if __name__ == '__main__':
@@ -191,8 +231,6 @@ from bs4 import BeautifulSoup
 
 
 
-
-    
     
     # # 카카오 태그 크롤링
     # headers = {'User-Agent':'mozilla/5.0'}
@@ -448,4 +486,148 @@ webtoon_list = json.load(a)
 #             image_type5 = img_4,
 #             image_type6 = img_5,
 #         )
+<<<<<<< HEAD
 >>>>>>> 2ee8aa1 (fix: profile 수정)
+=======
+
+## 카카오페이지 장르 데이터
+# KakaoPageGenreChange = {
+#     ' 액션/무협':['액션','무협/사극'],
+#     ' 로맨스판타지':['로맨스','판타지'],
+#     ' 로맨스':'로맨스',
+#     ' 드라마':'드라마',
+#     ' 소년':'소년',
+#     ' BL': 'BL'
+#      }
+
+
+# Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+# path = '/kakao-page'
+# response = requests.get(Base_URL+path)
+# webtoons_popular = response.json()
+# webtoon_genres = set()
+# count = 0
+# print(len(webtoons_popular))
+# for webtoon in webtoons_popular:
+#     webtoon_url = webtoon['url']
+#     webtoon_id = webtoon_url.split('=')[-1]
+#     count += 1
+#     print(count)
+#     webtoon_except = []
+
+#     ## 카카오 페이지 장르 크롤링
+#     try: 
+#         headers = {'User-Agent':'mozilla/5.0'}
+#         data = requests.get(f'{webtoon_url}', headers=headers)
+#         soup = BeautifulSoup(data.text, 'html.parser')
+#         webtoon_genre_list = json.loads(soup.select_one('body > #__NEXT_DATA__').text)
+#         webtoon_genres.add(webtoon_genre_list['props']['pageProps']['initialState']['json']['contentHome']['fetching']['about'][f'{webtoon_id}']['data']['detail']['category'].split('|')[-1])
+#     except:
+#         webtoon_except.append(webtoon_id)
+
+# print(webtoon_genre_list['props']['pageProps']['initialState']['json']['contentHome']['fetching']['about']['46610003']['data']['detail']['category'].split('|')[-1])
+
+
+
+# Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+# path = '/kakao-page'
+# response = requests.get(Base_URL+path)
+# webtoons_popular = response.json()
+# count = 0
+# webtoon_except = []
+
+# for webtoon in webtoons_popular:
+#     webtoon_url = webtoon['url']
+#     webtoon_id = webtoon_url.split('=')[-1]
+#     count += 1
+#     print(count)
+#     if count == 10:
+#         break
+    
+
+#     ## 카카오 페이지 줄거리 크롤링
+#     try: 
+#         headers = {'User-Agent':'mozilla/5.0'}
+#         data = requests.get(f'{webtoon_url}', headers=headers)
+#         soup = BeautifulSoup(data.text, 'html.parser')
+#         webtoon_summary = soup.select_one('head > meta:nth-child(9)')['content']
+#         print(webtoon_summary)
+#     except:
+#         webtoon_except.append(webtoon_id)
+
+
+# ## 카카오 페이지 데이터 넣기
+# if __name__ == '__main__':
+#     weeks = { 0: "Mon", 1: "Tue", 2: "Wed", 3:"Thu",4:"Fri",5:"Sat",6:"Sun", 7: "Fin"}
+
+#     KakaoPageGenreChange = {
+#         ' 액션/무협':['액션','무협/사극'],
+#         ' 로맨스판타지':['로맨스','판타지'],
+#         ' 로맨스':['로맨스'],
+#         ' 드라마':['드라마'],
+#         ' 소년':['소년'],
+#         ' BL': ['BL']
+#         }
+
+#     Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+#     path = '/kakao-page'
+#     response = requests.get(Base_URL+path)
+#     webtoons_popular = response.json()
+
+#     for webtoon in webtoons_popular:
+#         webtoon_title = webtoon['title']
+#         webtoon_author = webtoon['author'].split(',')
+#         webtoon_url = webtoon['url']
+#         webtoon_img = webtoon['img']
+#         webtoon_platform = webtoon['service']
+#         webtoon_adult = webtoon['additional']['adult']
+#         webtoon_day = webtoon['week']
+#         webtoon_id = webtoon_url.split('=')[-1]
+
+
+
+#         ## 카카오 페이지 줄거리 크롤링
+#         try: 
+#             headers = {'User-Agent':'mozilla/5.0'}
+#             data = requests.get(f'{webtoon_url}', headers=headers)
+#             soup = BeautifulSoup(data.text, 'html.parser')
+#             webtoon_summary = soup.select_one('head > meta:nth-child(9)')['content']
+#         except:
+#             webtoon_summary = ''
+
+
+#         ## 카카오 페이지 장르 크롤링
+#         try:
+#             webtoon_genre_list = json.loads(soup.select_one('body > #__NEXT_DATA__').text)
+#             webtoon_genres = webtoon_genre_list['props']['pageProps']['initialState']['json']['contentHome']['fetching']['about'][f'{webtoon_id}']['data']['detail']['category'].split('|')[-1]
+#             webtoon_genres = KakaoPageGenreChange[webtoon_genres]
+
+#         except:
+#             webtoon_genres = []
+
+
+#         if Webtoon.objects.filter(title = webtoon_title).exists():
+#             kakaoWebtoon = Webtoon.objects.filter(title = webtoon_title).get()
+#             kakaoWebtoon.platforms.add(Platform.objects.get(name=webtoon_platform).platform_id)
+#         else:
+#             webtoon_data = Webtoon.objects.create(
+#                 title = webtoon_title,
+#                 thumbnail = webtoon_img,
+#                 page = webtoon_url,
+#                 adult = webtoon_adult,
+#                 view_count = 0,
+#                 summary = webtoon_summary,
+#             )
+
+#             for author in webtoon_author:
+#                 webtoon_data.authors.add(Author.objects.get(name = author).author_id)
+
+#             for week in webtoon_day:
+#                 webtoon_data.days.add(week+1)
+
+#             if webtoon_genres:
+#                 for genre in webtoon_genres:
+#                     webtoon_data.genres.add(Genre.objects.get(genre_type=genre).genre_id)
+            
+#             webtoon_data.platforms.add(Platform.objects.get(name=webtoon_platform).platform_id)
+>>>>>>> 97b8855 (feat : 카카오페이지 db 업데이트)
