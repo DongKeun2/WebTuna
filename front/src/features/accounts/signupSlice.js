@@ -56,6 +56,8 @@ export const singupSlice = createSlice({
     },
     isPossibleNickname: false,
     isPossibleEmail: false,
+
+    selectImg: [],
   },
   reducers: {
     changeEmail: (state, action) => {
@@ -75,6 +77,9 @@ export const singupSlice = createSlice({
     },
     changeBirth: (state, action) => {
       state.signupInfo.birth = action.payload;
+    },
+    changeSelectImg: (state, action) => {
+      state.selectImg = action.payload;
     },
   },
   extraReducers: {
@@ -101,6 +106,7 @@ export const {
   changePwdVerify,
   changeGender,
   changeBirth,
+  changeSelectImg,
 } = singupSlice.actions;
 
 export default singupSlice.reducer;
