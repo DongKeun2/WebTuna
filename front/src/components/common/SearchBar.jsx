@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import searchIcon from "../../assets/test/searchIcon.png";
-import { searchToons, changeKeyword } from "../../features/toons/searchSlice";
+import {
+  searchToons,
+  changeKeyword,
+  changeIsSearched,
+  changeIsLoading,
+} from "../../features/toons/searchSlice";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -10,17 +15,17 @@ function SearchBar() {
   const keyword = useSelector((state) => state.search.keyword);
   const [pages, setPages] = useState(0);
 
-  const webtoonList = useSelector((state) => state.search.toonList);
-
   function submitKeyword(e) {
     e.preventDefault();
     const data = {
       pages,
       keyword,
     };
+    dispatch(changeIsLoading(true));
     dispatch(searchToons(data)).then((res) => {
-      console.log(res);
-      console.log(webtoonList);
+      dispatch(changeIsLoading(false));
+      dispatch(changeIsSearched(true));
+      setPages(pages + 1);
     });
   }
 

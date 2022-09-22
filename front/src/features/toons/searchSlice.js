@@ -28,6 +28,7 @@ export const searchSlice = createSlice({
     toonList: [],
 
     possibleSearch: true,
+    isLoading: false,
     isSearched: false,
   },
   reducers: {
@@ -36,6 +37,12 @@ export const searchSlice = createSlice({
     },
     changePossibleSearch: (state, action) => {
       state.possibleSearch = action.payload;
+    },
+    changeIsSearched: (state, action) => {
+      state.isSearched = action.payload;
+    },
+    changeIsLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
   extraReducers: {
@@ -49,6 +56,11 @@ export const searchSlice = createSlice({
 
 export { searchToons };
 // Action creators are generated for each case reducer function
-export const { changeKeyword, changePossibleSearch } = searchSlice.actions;
+export const {
+  changeKeyword,
+  changePossibleSearch,
+  changeIsSearched,
+  changeIsLoading,
+} = searchSlice.actions;
 
 export default searchSlice.reducer;
