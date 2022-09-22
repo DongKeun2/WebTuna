@@ -76,17 +76,6 @@ export const singupSlice = createSlice({
     changeBirth: (state, action) => {
       state.signupInfo.birth = action.payload;
     },
-    cleanupSignup: (state) => {
-      state.signupInfo = {
-        email: "",
-        nickname: "",
-        password: "",
-        pwdVerify: "",
-        gender: "M",
-        birth: "",
-        liked_thumbnail: "1, 5",
-      };
-    },
   },
   extraReducers: {
     [checkEmail.fulfilled]: (state, action) => {
@@ -112,7 +101,6 @@ export const {
   changePwdVerify,
   changeGender,
   changeBirth,
-  cleanupSignup,
 } = singupSlice.actions;
 
 export default singupSlice.reducer;

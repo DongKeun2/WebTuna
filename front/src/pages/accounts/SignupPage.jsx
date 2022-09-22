@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -11,9 +11,8 @@ import {
   changePwdVerify,
   changeGender,
   changeBirth,
-  cleanupSignup,
 } from "../../features/accounts/signupSlice";
-import { useEffect } from "react";
+import { changePossibleSearch } from "../../features/toons/searchSlice";
 
 function SignupPage() {
   const dispatch = useDispatch();
@@ -21,8 +20,9 @@ function SignupPage() {
   const signupInfo = useSelector((state) => state.signup.signupInfo);
 
   useEffect(() => {
+    dispatch(changePossibleSearch(false));
     return () => {
-      dispatch(cleanupSignup());
+      dispatch(changePossibleSearch(true));
     };
   }, [dispatch]);
 

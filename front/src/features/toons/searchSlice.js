@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import api from "../../api";
-import getConfig from "../config";
 
 const searchToons = createAsyncThunk(
   "searchToons",
@@ -25,12 +24,18 @@ const searchToons = createAsyncThunk(
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
+    keyword: "",
     toonList: [],
+
     possibleSearch: true,
+    isSearched: false,
   },
   reducers: {
     changeKeyword: (state, action) => {
       state.keyword = action.payload;
+    },
+    changePossibleSearch: (state, action) => {
+      state.possibleSearch = action.payload;
     },
   },
   extraReducers: {
@@ -44,6 +49,6 @@ export const searchSlice = createSlice({
 
 export { searchToons };
 // Action creators are generated for each case reducer function
-export const { changeKeyword } = searchSlice.actions;
+export const { changeKeyword, changePossibleSearch } = searchSlice.actions;
 
 export default searchSlice.reducer;

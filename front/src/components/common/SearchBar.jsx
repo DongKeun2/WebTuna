@@ -35,6 +35,7 @@ function SearchBar() {
           type="text"
           placeholder="제목/작가로 검색해주세요."
           onChange={onKeywordHandler}
+          autoComplete="on"
           value={keyword}
         />
         <SearchIconBox>

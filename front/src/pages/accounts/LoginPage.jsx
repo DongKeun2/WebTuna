@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -7,10 +8,18 @@ import {
   login,
   fetchInfo,
 } from "../../features/accounts/loginSlice";
+import { changePossibleSearch } from "../../features/toons/searchSlice";
 
 function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(changePossibleSearch(false));
+    return () => {
+      dispatch(changePossibleSearch(true));
+    };
+  }, [dispatch]);
 
   const loginInfo = useSelector((state) => state.login.loginInfo);
 
