@@ -45,7 +45,7 @@ export const searchSlice = createSlice({
     [searchToons.fulfilled]: (state, action) => {
       console.log("데이터 받기 성공");
       console.log(action.payload);
-      state.webtoonList = action.payload;
+      state.toonList = action.payload;
     },
   },
 });
