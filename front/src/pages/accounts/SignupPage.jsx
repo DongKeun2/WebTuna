@@ -38,7 +38,7 @@ function SignupPage() {
     if (pw.length < 8 || pw.length > 20) {
       setPasswordError("8자리 ~ 20자리 이내로 입력해주세요.");
       return false;
-    } else if (pw.search(/\s/) != -1) {
+    } else if (pw.search(/\s/) !== -1) {
       setPasswordError("비밀번호는 공백 없이 입력해주세요.");
       return false;
     } else if (num < 0 || eng < 0 || spe < 0) {
@@ -106,14 +106,16 @@ function SignupPage() {
 
   function signupSubmit(e) {
     e.preventDefault();
+    console.log(signupInfo);
     if (
       signupInfo.gender &&
       signupInfo.birth.length >= 8 &&
       isPossibleEmail &&
       isPossibleNickname &&
-      passwordError &&
+      !passwordError &&
       signupInfo.password === signupInfo.pwdVerify
     ) {
+      console.log(1);
       navigate("/addinfo");
     }
   }
@@ -121,7 +123,7 @@ function SignupPage() {
     <PageBox>
       <SignupBox>
         <PageTitle>회원가입</PageTitle>
-        <FormGroup onSubmit={signupSubmit}>
+        <FormGroup>
           <FormItem>
             <FormTitle>이메일</FormTitle>
             <SignupInput
@@ -219,6 +221,7 @@ function SignupPage() {
                 !passwordError &&
                 signupInfo.password === signupInfo.pwdVerify
               }
+              onClick={signupSubmit}
             >
               다음
             </SubmitBtn>
