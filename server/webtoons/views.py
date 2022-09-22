@@ -249,14 +249,17 @@ from webtoons import serializers
 
 @api_view(['GET'])
 def webtoonDetail(request,webtoonId):
-    
     webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
+    flag = 0
+
+    if webtoon.webtoon_ratings.filter(user_id = request.user.pk).exists():
+        flag = 1
 
     webtoon.view_count += 1
     webtoon.save()
 
     serializer = WebtoonSerializer(webtoon)
-    return Response(serializer.data, status.HTTP_200_OK)
+    return Response({'data':serializer.data, 'is_rated':flag}, status.HTTP_200_OK)
 
 
 page_cut = 20
