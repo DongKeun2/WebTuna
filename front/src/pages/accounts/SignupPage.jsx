@@ -28,7 +28,27 @@ function SignupPage() {
 
   const [isCheckNickname, setIsCheckNickname] = useState(false);
   const [isCheckEmail, setIsCheckEmail] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [passwordError, setPasswordError] = useState("비밀번호를 입력해주세요");
+
+  function chkPW(pw) {
+    var num = pw.search(/[0-9]/g);
+    var eng = pw.search(/[a-z]/gi);
+    var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+    if (pw.length < 8 || pw.length > 20) {
+      setPasswordError("8자리 ~ 20자리 이내로 입력해주세요.");
+      return false;
+    } else if (pw.search(/\s/) != -1) {
+      setPasswordError("비밀번호는 공백 없이 입력해주세요.");
+      return false;
+    } else if (num < 0 || eng < 0 || spe < 0) {
+      setPasswordError("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+      return false;
+    } else {
+      setPasswordError("");
+      return true;
+    }
+  }
 
   const isPossibleNickname = useSelector(
     (state) => state.signup.isPossibleNickname
@@ -46,6 +66,7 @@ function SignupPage() {
 
   function onPasswordHandler(e) {
     e.preventDefault();
+    chkPW(e.target.value);
     dispatch(changePassword(e.target.value));
   }
 
@@ -85,7 +106,16 @@ function SignupPage() {
 
   function signupSubmit(e) {
     e.preventDefault();
-    navigate("/addinfo");
+    if (
+      signupInfo.gender &&
+      signupInfo.birth.length >= 8 &&
+      isPossibleEmail &&
+      isPossibleNickname &&
+      passwordError &&
+      signupInfo.password === signupInfo.pwdVerify
+    ) {
+      navigate("/addinfo");
+    }
   }
   return (
     <PageBox>
@@ -142,9 +172,7 @@ function SignupPage() {
               error={signupInfo.password !== signupInfo.pwdVerify}
             />
           </FormItem>
-          <ConfirmMsg error={true}>
-            {passwordError && "비밀번호를 확인해주세요."}
-          </ConfirmMsg>
+          <ConfirmMsg error={true}>{passwordError}</ConfirmMsg>
           <FormItem>
             <FormTitle>비밀번호 확인</FormTitle>
             <SignupInput
@@ -182,7 +210,18 @@ function SignupPage() {
             </FormItem>
           </SelectBox>
           <BtnBox>
-            <SubmitBtn>다음</SubmitBtn>
+            <SubmitBtn
+              active={
+                signupInfo.gender &&
+                signupInfo.birth.length >= 8 &&
+                isPossibleEmail &&
+                isPossibleNickname &&
+                !passwordError &&
+                signupInfo.password === signupInfo.pwdVerify
+              }
+            >
+              다음
+            </SubmitBtn>
           </BtnBox>
         </FormGroup>
       </SignupBox>
@@ -324,7 +363,7 @@ const BtnBox = styled.div`
 const SubmitBtn = styled.button`
   font-size: 20px;
   font-weight: bold;
-  background-color: #feec91;
+  background-color: ${(props) => (props.active ? "#feec91" : "AFAFAF")};
   padding: 10px 20px;
   border-radius: 15px;
   border: 3px solid white;
@@ -333,7 +372,7 @@ const SubmitBtn = styled.button`
   width: "50px";
   height: "30px";
   :hover {
-    cursor: pointer;
+    cursor: ${(props) => props.active && "pointer"};
   }
 `;
 
