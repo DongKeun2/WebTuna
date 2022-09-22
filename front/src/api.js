@@ -53,6 +53,8 @@ const TOON_LIST_URL = 'list/'
 const DETAIL_URL = '/detail'
 >>>>>>> 7bb19ad (feat: detai l페이지 UI 구성)
 
+const SEARCH_URL = "search/";
+
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
   logout: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGOUT_URL,
@@ -88,6 +90,10 @@ const api = {
 =======
 =======
   detail: (webtoonId) => BASE_URL + WEBTOONS_URL + webtoonId + DETAIL_URL,
+
+  //searchSlice
+  searchToons: (pageNum) =>
+    BASE_URL + WEBTOONS_URL + SEARCH_URL + pageNum + "/",
 };
 >>>>>>> 6b4f421 (fix: api 수정)
 
