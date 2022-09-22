@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { detail, noLoginDetail, webtoonLike, webtoonLog, webtoonRating } from "../features/details/detailSlice";
+import {
+  detail,
+  noLoginDetail,
+  webtoonLike,
+  webtoonLog,
+  webtoonRating,
+} from "../features/details/detailSlice";
 import { fetchInfo } from "../features/accounts/loginSlice";
 import styled from "styled-components";
 import BookMark from "../assets/detail/BookMark.png";
@@ -310,8 +316,9 @@ function DetailPage() {
                 </Author>
                 <RatingZone>
                   별점 ★ {averageRating.toFixed(1)}{" "}
-                  {(loginState === null || webToonInfo.is_rated === 1) ? null :
-                    <RatingButton onClick={switchModal}>별점 주기</RatingButton>}
+                  {loginState === null || webToonInfo.is_rated === 1 ? null : (
+                    <RatingButton onClick={switchModal}>별점 주기</RatingButton>
+                  )}
                   {modal ? (
                     <ModalFrame _handleModal={switchModal}>
                       <h1>빛나라 지식의 별</h1>
@@ -339,7 +346,9 @@ function DetailPage() {
                 </RatingZone>
                 <Genre>
                   장르{" "}
-                  {webToonInfo.data.genres.map((genre) => genre.genre_type + " ")}
+                  {webToonInfo.data.genres.map(
+                    (genre) => genre.genre_type + " "
+                  )}
                 </Genre>
                 <Day>
                   {webToonInfo.data.days[0].day_id === 8
@@ -352,13 +361,24 @@ function DetailPage() {
                   <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
                 </WebToonLink>
                 <Like>
-                  {userData.liked_webtoons === undefined ? null :
-                    userData.liked_webtoons.includes(Number(toonId)) ? (
-                      <img src={FullHeart} alt="찜" width="50px" onClick={heartClick}></img>
-                    ) : (
-                      <img src={EmptyHeart} alt="노찜" width="50px" onClick={heartClick}></img>
-                    )
-                  }
+                  {userData.liked_webtoons ===
+                  undefined ? null : userData.liked_webtoons.includes(
+                      Number(toonId)
+                    ) ? (
+                    <img
+                      src={FullHeart}
+                      alt="찜"
+                      width="50px"
+                      onClick={heartClick}
+                    ></img>
+                  ) : (
+                    <img
+                      src={EmptyHeart}
+                      alt="노찜"
+                      width="50px"
+                      onClick={heartClick}
+                    ></img>
+                  )}
                 </Like>
                 <Summary>{webToonInfo.data.summary}</Summary>
               </SubInfo>
@@ -386,18 +406,20 @@ function DetailPage() {
                   <h1>텅~</h1>
                 ) : (
                   otherWebToons.map((otherWebToon) => (
-                    <OtherWebToon key={otherWebToon.webtoon_id} id={otherWebToon.webtoon_id}>
+                    <OtherWebToon
+                      key={otherWebToon.webtoon_id}
+                      id={otherWebToon.webtoon_id}
+                    >
                       <OtherWebToonThumbnail
                         src={otherWebToon.thumbnail}
                         alt="같은 작가의 다른 작품 이미지"
-                        onClick={moveDetail} ></OtherWebToonThumbnail>
+                        onClick={moveDetail}
+                      ></OtherWebToonThumbnail>
                       <OtherWebToonTitle onClick={moveDetail}>
                         {otherWebToon.title}
                       </OtherWebToonTitle>
                       <OtherWebToonAuthor onClick={moveDetail}>
-                        {otherWebToon.author_name.map(
-                          (author) => author + " "
-                        )}
+                        {otherWebToon.author_name.map((author) => author + " ")}
                       </OtherWebToonAuthor>
                     </OtherWebToon>
                   ))
@@ -433,9 +455,8 @@ function DetailPage() {
             </WebToonAnalysisZone>
           </BackGround>
         </BackBorder>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 }
 
@@ -497,10 +518,10 @@ const RatingButton = styled.div`
   margin-left: 80px;
   border: 1px solid black;
   border-radius: 20px;
-  background-color:white;
-  padding:5px;
-  &:hover{  
-    background-color : skyblue;
+  background-color: white;
+  padding: 5px;
+  &:hover {
+    background-color: skyblue;
   }
 `;
 
@@ -515,16 +536,16 @@ const WebToonLink = styled.div`
 `;
 
 const LinkButton = styled.div`
-display: inline;
-cursor: pointer;
-border: 1px solid black;
-border-radius: 20px;
-background-color:white;
-padding:5px;
-&:hover{  
-  background-color : skyblue;
-}
-`
+  display: inline;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: white;
+  padding: 5px;
+  &:hover {
+    background-color: skyblue;
+  }
+`;
 
 const Like = styled.div`
   display: inline;

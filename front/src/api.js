@@ -44,7 +44,11 @@ const SIGNUP_URL = "signup/";
 const EMAIL_URL = "email/";
 const NICKNAME_URL = "nickname/";
 const PASSWORD_URL = "check/";
+<<<<<<< HEAD
 const EDIT_URL = "update/";
+=======
+const PROFILE_URL = "profile/";
+>>>>>>> 4ca15ff (feat: 프로필 페이지 껍데기 구현 및 API  연동)
 
 const SEARCH_IMG_URL = "search/image/";
 >>>>>>> 6e82ed7 (feat: toonbti 질문&보기 구현)
@@ -68,6 +72,7 @@ const RATING_URL = "rating/";
 >>>>>>> 98c54b9 (feat: Detail 페이지 별점기능 찜기능 구현)
 
 const api = {
+  //loginSlice
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
   logout: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGOUT_URL,
   fetchInfo: () => BASE_URL + ACCOUNTS_URL + USER_URL + INFO_URL,
@@ -80,6 +85,9 @@ const api = {
   // editSlice
   checkPassword: () => BASE_URL + ACCOUNTS_URL + USER_URL + PASSWORD_URL,
   edit: () => BASE_URL + ACCOUNTS_URL + USER_URL + EDIT_URL,
+
+  //profileSlice
+  profile: () => BASE_URL + ACCOUNTS_URL + USER_URL + PROFILE_URL,
 
   //uploadSlice
   fetchUpload: () => BASE_URL + WEBTOONS_URL + SEARCH_IMG_URL,
