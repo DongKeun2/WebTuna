@@ -228,6 +228,7 @@ SIMPLE_JWT = {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f81c1cd (fix: 회원 로그인/로그아웃 등 수정)
 =======
 >>>>>>> f476a7b (fix : database 코드 수정)
@@ -254,3 +255,15 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # SECURE_HSTS_SECONDS = 60
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 >>>>>>> 23dfc89 (chore: 잠시 주석처리)
+=======
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS' :{
+        'Bearer':{
+            'type':'apiKey',
+            'name':'Authorization',
+            'in':'header'
+        }
+    }
+}
+>>>>>>> 259428a (chore: swagger authorization 설정 추가)
