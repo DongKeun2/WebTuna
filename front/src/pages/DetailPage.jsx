@@ -26,7 +26,7 @@ function DetailPage() {
   // const [modalRating, setModalRating] = useState(5);
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
   let userData = useSelector((state) => state.login.currentUser);
-  let loginState = useSelector((state) => state.login.loginState);
+  let loginState = sessionStorage.getItem("token");
   const navigate = useNavigate();
 
   function getDetail() {
