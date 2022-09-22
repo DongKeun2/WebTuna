@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { detail } from "../features/details/detailSlice";
+import { detail, webtoonLike, webtoonLog, webtoonRating } from "../features/details/detailSlice";
+import { fetchInfo } from "../features/accounts/loginSlice";
 import styled from "styled-components";
 import BookMark from "../assets/detail/BookMark.png";
 import ChartShow from "../components/common/Chart";
@@ -22,8 +23,7 @@ function DetailPage() {
   const [ratingGraphData, setRatingGraphData] = useState();
   const [averageRating, setAverageRating] = useState();
   const [modal, setModal] = useState(false);
-  const [modalRating, setModalRating] = useState(3);
-  // const [userData, setUserData] = useState();
+  // const [modalRating, setModalRating] = useState(5);
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
   const userData = useSelector((state) => state.login.currentUser);
 
@@ -65,23 +65,23 @@ function DetailPage() {
       let tempSet = [...new Set([...tempArr])];
       tempSet = tempSet.filter((temp) => temp.webtoon_id !== Number(toonId));
       setOtherWebToons(tempSet);
-      // setUserData(JSON.parse(sessionStorage.getItem("userData")));
       setIsLoading(false);
       console.log(res.payload);
+      console.log(userData);
     });
   }
 
   function getAverageRating(data) {
-    let average = 0;
+    let sum = 0;
     let total = 0;
-    for (let i = 0; i < 10; i++) {
-      average += data.webtoon_rate[i] * (0.5 * i);
+    for (let i = 0; i < 11; i++) {
+      sum += data.webtoon_rate[i] * (0.5 * i);
       total += data.webtoon_rate[i];
     }
     if (total === 0) {
       return 0;
     }
-    return average / total;
+    return sum / total;
   }
 
   function switchModal() {
@@ -89,8 +89,45 @@ function DetailPage() {
   }
 
   function changeRating(e) {
-    setModalRating(e.target.value);
+    // setModalRating(e.target.value);
+    let data = { toonId, rating: e.target.value };
+    console.log(data);
+    dispatch(webtoonRating(data)).then((res) => {
+      if (res.error) {
+        console.log("실패");
+      } else {
+        dispatch(fetchInfo()).then(() => {
+          console.log("평점 주기 성공");
+        });
+      }
+    });
+    getDetail();
     setModal(false);
+  }
+
+  function heartClick() {
+    dispatch(webtoonLike(toonId)).then((res) => {
+      if (res.error) {
+        console.log("실패");
+      } else {
+        dispatch(fetchInfo()).then(() => {
+          console.log("하트 스위치~");
+        });
+      }
+    });
+  }
+
+  function logAndLink() {
+    dispatch(webtoonLog(toonId)).then((res) => {
+      if (res.error) {
+        console.log("실패");
+      } else {
+        dispatch(fetchInfo()).then(() => {
+          console.log("로그 남기기 ㅋ");
+        });
+      }
+    });
+    window.open(webToonInfo.page);
   }
 
   useEffect(() => {
@@ -259,16 +296,17 @@ function DetailPage() {
               </Info>
               <SubInfo>
                 <WebToonLink>
-                  <a href={webToonInfo.page} target="_blank" rel="noreferrer">
-                    웹툰 보러가기
-                  </a>
+                  <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
                 </WebToonLink>
                 <Like>
-                  {userData.liked_webtoons.includes(Number(toonId)) ? (
-                    <img src={FullHeart} alt="찜" width="50px"></img>
-                  ) : (
-                    <img src={EmptyHeart} alt="노찜" width="50px"></img>
-                  )}
+                  {userData.liked_webtoons === undefined ? null :
+                    userData.liked_webtoons.includes(Number(toonId)) ? (
+                      <img src={FullHeart} alt="찜" width="50px" onClick={heartClick}></img>
+                    ) : (
+                      <img src={EmptyHeart} alt="노찜" width="50px" onClick={heartClick}></img>
+                    )
+                  }
+
                 </Like>
                 <Summary>{webToonInfo.summary}</Summary>
               </SubInfo>
@@ -404,9 +442,17 @@ const RatingZone = styled.h2`
   margin-top: 80px;
 `;
 
-const RatingButton = styled.button`
+const RatingButton = styled.div`
+  display: inline;
   cursor: pointer;
   margin-left: 80px;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color:white;
+  padding:5px;
+  &:hover{  
+    background-color : skyblue;
+  }
 `;
 
 const Genre = styled.h2``;
@@ -418,6 +464,18 @@ const Day = styled.h2`
 const WebToonLink = styled.div`
   display: inline;
 `;
+
+const LinkButton = styled.div`
+display: inline;
+cursor: pointer;
+border: 1px solid black;
+border-radius: 20px;
+background-color:white;
+padding:5px;
+&:hover{  
+  background-color : skyblue;
+}
+`
 
 const Like = styled.div`
   display: inline;

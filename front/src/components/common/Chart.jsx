@@ -3,7 +3,6 @@ import { Bar, Pie, Radar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
 const ChartShow = (props) => {
-  console.log(props.data.width);
 
   // ${props => props.data.datasets[0].marginleft}
   const data = props.data;
@@ -14,7 +13,7 @@ const ChartShow = (props) => {
   const margintop = data.margintop;
   const marginleft = data.marginleft;
   const size = { width, marginleft, margintop };
-  console.log(size);
+
 
   return (
     <Container data={size}>

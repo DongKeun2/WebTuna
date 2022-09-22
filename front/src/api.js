@@ -47,6 +47,7 @@ const SEARCH_IMG_URL = "search/image/";
 const TOON_LIST_URL = "list/";
 
 const TOONBTI_URL = "games/question/";
+<<<<<<< HEAD
 
 const TOON_LIST_URL = 'list/'
 =======
@@ -54,6 +55,12 @@ const DETAIL_URL = '/detail'
 >>>>>>> 7bb19ad (feat: detai l페이지 UI 구성)
 
 const SEARCH_URL = "search/";
+=======
+const DETAIL_URL = "detail/";
+const LIKE_URL = "like/";
+const LOG_URL = "log/";
+const RATING_URL = "rating/";
+>>>>>>> 98c54b9 (feat: Detail 페이지 별점기능 찜기능 구현)
 
 const api = {
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
@@ -83,6 +90,7 @@ const api = {
 
   //detailSlice
 <<<<<<< HEAD
+<<<<<<< HEAD
   detail:(webtoonId) => BASE_URL + WEBTOONS_URL + '/' + webtoonId + DETAIL_URL,
 >>>>>>> 7bb19ad (feat: detai l페이지 UI 구성)
 }
@@ -90,6 +98,16 @@ const api = {
 =======
 =======
   detail: (webtoonId) => BASE_URL + WEBTOONS_URL + webtoonId + DETAIL_URL,
+=======
+  detail: (webtoonId) => BASE_URL + WEBTOONS_URL + webtoonId + "/" + DETAIL_URL,
+  webtoonLike: (webtoonId) =>
+    BASE_URL + WEBTOONS_URL + webtoonId + "/" + LIKE_URL,
+  webtoonLog: (webtoonId) =>
+    BASE_URL + WEBTOONS_URL + webtoonId + "/" + LOG_URL,
+  webtoonRating: (webtoonId) =>
+    BASE_URL + WEBTOONS_URL + webtoonId + "/" + RATING_URL,
+};
+>>>>>>> 98c54b9 (feat: Detail 페이지 별점기능 찜기능 구현)
 
   //searchSlice
   searchToons: (pageNum) =>
