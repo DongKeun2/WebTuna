@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import searchIcon from "../../assets/test/searchIcon.png";
 import {
   searchToons,
   changeKeyword,
-  changeIsSearched,
   changeIsLoading,
 } from "../../features/toons/searchSlice";
 
 function SearchBar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const keyword = useSelector((state) => state.search.keyword);
   const [pages, setPages] = useState(0);
@@ -24,7 +25,7 @@ function SearchBar() {
     dispatch(changeIsLoading(true));
     dispatch(searchToons(data)).then((res) => {
       dispatch(changeIsLoading(false));
-      dispatch(changeIsSearched(true));
+      navigate(`/search/${keyword}`);
       setPages(pages + 1);
     });
   }
