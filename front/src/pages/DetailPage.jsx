@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { detail, webtoonLike, webtoonLog, webtoonRating } from "../features/details/detailSlice";
+import { useParams, useNavigate } from "react-router-dom";
+import { detail, noLoginDetail, webtoonLike, webtoonLog, webtoonRating } from "../features/details/detailSlice";
 import { fetchInfo } from "../features/accounts/loginSlice";
 import styled from "styled-components";
 import BookMark from "../assets/detail/BookMark.png";
@@ -14,7 +14,7 @@ import FullHeart from "../assets/detail/FullHeart.png";
 import EmptyHeart from "../assets/detail/EmptyHeart.png";
 
 function DetailPage() {
-  const { toonId } = useParams();
+  let { toonId } = useParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [webToonInfo, setWebToonInfo] = useState();
@@ -25,50 +25,95 @@ function DetailPage() {
   const [modal, setModal] = useState(false);
   // const [modalRating, setModalRating] = useState(5);
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
-  const userData = useSelector((state) => state.login.currentUser);
+  let userData = useSelector((state) => state.login.currentUser);
+  let loginState = useSelector((state) => state.login.loginState);
+  const navigate = useNavigate();
 
   function getDetail() {
-    dispatch(detail(toonId)).then((res) => {
-      setWebToonInfo(res.payload);
-      setPaintGraphData([
-        res.payload.image_type1 / 2 + 15,
-        res.payload.image_type2 / 2 + 15,
-        res.payload.image_type3 / 2 + 15,
-        res.payload.image_type4 / 2 + 15,
-        res.payload.image_type5 / 2 + 15,
-        res.payload.image_type6 / 2 + 15,
-      ]);
-      setRatingGraphData([
-        res.payload.webtoon_rate[0],
-        res.payload.webtoon_rate[1],
-        res.payload.webtoon_rate[2],
-        res.payload.webtoon_rate[3],
-        res.payload.webtoon_rate[4],
-        res.payload.webtoon_rate[5],
-        res.payload.webtoon_rate[6],
-        res.payload.webtoon_rate[7],
-        res.payload.webtoon_rate[8],
-        res.payload.webtoon_rate[9],
-        res.payload.webtoon_rate[10],
-      ]);
-      setAverageRating(getAverageRating(res.payload));
-      let tempArr = [];
-      for (let i = 0; i < res.payload.authors.length; i++) {
-        for (
-          let j = 0;
-          j < res.payload.authors[i].author_webtoons.length;
-          j++
-        ) {
-          tempArr.push(res.payload.authors[i].author_webtoons[j]);
+    if (!loginState) {
+      dispatch(noLoginDetail(toonId)).then((res) => {
+        console.log(res.payload.is_rated + "비로그인");
+        console.log(res.payload);
+        setWebToonInfo(res.payload);
+        setPaintGraphData([
+          res.payload.data.image_type1 / 2 + 15,
+          res.payload.data.image_type2 / 2 + 15,
+          res.payload.data.image_type3 / 2 + 15,
+          res.payload.data.image_type4 / 2 + 15,
+          res.payload.data.image_type5 / 2 + 15,
+          res.payload.data.image_type6 / 2 + 15,
+        ]);
+        setRatingGraphData([
+          res.payload.data.webtoon_rate[0],
+          res.payload.data.webtoon_rate[1],
+          res.payload.data.webtoon_rate[2],
+          res.payload.data.webtoon_rate[3],
+          res.payload.data.webtoon_rate[4],
+          res.payload.data.webtoon_rate[5],
+          res.payload.data.webtoon_rate[6],
+          res.payload.data.webtoon_rate[7],
+          res.payload.data.webtoon_rate[8],
+          res.payload.data.webtoon_rate[9],
+          res.payload.data.webtoon_rate[10],
+        ]);
+        setAverageRating(getAverageRating(res.payload.data));
+        let tempArr = [];
+        for (let i = 0; i < res.payload.data.authors.length; i++) {
+          for (
+            let j = 0;
+            j < res.payload.data.authors[i].author_webtoons.length;
+            j++
+          ) {
+            tempArr.push(res.payload.data.authors[i].author_webtoons[j]);
+          }
         }
-      }
-      let tempSet = [...new Set([...tempArr])];
-      tempSet = tempSet.filter((temp) => temp.webtoon_id !== Number(toonId));
-      setOtherWebToons(tempSet);
-      setIsLoading(false);
-      console.log(res.payload);
-      console.log(userData);
-    });
+        let tempSet = [...new Set([...tempArr])];
+        tempSet = tempSet.filter((temp) => temp.webtoon_id !== Number(toonId));
+        setOtherWebToons(tempSet);
+        setIsLoading(false);
+      });
+    } else {
+      dispatch(detail(toonId)).then((res) => {
+        console.log(res.payload.is_rated + "로그인");
+        setWebToonInfo(res.payload);
+        setPaintGraphData([
+          res.payload.data.image_type1 / 2 + 15,
+          res.payload.data.image_type2 / 2 + 15,
+          res.payload.data.image_type3 / 2 + 15,
+          res.payload.data.image_type4 / 2 + 15,
+          res.payload.data.image_type5 / 2 + 15,
+          res.payload.data.image_type6 / 2 + 15,
+        ]);
+        setRatingGraphData([
+          res.payload.data.webtoon_rate[0],
+          res.payload.data.webtoon_rate[1],
+          res.payload.data.webtoon_rate[2],
+          res.payload.data.webtoon_rate[3],
+          res.payload.data.webtoon_rate[4],
+          res.payload.data.webtoon_rate[5],
+          res.payload.data.webtoon_rate[6],
+          res.payload.data.webtoon_rate[7],
+          res.payload.data.webtoon_rate[8],
+          res.payload.data.webtoon_rate[9],
+          res.payload.data.webtoon_rate[10],
+        ]);
+        setAverageRating(getAverageRating(res.payload.data));
+        let tempArr = [];
+        for (let i = 0; i < res.payload.data.authors.length; i++) {
+          for (
+            let j = 0;
+            j < res.payload.data.authors[i].author_webtoons.length;
+            j++
+          ) {
+            tempArr.push(res.payload.data.authors[i].author_webtoons[j]);
+          }
+        }
+        let tempSet = [...new Set([...tempArr])];
+        tempSet = tempSet.filter((temp) => temp.webtoon_id !== Number(toonId));
+        setOtherWebToons(tempSet);
+        setIsLoading(false);
+      });
+    }
   }
 
   function getAverageRating(data) {
@@ -98,10 +143,11 @@ function DetailPage() {
       } else {
         dispatch(fetchInfo()).then(() => {
           console.log("평점 주기 성공");
+          getDetail();
         });
       }
     });
-    getDetail();
+
     setModal(false);
   }
 
@@ -127,7 +173,13 @@ function DetailPage() {
         });
       }
     });
-    window.open(webToonInfo.page);
+    window.open(webToonInfo.data.page);
+  }
+
+  function moveDetail(e) {
+    toonId = e.target.parentNode.id;
+    navigate(`/detail/${toonId}`);
+    getDetail();
   }
 
   useEffect(() => {
@@ -247,18 +299,19 @@ function DetailPage() {
             <DetailZone>
               <Thumbnail>
                 <ThumbnailImage
-                  src={webToonInfo.thumbnail}
+                  src={webToonInfo.data.thumbnail}
                   alt="썸네일"
                 ></ThumbnailImage>
               </Thumbnail>
               <Info>
-                <Title>{webToonInfo.title}</Title>
+                <Title>{webToonInfo.data.title}</Title>
                 <Author>
-                  {webToonInfo.authors.map((author) => author.name + " ")}
+                  {webToonInfo.data.authors.map((author) => author.name + " ")}
                 </Author>
                 <RatingZone>
                   별점 ★ {averageRating.toFixed(1)}{" "}
-                  <RatingButton onClick={switchModal}>별점 주기</RatingButton>
+                  {(loginState === false || webToonInfo.is_rated === 1) ? null :
+                    <RatingButton onClick={switchModal}>별점 주기</RatingButton>}
                   {modal ? (
                     <ModalFrame _handleModal={switchModal}>
                       <h1>빛나라 지식의 별</h1>
@@ -286,12 +339,12 @@ function DetailPage() {
                 </RatingZone>
                 <Genre>
                   장르{" "}
-                  {webToonInfo.genres.map((genre) => genre.genre_type + " ")}
+                  {webToonInfo.data.genres.map((genre) => genre.genre_type + " ")}
                 </Genre>
                 <Day>
-                  {webToonInfo.days[0].day_id === 8
+                  {webToonInfo.data.days[0].day_id === 8
                     ? "완결 웹툰"
-                    : `${day[webToonInfo.days[0].day_id]}요일 연재`}
+                    : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
                 </Day>
               </Info>
               <SubInfo>
@@ -306,13 +359,12 @@ function DetailPage() {
                       <img src={EmptyHeart} alt="노찜" width="50px" onClick={heartClick}></img>
                     )
                   }
-
                 </Like>
-                <Summary>{webToonInfo.summary}</Summary>
+                <Summary>{webToonInfo.data.summary}</Summary>
               </SubInfo>
             </DetailZone>
             <TagZone>
-              {webToonInfo.tags.map((tag) => (
+              {webToonInfo.data.tags.map((tag) => (
                 <Tag key={tag.tag_id}>
                   <BookMarkImage>
                     <img src={BookMark} alt="북마크" width="20px"></img>
@@ -334,23 +386,19 @@ function DetailPage() {
                   <h1>텅~</h1>
                 ) : (
                   otherWebToons.map((otherWebToon) => (
-                    <OtherWebToon key={otherWebToon.webtoon_id}>
-                      <OtherWebToonImage>
-                        <OtherWebToonThumbnail
-                          src={otherWebToon.thumbnail}
-                          alt="같은 작가의 다른 작품 이미지"
-                        ></OtherWebToonThumbnail>
-                      </OtherWebToonImage>
-                      <OtherWebToonInfo>
-                        <OtherWebToonTitle>
-                          {otherWebToon.title}
-                        </OtherWebToonTitle>
-                        <OtherWebToonAuthor>
-                          {otherWebToon.author_name.map(
-                            (author) => author + " "
-                          )}
-                        </OtherWebToonAuthor>
-                      </OtherWebToonInfo>
+                    <OtherWebToon key={otherWebToon.webtoon_id} id={otherWebToon.webtoon_id}>
+                      <OtherWebToonThumbnail
+                        src={otherWebToon.thumbnail}
+                        alt="같은 작가의 다른 작품 이미지"
+                        onClick={moveDetail} ></OtherWebToonThumbnail>
+                      <OtherWebToonTitle onClick={moveDetail}>
+                        {otherWebToon.title}
+                      </OtherWebToonTitle>
+                      <OtherWebToonAuthor onClick={moveDetail}>
+                        {otherWebToon.author_name.map(
+                          (author) => author + " "
+                        )}
+                      </OtherWebToonAuthor>
                     </OtherWebToon>
                   ))
                 )}
@@ -385,8 +433,9 @@ function DetailPage() {
             </WebToonAnalysisZone>
           </BackGround>
         </BackBorder>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 

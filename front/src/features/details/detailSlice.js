@@ -7,6 +7,19 @@ const detail = createAsyncThunk(
   "detail",
   async (toonId, { rejectWithValue }) => {
     try {
+      const res = await axios.get(api.detail(toonId), getConfig());
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const noLoginDetail = createAsyncThunk(
+  "noLoginDetail",
+  async (toonId, { rejectWithValue }) => {
+    try {
       const res = await axios.get(api.detail(toonId), {});
       return res.data;
     } catch (err) {
@@ -78,6 +91,14 @@ export const detailSlice = createSlice({
       console.log("디테일 실패 ㅠㅠ");
       console.log(action.payload);
     },
+    [noLoginDetail.fulfilled]: (action) => {
+      console.log("비로그인 디테일 성공");
+      console.log(action.payload);
+    },
+    [noLoginDetail.rejected]: (action) => {
+      console.log("비로그인 디테일 실패 ㅠㅠ");
+      console.log(action.payload);
+    },
     [webtoonLike.fulfilled]: (action) => {
       console.log("좋아요 성공");
       console.log(action.payload);
@@ -105,7 +126,7 @@ export const detailSlice = createSlice({
   },
 });
 
-export { detail, webtoonLike, webtoonLog, webtoonRating };
+export { detail, noLoginDetail, webtoonLike, webtoonLog, webtoonRating };
 // Action creators are generated for each case reducer function
 export const { changeWebtoonId } = detailSlice.actions;
 

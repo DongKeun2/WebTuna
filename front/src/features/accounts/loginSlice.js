@@ -24,7 +24,7 @@ const fetchInfo = createAsyncThunk(
       console.log(err);
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 const logout = createAsyncThunk("logout", async (arg, { rejectWithValue }) => {
@@ -85,6 +85,7 @@ export const loginSlice = createSlice({
       console.log("로그아웃 성공 ^^");
       sessionStorage.clear();
       state.loginState = false;
+      state.currentUser = {};
     },
     [logout.rejected]: (state) => {
       state.loginState = false;
