@@ -51,8 +51,7 @@ export const singupSlice = createSlice({
       pwdVerify: "",
       gender: "M",
       birth: "",
-      // 이 후 수정 필요
-      liked_thumbnail: "1, 5",
+      liked_thumbnail: "",
     },
     isPossibleNickname: false,
     isPossibleEmail: false,
@@ -79,7 +78,12 @@ export const singupSlice = createSlice({
       state.signupInfo.birth = action.payload;
     },
     changeSelectImg: (state, action) => {
+      console.log("선택 그림체", action.payload);
       state.selectImg = action.payload;
+    },
+    changeThumbnail: (state, action) => {
+      console.log("선택 그림체 문자열", action.payload);
+      state.signupInfo.liked_thumbnail = action.payload;
     },
   },
   extraReducers: {
@@ -107,6 +111,7 @@ export const {
   changeGender,
   changeBirth,
   changeSelectImg,
+  changeThumbnail,
 } = singupSlice.actions;
 
 export default singupSlice.reducer;
