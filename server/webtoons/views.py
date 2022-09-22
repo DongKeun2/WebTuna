@@ -2,6 +2,7 @@ from ast import keyword
 from re import L
 from django.shortcuts import render
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # Create your views here.
 =======
@@ -27,6 +28,12 @@ from .serializers import WebtoonSerializer, RatingSerializer
 
 from tuntun.settings import SWAGGER_SETTINGS
 >>>>>>> bf925b8 (fix: webtoon search url 변경)
+=======
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
+>>>>>>> dab37c5 (fix: webtoon search  좌우공백제거, 덮어씌우는 버그 수정, 가나다순 정렬 추가)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer
 >>>>>>> 9f3add1 (fix: 웹툰 전체 페이지 성능개선(WebtoonListSerializer 수정))
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
@@ -36,10 +43,12 @@ from django.core.paginator import Paginator
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 =======
 from django.db.models import Q
-import statistics
 from webtoons import serializers
-from drf_yasg.utils       import swagger_auto_schema
-from drf_yasg             import openapi
+# import requests
+# import csv
+# from bs4 import BeautifulSoup
+# from matplotlib.image import thumbnail
+# import statistics
 
 >>>>>>> 4681354 (feat: 웹툰 필터 api 구현 / 검색 기능 대소문자 구분 제거)
 # webtoon 데이터가공-Naver API : http://localhost:8000/webtoons/naver/week
@@ -264,12 +273,17 @@ def webtoonList(request,pageNum):
 def searchWebtoon(request,pageNum):
     webtoon_list = []
     # keyword = request.GET['keyword']
-    keyword = request.GET['keyword']
+    keyword = request.GET['keyword'].rstrip().lstrip()
     if(keyword != ""):
-        webtoon_list = Webtoon.objects.filter(title__icontains=keyword).order_by('title')
-        webtoon_list = Webtoon.objects.filter(authors__name__icontains=keyword).order_by('title')
+        search_list = Webtoon.objects.filter(title__icontains=keyword).order_by('title')
+        for toon in search_list:
+            webtoon_list.append(toon)
+        search_list = Webtoon.objects.filter(authors__name__icontains=keyword).order_by('title')
+        for toon in search_list:
+            webtoon_list.append(toon)
             
     webtoon_list = list(set(webtoon_list))
+    webtoon_list.sort(key=lambda webtoon: webtoon.title, reverse=False)
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
     serializer = WebtoonSerializer(webtoons, many = True)
