@@ -1,3 +1,4 @@
+from ast import keyword
 from re import L
 from django.shortcuts import render
 <<<<<<< HEAD
@@ -14,6 +15,7 @@ from bs4 import BeautifulSoup
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 from webtoons.models import Webtoon, Genre, Author, Tag
 =======
 from .serializers import WebtoonSerializer
@@ -21,6 +23,10 @@ from .serializers import WebtoonSerializer
 from .serializers import WebtoonSerializer, RatingSerializer
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
 =======
+=======
+
+from tuntun.settings import SWAGGER_SETTINGS
+>>>>>>> bf925b8 (fix: webtoon search url 변경)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer
 >>>>>>> 9f3add1 (fix: 웹툰 전체 페이지 성능개선(WebtoonListSerializer 수정))
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
@@ -31,8 +37,9 @@ from django.core.paginator import Paginator
 =======
 from django.db.models import Q
 import statistics
-
 from webtoons import serializers
+from drf_yasg.utils       import swagger_auto_schema
+from drf_yasg             import openapi
 
 >>>>>>> 4681354 (feat: 웹툰 필터 api 구현 / 검색 기능 대소문자 구분 제거)
 # webtoon 데이터가공-Naver API : http://localhost:8000/webtoons/naver/week
@@ -254,14 +261,15 @@ def webtoonList(request,pageNum):
     return Response(serializer.data, status.HTTP_200_OK)
 
 @api_view(['GET'])
-def searchWebtoon(request,search,keyword,pageNum):
+def searchWebtoon(request,pageNum):
     webtoon_list = []
-    if(search == "title"):
+    # keyword = request.GET['keyword']
+    keyword = request.GET['keyword']
+    if(keyword != ""):
         webtoon_list = Webtoon.objects.filter(title__icontains=keyword).order_by('title')
-    elif(search == "author"):
         webtoon_list = Webtoon.objects.filter(authors__name__icontains=keyword).order_by('title')
             
-
+    webtoon_list = list(set(webtoon_list))
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
     serializer = WebtoonSerializer(webtoons, many = True)
