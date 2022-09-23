@@ -222,7 +222,7 @@ function ToonBTIResult({ setPage }) {
   }
 
   function toonBTIText() {
-    return <div>웹툰 취향을 분석하는 중..</div>;
+    return "웹툰 취향을 분석하는 중..";
   }
 
   if (isLoading) {
