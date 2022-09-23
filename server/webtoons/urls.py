@@ -17,4 +17,5 @@ urlpatterns = [
     path('recommend/<int:typeId>/', views.recommendWebtoon),
     path('classify/insert/', views.insertClassify),
     path('classify/similar/', views.insertSimilarWebtoons),
+    path('tag/<int:tagId>/like/',views.tagLike),
 ]

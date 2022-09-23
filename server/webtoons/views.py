@@ -48,7 +48,6 @@ from django.core.paginator import Paginator
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 =======
 from django.db.models import Q
-from webtoons import serializers
 import random
 # import requests
 # import csv
@@ -368,6 +367,19 @@ def webtoonLike(request, webtoonId):
 >>>>>>> b432986 (feat: CF 기반 웹툰 추천 api 구현(웹툰 추천 전체 구현은 미완성))
         return Response({'data': True})
 
+@api_view(['POST'])
+def tagLike(request, tagId):
+    tag = get_object_or_404(Tag, pk=int(tagId))
+
+    print(tag)
+
+    if tag.tag_users.filter(id = request.user.pk).exists():
+        tag.tag_users.remove(request.user.pk)
+    
+        return Response({'data': False})
+    else:
+        tag.tag_users.add(request.user.pk)
+        return Response({'data': True})
 
 @api_view(['POST'])
 def webtoonRate(request, webtoonId):
