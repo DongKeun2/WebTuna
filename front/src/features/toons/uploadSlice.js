@@ -1,14 +1,26 @@
+<<<<<<< HEAD
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import api from '../../api'
+=======
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import api from "../../api";
+import getConfig from "../config";
+>>>>>>> c764e92 (feat: 그림체분석 결과페이지 ui / api 연결)
 
 const fetchUpload = createAsyncThunk(
   'fetchUpload',
   async (data, { rejectWithValue }) => {
     console.log(data)
     try {
+<<<<<<< HEAD
       const res = await axios.post(api.fetchUpload(), data, {})
       return res.data
+=======
+      const res = await axios.post(api.fetchUpload(), data, getConfig());
+      return res.data;
+>>>>>>> c764e92 (feat: 그림체분석 결과페이지 ui / api 연결)
     } catch (err) {
       console.log(err)
       return rejectWithValue(err.response.data)
