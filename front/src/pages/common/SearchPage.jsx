@@ -1,12 +1,22 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ToonLoading from "../../components/toonlist/ToonLoading";
+import { changeKeyword } from "../../features/toons/searchSlice";
 
 export default function SearchPage() {
+  const dispatch = useDispatch();
+
   const toonList = useSelector((state) => state.search.toonList);
   const word = useSelector((state) => state.search.word);
   const isLoad = useSelector((state) => state.search.isLoad);
+
+  useEffect(() => {
+    return () => {
+      dispatch(changeKeyword(""));
+    };
+  }, [dispatch]);
 
   return (
     <PageBox>
@@ -17,14 +27,12 @@ export default function SearchPage() {
         <ToonListBox>
           <AllToonList toons={toonList} />
         </ToonListBox>
+      ) : isLoad ? (
+        <ToonListBox>
+          <ToonLoading num={10}></ToonLoading>
+        </ToonListBox>
       ) : (
-        isLoad ? (
-          <ToonListBox>
-            <ToonLoading num={10} ></ToonLoading>
-          </ToonListBox>
-        ) : (
-          <EmptyMsg>검색 결과가 존재하지 않습니다.</EmptyMsg>
-        )
+        <EmptyMsg>검색 결과가 존재하지 않습니다.</EmptyMsg>
       )}
     </PageBox>
   );
@@ -53,7 +61,7 @@ const PageTitle = styled.p`
   margin-top: 2vw;
   margin-bottom: 2vw;
   margin-left: 1vw;
-`
+`;
 
 const ToonListBox = styled.div`
   display: grid;
@@ -67,4 +75,4 @@ const EmptyMsg = styled.p`
   font-size: 1.5vw;
   font-weight: 600;
   text-align: center;
-`
+`;
