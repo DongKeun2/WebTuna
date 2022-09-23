@@ -131,7 +131,7 @@ const TalkBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 50px;
-  width: 70%;
+  width: 80%;
   @media screen and (max-width: 600px) {
     flex-direction: column;
     justify-content: center;
@@ -154,7 +154,7 @@ const TalkImg = styled.img`
 const ArrowBox = styled.div`
   position: relative;
   padding: 0px 50px;
-  height: 80px;
+  height: 5vw;
   display: inline-block;
   background: #ffffff;
   border: 3px solid #feec91;
@@ -195,8 +195,8 @@ const ArrowBox = styled.div`
 
 const QuestionTitle = styled.p`
   position: relative;
-  top: -10%;
-  font-size: 28px;
+  top: -20%;
+  font-size: 2vw;
   @media screen and (max-width: 600px) {
     top: 2%;
     font-size: 18px;
@@ -222,8 +222,12 @@ function ToonBTIResult({ setPage }) {
     navigate(`/detail/${toonInfo.webtoon_id}`);
   }
 
+  function toonBTIText() {
+    return <div>웹툰 취향을 분석하는 중..</div>;
+  }
+
   if (isLoading) {
-    return <Loading></Loading>;
+    return <Loading text={toonBTIText()}></Loading>;
   }
   return (
     <ArticleBox>

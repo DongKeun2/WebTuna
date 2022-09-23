@@ -1,10 +1,10 @@
 import styled, { keyframes } from "styled-components";
 import loadingImg from "../../assets/test/cute.png";
 
-function Loading() {
+function Loading({ text }) {
   return (
     <LoadingBox>
-      <LoadingMsg>로딩중입니다</LoadingMsg>
+      <LoadingMsg>{text}</LoadingMsg>
       <ImgBox>
         <ProfileImg src={loadingImg} />
       </ImgBox>
@@ -20,9 +20,9 @@ const LoadingBox = styled.div`
 
 const LoadingMsg = styled.p`
   position: absolute;
-  top: 55%;
-  left: 40%;
-  font-size: 40px;
+  top: 70%;
+  left: 35%;
+  font-size: 3vw;
   font-weight: bold;
   @media screen and (max-width: 600px) {
     font-size: 25px;
@@ -67,7 +67,7 @@ const move = keyframes`
 
 const ImgBox = styled.div`
   position: absolute;
-  margin-top: -15%;
+  margin-top: -10vh;
   margin-left: -150px;
   top: 45%;
   left: 50%;
