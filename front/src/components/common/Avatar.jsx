@@ -17,7 +17,7 @@ function Avatar() {
     (state) => state.login.currentUser
   ).profile_image_id;
 
-  const myImg = profileImgItem[myProfileImgNum - 1];
+  const myImg = profileImgItem[myProfileImgNum];
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -38,7 +38,9 @@ function Avatar() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <ImgBox>{myImg && <ProfileImg src={myImg.img} />}</ImgBox>
+          <ImgBox>
+            {myImg && <ProfileImg src={myImg.img} alt="profile_img" />}
+          </ImgBox>
         </IconButton>
       </Tooltip>
       <Menu
