@@ -26,7 +26,11 @@ const BASE_URL = 'https://j7a403.p.ssafy.io:8443/api'
 >>>>>>> 1013f2b (fix: backend 통신 api 수정)
 =======
 const BASE_URL = 'https://j7a403.p.ssafy.io:8443/api/'
+<<<<<<< HEAD
 >>>>>>> a41de75 (fix: api 뒤에 / 추가)
+=======
+// const BASE_URL = 'http://localhost:8000/api/'
+>>>>>>> 104b747 (chore: local용 api 주석처리)
 
 const ACCOUNTS_URL = "accounts/";
 const WEBTOONS_URL = "webtoons/";
