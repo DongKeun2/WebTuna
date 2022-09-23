@@ -32,12 +32,7 @@ const edit = createAsyncThunk("edit", async (data, { rejectWithValue }) => {
 export const editSlice = createSlice({
   name: "edit",
   initialState: {
-    editInfo: {
-      password: "",
-      gender: "M",
-      birth: "",
-      pwdVerify: "",
-    },
+    editInfo: {},
     possible: false,
     password: "",
   },
@@ -52,11 +47,10 @@ export const editSlice = createSlice({
     changePwdVerify: (state, action) => {
       state.editInfo.pwdVerify = action.payload;
     },
-    changeGender: (state, action) => {
-      state.editInfo.gender = action.payload;
-    },
-    changeBirth: (state, action) => {
-      state.editInfo.birth = action.payload;
+    changePossible: (state, action) => {
+      state.editInfo = {};
+      state.password = "";
+      state.possible = action.payload;
     },
   },
   extraReducers: {
@@ -76,8 +70,7 @@ export const {
   changeConfirmPassword,
   changePassword,
   changePwdVerify,
-  changeGender,
-  changeBirth,
+  changePossible,
 } = editSlice.actions;
 
 export default editSlice.reducer;
