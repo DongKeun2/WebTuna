@@ -54,6 +54,7 @@ const SEARCH_IMG_URL = "search/image/";
 >>>>>>> 6e82ed7 (feat: toonbti 질문&보기 구현)
 
 const TOON_LIST_URL = "list/";
+const TAG_URL = "tag/";
 
 const TOONBTI_URL = "games/question/";
 <<<<<<< HEAD
@@ -120,8 +121,13 @@ const api = {
     BASE_URL + WEBTOONS_URL + webtoonId + "/" + LOG_URL,
   webtoonRating: (webtoonId) =>
     BASE_URL + WEBTOONS_URL + webtoonId + "/" + RATING_URL,
+<<<<<<< HEAD
 };
 >>>>>>> 98c54b9 (feat: Detail 페이지 별점기능 찜기능 구현)
+=======
+  tagLike: (tagId) =>
+    BASE_URL + WEBTOONS_URL + TAG_URL + tagId + "/" + LIKE_URL,
+>>>>>>> 726e814 (feat: 디테일 페이지 태그찜 추가)
 
   //searchSlice
   searchToons: (pageNum) =>

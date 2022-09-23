@@ -7,6 +7,7 @@ import {
   webtoonLike,
   webtoonLog,
   webtoonRating,
+  tagLike
 } from "../features/details/detailSlice";
 import { fetchInfo } from "../features/accounts/loginSlice";
 import styled from "styled-components";
@@ -63,24 +64,13 @@ function DetailPage() {
           res.payload.data.webtoon_rate[10],
         ]);
         setAverageRating(getAverageRating(res.payload.data));
-        let tempArr = [];
-        for (let i = 0; i < res.payload.data.authors.length; i++) {
-          for (
-            let j = 0;
-            j < res.payload.data.authors[i].author_webtoons.length;
-            j++
-          ) {
-            tempArr.push(res.payload.data.authors[i].author_webtoons[j]);
-          }
-        }
-        let tempSet = [...new Set([...tempArr])];
-        tempSet = tempSet.filter((temp) => temp.webtoon_id !== Number(toonId));
-        setOtherWebToons(tempSet);
+        setOtherWebToons(res.payload.author_webtoons);
         setIsLoading(false);
       });
     } else {
       dispatch(detail(toonId)).then((res) => {
         console.log(res.payload.is_rated + "로그인");
+        console.log(res.payload);
         setWebToonInfo(res.payload);
         setPaintGraphData([
           res.payload.data.image_type1 / 2 + 15,
@@ -104,19 +94,7 @@ function DetailPage() {
           res.payload.data.webtoon_rate[10],
         ]);
         setAverageRating(getAverageRating(res.payload.data));
-        let tempArr = [];
-        for (let i = 0; i < res.payload.data.authors.length; i++) {
-          for (
-            let j = 0;
-            j < res.payload.data.authors[i].author_webtoons.length;
-            j++
-          ) {
-            tempArr.push(res.payload.data.authors[i].author_webtoons[j]);
-          }
-        }
-        let tempSet = [...new Set([...tempArr])];
-        tempSet = tempSet.filter((temp) => temp.webtoon_id !== Number(toonId));
-        setOtherWebToons(tempSet);
+        setOtherWebToons(res.payload.author_webtoons);
         setIsLoading(false);
       });
     }
@@ -160,7 +138,7 @@ function DetailPage() {
   function heartClick() {
     dispatch(webtoonLike(toonId)).then((res) => {
       if (res.error) {
-        console.log("실패");
+        console.log("하트 실패");
       } else {
         dispatch(fetchInfo()).then(() => {
           console.log("하트 스위치~");
@@ -172,7 +150,7 @@ function DetailPage() {
   function logAndLink() {
     dispatch(webtoonLog(toonId)).then((res) => {
       if (res.error) {
-        console.log("실패");
+        console.log("로그 남기기 실패");
       } else {
         dispatch(fetchInfo()).then(() => {
           console.log("로그 남기기 ㅋ");
@@ -186,6 +164,18 @@ function DetailPage() {
     toonId = e.target.parentNode.id;
     navigate(`/detail/${toonId}`);
     getDetail();
+  }
+
+  function tagSwitch(e) {
+    dispatch(tagLike(e.target.parentNode.id)).then((res) => {
+      if (res.error) {
+        console.log("태그 찜 실패");
+      } else {
+        dispatch(fetchInfo()).then(() => {
+          console.log("태그 스위치~");
+        });
+      }
+    });
   }
 
   useEffect(() => {
@@ -362,22 +352,22 @@ function DetailPage() {
                 </WebToonLink>
                 <Like>
                   {userData.liked_webtoons ===
-                  undefined ? null : userData.liked_webtoons.includes(
+                    undefined ? null : userData.liked_webtoons.includes(
                       Number(toonId)
                     ) ? (
-                    <img
+                    <FHeart
                       src={FullHeart}
                       alt="찜"
                       width="50px"
                       onClick={heartClick}
-                    ></img>
+                    ></FHeart>
                   ) : (
-                    <img
+                    <EHeart
                       src={EmptyHeart}
                       alt="노찜"
                       width="50px"
                       onClick={heartClick}
-                    ></img>
+                    ></EHeart>
                   )}
                 </Like>
                 <Summary>{webToonInfo.data.summary}</Summary>
@@ -385,11 +375,12 @@ function DetailPage() {
             </DetailZone>
             <TagZone>
               {webToonInfo.data.tags.map((tag) => (
-                <Tag key={tag.tag_id}>
+                <Tag key={tag.tag_id} id={tag.tag_id}>
                   <BookMarkImage>
                     <img src={BookMark} alt="북마크" width="20px"></img>
                   </BookMarkImage>
                   <TagName>{tag.name}</TagName>
+                  {loginState === null ? null : userData.tags.includes(tag.tag_id) ? <MinusButton onClick={tagSwitch}>-</MinusButton> : <PlusButton onClick={tagSwitch}>+</PlusButton>}
                 </Tag>
               ))}
             </TagZone>
@@ -402,7 +393,7 @@ function DetailPage() {
             <SameAuthorRecommendZone>
               <h2>같은 작가의 다른 작품</h2>
               <SARecommends>
-                {otherWebToons.length === 0 ? (
+                {(otherWebToons.length === 0 || otherWebToons === undefined) ? (
                   <h1>텅~</h1>
                 ) : (
                   otherWebToons.map((otherWebToon) => (
@@ -554,6 +545,18 @@ const Like = styled.div`
   color: red;
 `;
 
+const FHeart = styled.img`
+&:hover {
+  opacity:0.5;
+}
+`;
+
+const EHeart = styled.img`
+&:hover {
+  transform: scale(1.2);
+}
+`;
+
 const Summary = styled.div`
   background-color: white;
   border: 2px solid black;
@@ -594,6 +597,20 @@ const TagName = styled.div`
   margin-right: 10px;
   font-size: 18pt;
 `;
+
+const TagToggle = styled.div`
+  display: inline;
+`
+
+const MinusButton = styled.div`
+display: inline;
+font-size: 20pt;
+`
+
+const PlusButton = styled.div`
+display: inline;
+font-size: 20pt;
+`
 
 const PaintStyleRecommendZone = styled.div`
   margin-left: 120px;

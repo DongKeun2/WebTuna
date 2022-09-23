@@ -28,6 +28,16 @@ function ProfilePage() {
     });
   }
 
+  function viewWebtoonReverse() {
+    const result = [];
+    for (let i = userInfo.view_webtoons.length - 1; i >= 0; i--) {
+      result.push(<div key={userInfo.view_webtoons[i].webtoon_id}>
+        <ToonItem item={userInfo.view_webtoons[i]} />
+      </div>);
+    }
+    return result;
+  }
+
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -85,13 +95,9 @@ function ProfilePage() {
                 <ProfileImage>
                   <img src={userImg} alt="프로필사진" width="150px" />
                 </ProfileImage>
-                <Age>29</Age>
               </UserImage>
               <UserInfo>
                 <Name>{userInfo.nickname}</Name>
-                <Gender>
-                  <img src={Male} alt="남성" width="40px"></img>
-                </Gender>
                 <Heart>
                   <HeartImage
                     src={CuteHeart}
@@ -107,28 +113,27 @@ function ProfilePage() {
           <TagTitle>♥찜한태그</TagTitle>
           <TagBorder>
             <TagBack>
-              <h1>태그뿌리기</h1>
+              {userInfo.tags.length === 0 ? "텅~" : userInfo.tags.map((tag) => (
+                <div key={tag.tag_id}>{tag.name}</div>
+              ))}
             </TagBack>
           </TagBorder>
           <PreferenceTitle>♥찜한웹툰</PreferenceTitle>
           <PreferenceBack>
             <HeartWebToon>
-              {userInfo.liked_webtoons.map((toon) => (
+              {userInfo.liked_webtoons.length === 0 ? "텅~" : userInfo.liked_webtoons.map((toon) => (
                 <div key={toon.webtoon_id}>
                   <ToonItem item={toon} />
                 </div>
               ))}
+
             </HeartWebToon>
           </PreferenceBack>
           <PreferenceTitle>♥최근에 본 웹툰</PreferenceTitle>
           <PreferenceBack>
-            <HeartWebToon>
-              {userInfo.view_webtoons.map((toon) => (
-                <div key={toon.webtoon_id}>
-                  <ToonItem item={toon} />
-                </div>
-              ))}
-            </HeartWebToon>
+            <ViewWebToon>
+              {userInfo.view_webtoons.length === 0 ? "텅~" : viewWebtoonReverse()}
+            </ViewWebToon>
           </PreferenceBack>
           <PreferenceTitle>♥{userInfo.nickname}님의 관심사</PreferenceTitle>
           <ChartBack>
@@ -267,6 +272,13 @@ const PreferenceBack = styled.div`
   margin: 0px 100px 50px 100px;
   background-color: #feec91;
 `;
+
+const ViewWebToon = styled.div`
+  display: grid;
+  width: 100%;
+  margin-bottom: 70px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+`
 
 const PreferenceTitle = styled.div`
   font-size: 20pt;

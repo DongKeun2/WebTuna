@@ -72,6 +72,19 @@ const webtoonRating = createAsyncThunk(
   },
 );
 
+const tagLike = createAsyncThunk(
+  "webtoonLike",
+  async (tagId, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(api.tagLike(tagId), {}, getConfig());
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 export const detailSlice = createSlice({
   name: "detail",
   initialState: {
@@ -123,10 +136,25 @@ export const detailSlice = createSlice({
       console.log("평점 주기 실패ㅠㅠ");
       console.log(action.payload);
     },
+    [tagLike.fulfilled]: (action) => {
+      console.log("태그 찜 성공");
+      console.log(action.payload);
+    },
+    [tagLike.rejected]: (action) => {
+      console.log("태그 찜 실패ㅠㅠ");
+      console.log(action.payload);
+    },
   },
 });
 
-export { detail, noLoginDetail, webtoonLike, webtoonLog, webtoonRating };
+export {
+  detail,
+  noLoginDetail,
+  webtoonLike,
+  webtoonLog,
+  webtoonRating,
+  tagLike,
+};
 // Action creators are generated for each case reducer function
 export const { changeWebtoonId } = detailSlice.actions;
 
