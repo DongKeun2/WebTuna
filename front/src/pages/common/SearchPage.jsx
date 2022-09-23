@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
+import ToonLoading from "../../components/toonlist/ToonLoading";
 
 export default function SearchPage() {
   const toonList = useSelector((state) => state.search.toonList);
   const word = useSelector((state) => state.search.word);
+  const isLoad = useSelector((state) => state.search.isLoad);
 
   return (
     <PageBox>
@@ -16,7 +18,13 @@ export default function SearchPage() {
           <AllToonList toons={toonList} />
         </ToonListBox>
       ) : (
-        <EmptyMsg>검색 결과가 존재하지 않습니다.</EmptyMsg>
+        isLoad ? (
+          <ToonListBox>
+            <ToonLoading num={10} ></ToonLoading>
+          </ToonListBox>
+        ) : (
+          <EmptyMsg>검색 결과가 존재하지 않습니다.</EmptyMsg>
+        )
       )}
     </PageBox>
   );

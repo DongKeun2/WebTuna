@@ -7,7 +7,7 @@ import {
   searchToons,
   changeKeyword,
   changeWord,
-  changeIsLoading,
+  changeIsLoad,
 } from "../../features/toons/searchSlice";
 
 function SearchBar() {
@@ -24,9 +24,9 @@ function SearchBar() {
       pages,
       keyword,
     };
-    dispatch(changeIsLoading(true));
+    dispatch(changeIsLoad(true));
     dispatch(searchToons(data)).then((res) => {
-      dispatch(changeIsLoading(false));
+      dispatch(changeIsLoad(false));
       navigate(`/search/${keyword}`);
       setPages(pages + 1);
     });

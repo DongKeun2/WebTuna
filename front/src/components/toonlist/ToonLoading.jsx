@@ -1,8 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 
-function ToonLoading() {
+function ToonLoading({num}) {
   return (
-    [...Array(20).keys()].map(num => (
+    [...Array(num).keys()].map(num => (
       <OneToon key={num}>
       <ImgBox>
       </ImgBox>
