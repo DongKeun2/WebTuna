@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
+import GlobalStyle from "./GlobalStyle";
 import Loading from "./components/common/Loading";
 import HeaderBar from "./components/common/HeaderBar";
 import NavBar from "./components/common/NavBar";
@@ -25,11 +26,12 @@ function App() {
   const isLoading = useSelector((state) => state.search.isLoading);
 
   return (
-    <div>
+    <>
+      <GlobalStyle />
       <HeaderBar></HeaderBar>
       {isLoading ? <Loading></Loading> : <Outlet></Outlet>}
       <NavBar></NavBar>
-    </div>
+    </>
   );
 }
 
