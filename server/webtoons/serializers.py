@@ -21,11 +21,10 @@ class WebtoonListSerializer(serializers.ModelSerializer):
         return author_name_list
 
 class AuthorSerializer(serializers.ModelSerializer):
-    author_webtoons = WebtoonListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Author
-        fields = ('author_id','name', 'author_webtoons')
+        fields = ('author_id','name')
 
 class WebtoonSerializer(serializers.ModelSerializer):
 
@@ -79,3 +78,8 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = ('rating_id', 'created_time', 'rating', 'webtoon')
         read_only_fields = ('webtoon', )
+
+class SearchWebtoonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Webtoon
+        fields = ('webtoon_id','title','summary','thumbnail')

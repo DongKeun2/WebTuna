@@ -31,6 +31,11 @@ class Platform(models.Model):
 >>>>>>> ad07346 (refactor: Naver 웹툰 데이터 삽입 코드 정리)
 
 
+class DrawClassify(models.Model):
+    classify_id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=50, default='')
+
+
 class Webtoon(models.Model):
     webtoon_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
@@ -49,8 +54,9 @@ class Webtoon(models.Model):
     authors = models.ManyToManyField('Author', related_name='author_webtoons' )
     genres = models.ManyToManyField('Genre', related_name='genre_webtoons')
     tags = models.ManyToManyField('Tag', related_name='tag_webtoons')
-    # similar_webtoon = models.ManyToManyField('self', related_name='similar_webtoon')
+    draw_classifies = models.ManyToManyField('DrawClassify', related_name='classify_webtoons')
     platforms = models.ManyToManyField('Platform', related_name='platform_webtoons')
+    similar_webtoons = models.CharField(max_length=2000, default='')
 
 
 class Rating(models.Model):

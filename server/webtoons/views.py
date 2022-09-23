@@ -34,9 +34,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+<<<<<<< HEAD
 >>>>>>> dab37c5 (fix: webtoon search  좌우공백제거, 덮어씌우는 버그 수정, 가나다순 정렬 추가)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer
 >>>>>>> 9f3add1 (fix: 웹툰 전체 페이지 성능개선(WebtoonListSerializer 수정))
+=======
+from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer
+>>>>>>> c4b2854 (feat: 웹툰 이미지 검색 api 구현)
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator
@@ -257,11 +261,26 @@ def webtoonDetail(request,webtoonId):
     if webtoon.webtoon_ratings.filter(user_id = request.user.pk).exists():
         flag = 1
 
+    author_webtoon_list = []
+    now_authors = []
+    authors = webtoon.authors.all()
+    
+    for author in authors:
+        now_authors.append(author.author_id)
+
+    now_webtoons = Webtoon.objects.filter(authors__in = now_authors)
+
+    for now_webtoon in now_webtoons:
+        if now_webtoon not in author_webtoon_list and now_webtoon.title != webtoon.title:
+            author_webtoon_list.append(now_webtoon)
+
+    author_webtoons = WebtoonListSerializer(author_webtoon_list, many= True)
+
     webtoon.view_count += 1
     webtoon.save()
 
     serializer = WebtoonSerializer(webtoon)
-    return Response({'data':serializer.data, 'is_rated':flag}, status.HTTP_200_OK)
+    return Response({'data':serializer.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data}, status.HTTP_200_OK)
 
 
 page_cut = 20
@@ -665,4 +684,33 @@ def typeToDifference(type, original, comparsion):
 
     difference = {"webtoon_id" : comparsion.webtoon_id , "first_diff" : first_diff, "second_diff" : second_diff}
     return difference
+<<<<<<< HEAD
 >>>>>>> 09b2f2b (feat: 그림체 기반 추천 알고리즘 구현중)
+=======
+
+@api_view(['POST'])
+def searchImageWebtoon(request):
+    orginal = request.data['probability']
+
+    webtoons = Webtoon.objects.all()
+    min_diff = 1000
+
+    for webtoon in webtoons:
+        diff = 0
+        
+        if webtoon.image_type1 is not None:
+            diff += abs(orginal[0] - webtoon.image_type1)
+            diff += abs(orginal[1] - webtoon.image_type2)
+            diff += abs(orginal[2] - webtoon.image_type3)
+            diff += abs(orginal[3] - webtoon.image_type4)
+            diff += abs(orginal[4] - webtoon.image_type5)
+            diff += abs(orginal[5] - webtoon.image_type6)
+
+            if min_diff > diff:
+                min_diff = diff
+                min_webtoon = webtoon
+    
+    serializer = SearchWebtoonSerializer(min_webtoon)
+
+    return Response(serializer.data, status.HTTP_200_OK)
+>>>>>>> c4b2854 (feat: 웹툰 이미지 검색 api 구현)
