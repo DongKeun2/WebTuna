@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Home from '../../assets/navbar/Home.png'
@@ -5,6 +6,15 @@ import All from '../../assets/navbar/All.png'
 import PaintStyleRecommend from '../../assets/navbar/PaintStyleRecommend.png'
 import ToonBTI from '../../assets/navbar/ToonBTI.png'
 import ToonToonRecommend from '../../assets/navbar/ToonToonRecommend.png'
+=======
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Home from "../../assets/navbar/Home.png";
+import All from "../../assets/navbar/All.png";
+import PaintStyleRecommend from "../../assets/navbar/PaintStyleRecommend.png";
+import ToonBTI from "../../assets/navbar/ToonBTI.png";
+import ToonToonRecommend from "../../assets/navbar/ToonToonRecommend.png";
+>>>>>>> 3be130a (fix: NavBar 반응형 수정)
 
 const Nav = styled.div`
   position: fixed;
@@ -47,18 +57,33 @@ const RightItem = styled.div`
   align-items: center;
 `;
 
-const ItemGroup = styled.div`
+const LeftGroup = styled.div`
   width: 45%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  @media screen and (max-width: 750px) {
+    width: 38%;
+    justify-content: space-around;
+  }
+  align-items: center;
+`;
+
+const RightGroup = styled.div`
+  width: 45%;
+  display: flex;
+  justify-content: space-evenly;
+  @media screen and (max-width: 750px) {
+    width: 48%;
+  }
   align-items: center;
 `;
 
 const Item = styled.div`
-  @media screen and (min-width: 720px) {
-    width: 150px;
+  @media screen and (min-width: 750px) {
+    width: 180px;
   }
   height: 100%;
+  cursor: pointer;
 `;
 >>>>>>> eece598 (feat: NavBar 반응형 UI)
 
@@ -81,7 +106,12 @@ const Toontoon = styled.div`
   background-color: white;
 >>>>>>> eece598 (feat: NavBar 반응형 UI)
   overflow: hidden;
+<<<<<<< HEAD
 `
+=======
+  cursor: pointer;
+`;
+>>>>>>> 3be130a (fix: NavBar 반응형 수정)
 
 const ToonImg = styled.img`
   width: 90px;
@@ -89,7 +119,7 @@ const ToonImg = styled.img`
 `;
 
 const IconImg = styled.img`
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 750px) {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -99,15 +129,38 @@ const IconImg = styled.img`
 const IconText = styled.p`
   margin: 0;
   text-align: center;
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 750px) {
     display: none;
   }
 `;
 
 function NavBar() {
+  const navigate = useNavigate();
+
+  function moveMain() {
+    navigate(`/`);
+  }
+
+  function moveList() {
+    navigate(`/webtoonList`);
+  }
+
+  function moveToontoon() {
+    navigate(`/toontoon`);
+  }
+
+  function moveUpload() {
+    navigate(`/upload`);
+  }
+
+  function moveToonbti() {
+    navigate(`/toonbti`);
+  }
+
   return (
     <Nav>
       <Items>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <LeftItem>
           <Link to="/" style={{ textDecoration: 'none' }}>
@@ -153,34 +206,36 @@ function NavBar() {
               <IconImg src={Home} alt="홈" />
               <IconText>홈</IconText>
             </Link>
+=======
+        <LeftGroup>
+          <Item onClick={moveMain}>
+            <IconImg src={Home} alt="홈"/>
+            <IconText>홈</IconText>
+>>>>>>> 3be130a (fix: NavBar 반응형 수정)
           </Item>
-          <Item>
-            <Link to="/webtoonList" style={{ textDecoration: "none" }}>
-              <IconImg src={All} alt="전체 웹툰" />
-              <IconText>전체 목록</IconText>
-            </Link>
+          <Item onClick={moveList}>
+            <IconImg src={All} alt="전체 웹툰" />
+            <IconText>전체 목록</IconText>
           </Item>
-        </ItemGroup>
-        <Toontoon>
-          <Link to="/toontoon" style={{ textDecoration: "none" }}>
-            <ToonImg src={ToonToonRecommend} alt="툰툰추천" />
-          </Link>
+        </LeftGroup>
+        <Toontoon onClick={moveToontoon}>
+          <ToonImg src={ToonToonRecommend} alt="툰툰추천" />
         </Toontoon>
-        <ItemGroup>
-          <Item>
-            <Link to="/upload" style={{ textDecoration: "none" }}>
-              <IconImg src={PaintStyleRecommend} alt="그림체로 웹툰 검색" />
-              <IconText>그림체로 웹툰 검색</IconText>
-            </Link>
+        <RightGroup>
+          <Item onClick={moveUpload}>
+            <IconImg src={PaintStyleRecommend} alt="그림체로 웹툰 검색" />
+            <IconText>내 그림으로 웹툰 찾기</IconText>
           </Item>
-          <Item>
-            <Link to="/toonbti" style={{ textDecoration: "none" }}>
-              <IconImg src={ToonBTI} alt="툰비티아이" />
-              <IconText>ToonBTI</IconText>
-            </Link>
+          <Item onClick={moveToonbti}>
+            <IconImg src={ToonBTI} alt="툰비티아이" />
+            <IconText>ToonBTI</IconText>
           </Item>
+<<<<<<< HEAD
         </ItemGroup>
 >>>>>>> eece598 (feat: NavBar 반응형 UI)
+=======
+        </RightGroup>
+>>>>>>> 3be130a (fix: NavBar 반응형 수정)
       </Items>
     </Nav>
   )
