@@ -36,9 +36,11 @@ function ProfilePage() {
   function viewWebtoonReverse() {
     const result = [];
     for (let i = userInfo.data.view_webtoons.length - 1; i >= 0; i--) {
-      result.push(<div key={userInfo.data.view_webtoons[i].webtoon_id}>
-        <ToonItem item={userInfo.data.view_webtoons[i]} />
-      </div>);
+      result.push(
+        <div key={userInfo.data.view_webtoons[i].webtoon_id}>
+          <ToonItem item={userInfo.data.view_webtoons[i]} />
+        </div>
+      );
     }
     return result;
   }
@@ -86,7 +88,7 @@ function ProfilePage() {
   };
 
   return (
-    <div>
+    <PageBox>
       {isLoading ? (
         <Loading></Loading>
       ) : (
@@ -109,7 +111,9 @@ function ProfilePage() {
                     alt="귀여운 하트"
                     width="30px"
                   ></HeartImage>
-                  <HeartNumber>{userInfo.data.liked_webtoons.length}</HeartNumber>
+                  <HeartNumber>
+                    {userInfo.data.liked_webtoons.length}
+                  </HeartNumber>
                 </Heart>
               </UserInfo>
               <Genre>#무협 #로맨스 #스포츠</Genre>
@@ -118,28 +122,36 @@ function ProfilePage() {
           <TagTitle>♥찜한태그</TagTitle>
           <TagBorder>
             <TagBack>
-              {userInfo.data.tags.length === 0 ? "텅~" : userInfo.data.tags.map((tag) => (
-                <div key={tag.tag_id}>{tag.name}</div>
-              ))}
+              {userInfo.data.tags.length === 0
+                ? "텅~"
+                : userInfo.data.tags.map((tag) => (
+                    <div key={tag.tag_id}>{tag.name}</div>
+                  ))}
             </TagBack>
           </TagBorder>
           <PreferenceTitle>♥찜한웹툰</PreferenceTitle>
           <PreferenceBack>
             <HeartWebToon>
-              {userInfo.data.liked_webtoons.length === 0 ? "텅~" : userInfo.data.liked_webtoons.map((toon) => (
-                <div key={toon.webtoon_id}>
-                  <ToonItem item={toon} />
-                </div>
-              ))}
+              {userInfo.data.liked_webtoons.length === 0
+                ? "텅~"
+                : userInfo.data.liked_webtoons.map((toon) => (
+                    <div key={toon.webtoon_id}>
+                      <ToonItem item={toon} />
+                    </div>
+                  ))}
             </HeartWebToon>
           </PreferenceBack>
           <PreferenceTitle>♥최근에 본 웹툰</PreferenceTitle>
           <PreferenceBack>
             <ViewWebToon>
-              {userInfo.data.view_webtoons.length === 0 ? "텅~" : viewWebtoonReverse()}
+              {userInfo.data.view_webtoons.length === 0
+                ? "텅~"
+                : viewWebtoonReverse()}
             </ViewWebToon>
           </PreferenceBack>
-          <PreferenceTitle>♥{userInfo.data.nickname}님의 관심사</PreferenceTitle>
+          <PreferenceTitle>
+            ♥{userInfo.data.nickname}님의 관심사
+          </PreferenceTitle>
           <ChartBack>
             <ChartZone>
               <PreferGenre>
@@ -152,11 +164,13 @@ function ProfilePage() {
           </ChartBack>
         </Profile>
       )}
-    </div>
+    </PageBox>
   );
 }
 
 export default ProfilePage;
+
+const PageBox = styled.div``;
 
 const Profile = styled.div``;
 
@@ -209,8 +223,7 @@ const Name = styled.h1`
   font-size: 30pt;
 `;
 
-const Heart = styled.h3`
-`;
+const Heart = styled.h3``;
 
 const HeartImage = styled.img`
   display: inline;
@@ -261,7 +274,7 @@ const ViewWebToon = styled.div`
   width: 100%;
   margin-bottom: 70px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-`
+`;
 
 const PreferenceTitle = styled.div`
   font-size: 20pt;

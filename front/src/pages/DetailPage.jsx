@@ -7,7 +7,7 @@ import {
   webtoonLike,
   webtoonLog,
   webtoonRating,
-  tagLike
+  tagLike,
 } from "../features/details/detailSlice";
 import { fetchInfo } from "../features/accounts/loginSlice";
 import styled from "styled-components";
@@ -148,15 +148,19 @@ function DetailPage() {
   }
 
   function logAndLink() {
-    dispatch(webtoonLog(toonId)).then((res) => {
-      if (res.error) {
-        console.log("로그 남기기 실패");
-      } else {
-        dispatch(fetchInfo()).then(() => {
-          console.log("로그 남기기 ㅋ");
-        });
-      }
-    });
+    if (loginState === null) {
+      console.log("넌 로그인 안했으니까 로그 안남겨줄거야");
+    } else {
+      dispatch(webtoonLog(toonId)).then((res) => {
+        if (res.error) {
+          console.log("로그 남기기 실패");
+        } else {
+          dispatch(fetchInfo()).then(() => {
+            console.log("로그 남기기 ㅋ");
+          });
+        }
+      });
+    }
     window.open(webToonInfo.data.page);
   }
 
@@ -170,15 +174,27 @@ function DetailPage() {
   }
 
   function tagSwitch(e) {
-    dispatch(tagLike(e.target.parentNode.id)).then((res) => {
-      if (res.error) {
-        console.log("태그 찜 실패");
-      } else {
-        dispatch(fetchInfo()).then(() => {
-          console.log("태그 스위치~");
-        });
-      }
-    });
+    if (e.target.id) {
+      dispatch(tagLike(e.target.id)).then((res) => {
+        if (res.error) {
+          console.log("태그 찜 실패");
+        } else {
+          dispatch(fetchInfo()).then(() => {
+            console.log("태그 스위치~");
+          });
+        }
+      });
+    } else {
+      dispatch(tagLike(e.target.parentNode.id)).then((res) => {
+        if (res.error) {
+          console.log("태그 찜 실패");
+        } else {
+          dispatch(fetchInfo()).then(() => {
+            console.log("태그 스위치~");
+          });
+        }
+      });
+    }
   }
 
   useEffect(() => {
@@ -186,9 +202,9 @@ function DetailPage() {
   }, []);
 
   const PaintStyleData = {
-    margintop: 50,
-    marginleft: 50,
-    width: 300,
+    margintop: 3,
+    marginleft: 3,
+    width: 25,
     labels: ["순정", "무협", "양산형", "우산형", "우비형", "우리형"],
     datasets: [
       {
@@ -214,9 +230,9 @@ function DetailPage() {
   };
 
   const AgeGroupData = {
-    margintop: 50,
-    marginleft: 50,
-    width: 300,
+    margintop: 3,
+    marginleft: 3,
+    width: 23,
     labels: ["10대 남성", "20대 남성", "20대 여성", "10대 여성", "90대 중성"],
     datasets: [
       {
@@ -258,9 +274,9 @@ function DetailPage() {
   };
 
   const RatingGraphData = {
-    margintop: 50,
-    marginleft: 175,
-    width: 700,
+    margintop: 5,
+    marginleft: 15,
+    width: 40,
     labels: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
     datasets: [
       {
@@ -289,333 +305,420 @@ function DetailPage() {
   };
 
   return (
-    <div>
+    <PageBox>
       {isLoading ? (
         <Loading></Loading>
       ) : (
-        <BackBorder>
-          <BackGround>
-            <DetailZone>
-              <Thumbnail>
-                <ThumbnailImage
-                  src={webToonInfo.data.thumbnail}
-                  alt="썸네일"
-                ></ThumbnailImage>
-              </Thumbnail>
-              <Info>
-                <Title>{webToonInfo.data.title}</Title>
-                <Author>
-                  {webToonInfo.data.authors.map((author) => author.name + " ")}
-                </Author>
-                <RatingZone>
-                  별점 ★ {averageRating.toFixed(1)}{" "}
-                  {loginState === null || webToonInfo.is_rated === 1 ? null : (
-                    <RatingButton onClick={switchModal}>별점 주기</RatingButton>
-                  )}
-                  {modal ? (
-                    <ModalFrame _handleModal={switchModal}>
-                      <h1>빛나라 지식의 별</h1>
-                      <Rating
-                        name="half-rating"
-                        defaultValue={5.0}
-                        precision={0.5}
-                        icon={
-                          <StarIcon
-                            style={{ width: "64px", height: "64px" }}
-                          ></StarIcon>
-                        }
-                        emptyIcon={
-                          <StarIcon
-                            style={{
-                              width: "64px",
-                              height: "64px",
-                            }}
-                          />
-                        }
-                        onChange={changeRating}
-                      />
-                    </ModalFrame>
-                  ) : null}
-                </RatingZone>
-                <Genre>
-                  장르{" "}
-                  {webToonInfo.data.genres.map(
-                    (genre) => genre.genre_type + " "
-                  )}
-                </Genre>
-                <Day>
-                  {webToonInfo.data.days[0].day_id === 8
-                    ? "완결 웹툰"
-                    : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
-                </Day>
-              </Info>
-              <SubInfo>
-                <WebToonLink>
-                  <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
-                </WebToonLink>
-                <Like>
-                  {userData.liked_webtoons ===
-                    undefined ? null : userData.liked_webtoons.includes(
-                      Number(toonId)
-                    ) ? (
-                    <FHeart
-                      src={FullHeart}
-                      alt="찜"
-                      width="50px"
-                      onClick={heartClick}
-                    ></FHeart>
-                  ) : (
-                    <EHeart
-                      src={EmptyHeart}
-                      alt="노찜"
-                      width="50px"
-                      onClick={heartClick}
-                    ></EHeart>
-                  )}
-                </Like>
-                <Summary>{webToonInfo.data.summary}</Summary>
-              </SubInfo>
-            </DetailZone>
-            <TagZone>
-              {(webToonInfo.data.tags.length === 0 || webToonInfo.data.tags === undefined) ? "텅~" :
-                webToonInfo.data.tags.map((tag) => (
-                  <Tag key={tag.tag_id} id={tag.tag_id}>
-                    <BookMarkImage>
-                      <img src={BookMark} alt="북마크" width="20px"></img>
-                    </BookMarkImage>
-                    <TagName>{tag.name}</TagName>
-                    {loginState === null ? null : userData.tags.includes(tag.tag_id) ? <MinusButton onClick={tagSwitch}>-</MinusButton> : <PlusButton onClick={tagSwitch}>+</PlusButton>}
-                  </Tag>
-                ))
-              }
-            </TagZone>
-            <PaintStyleRecommendZone>
-              <h2>그림체가 비슷한 웹툰</h2>
-              <PSRecommends>
-                API 요청 보내고 받아서 그림체 기반 추천 뿌리자
-              </PSRecommends>
-            </PaintStyleRecommendZone>
-            <SameAuthorRecommendZone>
-              <h2>같은 작가의 다른 작품</h2>
-              <SARecommends>
-                {(otherWebToons.length === 0 || otherWebToons === undefined) ? (
-                  <h1>텅~</h1>
-                ) : (
-                  otherWebToons.map((otherWebToon) => (
-                    <OtherWebToon
-                      key={otherWebToon.webtoon_id}
-                      id={otherWebToon.webtoon_id}
-                    >
-                      <OtherWebToonThumbnail
-                        src={otherWebToon.thumbnail}
-                        alt="같은 작가의 다른 작품 이미지"
-                        onClick={moveDetail}
-                      ></OtherWebToonThumbnail>
-                      <OtherWebToonTitle onClick={moveDetail}>
-                        {otherWebToon.title}
-                      </OtherWebToonTitle>
-                      <OtherWebToonAuthor onClick={moveDetail}>
-                        {otherWebToon.author_name.map((author) => author + " ")}
-                      </OtherWebToonAuthor>
-                    </OtherWebToon>
-                  ))
+        <BackGround>
+          <DetailZone>
+            <Thumbnail>
+              <ThumbnailImage
+                src={webToonInfo.data.thumbnail}
+                alt="썸네일"
+              ></ThumbnailImage>
+            </Thumbnail>
+            <Info>
+              <Title>{webToonInfo.data.title}</Title>
+              <Author>
+                {webToonInfo.data.authors.map((author) => author.name + " ")}
+              </Author>
+              <RatingZone>
+                별점 ★ {averageRating.toFixed(1)}{" "}
+                {loginState === null || webToonInfo.is_rated === 1 ? null : (
+                  <RatingButton onClick={switchModal}>별점 주기</RatingButton>
                 )}
-              </SARecommends>
-            </SameAuthorRecommendZone>
-            <WebToonAnalysisZone>
-              <h2>웹툰 분석</h2>
-              <AnalysisBack>
-                <Analysis>
-                  <PaintStyleAnalysis>
-                    <ChartTitle1>그림체 분석</ChartTitle1>
-                    <ChartShow
-                      data={PaintStyleData}
-                      options={PaintStyleOptions}
-                    ></ChartShow>
-                  </PaintStyleAnalysis>
-                  <AgeGroupAnalysis>
-                    <ChartTitle1>연령대 분석</ChartTitle1>
-                    <ChartShow
-                      data={AgeGroupData}
-                      options={AgeGrouoOptions}
-                    ></ChartShow>
-                  </AgeGroupAnalysis>
-                </Analysis>
-                <Graph>
-                  <RatingGraph>
-                    <ChartTitle2>별점 그래프</ChartTitle2>
-                    <ChartShow data={RatingGraphData}></ChartShow>
-                  </RatingGraph>
-                </Graph>
-              </AnalysisBack>
-            </WebToonAnalysisZone>
-          </BackGround>
-        </BackBorder>
+                {modal ? (
+                  <ModalFrame _handleModal={switchModal}>
+                    <div>빛나라 지식의 별</div>
+                    <Rating
+                      name="half-rating"
+                      defaultValue={5.0}
+                      precision={0.5}
+                      icon={
+                        <StarIcon
+                          style={{ width: "64px", height: "64px" }}
+                        ></StarIcon>
+                      }
+                      emptyIcon={
+                        <StarIcon
+                          style={{
+                            width: "64px",
+                            height: "64px",
+                          }}
+                        />
+                      }
+                      onChange={changeRating}
+                    />
+                  </ModalFrame>
+                ) : null}
+              </RatingZone>
+              <Genre>
+                장르{" "}
+                {webToonInfo.data.genres.map((genre) => genre.genre_type + " ")}
+              </Genre>
+              <Day>
+                {webToonInfo.data.days[0].day_id === 8
+                  ? "완결 웹툰"
+                  : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
+              </Day>
+            </Info>
+            <SubInfo>
+              <WebToonLink>
+                <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
+                {userData.liked_webtoons ===
+                undefined ? null : userData.liked_webtoons.includes(
+                    Number(toonId)
+                  ) ? (
+                  <FHeart
+                    src={FullHeart}
+                    alt="찜"
+                    onClick={heartClick}
+                  ></FHeart>
+                ) : (
+                  <EHeart
+                    src={EmptyHeart}
+                    alt="노찜"
+                    onClick={heartClick}
+                  ></EHeart>
+                )}
+              </WebToonLink>
+              <Summary>{webToonInfo.data.summary}</Summary>
+            </SubInfo>
+          </DetailZone>
+          <TagZone>
+            {webToonInfo.data.tags.length === 0 ||
+            webToonInfo.data.tags === undefined
+              ? "텅~"
+              : webToonInfo.data.tags.map((tag) =>
+                  loginState === null ? (
+                    <Tag key={tag.tag_id} id={tag.tag_id}>
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                    </Tag>
+                  ) : userData.tags.includes(tag.tag_id) ? (
+                    <LikedTag
+                      key={tag.tag_id}
+                      id={tag.tag_id}
+                      onClick={tagSwitch}
+                    >
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                      <MinusButton>-</MinusButton>
+                    </LikedTag>
+                  ) : (
+                    <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                      <PlusButton>+</PlusButton>
+                    </Tag>
+                  )
+                )}
+          </TagZone>
+          <PaintStyleRecommendZone>
+            <div>그림체가 비슷한 웹툰</div>
+            <PSRecommends>
+              API 요청 보내고 받아서 그림체 기반 추천 뿌리자
+            </PSRecommends>
+          </PaintStyleRecommendZone>
+          <SameAuthorRecommendZone>
+            <div>같은 작가의 다른 작품</div>
+            <SARecommends>
+              {otherWebToons.length === 0 || otherWebToons === undefined ? (
+                <div>텅~</div>
+              ) : (
+                otherWebToons.map((otherWebToon) => (
+                  <OtherWebToon
+                    key={otherWebToon.webtoon_id}
+                    id={otherWebToon.webtoon_id}
+                  >
+                    <OtherWebToonThumbnail
+                      src={otherWebToon.thumbnail}
+                      alt="같은 작가의 다른 작품 이미지"
+                      onClick={moveDetail}
+                    ></OtherWebToonThumbnail>
+                    <OtherWebToonTitle onClick={moveDetail}>
+                      {otherWebToon.title}
+                    </OtherWebToonTitle>
+                    <OtherWebToonAuthor onClick={moveDetail}>
+                      {otherWebToon.author_name.map((author) => author + " ")}
+                    </OtherWebToonAuthor>
+                  </OtherWebToon>
+                ))
+              )}
+            </SARecommends>
+          </SameAuthorRecommendZone>
+          <WebToonAnalysisZone>
+            <div>웹툰 분석</div>
+            <AnalysisBack>
+              <Analysis>
+                <PaintStyleAnalysis>
+                  <ChartTitle1>그림체 분석</ChartTitle1>
+                  <ChartShow
+                    data={PaintStyleData}
+                    options={PaintStyleOptions}
+                  ></ChartShow>
+                </PaintStyleAnalysis>
+                <AgeGroupAnalysis>
+                  <ChartTitle1>연령대 분석</ChartTitle1>
+                  <ChartShow
+                    data={AgeGroupData}
+                    options={AgeGrouoOptions}
+                  ></ChartShow>
+                </AgeGroupAnalysis>
+              </Analysis>
+              <Graph>
+                <RatingGraph>
+                  <ChartTitle2>별점 그래프</ChartTitle2>
+                  <ChartShow data={RatingGraphData}></ChartShow>
+                </RatingGraph>
+              </Graph>
+            </AnalysisBack>
+          </WebToonAnalysisZone>
+        </BackGround>
       )}
-    </div>
+    </PageBox>
   );
 }
 
-const BackBorder = styled.div`
-  border: 2px solid black;
-  border-radius: 20px;
-  margin: 0px 100px 200px 100px;
-  height: 2500px;
+const PageBox = styled.div`
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10vw;
+  padding: 0.5vw;
+  border: solid 0.15vw;
+  border-radius: 1vw;
+  background-color: white;
 `;
 
 const BackGround = styled.div`
   background-color: #feec91;
-  border: 2px solid black;
-  border-radius: 20px;
-  margin: 20px 20px 200px 20px;
-  height: 2455px;
+  border: 0.15vw solid black;
+  border-radius: 1vw;
+  margin: 0.65vw;
+  height: 150vw;
 `;
 
 const DetailZone = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Thumbnail = styled.div`
-  flex: 1;
-  margin-left: 120px;
-  margin-top: 100px;
+  background-color: white;
+  width: 20vw;
+  height: 20vw;
+  margin-left: 7.5vw;
+  margin-top: 5vw;
 `;
 
 const ThumbnailImage = styled.img`
-  width: 300px;
-  height: 300px;
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
 `;
 
 const Info = styled.div`
-  flex: 1;
-  margin-top: 100px;
-  margin-left: -10%;
+  width: 25vw;
+  height: 20vw;
+  margin-top: 5vw;
+  margin-left: 2vw;
 `;
 
-const SubInfo = styled.div`
-  flex: 1;
-  margin-top: 100px;
-  margin-left: -10%;
-`;
-
-const Title = styled.h2`
+const Title = styled.div`
   display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 2vw;
+  font-weight: 600;
 `;
 
-const Author = styled.h3``;
+const Author = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 2vw;
+`;
 
-const RatingZone = styled.h2`
-  margin-top: 80px;
+const RatingZone = styled.div`
+  padding-top: 5vw;
+  padding-bottom: 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.5vw;
 `;
 
 const RatingButton = styled.div`
   display: inline;
   cursor: pointer;
-  margin-left: 80px;
+  margin-left: 3vw;
   border: 1px solid black;
-  border-radius: 20px;
+  border-radius: 3vw;
   background-color: white;
-  padding: 5px;
+  padding: 0.3vw;
   &:hover {
     background-color: skyblue;
   }
 `;
 
-const Genre = styled.h2``;
+const Genre = styled.div`
+  padding-bottom: 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.5vw;
+`;
 
-const Day = styled.h2`
-  display: inline;
+const Day = styled.div`
+  padding-bottom: 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.5vw;
+`;
+
+const SubInfo = styled.div`
+  width: 40vw;
+  height: 20vw;
+  margin-top: 3vw;
 `;
 
 const WebToonLink = styled.div`
   display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 5vw;
+  margin-left: 17vw;
 `;
 
 const LinkButton = styled.div`
   display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   cursor: pointer;
-  border: 1px solid black;
-  border-radius: 20px;
+  border: 0.05vw solid black;
+  border-radius: 1vw;
   background-color: white;
-  padding: 5px;
+  padding: 0.3vw;
   &:hover {
     background-color: skyblue;
   }
 `;
 
-const Like = styled.div`
-  display: inline;
-  margin-left: 200px;
-  font-size: 20pt;
-  color: red;
-`;
-
 const FHeart = styled.img`
-&:hover {
-  opacity:0.5;
-}
+  cursor: pointer;
+  margin-left: 2vw;
+  width: 3.3vw;
+  transition: 0.5s;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const EHeart = styled.img`
-&:hover {
-  transform: scale(1.2);
-}
+  cursor: pointer;
+  margin-left: 2vw;
+  width: 3.3vw;
+  transition: 0.5s;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const Summary = styled.div`
   background-color: white;
-  border: 2px solid black;
-  border-radius: 20px;
-  margin-top: 100px;
-  margin-right: 100px;
+  border: 0.1vw solid black;
+  border-radius: 1vw;
+  margin-top: 7vw;
+  margin-right: 6.5vw;
   padding-left: 10px;
-  padding-top: 10px;
-  height: 150px;
+  height: 10vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.5s;
+  &:hover {
+    transform: translate(0, -10vw);
+    height: 25vw;
+  }
 `;
 
 const TagZone = styled.div`
-  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5vw;
+  margin-top: 8vw;
+  margin-left: 7.5vw;
+  margin-right: 6.5vw;
+  border: solid 0.1vw;
+  border-radius: 1vw;
   background-color: white;
-  border: 2px solid black;
-  border-radius: 20px;
-  margin-top: 100px;
-  margin-left: 120px;
-  margin-right: 100px;
-  height: 100px;
+`;
+
+const LikedTag = styled.div`
+  cursor: pointer;
+  background-color: skyblue;
+  display: inline;
+  border: 0.1vw solid black;
+  border-radius: 1vw;
+  padding: 0.5vw 0.3vw 0.3vw 0.3vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.5s;
+  &:hover {
+    background-color: white;
+  }
 `;
 
 const Tag = styled.div`
-  width: auto;
-  margin: 30px 30px 30px 100px;
-  border: 1px solid black;
-  border-radius: 20px;
+  cursor: pointer;
+  display: inline;
+  border: 0.1vw solid black;
+  border-radius: 1vw;
+  padding: 0.5vw 0.3vw 0.3vw 0.3vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.5s;
+  &:hover {
+    background-color: skyblue;
+  }
 `;
 
-const BookMarkImage = styled.div`
+const BookMarkImage = styled.img`
   display: inline;
-  padding-left: 20px;
+  width: 1.1rem;
+  height: 1.7rem;
+  padding-left: 1vw;
 `;
 
 const TagName = styled.div`
   display: inline;
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 18pt;
+  margin-left: 0.8vw;
+  margin-right: 0.8vw;
+  font-size: 1.5vw;
 `;
 
 const MinusButton = styled.div`
-display: inline;
-font-size: 20pt;
-`
+  display: inline;
+  margin-left: 0.38vw;
+  margin-right: 0.2vw;
+  font-size: 2vw;
+`;
 
 const PlusButton = styled.div`
-display: inline;
-font-size: 20pt;
-`
+  display: inline;
+  font-size: 2vw;
+`;
 
 const PaintStyleRecommendZone = styled.div`
-  margin-left: 120px;
-  margin-right: 100px;
+  margin-left: 7.5vw;
+  margin-right: 6.5vw;
 `;
 
 const PSRecommends = styled.div`
@@ -624,19 +727,19 @@ const PSRecommends = styled.div`
 `;
 
 const SameAuthorRecommendZone = styled.div`
-  margin-left: 120px;
-  margin-right: 100px;
+  margin-left: 7.5vw;
+  margin-right: 6.5vw;
 `;
 
 const SARecommends = styled.div`
   display: flex;
   background-color: white;
-  height: 300px;
+  height: 20vw;
 `;
 
 const OtherWebToon = styled.div`
   padding: 0.8vw;
-  padding-bottom: 0.3vw;
+  padding-bottom: 4vw;
 `;
 
 const OtherWebToonThumbnail = styled.img`
@@ -670,26 +773,25 @@ const OtherWebToonAuthor = styled.div`
 `;
 
 const WebToonAnalysisZone = styled.div`
-  margin-left: 120px;
-  margin-right: 100px;
+  margin-left: 7.5vw;
+  margin-right: 6.5vw;
 `;
 
 const AnalysisBack = styled.div`
-  height: 900px;
+  height: 60vw;
 `;
 
 const Analysis = styled.div`
   display: flex;
   background-color: white;
-  height: 50%;
+  height: 30vw;
 `;
 
 const PaintStyleAnalysis = styled.div`
   flex: 1;
   display: inline;
-  float: center;
   background-color: white;
-  height: 50%;
+  height: 30vw;
 `;
 
 const AgeGroupAnalysis = styled.div`
@@ -697,23 +799,24 @@ const AgeGroupAnalysis = styled.div`
   display: inline;
   float: center;
   background-color: white;
-  height: 50%;
+  height: 30vw;
 `;
 const Graph = styled.div`
   background-color: white;
-  height: 50%;
+  height: 30vw;
 `;
 
 const RatingGraph = styled.div``;
 
 const ChartTitle1 = styled.div`
-  padding-left: 50px;
-  padding-top: 50px;
+  padding-left: 13vw;
+  padding-top: 3vw;
 `;
 
 const ChartTitle2 = styled.div`
-  padding-top: 20px;
-  margin-left: 500px;
+  padding-top: 5vw;
+  margin-bottom: -3vw;
+  margin-left: 33vw;
 `;
 
 export default DetailPage;
