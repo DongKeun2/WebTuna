@@ -163,6 +163,9 @@ function DetailPage() {
   function moveDetail(e) {
     toonId = e.target.parentNode.id;
     navigate(`/detail/${toonId}`);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 300);
     getDetail();
   }
 
