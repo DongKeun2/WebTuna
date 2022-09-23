@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchToonlist } from "../../features/toons/toonlistSlice"
 import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
-import Loading from "../../components/common/Loading";
+import ToonLoading from "../../components/toonlist/ToonLoading"
 
 function WebtoonPage() {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ function WebtoonPage() {
           <FilterBtn>필터</FilterBtn>
         </HeaderBox>
         <ToonListBox>
-          <Loading></Loading>
+          <ToonLoading></ToonLoading>
         </ToonListBox>
       </PageBox>
     )
