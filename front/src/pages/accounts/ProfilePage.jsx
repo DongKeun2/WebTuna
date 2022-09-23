@@ -1,12 +1,9 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import ToonToonRecommend from "../../../src/assets/navbar/ToonToonRecommend.png";
 import ChartShow from "../../components/common/Chart";
 import ProfileBorder from "../../../src/assets/profilePage/ProfileBorder.png";
 import Loading from "../../components/common/Loading";
-import Male from "../../../src/assets/profilePage/Male.png";
-import Female from "../../../src/assets/profilePage/Female.png";
 import CuteHeart from "../../../src/assets/profilePage/CuteHeart.png";
 import { profile } from "../../features/accounts/profileSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
@@ -17,22 +14,30 @@ function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState();
   const [userImg, setUserImg] = useState();
+  const [paintGraphData, setPaintGraphData] = useState();
 
-  let myImg;
   function getUserInfo() {
     dispatch(profile()).then((res) => {
       setUserInfo(res.payload);
+      setUserImg(profileImgItem[res.payload.data.profile_image_id].img);
+      let temp = [];
+      temp.push(res.payload.image_type.image_type1);
+      temp.push(res.payload.image_type.image_type2);
+      temp.push(res.payload.image_type.image_type3);
+      temp.push(res.payload.image_type.image_type4);
+      temp.push(res.payload.image_type.image_type5);
+      temp.push(res.payload.image_type.image_type6);
+      setPaintGraphData(temp);
       setIsLoading(false);
-      setUserImg(profileImgItem[res.payload.profile_image_id - 1].img);
       console.log(res.payload);
     });
   }
 
   function viewWebtoonReverse() {
     const result = [];
-    for (let i = userInfo.view_webtoons.length - 1; i >= 0; i--) {
-      result.push(<div key={userInfo.view_webtoons[i].webtoon_id}>
-        <ToonItem item={userInfo.view_webtoons[i]} />
+    for (let i = userInfo.data.view_webtoons.length - 1; i >= 0; i--) {
+      result.push(<div key={userInfo.data.view_webtoons[i].webtoon_id}>
+        <ToonItem item={userInfo.data.view_webtoons[i]} />
       </div>);
     }
     return result;
@@ -75,7 +80,7 @@ function ProfilePage() {
         borderColor: "rgba(179,181,198,1)",
         pointBorderColor: "#fff",
         pointBackgroundColor: "rgba(179,181,198,1)",
-        data: [40.33, 32.17, 25.53, 17.53, 9.53, 23.0],
+        data: paintGraphData,
       },
     ],
   };
@@ -97,14 +102,14 @@ function ProfilePage() {
                 </ProfileImage>
               </UserImage>
               <UserInfo>
-                <Name>{userInfo.nickname}</Name>
+                <Name>{userInfo.data.nickname}</Name>
                 <Heart>
                   <HeartImage
                     src={CuteHeart}
                     alt="귀여운 하트"
                     width="30px"
                   ></HeartImage>
-                  <HeartNumber>{userInfo.liked_webtoons.length}</HeartNumber>
+                  <HeartNumber>{userInfo.data.liked_webtoons.length}</HeartNumber>
                 </Heart>
               </UserInfo>
               <Genre>#무협 #로맨스 #스포츠</Genre>
@@ -113,7 +118,7 @@ function ProfilePage() {
           <TagTitle>♥찜한태그</TagTitle>
           <TagBorder>
             <TagBack>
-              {userInfo.tags.length === 0 ? "텅~" : userInfo.tags.map((tag) => (
+              {userInfo.data.tags.length === 0 ? "텅~" : userInfo.data.tags.map((tag) => (
                 <div key={tag.tag_id}>{tag.name}</div>
               ))}
             </TagBack>
@@ -121,7 +126,7 @@ function ProfilePage() {
           <PreferenceTitle>♥찜한웹툰</PreferenceTitle>
           <PreferenceBack>
             <HeartWebToon>
-              {userInfo.liked_webtoons.length === 0 ? "텅~" : userInfo.liked_webtoons.map((toon) => (
+              {userInfo.data.liked_webtoons.length === 0 ? "텅~" : userInfo.data.liked_webtoons.map((toon) => (
                 <div key={toon.webtoon_id}>
                   <ToonItem item={toon} />
                 </div>
@@ -132,10 +137,10 @@ function ProfilePage() {
           <PreferenceTitle>♥최근에 본 웹툰</PreferenceTitle>
           <PreferenceBack>
             <ViewWebToon>
-              {userInfo.view_webtoons.length === 0 ? "텅~" : viewWebtoonReverse()}
+              {userInfo.data.view_webtoons.length === 0 ? "텅~" : viewWebtoonReverse()}
             </ViewWebToon>
           </PreferenceBack>
-          <PreferenceTitle>♥{userInfo.nickname}님의 관심사</PreferenceTitle>
+          <PreferenceTitle>♥{userInfo.data.nickname}님의 관심사</PreferenceTitle>
           <ChartBack>
             <ChartZone>
               <PreferGenre>
@@ -192,20 +197,6 @@ const ProfileImage = styled.div`
   left: 198px;
 `;
 
-const Age = styled.div`
-  background-color: lightgray;
-  border: 1px solid black;
-  border-radius: 30px;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  font-size: 20pt;
-  position: absolute;
-  z-index: 2;
-  top: 320px;
-  left: 320px;
-`;
-
 const UserInfo = styled.div`
   flex: 1;
   margin-top: 75px;
@@ -219,14 +210,7 @@ const Name = styled.h1`
   font-size: 30pt;
 `;
 
-const Gender = styled.div`
-  display: inline;
-  margin-left: 10px;
-`;
-
 const Heart = styled.h3`
-  margin-top: px;
-  margin-left: 10%;
 `;
 
 const HeartImage = styled.img`

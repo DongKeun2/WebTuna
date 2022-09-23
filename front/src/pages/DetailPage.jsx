@@ -374,15 +374,17 @@ function DetailPage() {
               </SubInfo>
             </DetailZone>
             <TagZone>
-              {webToonInfo.data.tags.map((tag) => (
-                <Tag key={tag.tag_id} id={tag.tag_id}>
-                  <BookMarkImage>
-                    <img src={BookMark} alt="북마크" width="20px"></img>
-                  </BookMarkImage>
-                  <TagName>{tag.name}</TagName>
-                  {loginState === null ? null : userData.tags.includes(tag.tag_id) ? <MinusButton onClick={tagSwitch}>-</MinusButton> : <PlusButton onClick={tagSwitch}>+</PlusButton>}
-                </Tag>
-              ))}
+              {(webToonInfo.data.tags.length === 0 || webToonInfo.data.tags === undefined) ? "텅~" :
+                webToonInfo.data.tags.map((tag) => (
+                  <Tag key={tag.tag_id} id={tag.tag_id}>
+                    <BookMarkImage>
+                      <img src={BookMark} alt="북마크" width="20px"></img>
+                    </BookMarkImage>
+                    <TagName>{tag.name}</TagName>
+                    {loginState === null ? null : userData.tags.includes(tag.tag_id) ? <MinusButton onClick={tagSwitch}>-</MinusButton> : <PlusButton onClick={tagSwitch}>+</PlusButton>}
+                  </Tag>
+                ))
+              }
             </TagZone>
             <PaintStyleRecommendZone>
               <h2>그림체가 비슷한 웹툰</h2>
@@ -597,10 +599,6 @@ const TagName = styled.div`
   margin-right: 10px;
   font-size: 18pt;
 `;
-
-const TagToggle = styled.div`
-  display: inline;
-`
 
 const MinusButton = styled.div`
 display: inline;
