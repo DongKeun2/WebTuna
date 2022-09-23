@@ -50,10 +50,7 @@ function ImgItems({ item }) {
   const selectImg = useSelector((state) => state.signup.selectImg);
 
   function clickImg() {
-    const newSet = new Set();
-    selectImg.forEach((n) => {
-      newSet.add(n);
-    });
+    const newSet = new Set([...selectImg]);
 
     if (newSet.has(item.id)) {
       newSet.delete(item.id);
