@@ -25,8 +25,11 @@ function UploadPage() {
 =======
   const [fileImage, setFileImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+<<<<<<< HEAD
   const [fetchError, setIsFetchError] = useState(false);
 >>>>>>> 1d997a0 (feat: 모델 생성 실패 시 경고창 / 그림체 result페이지 cleanup 추가)
+=======
+>>>>>>> 8be362d (fix: 업로드 에러 핸들링)
 
   const saveFileImage = event => {
     setFileImage(URL.createObjectURL(event.target.files[0]))
@@ -71,11 +74,19 @@ function UploadPage() {
         probability,
       };
       dispatch(fetchUpload(data)).then((res) => {
-        if (res.error) {
-          setIsFetchError(true);
+        if (res.type === "fetchUpload/fulfilled") {
+          setTimeout(() => {
+            setIsLoading(false);
+
+            navigate("./result");
+          }, 1000);
+        } else {
+          alert("다시 시도해주세요");
+          setIsLoading(false);
         }
       });
     });
+<<<<<<< HEAD
     setTimeout(() => {
       setIsLoading(false);
       if (fetchError) {
@@ -85,6 +96,8 @@ function UploadPage() {
       }
     }, 3000);
 >>>>>>> 79d4088 (feat: 미리보기 여부 확인 논리 수정)
+=======
+>>>>>>> 8be362d (fix: 업로드 에러 핸들링)
   }
 
   async function predict() {
