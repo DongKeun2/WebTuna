@@ -59,7 +59,7 @@ function UploadPage() {
     setIsLoading(true);
     predict().then((prediction) => {
       const probability = prediction.map((item) => {
-        return (item.probability * 100).toFixed(2);
+        return parseFloat((item.probability * 100).toFixed(2));
       });
       const data = {
         probability,
@@ -89,7 +89,7 @@ function UploadPage() {
     <div>
       {isLoading ? (
         <div>
-          <Loading></Loading>
+          <Loading text={"그림체를 분석하는 중..."}></Loading>
           {fileImage && (
             <img
               id="canvas"
@@ -176,7 +176,7 @@ function UploadPage() {
 
 const TitleBox = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 1vw;
   @media screen and (max-width: 600px) {
     flex-direction: column;
     align-items: center;
@@ -186,7 +186,7 @@ const TitleBox = styled.div`
 `;
 
 const UploadTitle = styled.p`
-  font-size: 40px;
+  font-size: 3vw;
   font-weight: bold;
   @media screen and (max-width: 600px) {
     font-size: 20px;
