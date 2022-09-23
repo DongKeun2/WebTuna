@@ -7,8 +7,8 @@ import Loading from '../../components/common/Loading'
 import { fetchUpload } from '../../features/toons/uploadSlice'
 =======
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../../components/common/Loading";
 import { fetchUpload } from "../../features/toons/uploadSlice";
@@ -97,6 +97,12 @@ function UploadPage() {
     const prediction = await model.predict(tempImage, false)
     console.log(prediction)
     return prediction
+  }
+
+  const isAuthenticated = useSelector((state) => state.login.loginState);
+  if (!isAuthenticated) {
+    alert("로그인 후 이용 가능요");
+    return <Navigate to="/login" />;
   }
 
   return (

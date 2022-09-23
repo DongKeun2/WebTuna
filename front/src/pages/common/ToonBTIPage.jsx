@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -10,7 +10,6 @@ import {
 } from "../../features/toons/toonBTISlice";
 import { OuterBtn, SelectBtn } from "../../components/common/SelectBtn";
 import Loading from "../../components/common/Loading";
-import { useNavigate } from "react-router-dom";
 import talkToon from "../../assets/test/cute.png";
 
 function ToonBTIPage() {
