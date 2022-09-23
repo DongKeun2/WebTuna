@@ -19,8 +19,14 @@ function UploadPage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+<<<<<<< HEAD
   const [fileImage, setFileImage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+=======
+  const [fileImage, setFileImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchError, setIsFetchError] = useState(false);
+>>>>>>> 1d997a0 (feat: 모델 생성 실패 시 경고창 / 그림체 result페이지 cleanup 추가)
 
   const saveFileImage = event => {
     setFileImage(URL.createObjectURL(event.target.files[0]))
@@ -64,11 +70,19 @@ function UploadPage() {
       const data = {
         probability,
       };
-      dispatch(fetchUpload(data));
+      dispatch(fetchUpload(data)).then((res) => {
+        if (res.error) {
+          setIsFetchError(true);
+        }
+      });
     });
     setTimeout(() => {
       setIsLoading(false);
-      navigate("./result");
+      if (fetchError) {
+        alert("다시 시도해주세요.");
+      } else {
+        navigate("./result");
+      }
     }, 3000);
 >>>>>>> 79d4088 (feat: 미리보기 여부 확인 논리 수정)
   }

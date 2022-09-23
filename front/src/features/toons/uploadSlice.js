@@ -33,7 +33,11 @@ export const uploadSlice = createSlice({
   initialState: {
     webtoonInfo: {},
   },
-  reducers: {},
+  reducers: {
+    cleanResultData: (state, action) => {
+      state.webtoonInfo = action.payload;
+    },
+  },
   extraReducers: {
     [fetchUpload.fulfilled]: (state, action) => {
       console.log('데이터 받기 성공')
@@ -45,6 +49,6 @@ export const uploadSlice = createSlice({
 
 export { fetchUpload }
 // Action creators are generated for each case reducer function
-// export const { } = uploadSlice.actions;
+export const { cleanResultData } = uploadSlice.actions;
 
 export default uploadSlice.reducer

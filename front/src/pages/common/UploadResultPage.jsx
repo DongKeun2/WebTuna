@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useSelector } from 'react-redux'
 
 function UploadResultPage() {
@@ -14,15 +15,27 @@ function UploadResultPage() {
 export default UploadResultPage
 =======
 import { useSelector } from "react-redux";
+=======
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+>>>>>>> 1d997a0 (feat: 모델 생성 실패 시 경고창 / 그림체 result페이지 cleanup 추가)
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { OuterBtn, SelectBtn } from "../../components/common/SelectBtn";
+import { cleanResultData } from "../../features/toons/uploadSlice";
 
 function UploadResultPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toonInfo = useSelector((state) => state.upload.webtoonInfo);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanResultData({}));
+    };
+  }, [dispatch]);
 
   function moveDetail() {
     navigate(`/detail/${toonInfo.webtoon_id}`);
