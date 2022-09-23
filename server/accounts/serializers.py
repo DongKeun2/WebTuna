@@ -36,7 +36,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         
         class Meta:
             model = Webtoon
-            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'authors')
+            fields = ('webtoon_id', 'title', 'thumbnail', 'authors')
 
     
     class LookWebtoonSerializer(serializers.ModelSerializer):
@@ -74,7 +74,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('id', 'nickname', 'password' )
+        fields = ('id', 'password' )
         
 
 class ProfileMainSerializer(serializers.ModelSerializer):

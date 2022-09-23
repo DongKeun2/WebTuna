@@ -5,7 +5,8 @@ from .models import *
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-
+from rest_framework import status
+import json
 
 # Create your views here.
 
@@ -47,8 +48,57 @@ class ProfileUpdate(generics.UpdateAPIView):
 @api_view(['GET'])
 def Profile(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
+    webtoons = member.liked_webtoons.all()
+    webtoons_length = len(webtoons)
+    image_types = {
+        'image_type1':0,
+        'image_type2':0,
+        'image_type3':0,
+        'image_type4':0,
+        'image_type5':0,
+        'image_type6':0
+    }
+    
+    genre_types = {
+        '로맨스':0,
+        '판타지':0,
+        '드라마':0,
+        '스릴러':0,
+        '일상':0,
+        '액션':0,
+        '무협/사극':0,
+        '스포츠':0,
+        '개그':0,
+        '감성':0,
+        '소년':0,
+        'BL':0
+    }
+    
+    for webtoon in webtoons:
+        image_types['image_type1'] += webtoon.image_type1
+        image_types['image_type2'] += webtoon.image_type2
+        image_types['image_type3'] += webtoon.image_type3
+        image_types['image_type4'] += webtoon.image_type4
+        image_types['image_type5'] += webtoon.image_type5
+        image_types['image_type6'] += webtoon.image_type6
+        genres = webtoon.genres.all()
+        for genre in genres:
+            genre_type = genre.genre_type
+            if genre_type not in ['스토리','옴니버스','에피소드']:
+                genre_types[genre_type] += 1
+    
+    for i in range(1,7):
+        image_types[f'image_type{i}'] = round(image_types[f'image_type{i}'] / webtoons_length , 2)
+    
+    sort_genre = sorted(genre_types.items(), key=lambda x:x[1], reverse=True)
+    genre_list = []
+    for i in range(3):
+        if sort_genre[i][1]:
+            genre_list.append(sort_genre[i][0])
+        
+        
     serializer = ProfileSerializer(member)
-    return Response(serializer.data)
+    return Response({'data':serializer.data, 'image_type':image_types, 'genre_list':genre_list}, status.HTTP_200_OK)
 
 
 # 메인 프로필 정보 받기
