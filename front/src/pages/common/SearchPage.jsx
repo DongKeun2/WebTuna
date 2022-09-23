@@ -16,9 +16,7 @@ export default function SearchPage() {
           <AllToonList toons={toonList} />
         </ToonListBox>
       ) : (
-        <EmptyBox>
-          <h2>검색 결과 없어용</h2>
-        </EmptyBox>
+        <EmptyMsg>검색 결과가 존재하지 않습니다.</EmptyMsg>
       )}
     </PageBox>
   );
@@ -26,6 +24,7 @@ export default function SearchPage() {
 
 const PageBox = styled.div`
   width: 90%;
+  min-height: 38vw;
   margin-left: auto;
   margin-right: auto;
   padding: 0.5vw;
@@ -55,7 +54,9 @@ const ToonListBox = styled.div`
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
 
-const EmptyBox = styled.div`
-  padding: 4vw;
-  height: 60vh;
-`;
+const EmptyMsg = styled.p`
+  margin-top: 10vw;
+  font-size: 1.5vw;
+  font-weight: 600;
+  text-align: center;
+`
