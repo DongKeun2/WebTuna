@@ -6,6 +6,7 @@ import searchIcon from "../../assets/test/searchIcon.png";
 import {
   searchToons,
   changeKeyword,
+  changeWord,
   changeIsLoading,
 } from "../../features/toons/searchSlice";
 
@@ -18,6 +19,7 @@ function SearchBar() {
 
   function submitKeyword(e) {
     e.preventDefault();
+    dispatch(changeWord(keyword));
     const data = {
       pages,
       keyword,

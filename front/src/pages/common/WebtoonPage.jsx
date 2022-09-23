@@ -14,31 +14,23 @@ function WebtoonPage() {
 
   const toons = useSelector((state) => state.toonlist.toons) || [];
 
-  if (toons.length > 0) {
-    return (
-      <PageBox>
-        <HeaderBox>
-          <PageTitle>전체 웹툰 목록</PageTitle>
-          <FilterBtn>필터</FilterBtn>
-        </HeaderBox>
+  return (
+    <PageBox>
+      <HeaderBox>
+        <PageTitle>전체 웹툰 목록</PageTitle>
+        <FilterBtn>필터</FilterBtn>
+      </HeaderBox>
+      {toons.length ? (
         <ToonListBox>
-          <AllToonList toons={toons}/>
+          <AllToonList toons={toons} />
         </ToonListBox>
-      </PageBox>
-    );
-  } else {
-    return (
-      <PageBox>
-        <HeaderBox>
-          <PageTitle>전체 웹툰 목록</PageTitle>
-          <FilterBtn>필터</FilterBtn>
-        </HeaderBox>
+      ) : (
         <ToonListBox>
-          <ToonLoading></ToonLoading>
+          <ToonLoading num={20} ></ToonLoading>
         </ToonListBox>
-      </PageBox>
-    )
-  }
+      )}
+    </PageBox>
+  );
 }
 
 const PageBox = styled.div`

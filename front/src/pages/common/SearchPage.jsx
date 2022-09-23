@@ -4,14 +4,12 @@ import AllToonList from "../../components/toonlist/AllToonList";
 
 export default function SearchPage() {
   const toonList = useSelector((state) => state.search.toonList);
+  const word = useSelector((state) => state.search.word);
 
-  function checkFetch() {
-    console.log(toonList);
-  }
   return (
     <PageBox>
       <HeaderBox>
-        <h1>검색 결과</h1>
+        <PageTitle>'{word}'에 대한 검색 결과</PageTitle>
       </HeaderBox>
       {toonList.length ? (
         <ToonListBox>
@@ -41,6 +39,14 @@ const HeaderBox = styled.div`
   align-items: center;
   padding-left: 0.8vw;
 `;
+
+const PageTitle = styled.p`
+  font-size: 1.8vw;
+  font-weight: 700;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  margin-left: 1vw;
+`
 
 const ToonListBox = styled.div`
   display: grid;
