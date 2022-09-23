@@ -131,7 +131,6 @@ function ProfilePage() {
                   <ToonItem item={toon} />
                 </div>
               ))}
-
             </HeartWebToon>
           </PreferenceBack>
           <PreferenceTitle>♥최근에 본 웹툰</PreferenceTitle>
