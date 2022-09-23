@@ -1,5 +1,6 @@
 from ast import keyword
 from re import L
+from tkinter import image_types
 from django.shortcuts import render
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -44,6 +45,7 @@ from django.core.paginator import Paginator
 =======
 from django.db.models import Q
 from webtoons import serializers
+import random
 # import requests
 # import csv
 # from bs4 import BeautifulSoup
@@ -289,9 +291,13 @@ def searchWebtoon(request,pageNum):
     webtoon_list.sort(key=lambda webtoon: webtoon.title, reverse=False)
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
+<<<<<<< HEAD
     serializer = WebtoonSerializer(webtoons, many = True)
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    serializer = WebtoonListSerializer(webtoons, many = True)
+>>>>>>> 09b2f2b (feat: 그림체 기반 추천 알고리즘 구현중)
     return Response(serializer.data, status.HTTP_200_OK)
 <<<<<<< HEAD
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
@@ -404,4 +410,259 @@ def recommendWebtoon(request,typeId):
         serializer = WebtoonListSerializer(webtoons, many=True)
         
         return Response(serializer.data)
+<<<<<<< HEAD
 >>>>>>> b432986 (feat: CF 기반 웹툰 추천 api 구현(웹툰 추천 전체 구현은 미완성))
+=======
+    if typeId == 2:
+        # modeling 후 변경
+        webtoon =  get_object_or_404(Webtoon, pk=int(request.GET['webtoon_id']))
+        similar_webtoons = webtoon.similar_webtoons.split()
+        user_liked_list = []
+        if(request.user):
+            my_webtoons = Webtoon.objects.filter(liked_webtoon_users = request.user.pk)       
+            for my_webtoon in my_webtoons:
+                user_liked_list.append(my_webtoon.webtoon_id)
+        # print("mylist : ",user_liked_list)
+        # similar_string = "1,2,3,4,5,6,7,8,9,10,1115"
+        # similar_webtoons = similar_string.split(",")
+        recommended_webtoons = []
+        for idx in similar_webtoons:
+            # 내가 찜한 애들은 제외
+            if int(idx.replace(" ","")) not in user_liked_list:
+                recommended_webtoons.append(int(idx.replace(" ","")))
+
+        # print("최종추천 list : ",recommended_webtoons)
+        if(len(recommended_webtoons)>=5):
+            recommended_webtoons = random.sample(recommended_webtoons,5)
+        
+        
+        webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoons)
+        serializer = WebtoonListSerializer(webtoons, many=True)
+        return Response(serializer.data)
+
+# tb_draw_classify 삽입
+@api_view(['GET'])
+def insertClassify(request):
+    # recommended_webtoons = [1,4,23,27]
+    # webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoons)
+    webtoons = Webtoon.objects.all()
+    # webtoon_list = []
+    for webtoon in webtoons:
+        list = []   
+        list.append(webtoon.image_type1)
+        list.append(webtoon.image_type2)
+        list.append(webtoon.image_type3)
+        list.append(webtoon.image_type4)
+        list.append(webtoon.image_type5)
+        list.append(webtoon.image_type6)
+        
+        first_max = max(list)
+        second_max = 0;
+        for max_i in list:
+            if(first_max > max_i and max_i > second_max):
+                second_max = max_i
+
+        first = list.index(first_max)+1
+        second = list.index(second_max)+1
+        type = 0
+        if(first==1 and second == 2):
+            type = 1
+        elif(first==1 and second == 3):
+            type = 2 
+        elif(first==1 and second == 4):
+            type = 3 
+        elif(first==1 and second == 5):
+            type = 4 
+        elif(first==1 and second == 6):
+            type = 5 
+        elif(first==2 and second == 1):
+            type = 6 
+        elif(first==2 and second == 3):
+            type = 7 
+        elif(first==2 and second == 4):
+            type = 8 
+        elif(first==2 and second == 5):
+            type = 9 
+        elif(first==2 and second == 6):
+            type = 10 
+        elif(first==3 and second == 1):
+            type = 11 
+        elif(first==3 and second == 2):
+            type = 12 
+        elif(first==3 and second == 4):
+            type = 13 
+        elif(first==3 and second == 5):
+            type = 14 
+        elif(first==3 and second == 6):
+            type = 15 
+        elif(first==4 and second == 1):
+            type = 16 
+        elif(first==4 and second == 2):
+            type = 17 
+        elif(first==4 and second == 3):
+            type = 18 
+        elif(first==4 and second == 5):
+            type = 19 
+        elif(first==4 and second == 6):
+            type = 20 
+        elif(first==5 and second == 1):
+            type = 21 
+        elif(first==5 and second == 2):
+            type = 22 
+        elif(first==5 and second == 3):
+            type = 23 
+        elif(first==5 and second == 4):
+            type = 24 
+        elif(first==5 and second == 6):
+            type = 25 
+        elif(first==6 and second == 1):
+            type = 26 
+        elif(first==6 and second == 2):
+            type = 27 
+        elif(first==6 and second == 3):
+            type = 28 
+        elif(first==6 and second == 4):
+            type = 29 
+        elif(first==6 and second == 5):
+            type = 30 
+        # webtoon_list.append({"type" : type, "webtoon_id" : webtoon.webtoon_id })
+        # modeling 후 insert 
+        webtoon.classify_id.add(type)
+    # print(webtoon_list)   
+    return Response(status.HTTP_201_CREATED)
+
+# webtoon마다 similar_webtoons id string으로 넣어주기
+@api_view(['GET'])
+def insertSimilarWebtoons(request):
+    webtoon_list = Webtoon.objects.all()
+    # idx_list = [1,4,23,27]
+    # webtoon_list = Webtoon.objects.filter(webtoon_id = 1)
+    
+    # 각 이미지 타입 비율 불러와 차이 계산 후 top30을 similar에 넣는다
+    for webtoon in webtoon_list:
+        # 같은 타입애들을 불러와
+        type_list = Webtoon.objects.filter(classify_id = webtoon.classify_id)
+        # type_list = Webtoon.objects.filter(webtoon_id__in = idx_list)
+        original_webtoon = get_object_or_404(Webtoon,pk=webtoon.webtoon_id)
+        similar_list = []
+        for comparsion in type_list:
+            if(original_webtoon==comparsion):
+                continue
+            diffResult = typeToDifference(webtoon.classify_id,original_webtoon, comparsion)
+            # diffResult = typeToDifference(1,original_webtoon, comparsion)
+            similar_list.append(diffResult)
+        
+        # print(list)
+        # 1순위 -> 2순위 그림체 순으로 정렬
+        newlist = sorted(similar_list, key = lambda idx: (idx['first_diff'],idx['second_diff'])) 
+        # print(newlist)
+        # print(','.join([str(item['webtoon_id']) for item in newlist]))
+        insert_similar_webtoons = ','.join([str(item['webtoon_id']) for item in newlist])
+        # insert to similar 그림체
+        original_webtoon.update(similar_webtoons=insert_similar_webtoons)
+        
+    return Response(status.HTTP_201_CREATED)
+
+# 그림체 차이 계산
+def typeToDifference(type, original, comparsion):
+    type1_diff = abs(original.image_type1 - comparsion.image_type1)
+    type2_diff = abs(original.image_type2 - comparsion.image_type2)
+    type3_diff = abs(original.image_type3 - comparsion.image_type3)
+    type4_diff = abs(original.image_type4 - comparsion.image_type4)
+    type5_diff = abs(original.image_type5 - comparsion.image_type5)
+    type6_diff = abs(original.image_type6 - comparsion.image_type6)
+
+    if(type==1): 
+        first_diff = type1_diff
+        second_diff = type2_diff
+    elif(type==2): 
+        first_diff = type1_diff
+        second_diff = type3_diff
+    elif(type==3): 
+        first_diff = type1_diff
+        second_diff = type4_diff
+    elif(type==4): 
+        first_diff = type1_diff
+        second_diff = type5_diff
+    elif(type==5): 
+        first_diff = type1_diff
+        second_diff = type6_diff
+    elif(type==6): 
+        first_diff = type2_diff
+        second_diff = type1_diff
+    elif(type==7): 
+        first_diff = type2_diff
+        second_diff = type3_diff
+    elif(type==8): 
+        first_diff = type2_diff
+        second_diff = type4_diff
+    elif(type==9): 
+        first_diff = type2_diff
+        second_diff = type5_diff
+    elif(type==10): 
+        first_diff = type2_diff
+        second_diff = type6_diff
+    elif(type==11): 
+        first_diff = type3_diff
+        second_diff = type1_diff
+    elif(type==12): 
+        first_diff = type3_diff
+        second_diff = type2_diff
+    elif(type==13): 
+        first_diff = type3_diff
+        second_diff = type4_diff
+    elif(type==14): 
+        first_diff = type3_diff
+        second_diff = type5_diff
+    elif(type==15): 
+        first_diff = type3_diff
+        second_diff = type6_diff
+    elif(type==16): 
+        first_diff = type4_diff
+        second_diff = type1_diff
+    elif(type==17): 
+        first_diff = type4_diff
+        second_diff = type2_diff
+    elif(type==18): 
+        first_diff = type4_diff
+        second_diff = type3_diff
+    elif(type==19): 
+        first_diff = type4_diff
+        second_diff = type5_diff
+    elif(type==20): 
+        first_diff = type4_diff
+        second_diff = type6_diff
+    elif(type==21): 
+        first_diff = type5_diff
+        second_diff = type1_diff
+    elif(type==22): 
+        first_diff = type5_diff
+        second_diff = type2_diff
+    elif(type==23): 
+        first_diff = type5_diff
+        second_diff = type3_diff
+    elif(type==24): 
+        first_diff = type5_diff
+        second_diff = type4_diff
+    elif(type==25): 
+        first_diff = type5_diff
+        second_diff = type6_diff
+    elif(type==26): 
+        first_diff = type6_diff
+        second_diff = type1_diff
+    elif(type==27): 
+        first_diff = type6_diff
+        second_diff = type2_diff
+    elif(type==28): 
+        first_diff = type6_diff
+        second_diff = type3_diff
+    elif(type==29): 
+        first_diff = type6_diff
+        second_diff = type4_diff
+    elif(type==30): 
+        first_diff = type6_diff
+        second_diff = type5_diff
+
+    difference = {"webtoon_id" : comparsion.webtoon_id , "first_diff" : first_diff, "second_diff" : second_diff}
+    return difference
+>>>>>>> 09b2f2b (feat: 그림체 기반 추천 알고리즘 구현중)
