@@ -15,6 +15,37 @@ import json
 from webtoons.models import Author, Platform, Webtoon, Genre, Day, Tag
 from bs4 import BeautifulSoup
 
+# def download_file(url):    
+
+#     urllib.request.urlretrieve(url, filename)    
+
+# # urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+# # 에러에 대한 해결코드
+
+
+
+# opener=urllib.request.build_opener()
+
+# opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+
+# urllib.request.install_opener(opener)
+
+# webtoons = Webtoon.objects.all()
+    
+# for webtoon in webtoons:
+#     diff = 0
+    
+#     if webtoon.image_type1 is None:
+#         url = webtoon.thumbnail
+#         webtoon_title = webtoon.title
+#         filename = f"{webtoon_title}.jpg"
+#         try:
+#             download_file(url)
+#         except:
+#             pass
+    
+    
 # ##이미지 저장
 # Base_URL = 'https://korea-webtoon-api.herokuapp.com'
 # path = '/all'

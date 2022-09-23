@@ -6,7 +6,6 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
-import json
 
 # Create your views here.
 
@@ -16,12 +15,15 @@ class UserCreate(generics.CreateAPIView):
     serializer_class = MemberSignupSerializer
 
 
-# 프로필 수정하기
-class ProfileUpdate(generics.UpdateAPIView):
-    lookup_field = 'id'
-    queryset = Member.objects.all()
-    serializer_class = ProfileUpdateSerializer
-    
+# 비밀번호 수정하기
+@api_view(['PUT'])
+def ProfileUpdate(request):
+    member = get_object_or_404(get_user_model(), id=request.user.id)
+    new_password = request.data['password']
+    member.set_password(new_password)
+    member.save()
+    return Response(True)
+
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -73,28 +75,43 @@ def Profile(request):
         '소년':0,
         'BL':0
     }
+    if webtoons_length:
+        for webtoon in webtoons:
+            image_types['image_type1'] += webtoon.image_type1
+            image_types['image_type2'] += webtoon.image_type2
+            image_types['image_type3'] += webtoon.image_type3
+            image_types['image_type4'] += webtoon.image_type4
+            image_types['image_type5'] += webtoon.image_type5
+            image_types['image_type6'] += webtoon.image_type6
+            genres = webtoon.genres.all()
+            for genre in genres:
+                genre_type = genre.genre_type
+                if genre_type not in ['스토리','옴니버스','에피소드']:
+                    genre_types[genre_type] += 1
     
-    for webtoon in webtoons:
-        image_types['image_type1'] += webtoon.image_type1
-        image_types['image_type2'] += webtoon.image_type2
-        image_types['image_type3'] += webtoon.image_type3
-        image_types['image_type4'] += webtoon.image_type4
-        image_types['image_type5'] += webtoon.image_type5
-        image_types['image_type6'] += webtoon.image_type6
-        genres = webtoon.genres.all()
-        for genre in genres:
-            genre_type = genre.genre_type
-            if genre_type not in ['스토리','옴니버스','에피소드']:
-                genre_types[genre_type] += 1
+    else:
+        webtoons = member.liked_thumbnail.split(",")
+        webtoons_length = len(webtoons)
+        for i in webtoons:
+            webtoon = Webtoon.objects.get(webtoon_id=i)
+            image_types['image_type1'] += webtoon.image_type1
+            image_types['image_type2'] += webtoon.image_type2
+            image_types['image_type3'] += webtoon.image_type3
+            image_types['image_type4'] += webtoon.image_type4
+            image_types['image_type5'] += webtoon.image_type5
+            image_types['image_type6'] += webtoon.image_type6
+            
     
     for i in range(1,7):
         image_types[f'image_type{i}'] = round(image_types[f'image_type{i}'] / webtoons_length , 2)
     
     sort_genre = sorted(genre_types.items(), key=lambda x:x[1], reverse=True)
-    genre_list = []
+    genre_list = {}
     for i in range(3):
         if sort_genre[i][1]:
-            genre_list.append(sort_genre[i][0])
+            genre_list[sort_genre[i][0]] = sort_genre[i][1]
+            
+
         
         
     serializer = ProfileSerializer(member)

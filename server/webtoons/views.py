@@ -1,6 +1,9 @@
 from ast import keyword
 from re import L
+<<<<<<< HEAD
 # from tkinter import image_types
+=======
+>>>>>>> 73c744d (fix : profile수정, 비밀번호 변경하기)
 from django.shortcuts import render
 <<<<<<< HEAD
 <<<<<<< HEAD
