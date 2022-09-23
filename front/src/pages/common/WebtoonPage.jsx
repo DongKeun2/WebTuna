@@ -15,26 +15,38 @@ function WebtoonPage() {
   const toons = useSelector((state) => state.toonlist.toons) || [];
 
   return (
-    <PageBox>
-      <HeaderBox>
-        <PageTitle>전체 웹툰 목록</PageTitle>
-        <FilterBtn>필터</FilterBtn>
-      </HeaderBox>
-      {toons.length ? (
-        <ToonListBox>
-          <AllToonList toons={toons} />
-        </ToonListBox>
-      ) : (
-        <ToonListBox>
-          <ToonLoading num={20} ></ToonLoading>
-        </ToonListBox>
-      )}
-    </PageBox>
+    <Container>
+      <PageBox>
+        <HeaderBox>
+          <PageTitle>전체 웹툰 목록</PageTitle>
+          <FilterBtn>필터</FilterBtn>
+        </HeaderBox>
+        {toons.length ? (
+          <ToonListBox>
+            <AllToonList toons={toons} />
+          </ToonListBox>
+        ) : (
+          <ToonListBox>
+            <ToonLoading num={20} ></ToonLoading>
+          </ToonListBox>
+        )}
+      </PageBox>
+    </Container>
   );
 }
 
+const Container = styled.div`
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1vw 0;
+  border: solid 2px;
+  border-radius: 1rem;
+  background-color: white;
+`
+
 const PageBox = styled.div`
-  width: 90%;
+  width: 96%;
   margin-left: auto;
   margin-right: auto;
   padding: 0.5vw;

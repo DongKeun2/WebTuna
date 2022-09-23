@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Home from '../../assets/navbar/Home.png'
@@ -8,6 +9,9 @@ import ToonBTI from '../../assets/navbar/ToonBTI.png'
 import ToonToonRecommend from '../../assets/navbar/ToonToonRecommend.png'
 =======
 import { Link, useNavigate } from "react-router-dom";
+=======
+import { useNavigate } from "react-router-dom";
+>>>>>>> 33411a0 (feat: 목록페이지, 검색페이지 박스 감싸기)
 import styled from "styled-components";
 import Home from "../../assets/navbar/Home.png";
 import All from "../../assets/navbar/All.png";

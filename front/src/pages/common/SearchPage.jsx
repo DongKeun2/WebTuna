@@ -19,27 +19,39 @@ export default function SearchPage() {
   }, [dispatch]);
 
   return (
-    <PageBox>
-      <HeaderBox>
-        <PageTitle>'{word}'에 대한 검색 결과</PageTitle>
-      </HeaderBox>
-      {toonList.length ? (
-        <ToonListBox>
-          <AllToonList toons={toonList} />
-        </ToonListBox>
-      ) : isLoad ? (
-        <ToonListBox>
-          <ToonLoading num={10}></ToonLoading>
-        </ToonListBox>
-      ) : (
-        <EmptyMsg>검색 결과가 존재하지 않습니다.</EmptyMsg>
-      )}
-    </PageBox>
+    <Container>
+      <PageBox>
+        <HeaderBox>
+          <PageTitle>'{word}'에 대한 검색 결과</PageTitle>
+        </HeaderBox>
+        {toonList.length ? (
+          <ToonListBox>
+            <AllToonList toons={toonList} />
+          </ToonListBox>
+        ) : isLoad ? (
+          <ToonListBox>
+            <ToonLoading num={10}></ToonLoading>
+          </ToonListBox>
+        ) : (
+          <EmptyMsg>검색 결과가 존재하지 않습니다.</EmptyMsg>
+        )}
+      </PageBox>
+    </Container>
   );
 }
 
+const Container = styled.div`
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1vw 0;
+  border: solid 2px;
+  border-radius: 1rem;
+  background-color: white;
+`
+
 const PageBox = styled.div`
-  width: 90%;
+  width: 96%;
   min-height: 38vw;
   margin-left: auto;
   margin-right: auto;
