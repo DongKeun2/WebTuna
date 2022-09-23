@@ -1,6 +1,6 @@
 from ast import keyword
 from re import L
-from tkinter import image_types
+# from tkinter import image_types
 from django.shortcuts import render
 <<<<<<< HEAD
 <<<<<<< HEAD
