@@ -17,6 +17,7 @@ function AddInfoPage() {
   function submitSignup() {
     if (signupInfo.liked_thumbnail) {
       dispatch(signup(signupInfo)).then(() => {
+        alert("회원가입 성공");
         navigate("/login");
       });
     }

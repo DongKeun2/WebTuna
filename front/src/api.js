@@ -44,6 +44,7 @@ const SIGNUP_URL = "signup/";
 const EMAIL_URL = "email/";
 const NICKNAME_URL = "nickname/";
 const PASSWORD_URL = "check/";
+const EDIT_URL = "update/";
 
 const SEARCH_IMG_URL = "search/image/";
 >>>>>>> 6e82ed7 (feat: toonbti 질문&보기 구현)
@@ -78,6 +79,7 @@ const api = {
 
   // editSlice
   checkPassword: () => BASE_URL + ACCOUNTS_URL + USER_URL + PASSWORD_URL,
+  edit: () => BASE_URL + ACCOUNTS_URL + USER_URL + EDIT_URL,
 
   //uploadSlice
   fetchUpload: () => BASE_URL + WEBTOONS_URL + SEARCH_IMG_URL,

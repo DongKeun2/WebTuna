@@ -17,6 +17,18 @@ const checkPassword = createAsyncThunk(
   }
 );
 
+const edit = createAsyncThunk("edit", async (data, { rejectWithValue }) => {
+  console.log(data);
+  try {
+    const res = await axios.put(api.edit(), data, getConfig());
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return rejectWithValue(err.response.data);
+  }
+});
+
 export const editSlice = createSlice({
   name: "edit",
   initialState: {
@@ -52,10 +64,13 @@ export const editSlice = createSlice({
       console.log(action.payload);
       state.possible = action.payload;
     },
+    [edit.fulfilled]: (state, action) => {
+      console.log(action.payload);
+    },
   },
 });
 
-export { checkPassword };
+export { checkPassword, edit };
 // Action creators are generated for each case reducer function
 export const {
   changeConfirmPassword,
