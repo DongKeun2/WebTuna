@@ -50,9 +50,9 @@ function ProfilePage() {
   }, []);
 
   const RatingGraphData = {
-    margintop: 100,
-    marginleft: 30,
-    width: 500,
+    margintop: 10,
+    marginleft: 3,
+    width: 50,
     labels: ["로맨스", "코미디", "판타지"],
     datasets: [
       {
@@ -69,9 +69,9 @@ function ProfilePage() {
   };
 
   const PaintStyleData = {
-    margintop: 50,
-    marginleft: 150,
-    width: 400,
+    margintop: 5,
+    marginleft: 15,
+    width: 40,
     labels: ["순정", "무협", "양산형", "우산형", "우비형", "우리형"],
     datasets: [
       {
@@ -95,28 +95,20 @@ function ProfilePage() {
         <Profile>
           <UserBorder>
             <UserBack>
-              <UserImage>
-                <Border>
-                  <img src={ProfileBorder} alt="테두리" width="250px" />
-                </Border>
-                <ProfileImage>
-                  <img src={userImg} alt="프로필사진" width="150px" />
-                </ProfileImage>
-              </UserImage>
+              <ImgBox>
+                <BorderImg src={ProfileBorder} alt="테두리" />
+                <ProfileImg src={userImg} alt="프로필사진" />
+              </ImgBox>
               <UserInfo>
                 <Name>{userInfo.data.nickname}</Name>
                 <Heart>
-                  <HeartImage
-                    src={CuteHeart}
-                    alt="귀여운 하트"
-                    width="30px"
-                  ></HeartImage>
+                  <HeartImage src={CuteHeart} alt="귀여운 하트"></HeartImage>
                   <HeartNumber>
                     {userInfo.data.liked_webtoons.length}
                   </HeartNumber>
                 </Heart>
               </UserInfo>
-              <Genre>#무협 #로맨스 #스포츠</Genre>
+              <Genre>{userInfo.genre_list}</Genre>
             </UserBack>
           </UserBorder>
           <TagTitle>♥찜한태그</TagTitle>
@@ -170,79 +162,95 @@ function ProfilePage() {
 
 export default ProfilePage;
 
-const PageBox = styled.div``;
+const PageBox = styled.div`
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10vw;
+  padding: 0.5vw;
+`;
 
-const Profile = styled.div``;
+const Profile = styled.div`
+  margin: 0.65vw;
+`;
 
 const UserBorder = styled.div`
-  border: 2px solid black;
-  border-radius: 20px;
-  margin: 0px 100px 0px 100px;
-  height: 300px;
+  border: 0.15vw solid black;
+  background-color: white;
+  border-radius: 1.5vw;
+  height: 19.5vw;
 `;
 
 const UserBack = styled.div`
   display: flex;
   background-color: #feec91;
-  border: 2px solid black;
-  border-radius: 20px;
-  margin: 10px;
-  height: 275px;
+  border: 0.15vw solid black;
+  border-radius: 1.5vw;
+  margin: 0.65vw;
+  height: 17.8vw;
 `;
 
-const UserImage = styled.div`
-  flex: 1;
-  margin-left: 25px;
-  margin-top: 18px;
-  width: 200px;
-  height: 200px;
+const ImgBox = styled.div`
+  width: 18vw;
 `;
 
-const Border = styled.div`
+const BorderImg = styled.img`
   position: absolute;
+  margin-top: 1vw;
+  margin-left: 2vw;
+  width: 17vw;
+  overflow: hidden;
   z-index: 1;
 `;
 
-const ProfileImage = styled.div`
+const ProfileImg = styled.img`
   position: absolute;
+  margin-top: 3.5vw;
+  margin-left: 5.3vw;
+  width: 11vw;
+  height: 11vw;
+  border-radius: 70%;
+  object-fit: cover;
   z-index: 0;
-  top: 203px;
-  left: 198px;
 `;
 
 const UserInfo = styled.div`
-  flex: 1;
-  margin-top: 75px;
-  margin-left: 20px;
-  width: 200px;
-  height: 200px;
+  margin-top: 6vw;
+  margin-left: 1vw;
+  width: 20vw;
 `;
 
-const Name = styled.h1`
+const Name = styled.div`
   display: inline;
-  font-size: 30pt;
+  font-size: 2.5vw;
+  font-weight: 600;
 `;
 
-const Heart = styled.h3``;
+const Heart = styled.div`
+  display: flex;
+  margin-top: 1vw;
+  margin-left: 0.2vw;
+`;
 
 const HeartImage = styled.img`
-  display: inline;
+  width: 3vw;
+  height: 3vw;
 `;
 
 const HeartNumber = styled.div`
-  display: inline;
-  margin-left: 10px;
+  margin-left: 1vw;
+  font-size: 2vw;
 `;
 
 const Genre = styled.div`
-  flex: 3;
-  display: flex;
-  align-items: center;
-  font-size: 30pt;
+  width: 40vw;
+  margin-left: 8vw;
+  margin-top: 6vw;
+  font-size: 2.5vw;
 `;
 
 const TagTitle = styled.div`
-  font-size: 20pt;
+  font-size: 1.7vw;
   border-radius: 20px;
   margin: 20px 0px 20px 100px;
 `;
