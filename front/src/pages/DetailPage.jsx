@@ -305,197 +305,202 @@ function DetailPage() {
   };
 
   return (
-    <PageBox>
+    <>
       {isLoading ? (
         <Loading></Loading>
       ) : (
-        <BackGround>
-          <DetailZone>
-            <Thumbnail>
-              <ThumbnailImage
-                src={webToonInfo.data.thumbnail}
-                alt="썸네일"
-              ></ThumbnailImage>
-            </Thumbnail>
-            <Info>
-              <Title>{webToonInfo.data.title}</Title>
-              <Author>
-                {webToonInfo.data.authors.map((author) => author.name + " ")}
-              </Author>
-              <RatingZone>
-                별점 ★ {averageRating.toFixed(1)}{" "}
-                {loginState === null || webToonInfo.is_rated === 1 ? null : (
-                  <RatingButton onClick={switchModal}>별점 주기</RatingButton>
-                )}
-                {modal ? (
-                  <ModalFrame _handleModal={switchModal}>
-                    <div>빛나라 지식의 별</div>
-                    <Rating
-                      name="half-rating"
-                      defaultValue={5.0}
-                      precision={0.5}
-                      icon={
-                        <StarIcon
-                          style={{ width: "64px", height: "64px" }}
-                        ></StarIcon>
-                      }
-                      emptyIcon={
-                        <StarIcon
-                          style={{
-                            width: "64px",
-                            height: "64px",
-                          }}
-                        />
-                      }
-                      onChange={changeRating}
-                    />
-                  </ModalFrame>
-                ) : null}
-              </RatingZone>
-              <Genre>
-                장르{" "}
-                {webToonInfo.data.genres.map((genre) => genre.genre_type + " ")}
-              </Genre>
-              <Day>
-                {webToonInfo.data.days[0].day_id === 8
-                  ? "완결 웹툰"
-                  : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
-              </Day>
-            </Info>
-            <SubInfo>
-              <WebToonLink>
-                <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
-                {userData.liked_webtoons ===
-                undefined ? null : userData.liked_webtoons.includes(
-                    Number(toonId)
-                  ) ? (
-                  <FHeart
-                    src={FullHeart}
-                    alt="찜"
-                    onClick={heartClick}
-                  ></FHeart>
-                ) : (
-                  <EHeart
-                    src={EmptyHeart}
-                    alt="노찜"
-                    onClick={heartClick}
-                  ></EHeart>
-                )}
-              </WebToonLink>
-              <Summary>{webToonInfo.data.summary}</Summary>
-            </SubInfo>
-          </DetailZone>
-          <TagZone>
-            {webToonInfo.data.tags.length === 0 ||
-            webToonInfo.data.tags === undefined
-              ? "텅~"
-              : webToonInfo.data.tags.map((tag) =>
-                  loginState === null ? (
-                    <Tag key={tag.tag_id} id={tag.tag_id}>
-                      <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
-                    </Tag>
-                  ) : userData.tags.includes(tag.tag_id) ? (
-                    <LikedTag
-                      key={tag.tag_id}
-                      id={tag.tag_id}
-                      onClick={tagSwitch}
-                    >
-                      <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
-                      <MinusButton>-</MinusButton>
-                    </LikedTag>
+        <PageBox>
+          <BackGround>
+            <DetailZone>
+              <Thumbnail>
+                <ThumbnailImage
+                  src={webToonInfo.data.thumbnail}
+                  alt="썸네일"
+                ></ThumbnailImage>
+              </Thumbnail>
+              <Info>
+                <Title>{webToonInfo.data.title}</Title>
+                <Author>
+                  {webToonInfo.data.authors.map((author) => author.name + " ")}
+                </Author>
+                <RatingZone>
+                  별점 ★ {averageRating.toFixed(1)}{" "}
+                  {loginState === null || webToonInfo.is_rated === 1 ? null : (
+                    <RatingButton onClick={switchModal}>별점 주기</RatingButton>
+                  )}
+                  {modal ? (
+                    <ModalFrame _handleModal={switchModal}>
+                      <div>빛나라 지식의 별</div>
+                      <Rating
+                        name="half-rating"
+                        defaultValue={5.0}
+                        precision={0.5}
+                        icon={
+                          <StarIcon
+                            style={{ width: "64px", height: "64px" }}
+                          ></StarIcon>
+                        }
+                        emptyIcon={
+                          <StarIcon
+                            style={{
+                              width: "64px",
+                              height: "64px",
+                            }}
+                          />
+                        }
+                        onChange={changeRating}
+                      />
+                    </ModalFrame>
+                  ) : null}
+                </RatingZone>
+                <Genre>
+                  장르{" "}
+                  {webToonInfo.data.genres.map((genre) => genre.genre_type + " ")}
+                </Genre>
+                <Day>
+                  {webToonInfo.data.days[0].day_id === 8
+                    ? "완결 웹툰"
+                    : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
+                </Day>
+              </Info>
+              <SubInfo>
+                <WebToonLink>
+                  <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
+                  {userData.liked_webtoons ===
+                  undefined ? null : userData.liked_webtoons.includes(
+                      Number(toonId)
+                    ) ? (
+                    <FHeart
+                      src={FullHeart}
+                      alt="찜"
+                      onClick={heartClick}
+                    ></FHeart>
                   ) : (
-                    <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
-                      <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
-                      <PlusButton>+</PlusButton>
-                    </Tag>
-                  )
+                    <EHeart
+                      src={EmptyHeart}
+                      alt="노찜"
+                      onClick={heartClick}
+                    ></EHeart>
+                  )}
+                </WebToonLink>
+                <Summary>{webToonInfo.data.summary}</Summary>
+              </SubInfo>
+            </DetailZone>
+            <TagZone>
+              {webToonInfo.data.tags.length === 0 ||
+              webToonInfo.data.tags === undefined
+                ? "텅~"
+                : webToonInfo.data.tags.map((tag) =>
+                    loginState === null ? (
+                      <Tag key={tag.tag_id} id={tag.tag_id}>
+                        <BookMarkImage src={BookMark} alt="북마크" />
+                        <TagName>{tag.name}</TagName>
+                      </Tag>
+                    ) : userData.tags.includes(tag.tag_id) ? (
+                      <LikedTag
+                        key={tag.tag_id}
+                        id={tag.tag_id}
+                        onClick={tagSwitch}
+                      >
+                        <BookMarkImage src={BookMark} alt="북마크" />
+                        <TagName>{tag.name}</TagName>
+                        <MinusButton>-</MinusButton>
+                      </LikedTag>
+                    ) : (
+                      <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
+                        <BookMarkImage src={BookMark} alt="북마크" />
+                        <TagName>{tag.name}</TagName>
+                        <PlusButton>+</PlusButton>
+                      </Tag>
+                    )
+                  )}
+            </TagZone>
+            <PaintStyleRecommendZone>
+              <div>그림체가 비슷한 웹툰</div>
+              <PSRecommends>
+                API 요청 보내고 받아서 그림체 기반 추천 뿌리자
+              </PSRecommends>
+            </PaintStyleRecommendZone>
+            <SameAuthorRecommendZone>
+              <div>같은 작가의 다른 작품</div>
+              <SARecommends>
+                {otherWebToons.length === 0 || otherWebToons === undefined ? (
+                  <div>텅~</div>
+                ) : (
+                  otherWebToons.map((otherWebToon) => (
+                    <OtherWebToon
+                      key={otherWebToon.webtoon_id}
+                      id={otherWebToon.webtoon_id}
+                    >
+                      <OtherWebToonThumbnail
+                        src={otherWebToon.thumbnail}
+                        alt="같은 작가의 다른 작품 이미지"
+                        onClick={moveDetail}
+                      ></OtherWebToonThumbnail>
+                      <OtherWebToonTitle onClick={moveDetail}>
+                        {otherWebToon.title}
+                      </OtherWebToonTitle>
+                      <OtherWebToonAuthor onClick={moveDetail}>
+                        {otherWebToon.author_name.map((author) => author + " ")}
+                      </OtherWebToonAuthor>
+                    </OtherWebToon>
+                  ))
                 )}
-          </TagZone>
-          <PaintStyleRecommendZone>
-            <div>그림체가 비슷한 웹툰</div>
-            <PSRecommends>
-              API 요청 보내고 받아서 그림체 기반 추천 뿌리자
-            </PSRecommends>
-          </PaintStyleRecommendZone>
-          <SameAuthorRecommendZone>
-            <div>같은 작가의 다른 작품</div>
-            <SARecommends>
-              {otherWebToons.length === 0 || otherWebToons === undefined ? (
-                <div>텅~</div>
-              ) : (
-                otherWebToons.map((otherWebToon) => (
-                  <OtherWebToon
-                    key={otherWebToon.webtoon_id}
-                    id={otherWebToon.webtoon_id}
-                  >
-                    <OtherWebToonThumbnail
-                      src={otherWebToon.thumbnail}
-                      alt="같은 작가의 다른 작품 이미지"
-                      onClick={moveDetail}
-                    ></OtherWebToonThumbnail>
-                    <OtherWebToonTitle onClick={moveDetail}>
-                      {otherWebToon.title}
-                    </OtherWebToonTitle>
-                    <OtherWebToonAuthor onClick={moveDetail}>
-                      {otherWebToon.author_name.map((author) => author + " ")}
-                    </OtherWebToonAuthor>
-                  </OtherWebToon>
-                ))
-              )}
-            </SARecommends>
-          </SameAuthorRecommendZone>
-          <WebToonAnalysisZone>
-            <div>웹툰 분석</div>
-            <AnalysisBack>
-              <Analysis>
-                <PaintStyleAnalysis>
-                  <ChartTitle1>그림체 분석</ChartTitle1>
-                  <ChartShow
-                    data={PaintStyleData}
-                    options={PaintStyleOptions}
-                  ></ChartShow>
-                </PaintStyleAnalysis>
-                <AgeGroupAnalysis>
-                  <ChartTitle1>연령대 분석</ChartTitle1>
-                  <ChartShow
-                    data={AgeGroupData}
-                    options={AgeGrouoOptions}
-                  ></ChartShow>
-                </AgeGroupAnalysis>
-              </Analysis>
-              <Graph>
-                <RatingGraph>
-                  <ChartTitle2>별점 그래프</ChartTitle2>
-                  <ChartShow data={RatingGraphData}></ChartShow>
-                </RatingGraph>
-              </Graph>
-            </AnalysisBack>
-          </WebToonAnalysisZone>
-        </BackGround>
+              </SARecommends>
+            </SameAuthorRecommendZone>
+            <WebToonAnalysisZone>
+              <div>웹툰 분석</div>
+              <AnalysisBack>
+                <Analysis>
+                  <PaintStyleAnalysis>
+                    <ChartTitle1>그림체 분석</ChartTitle1>
+                    <ChartShow
+                      data={PaintStyleData}
+                      options={PaintStyleOptions}
+                    ></ChartShow>
+                  </PaintStyleAnalysis>
+                  <AgeGroupAnalysis>
+                    <ChartTitle1>연령대 분석</ChartTitle1>
+                    <ChartShow
+                      data={AgeGroupData}
+                      options={AgeGrouoOptions}
+                    ></ChartShow>
+                  </AgeGroupAnalysis>
+                </Analysis>
+                <Graph>
+                  <RatingGraph>
+                    <ChartTitle2>별점 그래프</ChartTitle2>
+                    <ChartShow data={RatingGraphData}></ChartShow>
+                  </RatingGraph>
+                </Graph>
+              </AnalysisBack>
+            </WebToonAnalysisZone>
+          </BackGround>
+        </PageBox>
       )}
-    </PageBox>
+    </>
   );
 }
 
 const PageBox = styled.div`
-  width: 90%;
+  width: 92%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 10vw;
-  padding: 0.5vw;
-  border: solid 0.15vw;
-  border-radius: 1vw;
+  padding: 1vw 0;
+  border: solid 2px;
+  border-radius: 1rem;
   background-color: white;
 `;
 
 const BackGround = styled.div`
-  background-color: #feec91;
-  border: 0.15vw solid black;
-  border-radius: 1vw;
-  margin: 0.65vw;
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5vw;
+  background-color: #FFF5C3;
+  border: solid 2px;
+  border-radius: 0.8rem;
   height: 150vw;
 `;
 
