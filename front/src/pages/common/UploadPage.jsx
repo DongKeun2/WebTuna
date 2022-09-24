@@ -243,7 +243,7 @@ function UploadPage() {
 const TitleBox = styled.div`
   display: flex;
   gap: 1vw;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 750px) {
     flex-direction: column;
     align-items: center;
     gap: 0px;
@@ -255,7 +255,7 @@ const UploadTitle = styled.p`
   margin-top: 2vw;
   font-size: 2.5vw;
   font-weight: 700;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 750px) {
     margin-top: 20px;
     font-size: 20px;
     line-height: 0;
@@ -317,7 +317,7 @@ const PageBox = styled.div`
   }
   padding: 0.5vw;
   padding-bottom: 100px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 750px) {
     padding-bottom: 70px;
   }
   @media screen and (min-width: 1240px) {
@@ -336,7 +336,8 @@ const ImgBox = styled.div`
   min-width: 300px;
   height: 20vw;
   min-height: 300px;
-  border: 3px solid black;
+  border: 3px solid;
+  background-color: white;
   border-radius: 10%;
   overflow: hidden;
 `;
