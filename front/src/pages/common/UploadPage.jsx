@@ -133,20 +133,42 @@ function UploadPage() {
           )}
         </div>
       ) : (
-        <PageBox>
-          <TitleBox>
-            <UploadTitle>그림을 업로드 하면</UploadTitle>
-            <UploadTitle>그림체가 비슷한 웹툰을 추천해줄게!</UploadTitle>
-          </TitleBox>
+        <Container>
+          <PageBox>
+            <TitleBox>
+              <UploadTitle>업로드한 그림과</UploadTitle>
+              <UploadTitle>그림체가 비슷한 웹툰을 내가 찾아줄게!</UploadTitle>
+            </TitleBox>
 
-          <ImgBox>
-            {fileImage ? (
-              <ToonImg
-                id="canvas"
-                alt="sample"
-                src={fileImage}
-                style={{ margin: "auto" }}
+            <ImgBox>
+              {fileImage ? (
+                <ToonImg
+                  id="canvas"
+                  alt="sample"
+                  src={fileImage}
+                  style={{ margin: "auto" }}
+                />
+              ) : (
+                <ToonImg src={cat} alt="toon_img" />
+              )}
+            </ImgBox>
+            <BtnGroup>
+              <OuterBtn>
+                {fileImage ? (
+                  <InputBtn htmlFor="input_img">다시 업로드 하기</InputBtn>
+                ) : (
+                  <InputBtn htmlFor="input_img">그림 업로드 하기</InputBtn>
+                )}
+              </OuterBtn>
+              <input
+                id="input_img"
+                name="imggeUpload"
+                type="file"
+                accept="image/*"
+                onChange={saveFileImage}
+                style={{ display: "none" }}
               />
+<<<<<<< HEAD
             ) : (
               <ToonImg src={cat} alt="toon_img" />
             )}
@@ -202,6 +224,17 @@ function UploadPage() {
           </SubmitBtn>
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
         </PageBox>
+=======
+              <SubmitBtn
+                active={fileImage ? true : false}
+                onClick={fileImage ? checkImage : null}
+              >
+                제출
+              </SubmitBtn>
+            </BtnGroup>
+          </PageBox>
+        </Container>
+>>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
       )}
     </div>
   )
@@ -219,9 +252,11 @@ const TitleBox = styled.div`
 `;
 
 const UploadTitle = styled.p`
-  font-size: 3vw;
-  font-weight: bold;
+  margin-top: 2vw;
+  font-size: 2.5vw;
+  font-weight: 700;
   @media screen and (max-width: 600px) {
+    margin-top: 20px;
     font-size: 20px;
     line-height: 0;
   }
@@ -229,40 +264,79 @@ const UploadTitle = styled.p`
 
 const SubmitBtn = styled.button`
 <<<<<<< HEAD
+<<<<<<< HEAD
   background-color: ${props => (props.active ? '#feec91' : 'AFAFAF')};
   border-radius: 5%;
   width: '50px';
   height: '30px';
 =======
   background-color: ${(props) => (props.active ? "#feec91" : "AFAFAF")};
+=======
+  background-color: ${(props) => (props.active ? "#feec91" : "#e2e8f0")};
+  font-weight: ${(props) => (props.active ? "700" : "500")};
+>>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
   padding: 10px 30px;
-  border-radius: 10px;
-  border: 3px solid black;
-  border-top: 5px double;
-  border-bottom: 5px black double;
+  border-radius: 12px;
+  border: 6px solid white;
   margin-top: 20px;
   width: "50px";
   height: "30px";
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
   :hover {
+<<<<<<< HEAD
     cursor: ${props => (props.active ? 'pointer' : null)};
+=======
+    cursor: ${(props) => (props.active ? "pointer" : "not-allowed")};
+>>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
   }
 `
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default UploadPage
 =======
+=======
+const Container = styled.div`
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1vw 0;
+  border: solid 2px;
+  border-radius: 1rem;
+  background-color: white;
+`;
+
+>>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
 const PageBox = styled.div`
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 73vh;
+  @media screen and (min-width: 1100px) {
+    min-height: 68vh;
+  }
+  padding: 0.5vw;
+  padding-bottom: 100px;
+  @media screen and (max-width: 600px) {
+    padding-bottom: 70px;
+  }
+  @media screen and (min-width: 1240px) {
+    padding-bottom: 80px;
+  }
+  border: solid 2px;
+  border-radius: 0.8rem;
+  background-color: #FFF5C3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
 const ImgBox = styled.div`
-  width: 300px;
-  height: 300px;
-  border: 5px solid black;
+  width: 20vw;
+  min-width: 300px;
+  height: 20vw;
+  min-height: 300px;
+  border: 3px solid black;
   border-radius: 10%;
   overflow: hidden;
 `;
@@ -273,21 +347,25 @@ const ToonImg = styled.img`
   object-fit: fill;
 `;
 
+const BtnGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 20vw;
+  min-width: 300px;
+`;
+
 const OuterBtn = styled.div`
   background-color: white;
-  padding: 16px 1px;
-  margin-top: 10px;
-  border: 2px solid black;
   border-radius: 14px;
-  margin-top: 20px;
+  padding: 14px 6px;
+  margin-top: 21px;
 `;
 
 const InputBtn = styled.label`
   background-color: #feec91;
-  padding: 13px 30px;
-  border: 2px solid black;
+  padding: 10px 16px;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
 `;
 
