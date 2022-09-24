@@ -169,7 +169,7 @@ function DetailPage() {
     navigate(`/detail/${toonId}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
-    }, 300);
+    }, 200);
     getDetail();
   }
 

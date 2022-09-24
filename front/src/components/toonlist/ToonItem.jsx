@@ -1,16 +1,15 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function ToonItem({ item }) {
-  
   // 작가 이름 추출
-  let authors = ''
+  let authors = "";
   for (const num in item.author_name) {
     if (num > 0) {
-      authors += ' / '
-      authors += item.author_name[num]
+      authors += " / ";
+      authors += item.author_name[num];
     } else {
-      authors += item.author_name[num]
+      authors += item.author_name[num];
     }
   }
 
@@ -18,6 +17,7 @@ function ToonItem({ item }) {
 
   function moveDetail() {
     navigate(`/detail/${item.webtoon_id}`);
+    window.scrollTo(0, 0);
   }
 
   return (
@@ -36,7 +36,7 @@ function ToonItem({ item }) {
 const OneToon = styled.div`
   padding: 0.8vw;
   padding-bottom: 0.3vw;
-`
+`;
 
 const ImgBox = styled.div`
   background-color: white;
@@ -45,7 +45,7 @@ const ImgBox = styled.div`
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
   cursor: pointer;
-`
+`;
 
 const ToonThumbnail = styled.img`
   object-fit: fill;
@@ -53,7 +53,7 @@ const ToonThumbnail = styled.img`
   height: 100%;
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
-`
+`;
 
 const ToonInfo = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const ToonInfo = styled.div`
   border-bottom-left-radius: 0.8vw;
   border-bottom-right-radius: 0.8vw;
   cursor: pointer;
-`
+`;
 
 const ToonTitle = styled.p`
   white-space: nowrap;
@@ -76,7 +76,7 @@ const ToonTitle = styled.p`
   margin: 0;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
-`
+`;
 
 const ToonAuthor = styled.p`
   white-space: nowrap;
@@ -87,6 +87,6 @@ const ToonAuthor = styled.p`
   margin: 0;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
-`
+`;
 
 export default ToonItem;

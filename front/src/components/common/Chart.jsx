@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Bar, Pie, Radar } from "react-chartjs-2";
+import { Bar, Pie, Radar, Doughnut } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
 const ChartShow = (props) => {
@@ -18,6 +18,7 @@ const ChartShow = (props) => {
       {type === "pie" && <Pie data={data} options={options} />}
       {type === "radar" && <Radar data={data} options={options} />}
       {type === "bar" && <Bar data={data} options={options} />}
+      {type === "doughnut" && <Doughnut data={data} options={options} />}
     </Container>
   );
 };
