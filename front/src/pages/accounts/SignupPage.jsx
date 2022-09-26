@@ -220,8 +220,8 @@ function SignupPage() {
               "비밀번호가 일치하지 않습니다."}
           </ConfirmMsg>
           <SelectBox>
-            <FormItem onChange={onGenderHandler}>
-              <FormTitle>성별</FormTitle>
+            <GenderBox onChange={onGenderHandler}>
+              <GenderTitle>성별</GenderTitle>
               <GenderInput id="female" type="radio" value="F" name="gender" />
               <FemaleLabel active={signupInfo.gender === "F"} htmlFor="female">
                 여
@@ -230,16 +230,16 @@ function SignupPage() {
               <MaleLabel active={signupInfo.gender === "M"} htmlFor="male">
                 남
               </MaleLabel>
-            </FormItem>
-            <FormItem>
-              <FormTitle>생년월일</FormTitle>
-              <SignupInput
+            </GenderBox>
+            <BirthBox>
+              <BirthTitle>생년월일</BirthTitle>
+              <BirthInput
                 type="text"
                 maxLength="8"
                 onKeyUp={onBirthHandler}
                 placeholder="ex) 20220921"
               />
-            </FormItem>
+            </BirthBox>
           </SelectBox>
           <BtnBox>
             <SubmitBtn
@@ -264,10 +264,9 @@ function SignupPage() {
 
 const PageBox = styled.div`
   display: flex;
-  gap: 50px;
-  height: 790px;
+  height: 80vh;
   justify-content: center;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     width: 100%;
     height: 100%;
     gap: 20px;
@@ -278,8 +277,7 @@ const PageBox = styled.div`
 `;
 
 const PageTitle = styled.p`
-  font-size: 40px;
-  margin-bottom: 50px;
+  font-size: 4vh;
 `;
 
 const SignupBox = styled.div`
@@ -290,17 +288,20 @@ const SignupBox = styled.div`
   background-color: white;
   border: 3px solid black;
   border-radius: 10px;
-  height: 100%;
-  @media screen and (max-width: 600px) {
-    width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  @media screen and (max-width: 800px) {
+    width: 95%;
   }
 `;
 
 const FormGroup = styled.form`
   display: flex;
   flex-direction: column;
-  width: 50%;
-  @media screen and (max-width: 600px) {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  @media screen and (max-width: 800px) {
     width: 90%;
   }
 `;
@@ -308,23 +309,53 @@ const FormGroup = styled.form`
 const FormItem = styled.div`
   display: flex;
   align-items: center;
+  margin-left: 40vw;
   width: 100%;
   justify-content: start;
-  @media screen and (max-width: 600px) {
-    justify-content: space-between;
+  @media screen and (max-width: 800px) {
+    margin-left: 15vw;
     align-items: center;
   }
 `;
 
 const FormTitle = styled.p`
-  width: 18%;
-  @media screen and (max-width: 600px) {
-    width: 30%;
+  width: 10vw;
+  font-size: 2vh;
+  @media screen and (max-width: 800px) {
+    width: 15vw;
+    font-size: 1.5vh;
+  }
+`;
+
+const GenderBox = styled.div`
+  display: flex;
+`;
+
+const GenderTitle = styled.p`
+  width: 5vw;
+  font-size: 2vh;
+  @media screen and (max-width: 800px) {
+    width: 5vh;
+    font-size: 1.5vh;
+  }
+`;
+
+const BirthBox = styled.div`
+  display: flex;
+`;
+
+const BirthTitle = styled.p`
+  width: 8vw;
+  font-size: 2vh;
+  @media screen and (max-width: 800px) {
+    width: 10vw;
+    font-size: 1.5vh;
   }
 `;
 
 const CheckBtn = styled.button`
   border: none;
+  /* width: 50%; */
   font-weight: bold;
   background-color: white;
   :hover {
@@ -334,27 +365,45 @@ const CheckBtn = styled.button`
 `;
 
 const SignupInput = styled.input`
-  width: 60%;
-  height: 30px;
-  margin-right: 30px;
+  width: 50vh;
+  height: 4vh;
   border: ${(props) =>
     props.error ? "2px solid #EEA6A6" : "2px solid #D1E2FF"};
   border-radius: 10px;
   text-align: center;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
+    width: 40%;
+  }
+`;
+
+const BirthInput = styled.input`
+  width: 30vh;
+  height: 4vh;
+  border: ${(props) =>
+    props.error ? "2px solid #EEA6A6" : "2px solid #D1E2FF"};
+  border-radius: 10px;
+  text-align: center;
+  @media screen and (max-width: 800px) {
     width: 40%;
   }
 `;
 
 const ConfirmMsg = styled.p`
   text-align: center;
+  font-size: 1.5vh;
   color: ${(props) => (props.error ? "#EEA6A6" : " #48618d")};
 `;
 
 const SelectBox = styled.div`
   display: flex;
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
+  margin-left: 40vw;
+  width: 100%;
+  align-items: center;
+  justify-content: start;
+
+  @media screen and (max-width: 800px) {
+    margin-left: 15vw;
+    align-items: center;
   }
 `;
 const GenderInput = styled.input`
@@ -365,6 +414,7 @@ const MaleLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0px 30px;
   padding: 5px;
   width: 40px;
   height: 30px;
@@ -374,6 +424,9 @@ const MaleLabel = styled.label`
   :hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 800px) {
+    margin: 0px 15px;
+  }
 `;
 
 const FemaleLabel = styled.label`
@@ -382,14 +435,13 @@ const FemaleLabel = styled.label`
   align-items: center;
   padding: 5px;
   margin-left: 20%;
-  margin-right: 30px;
   width: 40px;
   height: 30px;
   border: 1px solid #d1e2ff;
   border-radius: 5px;
   background-color: ${(props) => props.active && " #d1e2ff"};
-  @media screen and (max-width: 600px) {
-    margin-left: 50%;
+  @media screen and (max-width: 800px) {
+    margin-left: 5%;
   }
   :hover {
     cursor: pointer;
@@ -402,6 +454,9 @@ const BtnBox = styled.div`
 `;
 
 const SubmitBtn = styled.button`
+  position: absolute;
+  bottom: 12%;
+  right: 10%;
   font-size: 20px;
   font-weight: bold;
   background-color: ${(props) => (props.active ? "#feec91" : "AFAFAF")};
