@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {
   changeEmail,
@@ -14,6 +14,8 @@ import MySwal from "../../components/common/SweetAlert";
 function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { state } = useLocation();
 
   useEffect(() => {
     dispatch(changePossibleSearch(false));
@@ -43,7 +45,11 @@ function LoginPage() {
             confirmButtonColor: "#feec91",
             confirmButtonText: "확인",
           });
-          navigate("/");
+          if (state) {
+            navigate(state);
+          } else {
+            navigate("/");
+          }
         });
       }
     });
