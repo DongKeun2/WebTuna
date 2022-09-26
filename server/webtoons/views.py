@@ -52,6 +52,7 @@ from django.core.paginator import Paginator
 =======
 from django.db.models import Q
 import random
+import requests
 # import requests
 # import csv
 # from bs4 import BeautifulSoup
@@ -295,6 +296,7 @@ def webtoonList(request,pageNum):
     serializer = WebtoonListSerializer(webtoons, many = True)
     return Response(serializer.data, status.HTTP_200_OK)
 
+
 @api_view(['GET'])
 def searchWebtoon(request,pageNum):
     webtoon_list = []
@@ -330,6 +332,7 @@ def searchWebtoon(request,pageNum):
     return Response(serializer.data, status.HTTP_200_OK)
 >>>>>>> de4eb85 (fix: json 파일 형식 변경 (webtoonList 삭제))
 
+
 @api_view(['POST'])
 def filterWebtoon(request, pageNum):
     platform_list = request.data['platform']
@@ -346,8 +349,9 @@ def filterWebtoon(request, pageNum):
     
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
-    serializer = WebtoonSerializer(webtoons, many = True)
+    serializer = WebtoonListSerializer(webtoons, many = True)
     return Response(serializer.data, status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 def webtoonLike(request, webtoonId):
@@ -370,6 +374,7 @@ def webtoonLike(request, webtoonId):
 >>>>>>> b432986 (feat: CF 기반 웹툰 추천 api 구현(웹툰 추천 전체 구현은 미완성))
         return Response({'data': True})
 
+
 @api_view(['POST'])
 def tagLike(request, tagId):
     tag = get_object_or_404(Tag, pk=int(tagId))
@@ -384,6 +389,7 @@ def tagLike(request, tagId):
         tag.tag_users.add(request.user.pk)
         return Response({'data': True})
 
+
 @api_view(['POST'])
 def webtoonRate(request, webtoonId):
     webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
@@ -394,6 +400,7 @@ def webtoonRate(request, webtoonId):
 
         serializer = WebtoonSerializer(webtoon)
         return Response(serializer.data, status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 def webtoonLog(request, webtoonId):
@@ -473,6 +480,7 @@ def recommendWebtoon(request,typeId):
         webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoons)
         serializer = WebtoonListSerializer(webtoons, many=True)
         return Response(serializer.data)
+
 
 # tb_draw_classify 삽입
 @api_view(['GET'])
@@ -565,6 +573,7 @@ def insertClassify(request):
     # print(webtoon_list)   
     return Response(status.HTTP_201_CREATED)
 
+
 # webtoon마다 similar_webtoons id string으로 넣어주기
 @api_view(['GET'])
 def insertSimilarWebtoons(request):
@@ -596,6 +605,7 @@ def insertSimilarWebtoons(request):
         original_webtoon.update(similar_webtoons=insert_similar_webtoons)
         
     return Response(status.HTTP_201_CREATED)
+
 
 # 그림체 차이 계산
 def typeToDifference(type, original, comparsion):
@@ -703,6 +713,7 @@ def typeToDifference(type, original, comparsion):
 >>>>>>> 09b2f2b (feat: 그림체 기반 추천 알고리즘 구현중)
 =======
 
+
 @api_view(['POST'])
 def searchImageWebtoon(request):
     orginal = request.data['probability']
@@ -728,4 +739,55 @@ def searchImageWebtoon(request):
     serializer = SearchWebtoonSerializer(min_webtoon)
 
     return Response(serializer.data, status.HTTP_200_OK)
+<<<<<<< HEAD
 >>>>>>> c4b2854 (feat: 웹툰 이미지 검색 api 구현)
+=======
+
+
+# # 날씨 기반 추천
+# @api_view(['GET'])
+# def weather_recommend(request):
+
+#     url = 'http://api.openweathermap.org/data/2.5/weather?lat=37.501317&lon=127.039646&appid=7e625d2f562b1014869529981bd7ee18'
+#     # request the API data and convert the JSON to Python data types
+#     city_weather = requests.get(url).json()
+#     # 필요한 정보들만 가져오기
+
+#     weather = {
+#         'main': city_weather['weather'][0]['main'],
+#         'temperature': city_weather['main']['temp'],
+#         'description': city_weather['weather'][0]['description'],
+#         'icon': city_weather['weather'][0]['icon']
+#     }
+    
+#     # 로맨스, 판타지, 드라마, 스릴러, 일상, 액션, 무협/사극, 스포츠, 개그, 감성, 소년, BL
+#     # 일단 딕셔너리로 날씨에 장르들 하나씩을 선택 하도록 함(더 좋은 방법 있으면 그걸로 구현)
+#     lst = {'clear sky': '로맨스', 'few clouds': '개그', 'overcast clouds': '무협/사극', 'drizzle': '소년', 'rain': '스릴러', 'light rain': '스포츠', 'moderate rain': '개그','shower rain': '판타지', 'thunderstorm': '액션',
+#            'snow': '드라마', 'mist': 14, 'broken clouds': '감성', 'scattered clouds': '일상'}
+#     if weather['description'] not in lst:
+#         genre = random.choice(['에피소드', '스토리', '옴니버스'])
+#     else:
+#         genre = lst[weather['description']]
+#     # 장르와 같은 영화 정보들 가지고오기
+
+#     genre_lst = Genre.objects.get(genre_type = genre)
+#     webtoon_lst = genre_lst.genre_webtoons.all()
+#     choice_webtoons = set()
+    
+#     if len(movie_list) >= 20:
+#         while len(choice_movies) < 20:
+#             movie = random.choice(movie_list)
+#             choice_movies.add(movie)
+#     else:
+#         for movie in movie_list:
+#             choice_movies.add(movie)
+#         movie_list = Movie.objects.order_by('-wr')[:100]
+#         while len(choice_movies) < 20:
+#             movie = random.choice(movie_list)
+#             choice_movies.add(movie)
+
+#     choice_movies = list(choice_movies)
+#     serializers = MovieRecommendSerializer(choice_movies, many=True)
+
+#     return Response(serializers.data, status.HTTP_200_OK)
+>>>>>>> c9803bc (fix : profile 수정, email,nickname 중복확인 수정)

@@ -1,4 +1,6 @@
 import os
+
+from accounts.models import Member
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tuntun.settings")
 
 import django
@@ -44,18 +46,7 @@ from bs4 import BeautifulSoup
 #             download_file(url)
 #         except:
 #             pass
-    
-    
-# ##이미지 저장
-# Base_URL = 'https://korea-webtoon-api.herokuapp.com'
-# path = '/all'
-# response = requests.get(Base_URL+path)
-# webtoons_popular = response.json()
-# i = 0
-# for webtoon in webtoons_popular:
-#     urllib.request.urlretrieve(webtoon['img'], f"kakaopage{i}.png")
-#     i += 1
-
+      
 
 # ## 플랫폼 데이터 넣기
 # platforms = ["kakao", "kakao-page"]
@@ -661,4 +652,172 @@ webtoon_list = json.load(a)
 #                     webtoon_data.genres.add(Genre.objects.get(genre_type=genre).genre_id)
             
 #             webtoon_data.platforms.add(Platform.objects.get(name=webtoon_platform).platform_id)
+<<<<<<< HEAD
 >>>>>>> 97b8855 (feat : 카카오페이지 db 업데이트)
+=======
+
+
+## 카카오웹툰 장르 넣기
+# if __name__ == '__main__':
+#     genre_change = {
+#         '학원': '일상',
+#         '무협': '무협/사극',
+#         '코믹': '개그',
+#     }
+
+#     Base_URL = 'https://korea-webtoon-api.herokuapp.com'
+#     path = '/kakao'
+#     response = requests.get(Base_URL+path)
+#     webtoons_popular = response.json()
+#     i = 0
+#     for webtoon in webtoons_popular:
+#         webtoon_title = webtoon['title']
+#         webtoon_url = webtoon['url']
+#         try:
+#             webtoon_data = Webtoon.objects.get(title=webtoon_title)
+#             genre_data = webtoon_data.genres.all()
+#             genre_data_length = len(genre_data)
+            
+#             if not genre_data_length:
+#             ## 카카오 장르 크롤링
+#                 try:
+#                     headers = {'User-Agent':'mozilla/5.0'}
+#                     data = requests.get(f'{webtoon_url}', headers=headers)
+#                     soup = BeautifulSoup(data.text, 'html.parser')            
+#                     webtoon_genres = soup.select_one('#root > main > div > div > div > div.h-full.overflow-hidden.w-full.z-1.fixed.inset-0.bg-dark-background > div.w-full.left-0.top-0.relative > div.content-main-wrapper.opacity-0.invisible.relative.current-content-main.opacity-100.\!visible.z-1 > div.pb-20.pt-96.relative.z-1 > div.relative.mx-auto.my-0.w-full.lg\:w-default-max-width > div.mx-20.flex.justify-between.relative.z-1.pointer-events-auto.pt-12 > div > div > p.whitespace-pre-wrap.break-all.break-words.support-break-word.s12-regular-white.ml-3.opacity-85').text
+#                     if webtoon_genres == '공포/스릴러':
+#                         webtoon_genres = '스릴러'
+#                         webtoon_genres = webtoon_genres.split()
+
+#                     elif webtoon_genres.find('/') != -1:
+#                         webtoon_genres = webtoon_genres.split('/')
+#                         for idx in range(2):
+#                             if webtoon_genres[idx] in ['학원', '무협', '코믹']:
+#                                 webtoon_genres[idx] = genre_change[webtoon_genres[idx]]
+                    
+#                     else:
+#                         webtoon_genres = webtoon_genres.split()
+#                 except:
+#                     webtoon_genres = []
+
+#                 i += 1
+#                 print(webtoon_title)
+                
+#                 if webtoon_genres:
+#                     for genre in webtoon_genres:
+#                         webtoon_data.genres.add(Genre.objects.get(genre_type=genre).genre_id)
+#         except:
+#             print(webtoon_title)
+
+
+# # tb_draw_classify 삽입
+# # recommended_webtoons = [1,4,23,27]
+# # webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoons)
+# webtoons = Webtoon.objects.all()
+# # webtoon_list = []
+# i = 0
+# for webtoon in webtoons:
+#     i += 1
+#     list = []   
+#     list.append(webtoon.image_type1)
+#     list.append(webtoon.image_type2)
+#     list.append(webtoon.image_type3)
+#     list.append(webtoon.image_type4)
+#     list.append(webtoon.image_type5)
+#     list.append(webtoon.image_type6)
+    
+#     first_max = max(list)
+#     second_max = 0
+#     for max_i in list:
+#         if(first_max > max_i and max_i > second_max):
+#             second_max = max_i
+
+#     first = list.index(first_max)+1
+#     second = list.index(second_max)+1
+#     type = 0
+#     if(first==1 and second == 2):
+#         type = 1
+#     elif(first==1 and second == 3):
+#         type = 2 
+#     elif(first==1 and second == 4):
+#         type = 3 
+#     elif(first==1 and second == 5):
+#         type = 4 
+#     elif(first==1 and second == 6):
+#         type = 5 
+#     elif(first==2 and second == 1):
+#         type = 6 
+#     elif(first==2 and second == 3):
+#         type = 7 
+#     elif(first==2 and second == 4):
+#         type = 8 
+#     elif(first==2 and second == 5):
+#         type = 9 
+#     elif(first==2 and second == 6):
+#         type = 10 
+#     elif(first==3 and second == 1):
+#         type = 11 
+#     elif(first==3 and second == 2):
+#         type = 12 
+#     elif(first==3 and second == 4):
+#         type = 13 
+#     elif(first==3 and second == 5):
+#         type = 14 
+#     elif(first==3 and second == 6):
+#         type = 15 
+#     elif(first==4 and second == 1):
+#         type = 16 
+#     elif(first==4 and second == 2):
+#         type = 17 
+#     elif(first==4 and second == 3):
+#         type = 18 
+#     elif(first==4 and second == 5):
+#         type = 19 
+#     elif(first==4 and second == 6):
+#         type = 20 
+#     elif(first==5 and second == 1):
+#         type = 21 
+#     elif(first==5 and second == 2):
+#         type = 22 
+#     elif(first==5 and second == 3):
+#         type = 23 
+#     elif(first==5 and second == 4):
+#         type = 24 
+#     elif(first==5 and second == 6):
+#         type = 25 
+#     elif(first==6 and second == 1):
+#         type = 26 
+#     elif(first==6 and second == 2):
+#         type = 27 
+#     elif(first==6 and second == 3):
+#         type = 28 
+#     elif(first==6 and second == 4):
+#         type = 29 
+#     elif(first==6 and second == 5):
+#         type = 30 
+#     # webtoon_list.append({"type" : type, "webtoon_id" : webtoon.webtoon_id })
+#     # modeling 후 insert 
+#     webtoon.draw_classifies.add(type)
+#     print(i)
+# # print(webtoon_list)   
+
+
+# print(len(Webtoon.objects.filter(image_type1__gte = 95)))
+# print(len(Webtoon.objects.filter(image_type2__gte = 100)))
+# print(len(Webtoon.objects.filter(image_type3__gte = 99.99)))
+# print(len(Webtoon.objects.filter(image_type4__gte = 95)))
+# print(len(Webtoon.objects.filter(image_type5__gte = 99.8)))
+# print(len(Webtoon.objects.filter(image_type6__gte = 98)))
+
+# webtoons = Webtoon.objects.filter(image_type6__gte = 98)
+# lst = [26,27,28,29,30]
+
+# for webtoon in webtoons:
+#     type_data = webtoon.draw_classifies.all().get().classify_id
+#     num = 0
+#     for i in lst:
+#         if type_data != i:
+#             num += 1
+#             webtoon.draw_classifies.add(i)
+#     print(num)
+>>>>>>> c9803bc (fix : profile 수정, email,nickname 중복확인 수정)

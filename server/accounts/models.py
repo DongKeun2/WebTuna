@@ -58,7 +58,7 @@ class Member(AbstractBaseUser):
     resigned_time = models.DateTimeField(blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag,related_name="tag_users")
-    view_webtoons = models.ManyToManyField(Webtoon,related_name="view_webtoon_users")
+    view_webtoons = models.ManyToManyField(Webtoon, through='Member_View_Webtoons')
     liked_webtoons = models.ManyToManyField(Webtoon,related_name="liked_webtoon_users")
 =======
     created_time = models.DateTimeField(auto_now_add=True)
@@ -78,7 +78,7 @@ class Member(AbstractBaseUser):
     # 헬퍼 클래스 사용
     objects = UserManager()
 
-    # 사용자의 username field는 nickname으로 설정
+    # 사용자의 username field는 email로 설정
     USERNAME_FIELD = 'email'
     # 필수로 작성해야하는 field
     REQUIRED_FIELDS = ['nickname', 'gender', 'birth', 'liked_thumbnail']
@@ -86,3 +86,11 @@ class Member(AbstractBaseUser):
     def __str__(self):
         return self.email
     
+
+class Member_View_Webtoons(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='member_viewed_webtoons')
+    webtoon = models.ForeignKey(Webtoon, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'accounts_member_view_webtoons'
+        ordering = ['-id']

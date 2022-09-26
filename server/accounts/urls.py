@@ -13,5 +13,5 @@ urlpatterns =[
     path('user/check/', views.PasswordCheck),
     path('user/info/', views.MainProfile),
     path('user/like/<int:pageNum>/', views.LikeWebtoon),
-    path('user/testreq/', views.Test_req),
+    # path('user/test/', views.TestUser),
  ]

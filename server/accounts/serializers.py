@@ -1,5 +1,5 @@
 from webtoons.models import Author, Tag, Webtoon
-from .models import Member
+from .models import Member, Member_View_Webtoons
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
@@ -40,18 +40,26 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     
     class LookWebtoonSerializer(serializers.ModelSerializer):
-
-        class AuthorSerializer(serializers.ModelSerializer):
-
-            class Meta:
-                model = Author
-                fields = ('author_id', 'name')
-
-        authors = AuthorSerializer(many=True)
         
+        class WebtoonSerializer(serializers.ModelSerializer):
+            
+            class AuthorSerializer(serializers.ModelSerializer):
+                
+                class Meta:
+                    model = Author
+                    fields = ('author_id', 'name')
+            
+            authors = AuthorSerializer(many=True)
+                    
+            class Meta:
+                model = Webtoon
+                fields = ('webtoon_id', 'title', 'thumbnail', 'authors')
+                
+        webtoon = WebtoonSerializer()
+                
         class Meta:
-            model = Webtoon
-            fields = ('webtoon_id', 'title', 'thumbnail', 'authors')
+            model = Member_View_Webtoons
+            fields = ('id', 'webtoon')
 
     
     class TagSerializer(serializers.ModelSerializer):
@@ -61,12 +69,12 @@ class ProfileSerializer(serializers.ModelSerializer):
             fields = ('tag_id', 'name')
 
     tags = TagSerializer(many=True)
-    view_webtoons = LookWebtoonSerializer(many=True)
+    member_viewed_webtoons = LookWebtoonSerializer(many=True)
     liked_webtoons = LikeWebtoonSerializer(many=True)
     
     class Meta:
         model = get_user_model()
-        fields = ('id', 'nickname', 'profile_image_id', 'liked_thumbnail', 'resigned_time', 'tags', 'view_webtoons', 'liked_webtoons')
+        fields = ('id', 'nickname', 'profile_image_id', 'liked_thumbnail', 'resigned_time', 'tags', 'member_viewed_webtoons', 'liked_webtoons')
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
@@ -114,10 +122,45 @@ class MyLikedWebtoon(serializers.ModelSerializer):
                 model = Author
                 fields = ('name')
 
+        authors = AuthorSerializer(many=True)
+        
         class Meta:
             model = Webtoon
-            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'authors')
+            fields = ('webtoon_id', 'title', 'thumbnail', 'authors')
         
+    liked_webtoons = LikeWebtoonSerializer(many=True)
+    
     class Meta:
         model = Member
         fields = ('id', 'liked_webtoons')
+        
+        
+# class TestUserSerializer(serializers.ModelSerializer):
+    
+#     class LookWebtoonSerializer(serializers.ModelSerializer):
+        
+#         class WebtoonSerializer(serializers.ModelSerializer):
+            
+#             class AuthorSerializer(serializers.ModelSerializer):
+                
+#                 class Meta:
+#                     model = Author
+#                     fields = ('author_id', 'name')
+            
+#             authors = AuthorSerializer(many=True)
+                    
+#             class Meta:
+#                 model = Webtoon
+#                 fields = ('webtoon_id', 'title', 'thumbnail', 'authors')
+                
+#         webtoon = WebtoonSerializer()
+                
+#         class Meta:
+#             model = Member_View_Webtoons
+#             fields = ('id', 'webtoon')
+    
+#     member_viewed_webtoons = LookWebtoonSerializer(many=True)
+    
+#     class Meta:
+#         model = Member
+#         fields = ('__all__')

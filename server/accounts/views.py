@@ -1,11 +1,14 @@
 from django.shortcuts import render
-from rest_framework import generics 
+from rest_framework import generics
+
+from webtoons.serializers import WebtoonListSerializer 
 from .serializers import *
 from .models import *
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -110,9 +113,7 @@ def Profile(request):
     for i in range(3):
         if sort_genre[i][1]:
             genre_list[sort_genre[i][0]] = sort_genre[i][1]
-            
-
-        
+    
         
     serializer = ProfileSerializer(member)
     return Response({'data':serializer.data, 'image_type':image_types, 'genre_list':genre_list}, status.HTTP_200_OK)
@@ -122,6 +123,8 @@ def Profile(request):
 @api_view(['GET'])
 def MainProfile(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
+    order_value = 'accounts_member_view_webtoons.id'
+    member_sort = member.view_webtoons.all().order_by(order_value)
     serializer = ProfileMainSerializer(member)
     return Response(serializer.data)
 
@@ -130,6 +133,9 @@ def MainProfile(request):
 @api_view(['POST'])
 def EmailCheck(request):
     user_email = request.data['email']
+    if user_email == '':
+        return Response(False)
+    
     if Member.objects.filter(email=user_email).exists():
         return Response(False)
 
@@ -140,6 +146,9 @@ def EmailCheck(request):
 @api_view(['POST'])
 def NicknameCheck(request):
     user_nickname = request.data['nickname']
+    if user_nickname == '':
+        return Response(False)
+                        
     if Member.objects.filter(nickname=user_nickname).exists():
         return Response(False)
 
@@ -162,11 +171,23 @@ def PasswordCheck(request):
 @api_view(['GET'])
 def LikeWebtoon(request, pageNum):
     member = get_object_or_404(get_user_model(), id=request.user.id)
-    likewebtoons = member.liked_webtoons[pageNum*10:(pageNum+1)*10]
-    serializer = MyLikedWebtoon(likewebtoons)
+    likewebtoons = member.liked_webtoons.all()
+    paginator = Paginator(likewebtoons, 20)
+    webtoons = paginator.get_page(int(pageNum))
+    serializer = WebtoonListSerializer(webtoons, many = True)
     return Response(serializer.data)
+
+
+# @api_view(['GET'])
+# def TestUser(request):
+#     member = get_object_or_404(get_user_model(), id=request.user.id)
+#     member_lst2 = member.member_viewed_webtoons.all()
     
+#     serializer = TestUserSerializer(member)
+#     # member_lst = Member_View_Webtoons.objects.filter(member_id=request.user.id).order_by('id')
+#     # print(member_lst)
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 # @api_view(['POST'])
 =======
@@ -174,3 +195,6 @@ def LikeWebtoon(request, pageNum):
 def Test_req(request):
     print(request.user)
 >>>>>>> 2ee8aa1 (fix: profile 수정)
+=======
+#     return Response(serializer.data)
+>>>>>>> c9803bc (fix : profile 수정, email,nickname 중복확인 수정)
