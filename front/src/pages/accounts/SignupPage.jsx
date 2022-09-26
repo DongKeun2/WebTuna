@@ -11,6 +11,7 @@ import {
   changePwdVerify,
   changeGender,
   changeBirth,
+  changeIsPossibleEmail,
 } from "../../features/accounts/signupSlice";
 import { changePossibleSearch } from "../../features/toons/searchSlice";
 
@@ -28,6 +29,7 @@ function SignupPage() {
 
   const [isCheckNickname, setIsCheckNickname] = useState(false);
   const [isCheckEmail, setIsCheckEmail] = useState(false);
+  const [isRightEmail, setIsRightEmail] = useState(false);
   const [passwordError, setPasswordError] = useState("비밀번호를 입력해주세요");
 
   function chkPW(pw) {
@@ -49,11 +51,28 @@ function SignupPage() {
       return true;
     }
   }
+  function chkEmail(str) {
+    console.log(str);
+    const reg_email =
+      /^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
+    if (!reg_email.test(str)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   const isPossibleNickname = useSelector(
     (state) => state.signup.isPossibleNickname
   );
   const isPossibleEmail = useSelector((state) => state.signup.isPossibleEmail);
+
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onCheckNicknameHandler(e); // Enter 입력이 되면 클릭 이벤트 실행
+    }
+  };
 
   function onNicknameHandler(e) {
     e.preventDefault();
@@ -89,9 +108,16 @@ function SignupPage() {
     const data = {
       email: signupInfo.email,
     };
-    dispatch(checkEmail(data)).then(() => {
+    if (chkEmail(data.email)) {
+      dispatch(checkEmail(data)).then(() => {
+        setIsCheckEmail(true);
+        setIsRightEmail(true);
+      });
+    } else {
+      dispatch(changeIsPossibleEmail(false));
       setIsCheckEmail(true);
-    });
+      setIsRightEmail(false);
+    }
   }
 
   function onCheckNicknameHandler(e) {
@@ -133,6 +159,7 @@ function SignupPage() {
               placeholder="이메일을 입력해주세요."
               onChange={onEmailHandler}
               error={isCheckEmail && !isPossibleEmail}
+              onkeyup={onCheckEmailHandler}
             />
 
             <CheckBtn onClick={onCheckEmailHandler}>중복확인</CheckBtn>
@@ -141,7 +168,9 @@ function SignupPage() {
             {isCheckEmail
               ? isPossibleEmail
                 ? "사용가능한 이메일입니다."
-                : "사용불가능한 이메일입니다."
+                : isRightEmail
+                ? "사용불가능한 이메일입니다."
+                : "이메일 형식이 올바르지 않습니다."
               : null}
           </ConfirmMsg>
           <FormItem>
@@ -153,6 +182,7 @@ function SignupPage() {
               placeholder="닉네임을 입력해주세요."
               onChange={onNicknameHandler}
               error={isCheckNickname && !isPossibleNickname}
+              onKeyPress={handleOnKeyPress}
             />
             <CheckBtn onClick={onCheckNicknameHandler}>중복확인</CheckBtn>
           </FormItem>

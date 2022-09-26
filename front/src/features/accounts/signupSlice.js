@@ -85,6 +85,9 @@ export const singupSlice = createSlice({
       console.log("선택 그림체 문자열", action.payload);
       state.signupInfo.liked_thumbnail = action.payload;
     },
+    changeIsPossibleEmail: (state, action) => {
+      state.isPossibleEmail = action.payload;
+    },
   },
   extraReducers: {
     [checkEmail.fulfilled]: (state, action) => {
@@ -115,6 +118,7 @@ export const {
   changeBirth,
   changeSelectImg,
   changeThumbnail,
+  changeIsPossibleEmail,
 } = singupSlice.actions;
 
 export default singupSlice.reducer;
