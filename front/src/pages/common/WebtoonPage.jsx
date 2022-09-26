@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
 import ModalFrame from "../../components/common/ModalFrame";
 import ToonLoading from "../../components/toonlist/ToonLoading"
+import Fish_0 from "../../assets/filter/fish0.png"
 
 function WebtoonPage() {
   const [modal, setModal] = useState(false);
@@ -27,8 +28,45 @@ function WebtoonPage() {
           <PageTitle>전체 웹툰 목록</PageTitle>
           <FilterBtn onClick={switchModal}>필터</FilterBtn>
           {modal ? (
-            <ModalFrame height="70px" _handleModal={switchModal}>
-              <div>필터 모달</div>
+            <ModalFrame top="1vw" width="75%" height="auto" _handleModal={switchModal}>
+              <ModalContainer>
+                <FilterBox>
+                  <PlatformBox>
+                    <GroupHeader>플랫폼</GroupHeader>
+                    <PlatformGroup>
+                      <PlatformBtn>네이버</PlatformBtn>
+                      <PlatformBtn>카카오웹툰</PlatformBtn>
+                      <PlatformBtn>카카오페이지</PlatformBtn>
+                    </PlatformGroup>
+                  </PlatformBox>
+                  <GenreBox>
+                    <GroupHeader>장르</GroupHeader>
+                    <GenreGroup>
+                      <GenreBtn>스토리</GenreBtn>
+                      <GenreBtn>로맨스</GenreBtn>
+                      <GenreBtn>판타지</GenreBtn>
+                      <GenreBtn>드라마</GenreBtn>
+                      <GenreBtn>스릴러</GenreBtn>
+                      <GenreBtn>옴니버스</GenreBtn>
+                      <GenreBtn>일상</GenreBtn>
+                      <GenreBtn>액션</GenreBtn>
+                      <GenreBtn>에피소드</GenreBtn>
+                      <GenreBtn>무협/사극</GenreBtn>
+                      <GenreBtn>스포츠</GenreBtn>
+                      <GenreBtn>개그</GenreBtn>
+                      <GenreBtn>감성</GenreBtn>
+                      <GenreBtn>소년</GenreBtn>
+                      <GenreBtn>BL</GenreBtn>
+                    </GenreGroup>
+                  </GenreBox>
+                  <TagBox>
+                    <GroupHeader>태그</GroupHeader>
+                  </TagBox>
+                </FilterBox>
+                <ImgBox>
+                  <FishingImg src={Fish_0}/>
+                </ImgBox>
+              </ModalContainer>
             </ModalFrame>
           ) : null}
         </HeaderBox>
@@ -88,6 +126,133 @@ const FilterBtn = styled.button`
   height: 2.5vw;
   margin-right: 1vw;
   cursor: pointer;
+`
+
+const ModalContainer = styled.div`
+  width: 98%;
+  height: 43vw;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid; */
+  @media screen and (max-width: 750px) {
+    height: auto;
+    margin-top: 15px;
+  }
+`
+
+const FilterBox = styled.div`
+  width: 48%;
+  @media screen and (max-width: 750px) {
+    width: 98%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  height: 100%;
+  /* border: 1px solid blue; */
+`
+
+const PlatformBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  height: 20%;
+  @media screen and (max-width: 750px) {
+    height: 70px;
+  }
+  /* border: 1px solid green; */
+`
+
+const GenreBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  height: 42%;
+  @media screen and (max-width: 750px) {
+    height: 150px;
+  }
+  /* border: 1px solid yellow; */
+`
+
+const TagBox = styled.div`
+  width: 100%;
+  height: 38%;
+  @media screen and (max-width: 750px) {
+    height: 60px;
+  }
+  /* border: 1px solid gray; */
+`
+
+const PlatformGroup = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`
+
+const PlatformBtn = styled.div`
+  width: 30%;
+  margin-bottom: 0.5vw;
+  padding: 0.4vw 0;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid #D1E2FF;
+  border-radius: 0.3vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    border-radius: 5px;
+  }
+  cursor: pointer;
+`
+
+const GenreGroup = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`
+
+const GenreBtn = styled.div`
+  width: 19%;
+  margin-bottom: 1vw;
+  padding: 0.5vw 0;
+  font-size: 11px;
+  text-align: center;
+  border: 1px solid #D1E2FF;
+  border-radius: 0.3vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+  }
+  cursor: pointer;
+`
+
+const GroupHeader = styled.p`
+  width: 96%;
+  margin: 0.5vw auto;
+  padding-bottom: 0.5vw;
+  font-size: 1.5vw;
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+  }
+  font-weight: 600;
+  border-bottom: 1px solid;
+`
+
+const ImgBox = styled.div`
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
+  width: 48%;
+  height: 100%;
+  /* border: 1px solid red; */
+`
+
+const FishingImg = styled.img`
+  width: 100%;
+  height: 100%;
 `
 
 const ToonListBox = styled.div`

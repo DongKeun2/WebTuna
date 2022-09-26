@@ -39,7 +39,7 @@ const ModalBlock = styled.div`
   border-radius: 10px;
   padding: 1.5rem;
   background-color: white;
-  top: ${(props) => props.width || '10rem'};
+  top: ${(props) => props.top || '10rem'};
   width: ${(props) => props.width || '50%'};
   height: ${(props) => props.height || '20rem'};
   animation: modal-show 1s;
