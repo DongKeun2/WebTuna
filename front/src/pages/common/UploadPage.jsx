@@ -144,18 +144,20 @@ function UploadPage() {
               <UploadTitle>그림체가 비슷한 웹툰을 내가 찾아줄게!</UploadTitle>
             </TitleBox>
 
-            <ImgBox>
-              {fileImage ? (
+            {fileImage ? (
+              <ImgBox>
                 <ToonImg
                   id="canvas"
                   alt="sample"
                   src={fileImage}
                   style={{ margin: "auto" }}
                 />
-              ) : (
+              </ImgBox>
+            ) : (
+              <TunImgBox>
                 <ToonImg src={tuntun} alt="toon_img" />
-              )}
-            </ImgBox>
+              </TunImgBox>
+            )}
             <BtnGroup>
               <OuterBtn>
                 {fileImage ? (
@@ -346,10 +348,23 @@ const ImgBox = styled.div`
   overflow: hidden;
 `;
 
+const TunImgBox = styled.div`
+  width: 20vw;
+  min-width: 300px;
+  min-height: 300px;
+  height: 20vh;
+  border: white 3px solid;
+  border-radius: 70%;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color: white;
+  overflow: hidden;
+`;
+
 const ToonImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: fill;
+  margin-left: 0.4vw;
 `;
 
 const BtnGroup = styled.div`

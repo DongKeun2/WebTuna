@@ -213,7 +213,7 @@ function NavBar() {
 =======
         <LeftGroup>
           <Item onClick={moveMain}>
-            <IconImg src={Home} alt="홈"/>
+            <IconImg src={Home} alt="홈" />
             <IconText>홈</IconText>
 >>>>>>> 3be130a (fix: NavBar 반응형 수정)
           </Item>
