@@ -9,6 +9,7 @@ import {
   fetchInfo,
 } from "../../features/accounts/loginSlice";
 import { changePossibleSearch } from "../../features/toons/searchSlice";
+import MySwal from "../../components/common/SweetAlert";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -28,10 +29,20 @@ function LoginPage() {
     console.log(loginInfo);
     dispatch(login(loginInfo)).then((res) => {
       if (res.error) {
-        alert("로그인 실패요");
+        MySwal.fire({
+          title: "Error!",
+          text: "다시 확인해주세요.",
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
       } else {
         dispatch(fetchInfo()).then(() => {
-          alert("성공요^^");
+          MySwal.fire({
+            title: "로그인 성공!",
+            icon: "success",
+            confirmButtonColor: "#feec91",
+            confirmButtonText: "확인",
+          });
           navigate("/");
         });
       }

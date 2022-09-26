@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../features/accounts/loginSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
+import MySwal from "../../components/common/SweetAlert";
 
 // 로그아웃 구현해야 함
 function Avatar() {
@@ -86,9 +87,23 @@ function Avatar() {
         </Link>
         <MenuItem
           onClick={() => {
-            dispatch(logout()).then(() => {
-              alert("로그아웃 됨 ^^");
-              navigate("/");
+            MySwal.fire({
+              title: "로그아웃 하쉴?",
+              text: "정말로?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#feec91",
+              confirmButtonText: "로그아웃",
+              cancelButtonColor: "#d33",
+              cancelButtonText: "취소",
+              reverseButtons: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                MySwal.fire("로그아웃!", "다음에 또 만나요!", "#feec91");
+                dispatch(logout()).then(() => {
+                  navigate("/");
+                });
+              }
             });
           }}
         >
