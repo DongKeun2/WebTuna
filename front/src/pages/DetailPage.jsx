@@ -236,6 +236,11 @@ function DetailPage() {
     }
   }
 
+  function toLogin() {
+    alert("로그인 해주세요~ㅋ");
+    navigate(`/login`);
+  }
+
   useEffect(() => {
     getDetail();
   }, []);
@@ -364,7 +369,9 @@ function DetailPage() {
                 </Author>
                 <RatingZone>
                   별점 ★ {averageRating.toFixed(1)}{" "}
-                  {loginState === null || webToonInfo.is_rated === 1 ? null : (
+                  {loginState === null || webToonInfo.is_rated === 1 ? (
+                    <RatingButton onClick={toLogin}>별점 주기</RatingButton>
+                  ) : (
                     <RatingButton onClick={switchModal}>별점 주기</RatingButton>
                   )}
                   {modal ? (
@@ -407,10 +414,13 @@ function DetailPage() {
               <SubInfo>
                 <WebToonLink>
                   <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
-                  {userData.liked_webtoons ===
-                  undefined ? null : userData.liked_webtoons.includes(
-                      Number(toonId)
-                    ) ? (
+                  {userData.liked_webtoons === undefined ? (
+                    <EHeart
+                      src={EmptyHeart}
+                      alt="노찜"
+                      onClick={toLogin}
+                    ></EHeart>
+                  ) : userData.liked_webtoons.includes(Number(toonId)) ? (
                     <FHeart
                       src={FullHeart}
                       alt="찜"
