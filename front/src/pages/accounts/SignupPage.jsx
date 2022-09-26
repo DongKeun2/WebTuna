@@ -312,6 +312,10 @@ const FormItem = styled.div`
   margin-left: 40vw;
   width: 100%;
   justify-content: start;
+  @media screen and (max-width: 900px) {
+    margin-left: 25vw;
+    align-items: center;
+  }
   @media screen and (max-width: 800px) {
     margin-left: 15vw;
     align-items: center;
@@ -321,6 +325,10 @@ const FormItem = styled.div`
 const FormTitle = styled.p`
   width: 10vw;
   font-size: 2vh;
+  @media screen and (max-width: 1000px) {
+    width: 15vw;
+    font-size: 1.8vh;
+  }
   @media screen and (max-width: 800px) {
     width: 15vw;
     font-size: 1.5vh;
@@ -389,8 +397,8 @@ const BirthInput = styled.input`
 `;
 
 const ConfirmMsg = styled.p`
-  text-align: center;
-  font-size: 1.5vh;
+  margin-left: -5vw;
+  font-size: 1.8vh;
   color: ${(props) => (props.error ? "#EEA6A6" : " #48618d")};
 `;
 
