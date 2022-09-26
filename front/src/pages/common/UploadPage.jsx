@@ -172,7 +172,7 @@ function UploadPage() {
               </ImgBox>
             ) : (
               <TunImgBox>
-                <ToonImg src={tuntun} alt="toon_img" />
+                <TunImg src={tuntun} alt="toon_img" />
               </TunImgBox>
             )}
             <BtnGroup>
@@ -367,19 +367,22 @@ const ImgBox = styled.div`
 
 const TunImgBox = styled.div`
   width: 20vw;
+  height: 20vh;
   min-width: 300px;
   min-height: 300px;
-  height: 20vh;
-  border: white 3px solid;
-  border-radius: 70%;
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  background-color: white;
   overflow: hidden;
 `;
 
 const ToonImg = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: fill;
+  margin-left: 0.4vw;
+`;
+
+const TunImg = styled.img`
+  width: 300px;
+  height: 300px;
   object-fit: fill;
   margin-left: 0.4vw;
 `;
