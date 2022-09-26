@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
+from webtoons.models import Genre
 
 from webtoons.serializers import WebtoonListSerializer 
 from .serializers import *
@@ -180,9 +181,14 @@ def LikeWebtoon(request, pageNum):
 
 # @api_view(['GET'])
 # def TestUser(request):
-#     member = get_object_or_404(get_user_model(), id=request.user.id)
-#     member_lst2 = member.member_viewed_webtoons.all()
+#     genre_webtoons = Genre.objects.get(genre_type='소년')
+#     webtoons = genre_webtoons.genre_webtoons.all()
+#     for webtoon in webtoons:
+        
+#     have_rate_webtoon = webtoons.objects.filter(webtoon_ratings = )
+#     print(webtoons)
     
+<<<<<<< HEAD
 #     serializer = TestUserSerializer(member)
 #     # member_lst = Member_View_Webtoons.objects.filter(member_id=request.user.id).order_by('id')
 #     # print(member_lst)
@@ -198,3 +204,6 @@ def Test_req(request):
 =======
 #     return Response(serializer.data)
 >>>>>>> c9803bc (fix : profile 수정, email,nickname 중복확인 수정)
+=======
+#     return Response(True)
+>>>>>>> 70f416e (fix : log남기기 수정)

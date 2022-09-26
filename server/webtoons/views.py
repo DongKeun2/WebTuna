@@ -38,10 +38,15 @@ from rest_framework.response import Response
 from rest_framework import status
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dab37c5 (fix: webtoon search  좌우공백제거, 덮어씌우는 버그 수정, 가나다순 정렬 추가)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer
 >>>>>>> 9f3add1 (fix: 웹툰 전체 페이지 성능개선(WebtoonListSerializer 수정))
 =======
+=======
+from accounts.models import Member_View_Webtoons
+
+>>>>>>> 70f416e (fix : log남기기 수정)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer
 >>>>>>> c4b2854 (feat: 웹툰 이미지 검색 api 구현)
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
@@ -404,9 +409,16 @@ def webtoonRate(request, webtoonId):
 
 @api_view(['POST'])
 def webtoonLog(request, webtoonId):
-    webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
+    if Member_View_Webtoons.objects.filter(member_id=request.user.id, webtoon_id=webtoonId).exists():
+        pass
+        return Response({'data': True})
+    
+    else:
+        Member_View_Webtoons.objects.create(
+            member_id = request.user.id,
+            webtoon_id = webtoonId 
+        )
 
-    webtoon.view_webtoon_users.add(request.user)
     return Response({'data': True})
 <<<<<<< HEAD
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
