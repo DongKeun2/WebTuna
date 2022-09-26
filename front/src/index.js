@@ -65,7 +65,9 @@ root.render(
           <Route path="upload" element={<UploadPage />} />
           <Route path="upload/result" element={<UploadResultPage />} />
           <Route path="detail/:toonId" element={<DetailPage />} />
-          <Route path="search/:keyword" element={<SearchPage />} />
+          <Route path="search/" element={<SearchPage />}>
+            <Route path=":keyword" element={<SearchPage />} />
+          </Route>
           <Route path="" element={<MainPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
