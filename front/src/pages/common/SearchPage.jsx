@@ -1,12 +1,58 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ToonLoading from "../../components/toonlist/ToonLoading";
-import { changeKeyword } from "../../features/toons/searchSlice";
+import {
+  changeKeyword,
+  changePages,
+  addToons,
+} from "../../features/toons/searchSlice";
 
 export default function SearchPage() {
   const dispatch = useDispatch();
+
+  const [fetching, setFetching] = useState(false);
+  const possibleFetch = useSelector((state) => state.search.possibleFetch);
+  const pages = useSelector((state) => state.search.pages);
+  const keyword = useSelector((state) => state.search.keyword);
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (
+      scrollTop + clientHeight >= scrollHeight &&
+      !fetching &&
+      possibleFetch
+    ) {
+      console.log("끝에 도달");
+      console.log(possibleFetch);
+      dispatch(changePages(pages + 1));
+      fetchNextPage();
+    }
+  };
+  useEffect(() => {
+    // scroll event listener 등록
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      // scroll event listener 해제
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
+  const fetchNextPage = async () => {
+    setFetching(true);
+
+    const data = {
+      keyword,
+      pages: pages + 1,
+    };
+    console.log(data);
+    dispatch(addToons(data)).then(() => {
+      setFetching(false);
+    });
+  };
 
   const toonList = useSelector((state) => state.search.toonList);
   const word = useSelector((state) => state.search.word);
@@ -48,7 +94,7 @@ const Container = styled.div`
   border: solid 2px;
   border-radius: 1rem;
   background-color: white;
-`
+`;
 
 const PageBox = styled.div`
   width: 96%;

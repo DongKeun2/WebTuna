@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -15,7 +14,7 @@ function SearchBar() {
   const navigate = useNavigate();
 
   const keyword = useSelector((state) => state.search.keyword);
-  const [pages, setPages] = useState(0);
+  const pages = useSelector((state) => state.search.pages);
 
   function submitKeyword(e) {
     e.preventDefault();
@@ -28,7 +27,6 @@ function SearchBar() {
     dispatch(searchToons(data)).then((res) => {
       dispatch(changeIsLoad(false));
       navigate(`/search/${keyword}`);
-      setPages(pages + 1);
     });
   }
 
