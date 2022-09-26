@@ -7,7 +7,7 @@ import Loading from '../../components/common/Loading'
 import { fetchUpload } from '../../features/toons/uploadSlice'
 =======
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../../components/common/Loading";
@@ -92,7 +92,7 @@ function UploadPage() {
           setTimeout(() => {
             setIsLoading(false);
 
-            navigate("./result");
+            navigate("./result", { state: pathname });
           }, 1000);
         } else {
           alert("다시 시도해주세요");
@@ -137,7 +137,7 @@ function UploadPage() {
       });
       navigate("/login", { state: pathname });
     }
-  }, []);
+  }, [navigate, pathname]);
 
   return (
     <div>

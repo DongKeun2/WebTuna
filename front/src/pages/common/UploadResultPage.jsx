@@ -18,8 +18,12 @@ import { useSelector } from "react-redux";
 =======
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 >>>>>>> 1d997a0 (feat: 모델 생성 실패 시 경고창 / 그림체 result페이지 cleanup 추가)
 import { useNavigate } from "react-router-dom";
+=======
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
+>>>>>>> 6c63e1b (fix: upload 페이지 새로고침&뒤로가기 시 페이지 이동 구현)
 import styled from "styled-components";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { cleanResultData } from "../../features/toons/uploadSlice";
@@ -29,10 +33,11 @@ function UploadResultPage() {
   const dispatch = useDispatch();
 
   const toonInfo = useSelector((state) => state.upload.webtoonInfo);
+  const { state } = useLocation();
 
   useEffect(() => {
     return () => {
-      dispatch(cleanResultData({}));
+      dispatch(cleanResultData(undefined));
     };
   }, [dispatch]);
 
@@ -40,38 +45,42 @@ function UploadResultPage() {
     navigate(`/detail/${toonInfo.webtoon_id}`);
   }
 
-  return (
-    <Container>
-      <PageBox>
-        <ResultHeader>분석 결과</ResultHeader>
-        <ResultBox>
-          <ImgBox>
-            <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
-          </ImgBox>
-          <TitleBox>
-            <ResultTitle>{toonInfo.title}</ResultTitle>
-            <ResultSummary>{toonInfo.summary}</ResultSummary>
-            <BtnGroup>
-              <ResultBtn active={true} onClick={moveDetail}>
-                상세 정보
-              </ResultBtn>
-              <ResultBtn
-                active={true}
-                onClick={() => {
-                  navigate("/upload");
-                }}
-              >
-                <FlexBox>
-                  <RestartAltIcon />
-                  <TextAgain>다시 하기</TextAgain>
-                </FlexBox>
-              </ResultBtn>
-            </BtnGroup>
-          </TitleBox>
-        </ResultBox>
-      </PageBox>
-    </Container>
-  );
+  if (!toonInfo || !state) {
+    return <Navigate to="/upload" replace={true} />;
+  } else {
+    return (
+      <Container>
+        <PageBox>
+          <ResultHeader>분석 결과</ResultHeader>
+          <ResultBox>
+            <ImgBox>
+              <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
+            </ImgBox>
+            <TitleBox>
+              <ResultTitle>{toonInfo.title}</ResultTitle>
+              <ResultSummary>{toonInfo.summary}</ResultSummary>
+              <BtnGroup>
+                <ResultBtn active={true} onClick={moveDetail}>
+                  상세 정보
+                </ResultBtn>
+                <ResultBtn
+                  active={true}
+                  onClick={() => {
+                    navigate("/upload");
+                  }}
+                >
+                  <FlexBox>
+                    <RestartAltIcon />
+                    <TextAgain>다시 하기</TextAgain>
+                  </FlexBox>
+                </ResultBtn>
+              </BtnGroup>
+            </TitleBox>
+          </ResultBox>
+        </PageBox>
+      </Container>
+    );
+  }
 }
 const Container = styled.div`
   width: 92%;
@@ -81,7 +90,7 @@ const Container = styled.div`
   border: solid 2px;
   border-radius: 1rem;
   background-color: white;
-`
+`;
 
 const PageBox = styled.div`
   width: 96%;
@@ -91,10 +100,10 @@ const PageBox = styled.div`
   padding: 0.5vw;
   border: solid 2px;
   border-radius: 0.8rem;
-  background-color: #FFF5C3;
+  background-color: #fff5c3;
   display: flex;
   flex-direction: column;
-`
+`;
 
 const ResultHeader = styled.p`
   font-size: 1.8vw;
@@ -104,7 +113,7 @@ const ResultHeader = styled.p`
   font-weight: 700;
   margin-bottom: 5vw;
   text-align: center;
-`
+`;
 
 const ResultBox = styled.div`
   width: 60%;
@@ -118,7 +127,7 @@ const ResultBox = styled.div`
     flex-direction: column;
   }
   justify-content: space-between;
-`
+`;
 
 const ImgBox = styled.div`
   border: 3px solid;
@@ -160,7 +169,7 @@ const ResultTitle = styled.p`
     font-size: 16px;
     text-align: center;
   }
-`
+`;
 
 const ResultSummary = styled.div`
   font-size: 1vw;
@@ -174,7 +183,7 @@ const ResultSummary = styled.div`
   border-radius: 1vw;
   overflow: hidden;
   text-overflow: ellipsis;
-`
+`;
 
 const BtnGroup = styled.div`
   width: 100%;
@@ -205,11 +214,11 @@ const FlexBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const TextAgain = styled.p`
   margin: 0;
-`
+`;
 
 export default UploadResultPage;
 >>>>>>> c764e92 (feat: 그림체분석 결과페이지 ui / api 연결)

@@ -31,7 +31,7 @@ const fetchUpload = createAsyncThunk(
 export const uploadSlice = createSlice({
   name: 'upload',
   initialState: {
-    webtoonInfo: {},
+    webtoonInfo: undefined,
   },
   reducers: {
     cleanResultData: (state, action) => {
