@@ -25,7 +25,7 @@ function AddInfoPage() {
   return (
     <PageBox>
       <AddInfoBox>
-        <h1>선호 그림체 선택 페이지 (1개 이상 선택해주세요^^)</h1>
+        <Title>마음에 드는 그림을 1개 이상 선택해주세요!</Title>
         <ItemBox>
           {addInfoItem.map((item) => {
             return <ImgItems key={item.id} item={item} />;
@@ -64,7 +64,7 @@ function ImgItems({ item }) {
     dispatch(changeSelectImg(data));
   }
   return (
-    <ImgBox onClick={clickImg}>
+    <ImgBox onClick={clickImg} selected={selectImg.find((i) => i === item.id)}>
       <ToonImg src={item.img} alt="select_img" />
     </ImgBox>
   );
@@ -74,6 +74,7 @@ const PageBox = styled.div`
   display: flex;
   width: 100%;
   margin-bottom: 100px;
+  align-items: center;
   justify-content: center;
   @media screen and (max-width: 600px) {
     width: 100%;
@@ -84,7 +85,15 @@ const PageBox = styled.div`
   }
 `;
 
+const Title = styled.p`
+  font-size: 3vw;
+`;
+
 const AddInfoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 90%;
 `;
 
@@ -97,12 +106,13 @@ const ItemBox = styled.div`
 const ImgBox = styled.div`
   width: 300px;
   height: 300px;
-  border: 5px solid black;
   border-radius: 10%;
   overflow: hidden;
   :hover {
     cursor: pointer;
   }
+  border: ${(props) =>
+    props.selected ? "10px solid green" : "5px solid black"};
 `;
 
 const ToonImg = styled.img`
@@ -113,10 +123,12 @@ const ToonImg = styled.img`
 
 const BtnBox = styled.div`
   display: flex;
-  justify-content: end;
+  align-self: end;
 `;
 
 const SubmitBtn = styled.button`
+  width: 100%;
+  justify-self: end;
   font-size: 20px;
   font-weight: bold;
   background-color: ${(props) => (props.deactive ? "AFAFAF" : "#feec91")};
