@@ -143,22 +143,27 @@ function NavBar() {
 
   function moveMain() {
     navigate(`/`);
+    window.scrollTo(0, 0);
   }
 
   function moveList() {
     navigate(`/webtoonList`);
+    window.scrollTo(0, 0);
   }
 
   function moveToontoon() {
     navigate(`/toontoon`);
+    window.scrollTo(0, 0);
   }
 
   function moveUpload() {
     navigate(`/upload`);
+    window.scrollTo(0, 0);
   }
 
   function moveToonbti() {
     navigate(`/toonbti`);
+    window.scrollTo(0, 0);
   }
 
   return (

@@ -27,6 +27,7 @@ function SearchBar() {
     dispatch(searchToons(data)).then((res) => {
       dispatch(changeIsLoad(false));
       navigate(`/search/${keyword}`);
+      window.scrollTo(0, 0);
     });
   }
 
