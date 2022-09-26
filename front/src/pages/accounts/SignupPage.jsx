@@ -70,7 +70,7 @@ function SignupPage() {
 
   const handleOnKeyPress = (e) => {
     if (e.key === "Enter") {
-      onCheckNicknameHandler(e); // Enter 입력이 되면 클릭 이벤트 실행
+      onCheckNicknameHandler(e);
     }
   };
 
@@ -167,9 +167,9 @@ function SignupPage() {
           <ConfirmMsg error={isCheckEmail && !isPossibleEmail}>
             {isCheckEmail
               ? isPossibleEmail
-                ? "사용가능한 이메일입니다."
+                ? "사용 가능한 이메일입니다."
                 : isRightEmail
-                ? "사용불가능한 이메일입니다."
+                ? "사용 불가능한 이메일입니다."
                 : "이메일 형식이 올바르지 않습니다."
               : null}
           </ConfirmMsg>
@@ -189,8 +189,8 @@ function SignupPage() {
           <ConfirmMsg error={isCheckNickname && !isPossibleNickname}>
             {isCheckNickname
               ? isPossibleNickname
-                ? "사용가능한 닉네임입니다."
-                : "사용불가능한 닉네임입니다."
+                ? "사용 가능한 닉네임입니다."
+                : "사용 불가능한 닉네임입니다."
               : null}
           </ConfirmMsg>
           <FormItem>
@@ -329,6 +329,7 @@ const CheckBtn = styled.button`
   background-color: white;
   :hover {
     font-size: 90%;
+    cursor: pointer;
   }
 `;
 
@@ -347,7 +348,7 @@ const SignupInput = styled.input`
 
 const ConfirmMsg = styled.p`
   text-align: center;
-  color: ${(props) => (props.error ? "#EEA6A6" : " #D1E2FF")};
+  color: ${(props) => (props.error ? "#EEA6A6" : " #48618d")};
 `;
 
 const SelectBox = styled.div`
@@ -370,7 +371,11 @@ const MaleLabel = styled.label`
   border: 1px solid #d1e2ff;
   border-radius: 5px;
   background-color: ${(props) => props.active && " #d1e2ff"};
+  :hover {
+    cursor: pointer;
+  }
 `;
+
 const FemaleLabel = styled.label`
   display: flex;
   justify-content: center;
@@ -385,6 +390,9 @@ const FemaleLabel = styled.label`
   background-color: ${(props) => props.active && " #d1e2ff"};
   @media screen and (max-width: 600px) {
     margin-left: 50%;
+  }
+  :hover {
+    cursor: pointer;
   }
 `;
 
