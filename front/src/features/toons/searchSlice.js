@@ -68,6 +68,9 @@ export const searchSlice = createSlice({
     changePages: (state, action) => {
       state.pages = action.payload;
     },
+    changePossibleFetch: (state, action) => {
+      state.possibleFetch = action.payload;
+    },
   },
   extraReducers: {
     [searchToons.fulfilled]: (state, action) => {
@@ -98,6 +101,7 @@ export const {
   changePossibleSearch,
   changeIsLoad,
   changePages,
+  changePossibleFetch,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;

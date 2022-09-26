@@ -7,6 +7,8 @@ import {
   changeKeyword,
   changeWord,
   changeIsLoad,
+  changePages,
+  changePossibleFetch,
 } from "../../features/toons/searchSlice";
 
 function SearchBar() {
@@ -14,16 +16,17 @@ function SearchBar() {
   const navigate = useNavigate();
 
   const keyword = useSelector((state) => state.search.keyword);
-  const pages = useSelector((state) => state.search.pages);
 
   function submitKeyword(e) {
     e.preventDefault();
+    dispatch(changePages(1));
     dispatch(changeWord(keyword));
     const data = {
-      pages,
+      pages: 1,
       keyword,
     };
     dispatch(changeIsLoad(true));
+    dispatch(changePossibleFetch(true));
     dispatch(searchToons(data)).then((res) => {
       dispatch(changeIsLoad(false));
       navigate(`/search/${keyword}`);
