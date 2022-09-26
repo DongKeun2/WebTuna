@@ -8,7 +8,7 @@ import { fetchUpload } from '../../features/toons/uploadSlice'
 =======
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../../components/common/Loading";
 import { fetchUpload } from "../../features/toons/uploadSlice";
@@ -17,16 +17,26 @@ import cat from "../../assets/profile/cat.jpg";
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
 =======
 import tuntun from "../../assets/test/tuntun2.png";
+<<<<<<< HEAD
 >>>>>>> a56603e (feat: 프로필이미지 수정 / 검색창 배경 수정)
+=======
+import MySwal from "../../components/common/SweetAlert";
+import { useEffect } from "react";
+>>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)
 
 function UploadPage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [fileImage, setFileImage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 =======
+=======
+  const { pathname } = useLocation();
+
+>>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)
   const [fileImage, setFileImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 <<<<<<< HEAD
@@ -116,11 +126,18 @@ function UploadPage() {
     return prediction
   }
 
-  const isAuthenticated = useSelector((state) => state.login.loginState);
-  if (!isAuthenticated) {
-    alert("로그인 후 이용 가능요");
-    return <Navigate to="/login" />;
-  }
+  useEffect(() => {
+    if (!sessionStorage.getItem("token")) {
+      MySwal.fire({
+        title: "로그인 후 이용해주세요.",
+        icon: "warning",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+        reverseButtons: true,
+      });
+      navigate("/login", { state: pathname });
+    }
+  }, []);
 
   return (
     <div>
