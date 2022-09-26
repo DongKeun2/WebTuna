@@ -24,7 +24,7 @@ const fetchInfo = createAsyncThunk(
       console.log(err);
       return rejectWithValue(err.response.data);
     }
-  },
+  }
 );
 
 const logout = createAsyncThunk("logout", async (arg, { rejectWithValue }) => {
@@ -65,6 +65,10 @@ export const loginSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       console.log("로그인 성공");
       console.log(action.payload);
+      state.loginInfo = {
+        email: "",
+        password: "",
+      };
       sessionStorage.setItem("token", action.payload.access_token);
 
       state.loginState = true;
@@ -72,6 +76,7 @@ export const loginSlice = createSlice({
     [login.rejected]: (state, action) => {
       console.log("로그인 실패 ㅠㅠ");
       console.log(action.payload);
+      sessionStorage.clear();
       state.loginState = false;
     },
     [fetchInfo.fulfilled]: (state, action) => {

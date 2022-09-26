@@ -9,6 +9,7 @@ import {
   changePossible,
   edit,
 } from "../../features/accounts/editSlice";
+import MySwal from "../../components/common/SweetAlert";
 
 function EditPage() {
   const dispatch = useDispatch();
@@ -30,7 +31,12 @@ function EditPage() {
     };
     dispatch(checkPassword(data)).then((res) => {
       if (res.payload === false) {
-        alert("틀림요");
+        MySwal.fire({
+          title: "틀림요!",
+          icon: "error",
+          confirmButtonColor: "#feec91",
+          confirmButtonText: "확인",
+        });
       }
     });
   }
@@ -75,14 +81,21 @@ function EditPage() {
 
   function editSubmit(e) {
     e.preventDefault();
-    console.log("제출^^");
-    const data = {
-      password: editInfo.password,
-    };
-    dispatch(edit(data)).then(() => {
-      alert("수정 완료되었습니다.");
-      dispatch(changePossible(false));
-    });
+    if (!passwordError && editInfo.password === editInfo.pwdVerify) {
+      console.log("제출^^");
+      const data = {
+        password: editInfo.password,
+      };
+      dispatch(edit(data)).then(() => {
+        MySwal.fire({
+          title: "수정 완료!",
+          icon: "success",
+          confirmButtonColor: "#feec91",
+          confirmButtonText: "확인",
+        });
+        dispatch(changePossible(false));
+      });
+    }
   }
   return (
     <PageBox>

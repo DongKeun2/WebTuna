@@ -99,7 +99,12 @@ function Avatar() {
               reverseButtons: true,
             }).then((result) => {
               if (result.isConfirmed) {
-                MySwal.fire("로그아웃!", "다음에 또 만나요!", "#feec91");
+                MySwal.fire({
+                  title: "로그아웃!",
+                  icon: "success",
+                  confirmButtonColor: "#feec91",
+                  confirmButtonText: "확인",
+                });
                 dispatch(logout()).then(() => {
                   navigate("/");
                 });

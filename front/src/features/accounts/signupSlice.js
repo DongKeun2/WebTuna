@@ -99,6 +99,9 @@ export const singupSlice = createSlice({
     [checkNickname.rejected]: (state) => {
       state.isPossibleNickname = false;
     },
+    [signup.fulfilled]: (state) => {
+      state.signupInfo = {};
+    },
   },
 });
 
