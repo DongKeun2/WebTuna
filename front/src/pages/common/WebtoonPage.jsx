@@ -1,11 +1,13 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchToonlist } from "../../features/toons/toonlistSlice"
 import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
+import ModalFrame from "../../components/common/ModalFrame";
 import ToonLoading from "../../components/toonlist/ToonLoading"
 
 function WebtoonPage() {
+  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,12 +16,21 @@ function WebtoonPage() {
 
   const toons = useSelector((state) => state.toonlist.toons) || [];
 
+  function switchModal() {
+    setModal((prev) => !prev);
+  }
+
   return (
     <Container>
       <PageBox>
         <HeaderBox>
           <PageTitle>전체 웹툰 목록</PageTitle>
-          <FilterBtn>필터</FilterBtn>
+          <FilterBtn onClick={switchModal}>필터</FilterBtn>
+          {modal ? (
+            <ModalFrame _handleModal={switchModal}>
+              <div>필터 모달</div>
+            </ModalFrame>
+          ) : null}
         </HeaderBox>
         {toons.length ? (
           <ToonListBox>
