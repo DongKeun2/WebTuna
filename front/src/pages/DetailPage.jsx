@@ -434,7 +434,16 @@ function DetailPage() {
                   <Day>
                     {webToonInfo.data.days[0].day_id === 8
                       ? "완결 웹툰"
-                      : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
+                      : webToonInfo.data.days.length === 1
+                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                      : webToonInfo.data.days
+                          .slice(0, -1)
+                          .map((dayy) => day[dayy.day_id]) +
+                        " , " +
+                        webToonInfo.data.days
+                          .slice(-1)
+                          .map((dayy) => day[dayy.day_id]) +
+                        "요일 연재"}
                   </Day>
                 </RatingGenreDay>
               </Info>
@@ -529,9 +538,15 @@ function DetailPage() {
                           {otherWebToon.title}
                         </OtherWebToonTitle>
                         <OtherWebToonAuthor onClick={moveDetail}>
-                          {otherWebToon.author_name.map(
-                            (author) => author + " "
-                          )}
+                          {otherWebToon.author_name.length === 1
+                            ? otherWebToon.author_name[0]
+                            : otherWebToon.author_name
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              otherWebToon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
                         </OtherWebToonAuthor>
                       </OtherWebToon>
                     ))
@@ -661,11 +676,11 @@ const RatingButton = styled.div`
   cursor: pointer;
   margin-left: 3vw;
   border: 1px solid black;
-  border-radius: 3vw;
+  border-radius: 0.6vw;
   background-color: white;
   padding: 0.3vw;
   &:hover {
-    background-color: skyblue;
+    background-color: pink;
   }
 `;
 
@@ -698,18 +713,19 @@ const WebToonLink = styled.div`
 `;
 
 const LinkButton = styled.div`
+  cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 1.2vw;
+  font-size: 1.5vw;
   margin-right: 2vw;
-  cursor: pointer;
   border: 0.05vw solid black;
-  border-radius: 1vw;
+  border-radius: 0.6vw;
   background-color: white;
   padding: 0.3vw;
+  height: 2vw;
   &:hover {
-    background-color: skyblue;
+    background-color: pink;
   }
 `;
 
@@ -750,8 +766,8 @@ const Summary = styled.div`
 `;
 
 const TagZone = styled.div`
-  justify-content: space-between;
-  align-items: center;
+  display: flex;
+  flex-flow: wrap;
   padding: 1.5vw;
   margin-top: 8vw;
   margin-left: 7.5vw;
@@ -762,15 +778,15 @@ const TagZone = styled.div`
 `;
 
 const LikedTag = styled.div`
+  display: flex;
   cursor: pointer;
   background-color: skyblue;
-  display: inline;
   border: 0.1vw solid black;
   border-radius: 1vw;
-  padding: 0.5vw 0.3vw 0.3vw 0.3vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 0.5vw;
   transition: 0.5s;
   &:hover {
     background-color: white;
@@ -778,43 +794,49 @@ const LikedTag = styled.div`
 `;
 
 const Tag = styled.div`
+  display: flex;
   cursor: pointer;
-  display: inline;
   border: 0.1vw solid black;
   border-radius: 1vw;
-  padding: 0.5vw 0.3vw 0.3vw 0.3vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 0.5vw;
   transition: 0.5s;
   &:hover {
-    background-color: skyblue;
+    background-color: pink;
   }
 `;
 
 const BookMarkImage = styled.img`
-  display: inline;
+  flex: 1;
   width: 1.1rem;
-  height: 1.7rem;
+  height: 2.2vw;
+  margin-top: -0.1vw;
   padding-left: 1vw;
 `;
 
 const TagName = styled.div`
-  display: inline;
+  flex: 1;
   margin-left: 0.8vw;
   margin-right: 0.8vw;
+  margin-top: 0.2vw;
   font-size: 1.5vw;
 `;
 
 const MinusButton = styled.div`
-  display: inline;
+  flex: 1;
   margin-left: 0.38vw;
   margin-right: 0.2vw;
+  margin-top: -0.2vw;
   font-size: 2vw;
 `;
 
 const PlusButton = styled.div`
-  display: inline;
+  flex: 1;
+  margin-left: 0.38vw;
+  margin-right: 0.2vw;
+  margin-top: -0.2vw;
   font-size: 2vw;
 `;
 
@@ -825,7 +847,9 @@ const PaintStyleRecommendZone = styled.div`
 
 const PSRecommends = styled.div`
   background-color: white;
+  border-radius: 0.6vw;
   height: 300px;
+  border: 0.1vw solid black;
 `;
 
 const SameAuthorRecommendZone = styled.div`
@@ -856,6 +880,8 @@ const SARecommendsBack = styled.div`
   background-color: white;
   height: 20vw;
   overflow: hidden;
+  border-radius: 0.6vw;
+  border: 0.1vw solid black;
 `;
 
 const SARecommends = styled.div`
@@ -915,10 +941,13 @@ const WebToonAnalysisZone = styled.div`
 `;
 
 const AnalysisBack = styled.div`
+  border: 0.1vw solid black;
+  border-radius: 0.6vw;
   height: 60vw;
 `;
 
 const Analysis = styled.div`
+  border-radius: 0.6vw;
   display: flex;
   background-color: white;
   height: 30vw;
@@ -928,10 +957,12 @@ const PaintStyleAnalysis = styled.div`
   flex: 1;
   display: inline;
   background-color: white;
+  border-radius: 0.6vw;
   height: 30vw;
 `;
 
 const AgeGroupAnalysis = styled.div`
+  border-radius: 0.6vw;
   flex: 1;
   display: inline;
   float: center;
@@ -939,6 +970,7 @@ const AgeGroupAnalysis = styled.div`
   height: 30vw;
 `;
 const Graph = styled.div`
+  border-radius: 0.6vw;
   background-color: white;
   height: 30vw;
 `;

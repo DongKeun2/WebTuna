@@ -42,12 +42,12 @@ function ProfilePage() {
     });
   }
 
-  function viewWebtoonReverse() {
+  function viewdWebtoon() {
     const result = [];
-    for (let i = userInfo.data.view_webtoons.length - 1; i >= 0; i--) {
+    for (let i = 0; i < userInfo.data.member_viewed_webtoons.length; i++) {
       result.push(
-        <div key={userInfo.data.view_webtoons[i].webtoon_id}>
-          <ToonItem item={userInfo.data.view_webtoons[i]} />
+        <div key={userInfo.data.member_viewed_webtoons[i].webtoon.webtoon_id}>
+          <ToonItem item={userInfo.data.member_viewed_webtoons[i].webtoon} />
         </div>
       );
     }
@@ -165,9 +165,9 @@ function ProfilePage() {
           </TagTitleZone>
           <PreferenceBack>
             <ViewWebToon>
-              {userInfo.data.view_webtoons.length === 0
+              {userInfo.data.member_viewed_webtoons.length === 0
                 ? "텅~"
-                : viewWebtoonReverse()}
+                : viewdWebtoon()}
             </ViewWebToon>
           </PreferenceBack>
           <TagTitleZone>
