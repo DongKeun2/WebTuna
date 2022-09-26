@@ -32,6 +32,7 @@ function DetailPage() {
   const [modal, setModal] = useState(false);
   const [count, setCount] = useState(1);
   const [slideCount, setSlideCount] = useState();
+  const [authors, setAuthors] = useState();
   // const [modalRating, setModalRating] = useState(5);
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
   let userData = useSelector((state) => state.login.currentUser);
@@ -71,6 +72,16 @@ function DetailPage() {
         setSlideCount(
           Math.floor(Number(res.payload.author_webtoons.length) / 4)
         );
+        let tempauthors = "";
+        for (const num in res.payload.data.authors) {
+          if (num > 0) {
+            tempauthors += " / ";
+            tempauthors += res.payload.data.authors[num].name;
+          } else {
+            tempauthors += res.payload.data.authors[num].name;
+          }
+        }
+        setAuthors(tempauthors);
         setIsLoading(false);
       });
     } else {
@@ -104,6 +115,16 @@ function DetailPage() {
         setSlideCount(
           Math.ceil(Number(res.payload.author_webtoons.length) / 4)
         );
+        let tempauthors = "";
+        for (const num in res.payload.data.authors) {
+          if (num > 0) {
+            tempauthors += " / ";
+            tempauthors += res.payload.data.authors[num].name;
+          } else {
+            tempauthors += res.payload.data.authors[num].name;
+          }
+        }
+        setAuthors(tempauthors);
         setIsLoading(false);
         setTimeout(() => {
           slide = document.getElementById("slide");
@@ -363,57 +384,62 @@ function DetailPage() {
                 ></ThumbnailImage>
               </Thumbnail>
               <Info>
-                <Title>{webToonInfo.data.title}</Title>
-                <Author>
-                  {webToonInfo.data.authors.map((author) => author.name + " ")}
-                </Author>
-                <RatingZone>
-                  별점 ★ {averageRating.toFixed(1)}{" "}
-                  {loginState === null || webToonInfo.is_rated === 1 ? (
-                    <RatingButton onClick={toLogin}>별점 주기</RatingButton>
-                  ) : (
-                    <RatingButton onClick={switchModal}>별점 주기</RatingButton>
-                  )}
-                  {modal ? (
-                    <ModalFrame _handleModal={switchModal}>
-                      <div>빛나라 지식의 별</div>
-                      <Rating
-                        name="half-rating"
-                        defaultValue={5.0}
-                        precision={0.5}
-                        icon={
-                          <StarIcon
-                            style={{ width: "64px", height: "64px" }}
-                          ></StarIcon>
-                        }
-                        emptyIcon={
-                          <StarIcon
-                            style={{
-                              width: "64px",
-                              height: "64px",
-                            }}
-                          />
-                        }
-                        onChange={changeRating}
-                      />
-                    </ModalFrame>
-                  ) : null}
-                </RatingZone>
-                <Genre>
-                  장르{" "}
-                  {webToonInfo.data.genres.map(
-                    (genre) => genre.genre_type + " "
-                  )}
-                </Genre>
-                <Day>
-                  {webToonInfo.data.days[0].day_id === 8
-                    ? "완결 웹툰"
-                    : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
-                </Day>
+                <TitleAuthor>
+                  <Title>{webToonInfo.data.title}</Title>
+                  <Author>{authors}</Author>
+                </TitleAuthor>
+                <RatingGenreDay>
+                  <RatingZone>
+                    별점 ★ {averageRating.toFixed(1)}
+                    {loginState === null ? (
+                      <RatingButton onClick={toLogin}>별점 주기</RatingButton>
+                    ) : webToonInfo.is_rated === 1 ? (
+                      " 　이미 평가하셨습니다."
+                    ) : (
+                      <RatingButton onClick={switchModal}>
+                        별점 주기
+                      </RatingButton>
+                    )}
+                    {modal ? (
+                      <ModalFrame _handleModal={switchModal}>
+                        <div>빛나라 지식의 별</div>
+                        <Rating
+                          name="half-rating"
+                          defaultValue={5.0}
+                          precision={0.5}
+                          icon={
+                            <StarIcon
+                              style={{ width: "64px", height: "64px" }}
+                            ></StarIcon>
+                          }
+                          emptyIcon={
+                            <StarIcon
+                              style={{
+                                width: "64px",
+                                height: "64px",
+                              }}
+                            />
+                          }
+                          onChange={changeRating}
+                        />
+                      </ModalFrame>
+                    ) : null}
+                  </RatingZone>
+                  <Genre>
+                    장르{" "}
+                    {webToonInfo.data.genres.map(
+                      (genre) => genre.genre_type + " "
+                    )}
+                  </Genre>
+                  <Day>
+                    {webToonInfo.data.days[0].day_id === 8
+                      ? "완결 웹툰"
+                      : `${day[webToonInfo.data.days[0].day_id]}요일 연재`}
+                  </Day>
+                </RatingGenreDay>
               </Info>
               <SubInfo>
                 <WebToonLink>
-                  <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
                   {userData.liked_webtoons === undefined ? (
                     <EHeart
                       src={EmptyHeart}
@@ -433,6 +459,7 @@ function DetailPage() {
                       onClick={heartClick}
                     ></EHeart>
                   )}
+                  <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>
                 </WebToonLink>
                 <Summary>{webToonInfo.data.summary}</Summary>
               </SubInfo>
@@ -565,12 +592,12 @@ const BackGround = styled.div`
   background-color: #fff5c3;
   border: solid 2px;
   border-radius: 0.8rem;
-  height: 150vw;
+  padding-bottom: 5vw;
 `;
 
 const DetailZone = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 `;
 
@@ -584,31 +611,40 @@ const Thumbnail = styled.div`
 
 const ThumbnailImage = styled.img`
   object-fit: fill;
-  width: 100%;
-  height: 100%;
+  width: 20vw;
+  height: 20vw;
 `;
 
 const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 25vw;
   height: 20vw;
-  margin-top: 5vw;
   margin-left: 2vw;
+  margin-top: 5vw;
 `;
 
+const TitleAuthor = styled.div``;
+
+const RatingGenreDay = styled.div``;
+
 const Title = styled.div`
-  display: inline;
+  vertical-align: top;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 2vw;
   font-weight: 600;
+  margin-top: -0.5vw;
 `;
 
 const Author = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 2vw;
+  padding-top: 1vw;
+  font-size: 1.8vw;
 `;
 
 const RatingZone = styled.div`
@@ -642,7 +678,6 @@ const Genre = styled.div`
 `;
 
 const Day = styled.div`
-  padding-bottom: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -650,25 +685,24 @@ const Day = styled.div`
 `;
 
 const SubInfo = styled.div`
-  width: 40vw;
+  flex: 3;
   height: 20vw;
   margin-top: 3vw;
 `;
 
 const WebToonLink = styled.div`
-  display: inline;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 5vw;
-  margin-left: 17vw;
+  display: flex;
+  flex-direction: row-reverse;
+  border-radius: 1vw;
+  width: 70%;
 `;
 
 const LinkButton = styled.div`
-  display: inline;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 1.2vw;
+  margin-right: 2vw;
   cursor: pointer;
   border: 0.05vw solid black;
   border-radius: 1vw;
@@ -681,7 +715,6 @@ const LinkButton = styled.div`
 
 const FHeart = styled.img`
   cursor: pointer;
-  margin-left: 2vw;
   width: 3.3vw;
   transition: 0.5s;
   &:hover {
@@ -691,7 +724,6 @@ const FHeart = styled.img`
 
 const EHeart = styled.img`
   cursor: pointer;
-  margin-left: 2vw;
   width: 3.3vw;
   transition: 0.5s;
   &:hover {
@@ -704,8 +736,9 @@ const Summary = styled.div`
   border: 0.1vw solid black;
   border-radius: 1vw;
   margin-top: 7vw;
-  margin-right: 6.5vw;
-  padding-left: 10px;
+  font-size: 1vw;
+  padding: 0.5vw 0.8vw;
+  width: 70%;
   height: 10vw;
   overflow: hidden;
   text-overflow: ellipsis;
