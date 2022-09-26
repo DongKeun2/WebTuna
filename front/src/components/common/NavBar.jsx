@@ -34,7 +34,12 @@ const Nav = styled.div`
   border-left: solid 2px black;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+<<<<<<< HEAD
 `
+=======
+  z-index: 2;
+`;
+>>>>>>> 18ca83d (feat: 디테일 페이지 좌우 버튼 추가 (캐러셀))
 
 const Items = styled.div`
   width: 100%;
