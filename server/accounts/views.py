@@ -79,6 +79,7 @@ def Profile(request):
         '소년':0,
         'BL':0
     }
+
     if webtoons_length:
         for webtoon in webtoons:
             image_types['image_type1'] += webtoon.image_type1
@@ -164,17 +165,6 @@ def PasswordCheck(request):
         return Response(False)
     
     return Response(True)
-
-
-# 찜한 웹툰 목록보기
-@api_view(['GET'])
-def LikeWebtoon(request, pageNum):
-    member = get_object_or_404(get_user_model(), id=request.user.id)
-    likewebtoons = member.liked_webtoons.all()
-    paginator = Paginator(likewebtoons, 20)
-    webtoons = paginator.get_page(int(pageNum))
-    serializer = WebtoonListSerializer(webtoons, many = True)
-    return Response(serializer.data)
 
 
 # @api_view(['GET'])
