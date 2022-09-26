@@ -3,12 +3,12 @@ import styled from "styled-components";
 import close from "../../assets/detail/Close.png";
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: 100;
   top: 0;
-  left: 0;
+  bottom: 0;
   right: 0;
   bottom: 0;
   display: flex;
@@ -20,7 +20,7 @@ const Background = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
   animation: modal-bg-show 1s;
   @keyframes modal-bg-show {
@@ -34,20 +34,14 @@ const Background = styled.div`
 `;
 
 const ModalBlock = styled.div`
-  position: absolute;
-  top: 20rem;
+  position: fixed;
   border: 1px black solid;
   border-radius: 10px;
   padding: 1.5rem;
   background-color: white;
-  width: 60rem;
-  @media (max-width: 1120px) {
-    width: 50rem;
-  }
-  @media (max-width: 50rem) {
-    width: 80%;
-  }
-  min-height: 20rem;
+  top: ${(props) => props.width || '10rem'};
+  width: ${(props) => props.width || '50%'};
+  height: ${(props) => props.height || '20rem'};
   animation: modal-show 1s;
   @keyframes modal-show {
     from {
@@ -63,11 +57,11 @@ const ModalBlock = styled.div`
 
 const Close = styled.img.attrs({
   src: close,
-  width: 50,
+  width: 20,
 })`
   position: absolute;
-  right: 1.5rem;
-  top: 1.5rem;
+  right: 1rem;
+  top: 1rem;
   cursor: pointer;
 `;
 

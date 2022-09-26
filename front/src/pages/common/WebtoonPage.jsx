@@ -27,7 +27,7 @@ function WebtoonPage() {
           <PageTitle>전체 웹툰 목록</PageTitle>
           <FilterBtn onClick={switchModal}>필터</FilterBtn>
           {modal ? (
-            <ModalFrame _handleModal={switchModal}>
+            <ModalFrame height="70px" _handleModal={switchModal}>
               <div>필터 모달</div>
             </ModalFrame>
           ) : null}
