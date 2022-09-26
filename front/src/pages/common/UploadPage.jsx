@@ -12,8 +12,12 @@ import { useNavigate, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../../components/common/Loading";
 import { fetchUpload } from "../../features/toons/uploadSlice";
+<<<<<<< HEAD
 import cat from "../../assets/profile/cat.jpg";
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
+=======
+import tuntun from "../../assets/test/tuntun2.png";
+>>>>>>> a56603e (feat: 프로필이미지 수정 / 검색창 배경 수정)
 
 function UploadPage() {
   const dispatch = useDispatch()
@@ -149,7 +153,7 @@ function UploadPage() {
                   style={{ margin: "auto" }}
                 />
               ) : (
-                <ToonImg src={cat} alt="toon_img" />
+                <ToonImg src={tuntun} alt="toon_img" />
               )}
             </ImgBox>
             <BtnGroup>
@@ -325,7 +329,7 @@ const PageBox = styled.div`
   }
   border: solid 2px;
   border-radius: 0.8rem;
-  background-color: #FFF5C3;
+  background-color: #fff5c3;
   display: flex;
   flex-direction: column;
   align-items: center;

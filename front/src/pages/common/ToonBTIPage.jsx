@@ -10,7 +10,7 @@ import {
 } from "../../features/toons/toonBTISlice";
 import { OuterBtn, SelectBtn } from "../../components/common/SelectBtn";
 import Loading from "../../components/common/Loading";
-import talkToon from "../../assets/test/cute.png";
+import talkToon from "../../assets/test/tuntun4.png";
 
 function ToonBTIPage() {
   const dispatch = useDispatch();

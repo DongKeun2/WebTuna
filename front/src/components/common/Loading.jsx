@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import loadingImg from "../../assets/test/cute.png";
+import loadingImg from "../../assets/test/tuntun4.png";
 
 function Loading({ text }) {
   return (

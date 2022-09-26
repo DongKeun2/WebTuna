@@ -73,7 +73,7 @@ const SearchForm = styled.form`
 `;
 
 const SearchIconBox = styled.button`
-  background-color: white;
+  background-color: #d1e2ff;
   border: 0;
   outline: 0;
   cursor: pointer;
