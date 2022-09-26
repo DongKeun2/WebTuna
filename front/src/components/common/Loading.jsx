@@ -1,12 +1,17 @@
 import styled, { keyframes } from "styled-components";
-import loadingImg from "../../assets/test/tuntun4.png";
+import loadingImg1 from "../../assets/test/tuntun4.png";
+import loadingImg2 from "../../assets/test/tuntun2.png";
 
-function Loading({ text }) {
+function Loading({ type, text }) {
   return (
     <LoadingBox>
       <LoadingMsg>{text}</LoadingMsg>
       <ImgBox>
-        <ProfileImg src={loadingImg} />
+        {type === "upload" ? (
+          <ProfileImg src={loadingImg2} />
+        ) : (
+          <ProfileImg src={loadingImg1} />
+        )}
       </ImgBox>
     </LoadingBox>
   );

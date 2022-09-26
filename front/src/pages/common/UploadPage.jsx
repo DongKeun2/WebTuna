@@ -143,7 +143,7 @@ function UploadPage() {
     <div>
       {isLoading ? (
         <div>
-          <Loading text={"그림체를 분석하는 중..."}></Loading>
+          <Loading type={"upload"} text={"그림체를 분석하는 중..."}></Loading>
           {fileImage && (
             <img
               id="canvas"
