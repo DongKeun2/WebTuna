@@ -182,6 +182,7 @@ const BtnGroup = styled.div`
   justify-content: space-between;
   @media screen and (max-width: 750px) {
     gap: 10px;
+    margin-top: 20px;
     margin-bottom: 100px;
   }
 `;
