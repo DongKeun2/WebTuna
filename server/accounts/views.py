@@ -124,8 +124,6 @@ def Profile(request):
 @api_view(['GET'])
 def MainProfile(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
-    order_value = 'accounts_member_view_webtoons.id'
-    member_sort = member.view_webtoons.all().order_by(order_value)
     serializer = ProfileMainSerializer(member)
     return Response(serializer.data)
 

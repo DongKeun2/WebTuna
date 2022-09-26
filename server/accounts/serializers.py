@@ -96,9 +96,11 @@ class ProfileMainSerializer(serializers.ModelSerializer):
                 model = Author
                 fields = ('name')
 
+        authors = AuthorSerializer
+        
         class Meta:
             model = Webtoon
-            fields = ('webtoon_id', 'title', 'thumbnail', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'authors')
+            fields = ('webtoon_id', 'title', 'thumbnail', 'authors')
 
     
     class TagSerializer(serializers.ModelSerializer):
@@ -107,8 +109,11 @@ class ProfileMainSerializer(serializers.ModelSerializer):
             model = Tag
             fields = ('tag_id', 'name')
 
+    liked_webtoons = LikeWebtoonSerializer
+    tags = TagSerializer
+    
     class Meta:
-        model = get_user_model()
+        model = Member
         fields = ('id', 'nickname', 'profile_image_id', 'tags', 'liked_webtoons')
         
         
