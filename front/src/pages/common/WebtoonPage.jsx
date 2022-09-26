@@ -39,6 +39,19 @@ function WebtoonPage() {
                       <PlatformBtn>카카오페이지</PlatformBtn>
                     </PlatformGroup>
                   </PlatformBox>
+                  <DayBox>
+                    <GroupHeader>요일</GroupHeader>
+                    <DayGroup>
+                      <DayBtn>월</DayBtn>
+                      <DayBtn>화</DayBtn>
+                      <DayBtn>수</DayBtn>
+                      <DayBtn>목</DayBtn>
+                      <DayBtn>금</DayBtn>
+                      <DayBtn>토</DayBtn>
+                      <DayBtn>일</DayBtn>
+                      <DayBtn>완결</DayBtn>
+                    </DayGroup>
+                  </DayBox>
                   <GenreBox>
                     <GroupHeader>장르</GroupHeader>
                     <GenreGroup>
@@ -157,11 +170,23 @@ const PlatformBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  height: 20%;
+  height: 16%;
   @media screen and (max-width: 750px) {
     height: 70px;
   }
   /* border: 1px solid green; */
+`
+
+const DayBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  height: 24%;
+  @media screen and (max-width: 750px) {
+    height: 120px;
+  }
+  /* border: 1px solid pink; */
 `
 
 const GenreBox = styled.div`
@@ -169,7 +194,7 @@ const GenreBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  height: 42%;
+  height: 32%;
   @media screen and (max-width: 750px) {
     height: 150px;
   }
@@ -178,9 +203,9 @@ const GenreBox = styled.div`
 
 const TagBox = styled.div`
   width: 100%;
-  height: 38%;
+  height: 28%;
   @media screen and (max-width: 750px) {
-    height: 60px;
+    height: 80px;
   }
   /* border: 1px solid gray; */
 `
@@ -201,6 +226,29 @@ const PlatformBtn = styled.div`
   border-radius: 0.3vw;
   @media screen and (max-width: 750px) {
     font-size: 10px;
+    border-radius: 5px;
+  }
+  cursor: pointer;
+`
+
+const DayGroup = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`
+
+const DayBtn = styled.div`
+  width: 20%;
+  margin-bottom: 0.8vw;
+  padding: 0.4vw 0;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid #D1E2FF;
+  border-radius: 0.3vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    margin-bottom: 8px;
     border-radius: 5px;
   }
   cursor: pointer;
