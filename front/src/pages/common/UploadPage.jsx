@@ -368,8 +368,8 @@ const ImgBox = styled.div`
 const TunImgBox = styled.div`
   width: 20vw;
   height: 20vh;
-  min-width: 300px;
-  min-height: 300px;
+  min-width: 320px;
+  min-height: 320px;
   overflow: hidden;
 `;
 
@@ -381,8 +381,8 @@ const ToonImg = styled.img`
 `;
 
 const TunImg = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 315px;
+  height: 315px;
   object-fit: fill;
   margin-left: 0.4vw;
 `;

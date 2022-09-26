@@ -101,19 +101,18 @@ function LoginPage() {
 const PageBox = styled.div`
   display: flex;
   gap: 50px;
-  height: 790px;
+  height: 80vh;
   justify-content: center;
   @media screen and (max-width: 600px) {
     width: 100%;
-    height: 100%;
     gap: 20px;
   }
 `;
 
 const PageTitle = styled.p`
-  font-size: 40px;
+  font-size: 4vw;
   margin-bottom: 50px;
-  padding: 80px;
+  padding: 40px;
 `;
 
 const LoginBox = styled.div`
@@ -126,16 +125,16 @@ const LoginBox = styled.div`
   border-radius: 10px;
   height: 100%;
   @media screen and (max-width: 600px) {
-    width: 100%;
+    width: 95%;
   }
 `;
 const FormGroup = styled.form`
   display: flex;
-  gap: 50px;
+  gap: 20px;
   flex-direction: column;
-  width: 50%;
+  width: 60vw;
   @media screen and (max-width: 600px) {
-    width: 90%;
+    width: 80%;
   }
 `;
 
@@ -158,15 +157,12 @@ const FormTitle = styled.p`
 `;
 
 const LoginInput = styled.input`
-  width: 60%;
+  width: 40vw;
   height: 30px;
   margin-right: 30px;
   border: 2px solid #d1e2ff;
   border-radius: 10px;
   text-align: center;
-  @media screen and (max-width: 600px) {
-    width: 40%;
-  }
 `;
 
 const BtnBox = styled.div`
