@@ -24,6 +24,7 @@ import MySwal from "../components/common/SweetAlert";
 function DetailPage() {
   let { toonId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [webToonInfo, setWebToonInfo] = useState();
   const [otherWebToons, setOtherWebToons] = useState();
@@ -38,7 +39,6 @@ function DetailPage() {
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
   let userData = useSelector((state) => state.login.currentUser);
   let loginState = sessionStorage.getItem("token");
-  const navigate = useNavigate();
   let slide;
 
   function getDetail() {
@@ -71,7 +71,7 @@ function DetailPage() {
         setRatingCount(getRatingCount(res.payload.data));
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
-          Math.floor(Number(res.payload.author_webtoons.length) / 4)
+          Math.ceil(Number(res.payload.author_webtoons.length) / 4)
         );
         let tempauthors = "";
         for (const num in res.payload.data.authors) {
@@ -127,10 +127,6 @@ function DetailPage() {
         }
         setAuthors(tempauthors);
         setIsLoading(false);
-        setTimeout(() => {
-          slide = document.getElementById("slide");
-          slide.style.right = "0vw";
-        }, 300);
       });
     }
   }
@@ -214,7 +210,7 @@ function DetailPage() {
   }
 
   function moveDetail(e) {
-    toonId = e.target.parentNode.id;
+    toonId = e.target.parentNode.parentNode.id;
     navigate(`/detail/${toonId}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
@@ -254,7 +250,7 @@ function DetailPage() {
       let temp = Number(
         slide.style.left.substring(0, slide.style.left.length - 2)
       );
-      slide.style.left = temp + 71.2 + "vw";
+      slide.style.left = temp + 72 + "vw";
       setCount((prev) => prev - 1);
     }
   }
@@ -267,7 +263,7 @@ function DetailPage() {
       let temp = Number(
         slide.style.left.substring(0, slide.style.left.length - 2)
       );
-      slide.style.left = temp - 71.2 + "vw";
+      slide.style.left = temp - 72 + "vw";
       setCount((prev) => prev + 1);
     }
   }
@@ -521,7 +517,39 @@ function DetailPage() {
             <PaintStyleRecommendZone>
               <div>그림체가 비슷한 웹툰</div>
               <PSRecommends>
-                API 요청 보내고 받아서 그림체 기반 추천 뿌리자
+                {webToonInfo.similar_webtoon.length === 0 || webToonInfo.similar_webtoon === undefined ? (
+                  <div>그림체가 비슷한 웹툰이 없어요 ㅠ</div>
+                ) : (
+                  webToonInfo.similar_webtoon.map((similarWebtoon) => (
+                    <OtherWebToon
+                      key={similarWebtoon.webtoon_id}
+                      id={similarWebtoon.webtoon_id}
+                    >
+                      <ImgBox onClick={moveDetail}>
+                        <OtherWebToonThumbnail
+                          src={similarWebtoon.thumbnail}
+                          alt="같은 작가의 다른 작품 이미지"
+                        ></OtherWebToonThumbnail>
+                      </ImgBox>
+                      <ToonInfo onClick={moveDetail}>
+                        <OtherWebToonTitle>
+                          {similarWebtoon.title}
+                        </OtherWebToonTitle>
+                        <OtherWebToonAuthor>
+                          {similarWebtoon.author_name.length === 1
+                            ? similarWebtoon.author_name[0]
+                            : similarWebtoon.author_name
+                              .slice(0, -1)
+                              .map((author) => author) +
+                            " / " +
+                            similarWebtoon.author_name
+                              .slice(-1)
+                              .map((author) => author)}
+                        </OtherWebToonAuthor>
+                      </ToonInfo>
+                    </OtherWebToon>
+                  ))
+                )}
               </PSRecommends>
             </PaintStyleRecommendZone>
             <SameAuthorRecommendZone>
@@ -537,32 +565,36 @@ function DetailPage() {
               <SARecommendsBack>
                 <SARecommends id="slide">
                   {otherWebToons.length === 0 || otherWebToons === undefined ? (
-                    <div>텅~</div>
+                    <div>작가님의 다른 작품이 없어요 ㅠ</div>
                   ) : (
                     otherWebToons.map((otherWebToon) => (
                       <OtherWebToon
                         key={otherWebToon.webtoon_id}
                         id={otherWebToon.webtoon_id}
                       >
-                        <OtherWebToonThumbnail
-                          src={otherWebToon.thumbnail}
-                          alt="같은 작가의 다른 작품 이미지"
-                          onClick={moveDetail}
-                        ></OtherWebToonThumbnail>
-                        <OtherWebToonTitle onClick={moveDetail}>
-                          {otherWebToon.title}
-                        </OtherWebToonTitle>
-                        <OtherWebToonAuthor onClick={moveDetail}>
-                          {otherWebToon.author_name.length === 1
-                            ? otherWebToon.author_name[0]
-                            : otherWebToon.author_name
-                              .slice(0, -1)
-                              .map((author) => author) +
-                            " / " +
-                            otherWebToon.author_name
-                              .slice(-1)
-                              .map((author) => author)}
-                        </OtherWebToonAuthor>
+                        <ImgBox onClick={moveDetail}>
+                          <OtherWebToonThumbnail
+                            src={otherWebToon.thumbnail}
+                            alt="같은 작가의 다른 작품 이미지"
+                            onClick={moveDetail}
+                          ></OtherWebToonThumbnail>
+                        </ImgBox>
+                        <ToonInfo onClick={moveDetail}>
+                          <OtherWebToonTitle onClick={moveDetail}>
+                            {otherWebToon.title}
+                          </OtherWebToonTitle>
+                          <OtherWebToonAuthor onClick={moveDetail}>
+                            {otherWebToon.author_name.length === 1
+                              ? otherWebToon.author_name[0]
+                              : otherWebToon.author_name
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              otherWebToon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
+                          </OtherWebToonAuthor>
+                        </ToonInfo>
                       </OtherWebToon>
                     ))
                   )}
@@ -853,9 +885,8 @@ const Tag = styled.div`
 
 const BookMarkImage = styled.img`
   flex: 1;
-  width: 1.1rem;
-  height: 2.2vw;
-  margin-top: -0.1vw;
+  width: 1.2vw;
+  height: 2.0vw;
   padding-left: 1vw;
 `;
 
@@ -869,9 +900,10 @@ const TagName = styled.div`
 
 const MinusButton = styled.div`
   flex: 1;
-  margin-left: 0.38vw;
+  margin-left: 0.6vw;
   margin-right: 0.2vw;
   margin-top: -0.2vw;
+  padding-right:0.36vw;
   font-size: 2vw;
 `;
 
@@ -886,13 +918,17 @@ const PlusButton = styled.div`
 const PaintStyleRecommendZone = styled.div`
   margin-left: 7.5vw;
   margin-right: 6.5vw;
+  overflow: hidden;
+  
 `;
 
 const PSRecommends = styled.div`
+  display: flex;
   background-color: white;
   border-radius: 0.6vw;
-  height: 300px;
   border: 0.1vw solid black;
+  padding: 0.8vw;
+  justify-content: space-between;
 `;
 
 const SameAuthorRecommendZone = styled.div`
@@ -921,7 +957,6 @@ const NextBtn = styled.div`
 const SARecommendsBack = styled.div`
   display: flex;
   background-color: white;
-  height: 20vw;
   overflow: hidden;
   border-radius: 0.6vw;
   border: 0.1vw solid black;
@@ -932,17 +967,24 @@ const SARecommends = styled.div`
   display: flex;
   left: 0vw;
   background-color: white;
-  height: 20vw;
+  padding: 0.8vw;
   transition: all 1s;
 `;
 
 const OtherWebToon = styled.div`
   cursor: pointer;
   width: 14vw;
-  margin-left: 2.2vw;
-  margin-top: 1vw;
-  padding: 0.8vw;
-  padding-bottom: 4vw;
+  margin-left: 2vw;
+  margin-right: 2vw;
+`;
+
+const ImgBox = styled.div`
+  background-color: white;
+  width: 100%;
+  height: 15vw;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
+  cursor: pointer;
 `;
 
 const OtherWebToonThumbnail = styled.img`
@@ -954,8 +996,17 @@ const OtherWebToonThumbnail = styled.img`
   border-top-right-radius: 0.8vw;
 `;
 
+const ToonInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  border-bottom-left-radius: 0.8vw;
+  border-bottom-right-radius: 0.8vw;
+  cursor: pointer;
+`;
+
 const OtherWebToonTitle = styled.div`
-  width: 14vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -964,10 +1015,10 @@ const OtherWebToonTitle = styled.div`
   margin: 0;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
+  
 `;
 
 const OtherWebToonAuthor = styled.div`
-  width: 14vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

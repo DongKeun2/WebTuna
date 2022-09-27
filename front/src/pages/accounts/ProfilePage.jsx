@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ChartShow from "../../components/common/Chart";
 import ProfileBorder from "../../../src/assets/profilePage/ProfileBorder.png";
@@ -8,15 +9,23 @@ import BookMark from "../../../src/assets/detail/BookMark.png";
 import { profile } from "../../features/accounts/profileSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
+import ModalFrame from "../../components/common/ModalFrame";
 
 function ProfilePage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState();
   const [userImg, setUserImg] = useState();
   const [paintGraphData, setPaintGraphData] = useState();
   const [genreName, setgGenreName] = useState();
   const [genreValue, setgGenreValue] = useState();
+  const [modal, setModal] = useState(false);
+  const [count, setCount] = useState(1);
+  const [slideCount, setSlideCount] = useState();
+
+  let slide;
+
 
   function getUserInfo() {
     dispatch(profile()).then((res) => {
@@ -36,6 +45,9 @@ function ProfilePage() {
       setgGenreName(gName);
       Object.values(res.payload.genre_list).map((value) => gValue.push(value));
       setgGenreValue(gValue);
+      setSlideCount(
+        Math.floor(Number(res.payload.data.liked_webtoons.length) / 4)
+      );
       setIsLoading(false);
       console.log(res.payload);
     });
@@ -43,7 +55,9 @@ function ProfilePage() {
 
   function viewdWebtoon() {
     const result = [];
-    for (let i = 0; i < userInfo.data.member_viewed_webtoons.length; i++) {
+    let size;
+    userInfo.data.member_viewed_webtoons.length > 10 ? size = 10 : size = userInfo.data.member_viewed_webtoons.length;
+    for (let i = 0; i < size; i++) {
       result.push(
         <div key={userInfo.data.member_viewed_webtoons[i].webtoon.webtoon_id}>
           <ToonItem item={userInfo.data.member_viewed_webtoons[i].webtoon} />
@@ -51,6 +65,43 @@ function ProfilePage() {
       );
     }
     return result;
+  }
+
+  function switchModal() {
+    setModal((prev) => !prev);
+  }
+
+  function left() {
+    slide = document.getElementById("slide");
+    if (count === 1) {
+      return;
+    } else {
+      let temp = Number(
+        slide.style.left.substring(0, slide.style.left.length - 2)
+      );
+      slide.style.left = temp + 71.2 + "vw";
+      setCount((prev) => prev - 1);
+    }
+  }
+
+  function right() {
+    slide = document.getElementById("slide");
+    if (count === slideCount) {
+      return;
+    } else {
+      let temp = Number(
+        slide.style.left.substring(0, slide.style.left.length - 2)
+      );
+      slide.style.left = temp - 71.2 + "vw";
+      setCount((prev) => prev + 1);
+    }
+  }
+
+  function moveDetail(e) {
+    navigate(`/detail/${e.target.parentNode.id}`);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 200);
   }
 
   useEffect(() => {
@@ -126,45 +177,68 @@ function ProfilePage() {
             </UserBack>
           </UserBorder>
           <TagTitleZone>
-            <TagTitle>찜한 태그</TagTitle>
+            <TagTitle>찜한 태그 {userInfo.data.tags.length === 0 ? null : `(${userInfo.data.tags.length})`}</TagTitle>
+            <TagAddRemove onClick={switchModal}>태그 추가/제거</TagAddRemove>
           </TagTitleZone>
-          <TagBorder>
-            <TagBack>
-              {userInfo.data.tags.length === 0 ||
-                userInfo.data.tags === undefined
-                ? "텅~"
-                : userInfo.data.tags.map((tag) => (
-                  <Tag key={tag.tag_id} id={tag.tag_id}>
-                    <BookMarkImage src={BookMark} alt="북마크" />
-                    <TagName>{tag.name}</TagName>
-                  </Tag>
-                ))}
-            </TagBack>
-          </TagBorder>
-          <TagTitleZone>
-            <TagTitle>찜한 웹툰</TagTitle>
-          </TagTitleZone>
-          <PreferenceBack>
-            <HeartWebToon>
-              {userInfo.data.liked_webtoons.length === 0
-                ? "텅~"
-                : userInfo.data.liked_webtoons.map((toon) => (
-                  <div key={toon.webtoon_id}>
-                    <ToonItem item={toon} />
-                  </div>
-                ))}
-            </HeartWebToon>
-          </PreferenceBack>
+          {modal ? (
+            <ModalFrame top="5vw" width="75%" height="auto" _handleModal={switchModal} >
+              <ModalTitle>태그 추가/제거</ModalTitle>
+              <LikedTagZone></LikedTagZone>
+            </ModalFrame>
+          ) : null}
+          <TagZone>
+            {userInfo.data.tags.length === 0 ||
+              userInfo.data.tags === undefined
+              ? "태그를 찜해주세요~"
+              : userInfo.data.tags.map((tag) => (
+                <Tag key={tag.tag_id} id={tag.tag_id}>
+                  <BookMarkImage src={BookMark} alt="북마크" />
+                  <TagName>{tag.name}</TagName>
+                </Tag>
+              ))}
+          </TagZone>
+          <WebToonTitleZone>
+            <TagTitle>찜한 웹툰 {userInfo.data.liked_webtoons.length === 0 ? null : `(${userInfo.data.liked_webtoons.length})`}</TagTitle>
+          </WebToonTitleZone>
+          <PrevBtn>
+            이전
+          </PrevBtn>
+          <NextBtn>
+            다음
+          </NextBtn>
+          <LikedWebToonBack>
+            <LikedWebToons id="slide">
+              {userInfo.data.liked_webtoons.length === 0 || userInfo.data.liked_webtoons === undefined ? (
+                <div>작가님의 다른 작품이 없어요 ㅠ</div>
+              ) : (
+                userInfo.data.liked_webtoons.map((likedWebtoon) => (
+                  <LikedWebToon
+                    key={likedWebtoon.webtoon_id}
+                    id={likedWebtoon.webtoon_id}
+                  >
+                    <LikedWebToonThumbnail
+                      src={likedWebtoon.thumbnail}
+                      alt="찜한 웹툰 이미지"
+                      onClick={moveDetail}
+                    ></LikedWebToonThumbnail>
+                    <LikedWebToonTitle onClick={moveDetail}>
+                      {likedWebtoon.title}
+                    </LikedWebToonTitle>
+                  </LikedWebToon>
+                ))
+              )}
+            </LikedWebToons>
+          </LikedWebToonBack>
           <TagTitleZone>
             <TagTitle>최근에 본 웹툰</TagTitle>
           </TagTitleZone>
-          <PreferenceBack>
+          <ViewWebToonBack>
             <ViewWebToon>
               {userInfo.data.member_viewed_webtoons.length === 0
                 ? "텅~"
                 : viewdWebtoon()}
             </ViewWebToon>
-          </PreferenceBack>
+          </ViewWebToonBack>
           <TagTitleZone>
             <TagTitle>{userInfo.data.nickname}님의 관심사</TagTitle>
           </TagTitleZone>
@@ -264,11 +338,6 @@ const Heart = styled.div`
   margin-left: 0.2vw;
 `;
 
-const HeartImage = styled.img`
-  width: 3vw;
-  height: 3vw;
-`;
-
 const HeartNumber = styled.div`
   margin-left: 1vw;
   font-size: 2vw;
@@ -287,12 +356,8 @@ const Genre = styled.div`
 
 const TagTitleZone = styled.div`
   display: flex;
+  justify-content: space-between;
   margin: 1vw 0vw 1vw 0vw;
-`;
-
-const HeartImage2 = styled.img`
-  display: inline;
-  width: 3vw;
 `;
 
 const TagTitle = styled.div`
@@ -302,58 +367,146 @@ const TagTitle = styled.div`
   margin-left: 0.5vw;
 `;
 
-const TagBorder = styled.div`
-  border: 0.15vw solid black;
-  background-color: white;
-  border-radius: 1.5vw;
-  height: 10vw;
+const TagZone = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  padding: 1.5vw;
+  border: solid 0.15vw;
+  border-top-left-radius: 1vw;
+  border-bottom-left-radius: 1vw;
+  border-bottom-right-radius: 1vw;
+  background-color: #feec91;
 `;
 
-const TagBack = styled.div`
-  display: flex;
-  background-color: #feec91;
-  border: 0.15vw solid black;
-  border-radius: 1.5vw;
-  margin: 0.65vw;
-  height: 5.5vw;
-  /* justify-content: space-between; */
-  align-items: center;
-  padding: 1.5vw;
+const TagAddRemove = styled.div`
+  cursor: pointer;
+  font-size: 1.5vw;
+  padding: 0.25vw;
+  z-index: 1;
+  border: 0.1vw solid black;
+  border-top-left-radius: 1vw;
+  border-top-right-radius: 1vw;
+  background-color: white;
+  margin-top: 1.1vw;
+  margin-bottom: -1.05vw;
+  &:hover {
+    background-color: pink;
+  }
 `;
 
 const Tag = styled.div`
-  display: inline;
-  background-color: white;
+  display: flex;
   border: 0.1vw solid black;
-  height: 2.1vw;
-  border-radius: 2vw;
-  align-items: center;
-  margin-left: 1vw;
+  border-radius: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 0.5vw;
+  background-color: white;
 `;
 
 const BookMarkImage = styled.img`
-  display: inline;
-  width: 1.1rem;
-  height: 1.7rem;
+  flex: 1;
+  width: 1.2vw;
+  height: 2.0vw;
   padding-left: 1vw;
 `;
 
 const TagName = styled.div`
-  display: inline;
+  flex: 1;
   margin-left: 0.8vw;
   margin-right: 0.8vw;
+  margin-top: 0.2vw;
   font-size: 1.5vw;
 `;
 
-const PreferenceBack = styled.div`
+const ModalTitle = styled.div`
+  margin-top:2vw;
+`
+const LikedTagZone = styled.div`
+  margin-top: 3vw;
+`
+
+const WebToonTitleZone = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 1vw 0vw 1vw 0vw;
+`
+
+const PrevBtn = styled.div`
+  cursor: pointer;
+  position: absolute;
+  margin-top: 7vw;
+  margin-left: -4.5vw;
+  font-size: 5vw;
+  z-index: 1;
+`
+
+const NextBtn = styled.div`
+  cursor: pointer;
+  position: absolute;
+  margin-top: 7vw;
+  margin-left: 73vw;
+  font-size: 5vw;
+  z-index: 1;
+`;
+
+
+const LikedWebToonBack = styled.div`
+  display: flex;
+  background-color: #feec91;
+  height: 20vw;
+  overflow: hidden;
+  border-radius: 0.6vw;
+  border: 0.2vw solid black;
+`;
+
+const LikedWebToons = styled.div`
+  position: relative;
+  display: flex;
+  left: 0vw;
+  background-color: #feec91;
+  height: 20vw;
+  transition: all 1s;
+`;
+
+const LikedWebToon = styled.div`
+  cursor: pointer;
+  width: 14vw;
+  margin-left: 2.2vw;
+  margin-top: 1vw;
+  padding: 0.8vw;
+  padding-bottom: 4vw;
+`;
+
+const LikedWebToonThumbnail = styled.img`
+  object-fit: fill;
+  width: 14vw;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
+`
+
+const LikedWebToonTitle = styled.div`
+  width: 14vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.3vw;
+  font-weight: 600;
+  margin: 0;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  background-color: white;
+`
+const ViewWebToonBack = styled.div`
   display: flex;
   background-color: #feec91;
   border: 0.15vw solid black;
   border-radius: 1.5vw;
 `;
+
 
 const ViewWebToon = styled.div`
   display: grid;
@@ -362,12 +515,7 @@ const ViewWebToon = styled.div`
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
 
-const HeartWebToon = styled.div`
-  display: grid;
-  width: 100%;
-  margin-bottom: 2vw;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-`;
+
 
 const ChartBack = styled.div`
   display: flex;
