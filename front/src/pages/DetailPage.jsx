@@ -154,39 +154,38 @@ function DetailPage() {
 
   function changeRating(e) {
     MySwal.fire({
-      title: 'Do you want to save the changes?',
-      showDenyButton: true,
+      title: `${e.target.value}점 확실합니까?`,
+      text: "한번 준 별점은 변경할 수 없습니다!",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes',
-      denyButtonText: 'No',
-      customClass: {
-        actions: 'my-actions',
-        cancelButton: 'order-1 right-gap',
-        confirmButton: 'order-2',
-        denyButton: 'order-3',
-      }
+      confirmButtonColor: '#faaf00',
+      cancelButtonColor: 'gray',
+      confirmButtonText: 'O',
+      cancelButtonText: 'X',
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire('Saved!', '', 'success')
-      } else if (result.isDenied) {
-        MySwal.fire('Changes are not saved', '', 'info')
+        MySwal.fire({
+          icon: 'success',
+          title: '별점이 반영되었습니다!',
+          confirmButtonColor: '#faaf00',
+        }
+        )
+        let data = { toonId, rating: e.target.value };
+        console.log(data);
+        dispatch(webtoonRating(data)).then((res) => {
+          if (res.error) {
+            console.log("실패");
+          } else {
+            dispatch(fetchInfo()).then(() => {
+              console.log("별점 주기 성공");
+              getDetail();
+            });
+          }
+        });
+        setModal(false);
       }
     })
-    // setModalRating(e.target.value);
-    // let data = { toonId, rating: e.target.value };
-    // console.log(data);
-    // dispatch(webtoonRating(data)).then((res) => {
-    //   if (res.error) {
-    //     console.log("실패");
-    //   } else {
-    //     dispatch(fetchInfo()).then(() => {
-    //       console.log("평점 주기 성공");
-    //       getDetail();
-    //     });
-    //   }
-    // });
 
-    // setModal(false);
   }
 
   function heartClick() {
@@ -422,26 +421,28 @@ function DetailPage() {
                     )}
                     {modal ? (
                       <ModalFrame _handleModal={switchModal}>
-                        <div>빛나라 지식의 별</div>
-                        <Rating
-                          name="half-rating"
-                          defaultValue={5.0}
-                          precision={0.5}
-                          icon={
-                            <StarIcon
-                              style={{ width: "64px", height: "64px" }}
-                            ></StarIcon>
-                          }
-                          emptyIcon={
-                            <StarIcon
-                              style={{
-                                width: "64px",
-                                height: "64px",
-                              }}
-                            />
-                          }
-                          onChange={changeRating}
-                        />
+                        <ModalTitle>당신의 별점은?</ModalTitle>
+                        <StarZone>
+                          <Rating
+                            name="half-rating"
+                            defaultValue={5.0}
+                            precision={0.5}
+                            icon={
+                              <StarIcon
+                                style={{ width: "64px", height: "64px" }}
+                              ></StarIcon>
+                            }
+                            emptyIcon={
+                              <StarIcon
+                                style={{
+                                  width: "64px",
+                                  height: "64px",
+                                }}
+                              />
+                            }
+                            onChange={changeRating}
+                          />
+                        </StarZone>
                       </ModalFrame>
                     ) : null}
                   </RatingZone>
@@ -538,7 +539,6 @@ function DetailPage() {
                   )}
                 </>
               ) : null}
-
               <SARecommendsBack>
                 <SARecommends id="slide">
                   {otherWebToons.length === 0 || otherWebToons === undefined ? (
@@ -703,6 +703,15 @@ const RatingButton = styled.div`
     background-color: pink;
   }
 `;
+
+const ModalTitle = styled.div`
+margin-top: 3vw;
+font-size:2vw;
+`
+
+const StarZone = styled.div`
+margin-top: 2vw;
+`
 
 const Genre = styled.div`
   padding-bottom: 1vw;
