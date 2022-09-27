@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from drf_yasg import openapi
 
 app_name = 'webtoons'
 
@@ -16,6 +15,6 @@ urlpatterns = [
     path('search/image/',views.searchImageWebtoon),
     path('recommend/<int:typeId>/', views.recommendWebtoon),
     path('tag/<int:tagId>/like/',views.tagLike),
-    # path('classify/insert/', views.insertClassify),
     # path('classify/similar/', views.insertSimilarWebtoons),
+    # path('classify/insert/', views.insertClassify),
 ]

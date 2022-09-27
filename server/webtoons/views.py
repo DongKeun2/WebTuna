@@ -506,16 +506,13 @@ def recommendWebtoon(request,typeId):
             my_webtoons = Webtoon.objects.filter(liked_webtoon_users = request.user.pk)       
             for my_webtoon in my_webtoons:
                 user_liked_list.append(my_webtoon.webtoon_id)
-        # print("mylist : ",user_liked_list)
-        # similar_string = "1,2,3,4,5,6,7,8,9,10,1115"
-        # similar_webtoons = similar_string.split(",")
+                
         recommended_webtoons = []
         for idx in similar_webtoons:
             # 내가 찜한 애들은 제외
             if int(idx.replace(" ","")) not in user_liked_list:
                 recommended_webtoons.append(int(idx.replace(" ","")))
 
-        # print("최종추천 list : ",recommended_webtoons)
         if(len(recommended_webtoons)>=5):
             recommended_webtoons = random.sample(recommended_webtoons,5)
         
@@ -528,10 +525,8 @@ def recommendWebtoon(request,typeId):
 # tb_draw_classify 삽입
 @api_view(['GET'])
 def insertClassify(request):
-    # recommended_webtoons = [1,4,23,27]
-    # webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoons)
     webtoons = Webtoon.objects.all()
-    # webtoon_list = []
+
     for webtoon in webtoons:
         list = []   
         list.append(webtoon.image_type1)
@@ -610,10 +605,10 @@ def insertClassify(request):
             type = 29 
         elif(first==6 and second == 5):
             type = 30 
-        # webtoon_list.append({"type" : type, "webtoon_id" : webtoon.webtoon_id })
+
         # modeling 후 insert 
         webtoon.classify_id.add(type)
-    # print(webtoon_list)   
+
     return Response(status.HTTP_201_CREATED)
 
 
@@ -621,37 +616,79 @@ def insertClassify(request):
 @api_view(['GET'])
 def insertSimilarWebtoons(request):
     webtoon_list = Webtoon.objects.all()
-    # idx_list = [1,4,23,27]
-    # webtoon_list = Webtoon.objects.filter(webtoon_id = 1)
     
-    # 각 이미지 타입 비율 불러와 차이 계산 후 top30을 similar에 넣는다
+    # 각 이미지 타입 비율 불러와 차이 계산 후 ((1순위 그림체 *1.1) + (2순위 그림체)) 낮은순으로 top30을 similar에 넣는다
     for webtoon in webtoon_list:
-        # 같은 타입애들을 불러와
-        type_list = Webtoon.objects.filter(classify_id = webtoon.classify_id)
-        # type_list = Webtoon.objects.filter(webtoon_id__in = idx_list)
-        original_webtoon = get_object_or_404(Webtoon,pk=webtoon.webtoon_id)
-        similar_list = []
-        for comparsion in type_list:
-            if(original_webtoon==comparsion):
-                continue
-            diffResult = typeToDifference(webtoon.classify_id,original_webtoon, comparsion)
-            # diffResult = typeToDifference(1,original_webtoon, comparsion)
-            similar_list.append(diffResult)
+        # 같은 타입애들을 불러오기
+        classify_list = webtoon.draw_classifies.all()
+        original_webtoon = Webtoon.objects.filter(pk=webtoon.webtoon_id)
+
+        # 그림체 분류 id로 불러오기
+        classify_id_list = []
+        for classify in classify_list:
+            classify_id_list.append(classify.classify_id)
+
+        # 그림체 정보가 1개 넘을 때는 대분류 정했던 로직처럼 similar에 넣어주기
+        if len(classify_id_list) > 1:
+            if classify_id_list[0] == 1:
+                similar_list = Webtoon.objects.filter(image_type1__gte = 95)[:31]
+                
+            elif classify_id_list[0] == 6:
+                similar_list = Webtoon.objects.filter(image_type2__gte = 100)[:31]
+
+            elif classify_id_list[0] == 11:
+                similar_list = Webtoon.objects.filter(image_type3__gte = 99.99)[:31]
+
+            elif classify_id_list[0] == 16:
+                similar_list = Webtoon.objects.filter(image_type4__gte = 95)[:31]
+
+            elif classify_id_list[0] == 21:
+                similar_list = Webtoon.objects.filter(image_type5__gte = 99.8)[:31]
+
+            elif classify_id_list[0] == 26:
+                similar_list = Webtoon.objects.filter(image_type6__gte = 98)[:31]
+
+            similar_id_list = []
+            for similar in similar_list:
+                similar_id_list.append(similar.webtoon_id)
+            
+            # 자기 자신 빼주기
+            if webtoon.webtoon_id in similar_id_list:
+                similar_id_list.remove(webtoon.webtoon_id)
+            
+            insert_similar_webtoons = ','.join(str(item) for item in similar_id_list)
+
+        else:
+            type_list = Webtoon.objects.filter(draw_classifies__in = classify_id_list)
+            
+            similar_list = []
+            for comparsion in type_list:
+                if(original_webtoon==comparsion):
+                    continue
+
+                diffResult = typeToDifference(classify_id_list[0], webtoon, comparsion)
+                similar_list.append(diffResult)
+            
+            # 그림체 차이 순으로 정렬
+            newlist = sorted(similar_list, key = lambda idx: (idx['diff']))
+
+            # 자기 자신 빼주기
+            if {"webtoon_id" : webtoon.webtoon_id , "diff" : 0} in newlist:
+                newlist.remove({"webtoon_id" : webtoon.webtoon_id , "diff" : 0})
+                
+            insert_similar_webtoons = ','.join([str(item['webtoon_id']) for item in newlist[:30]])
         
-        # print(list)
-        # 1순위 -> 2순위 그림체 순으로 정렬
-        newlist = sorted(similar_list, key = lambda idx: (idx['first_diff'],idx['second_diff'])) 
-        # print(newlist)
-        # print(','.join([str(item['webtoon_id']) for item in newlist]))
-        insert_similar_webtoons = ','.join([str(item['webtoon_id']) for item in newlist])
         # insert to similar 그림체
         original_webtoon.update(similar_webtoons=insert_similar_webtoons)
-        
+            
     return Response(status.HTTP_201_CREATED)
 
 
 # 그림체 차이 계산
 def typeToDifference(type, original, comparsion):
+    first_diff = 0
+    second_diff = 0
+
     type1_diff = abs(original.image_type1 - comparsion.image_type1)
     type2_diff = abs(original.image_type2 - comparsion.image_type2)
     type3_diff = abs(original.image_type3 - comparsion.image_type3)
@@ -750,7 +787,9 @@ def typeToDifference(type, original, comparsion):
         first_diff = type6_diff
         second_diff = type5_diff
 
-    difference = {"webtoon_id" : comparsion.webtoon_id , "first_diff" : first_diff, "second_diff" : second_diff}
+    diff = first_diff * 1.1 + second_diff
+
+    difference = {"webtoon_id" : comparsion.webtoon_id , "diff" : diff}
     return difference
 <<<<<<< HEAD
 >>>>>>> 09b2f2b (feat: 그림체 기반 추천 알고리즘 구현중)
