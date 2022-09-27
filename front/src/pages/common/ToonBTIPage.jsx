@@ -189,6 +189,9 @@ const TalkImgBox = styled.div`
   width: 30vw;
   min-width: 100px;
   height: auto;
+  @media screen and (max-width: 1100px) {
+    width: 25vw;
+  }
 `;
 
 const TalkImg = styled.img`
@@ -200,7 +203,7 @@ const TalkImg = styled.img`
 const ArrowBox = styled.div`
   position: relative;
   padding: 0px 50px;
-  height: 10vh;
+  height: 8vh;
   display: inline-block;
   background: #ffffff;
   border: 3px solid black;
@@ -233,11 +236,17 @@ const ArrowBox = styled.div`
     border-width: 20px;
     margin-top: -20px;
   }
+  @media screen and (max-width: 750px) {
+    height: 6vh;
+  }
 `;
 
 const QuestionTitle = styled.p`
   position: relative;
-  font-size: 3vh;
+  font-size: 2vh;
+  @media screen and (max-width: 750px) {
+    font-size: 1.8vh;
+  }
 `;
 
 export default ToonBTIPage;

@@ -25,7 +25,7 @@ const LoadingBox = styled.div`
 
 const LoadingMsg = styled.p`
   position: absolute;
-  top: 70%;
+  top: 55%;
   left: 35%;
   font-size: 3vw;
   font-weight: bold;
@@ -72,7 +72,7 @@ const move = keyframes`
 
 const ImgBox = styled.div`
   position: absolute;
-  margin-top: -10vh;
+  margin-top: -20vh;
   margin-left: -150px;
   top: 45%;
   left: 50%;
