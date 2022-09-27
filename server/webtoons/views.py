@@ -260,6 +260,23 @@ import requests
 #     return Response(webtoon_list, status.HTTP_200_OK)
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
 
+@api_view(['GET'])
+def mainPage(request):
+    webtoon1 = Webtoon.objects.filter(image_type1__gte = 90).order_by('-image_type1')[:6]
+    webtoon2 = Webtoon.objects.filter(image_type2__gte = 90).order_by('-image_type2')[:6]
+    webtoon3 = Webtoon.objects.filter(image_type3__gte = 90).order_by('-image_type3')[:6]
+    webtoon4 = Webtoon.objects.filter(image_type4__gte = 90).order_by('-image_type4')[:6]
+    webtoon5 = Webtoon.objects.filter(image_type5__gte = 90).order_by('-image_type5')[:6]
+    webtoon6 = Webtoon.objects.filter(image_type6__gte = 90).order_by('-image_type6')[:6]
+
+    webtoon_1 = WebtoonListSerializer(webtoon1, many = True)
+    webtoon_2 = WebtoonListSerializer(webtoon2, many = True)
+    webtoon_3 = WebtoonListSerializer(webtoon3, many = True)
+    webtoon_4 = WebtoonListSerializer(webtoon4, many = True)
+    webtoon_5 = WebtoonListSerializer(webtoon5, many = True)
+    webtoon_6 = WebtoonListSerializer(webtoon6, many = True)
+
+    return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data})
 
 @api_view(['GET'])
 def webtoonDetail(request,webtoonId):
@@ -464,9 +481,13 @@ def recommendWebtoon(request,typeId):
         
         return Response(serializer.data)
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b432986 (feat: CF 기반 웹툰 추천 api 구현(웹툰 추천 전체 구현은 미완성))
 =======
     if typeId == 2:
+=======
+    elif typeId == 2:
+>>>>>>> bebfc91 (feat: 메인페이지 api 구현)
         # modeling 후 변경
         webtoon =  get_object_or_404(Webtoon, pk=int(request.GET['webtoon_id']))
         similar_webtoons = webtoon.similar_webtoons.split()
@@ -511,7 +532,7 @@ def insertClassify(request):
         list.append(webtoon.image_type6)
         
         first_max = max(list)
-        second_max = 0;
+        second_max = 0
         for max_i in list:
             if(first_max > max_i and max_i > second_max):
                 second_max = max_i

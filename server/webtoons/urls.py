@@ -5,7 +5,7 @@ from drf_yasg import openapi
 app_name = 'webtoons'
 
 urlpatterns = [
-    # path('<platfrom>/<type>',views.webtoonsResponse),
+    path('',views.mainPage),
     path('<int:webtoonId>/detail/',views.webtoonDetail),
     path('<int:webtoonId>/like/',views.webtoonLike),
     path('<int:webtoonId>/rating/',views.webtoonRate),
@@ -15,7 +15,7 @@ urlpatterns = [
     path('search/<int:pageNum>/',views.searchWebtoon),
     path('search/image/',views.searchImageWebtoon),
     path('recommend/<int:typeId>/', views.recommendWebtoon),
-    path('classify/insert/', views.insertClassify),
-    path('classify/similar/', views.insertSimilarWebtoons),
     path('tag/<int:tagId>/like/',views.tagLike),
+    # path('classify/insert/', views.insertClassify),
+    # path('classify/similar/', views.insertSimilarWebtoons),
 ]
