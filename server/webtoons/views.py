@@ -65,9 +65,13 @@ from accounts.models import Member_View_Webtoons
 >>>>>>> 70f416e (fix : log남기기 수정)
 =======
 from django.http import HttpResponseRedirect, HttpRequest
+<<<<<<< HEAD
 >>>>>>> ae5d972 (feat: 날씨, 유저가 좋아하는 장르 기반 추천)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer
 >>>>>>> c4b2854 (feat: 웹툰 이미지 검색 api 구현)
+=======
+from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer, TagSerializer
+>>>>>>> 09ecf40 (feat: 전체 태그 요청 api 구현)
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
@@ -338,6 +342,12 @@ def webtoonList(request,pageNum):
     serializer = WebtoonListSerializer(webtoons, many = True)
     return Response(serializer.data, status.HTTP_200_OK)
 
+@api_view(['GET'])
+def getTag(request):
+    tags = Tag.objects.all()
+    serializer = TagSerializer(tags, many = True)
+
+    return Response(serializer.data, status.HTTP_200_OK)
 
 @api_view(['GET'])
 def searchWebtoon(request,pageNum):

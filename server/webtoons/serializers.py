@@ -26,6 +26,11 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = ('author_id','name')
 
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ('tag_id','name')
+
 class WebtoonSerializer(serializers.ModelSerializer):
 
     class DaySerializer(serializers.ModelSerializer):
@@ -37,11 +42,6 @@ class WebtoonSerializer(serializers.ModelSerializer):
         class Meta:
             model = Genre
             fields= ('genre_id','genre_type')
-
-    class TagSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Tag
-            fields = ('tag_id','name')
 
     class PlatformSerializer(serializers.ModelSerializer):
         class Meta:
