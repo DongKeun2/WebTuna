@@ -21,6 +21,7 @@ export const mainSlice = createSlice({
   initialState: {
     toons: {},
     currentState: 0,
+    isLoading: false,
   },
   reducers: {
     changeState: (state, action) => {
@@ -29,6 +30,7 @@ export const mainSlice = createSlice({
   },
   extraReducers: {
     [fetchMain.fulfilled]: (state, action) => {
+      state.isLoading = true;
       state.toons = action.payload;
     },
   },

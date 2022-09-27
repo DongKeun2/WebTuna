@@ -24,11 +24,10 @@ const Button = styled.button`
 function Banner() {
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state.main.currentState);
   return (
     <CarouselBox>
       <Carousel
-        animation="zoom"
+        animation="fade"
         afterSlide={(currentSlice) => {
           dispatch(changeState(currentSlice));
         }}
@@ -81,6 +80,12 @@ const CarouselBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 900px) {
+    height: 30vh;
+  }
+  @media screen and (max-width: 650px) {
+    height: 30vh;
+  }
 `;
 
 const OuterBox = styled.div`
@@ -92,6 +97,12 @@ const OuterBox = styled.div`
   background-color: white;
   border: 3px solid black;
   border-radius: 15px;
+  @media screen and (max-width: 900px) {
+    height: 26vh;
+  }
+  @media screen and (max-width: 650px) {
+    height: 26vh;
+  }
 `;
 
 const ImgBox = styled.div`
@@ -100,6 +111,12 @@ const ImgBox = styled.div`
   width: 98%;
   height: 44vh;
   overflow: hidden;
+  @media screen and (max-width: 900px) {
+    height: 23vh;
+  }
+  @media screen and (max-width: 650px) {
+    height: 23vh;
+  }
 `;
 
 const BannerImg = styled.img`

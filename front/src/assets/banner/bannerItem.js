@@ -1,8 +1,8 @@
 import item0 from "./a1.png";
 import item1 from "./a2.png";
 import item2 from "./a3.png";
-import item3 from "./a4.png";
-import item4 from "./a5.png";
+import item4 from "./a4.png";
+import item3 from "./a5.png";
 import item5 from "./a6.png";
 
 const bannerItem = [

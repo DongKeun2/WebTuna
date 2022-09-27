@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Banner from "../../components/common/Banner";
 import { fetchMain } from "../../features/toons/mainSlice";
@@ -8,6 +8,9 @@ import ConceptToons from "../../components/toonlist/ConceptToons";
 function MainPage() {
   const dispatch = useDispatch();
 
+  const toons = useSelector((state) => state.main.toons);
+  const isLoading = useSelector((state) => state.main.isLoading);
+
   useEffect(() => {
     dispatch(fetchMain());
   }, [dispatch]);
@@ -15,7 +18,7 @@ function MainPage() {
   return (
     <MainBox>
       <Banner></Banner>
-      <ConceptToons></ConceptToons>
+      {isLoading && <ConceptToons toons={toons}></ConceptToons>}
     </MainBox>
   );
 }
@@ -24,7 +27,6 @@ const MainBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: -5vh;
-  /* justify-content: center; */
   align-items: center;
 `;
 
