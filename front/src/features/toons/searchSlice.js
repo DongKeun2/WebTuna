@@ -18,7 +18,7 @@ const searchToons = createAsyncThunk(
       console.log(err);
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 const addToons = createAsyncThunk(
@@ -37,7 +37,20 @@ const addToons = createAsyncThunk(
       console.log(err);
       return rejectWithValue(err.response.data);
     }
-  }
+  },
+);
+
+const getTags = createAsyncThunk(
+  "getTags",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(api.getTags(), {});
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
 );
 
 export const searchSlice = createSlice({
@@ -90,10 +103,18 @@ export const searchSlice = createSlice({
       const toons = [...state.toonList, ...action.payload];
       state.toonList = toons;
     },
+    [getTags.fulfilled]: (action) => {
+      console.log("태그 가져오기 성공");
+      console.log(action.payload);
+    },
+    [getTags.rejected]: (action) => {
+      console.log("태그 가져오기 실패ㅠㅠ");
+      console.log(action.payload);
+    },
   },
 });
 
-export { searchToons, addToons };
+export { searchToons, addToons, getTags };
 // Action creators are generated for each case reducer function
 export const {
   changeKeyword,

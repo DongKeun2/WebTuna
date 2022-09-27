@@ -70,7 +70,13 @@ const DETAIL_URL = "detail/";
 const LIKE_URL = "like/";
 const LOG_URL = "log/";
 const RATING_URL = "rating/";
+<<<<<<< HEAD
 >>>>>>> 98c54b9 (feat: Detail 페이지 별점기능 찜기능 구현)
+=======
+
+const SEARCH_URL = "search/";
+const GET_URL = "get/";
+>>>>>>> 6ff183d (feat: 더 하다가 망가질까봐 불안해서 일단 세이브하는 느낌으로 커밋)
 
 const api = {
   //main
@@ -135,6 +141,7 @@ const api = {
   //searchSlice
   searchToons: (pageNum) =>
     BASE_URL + WEBTOONS_URL + SEARCH_URL + pageNum + "/",
+  getTags: () => BASE_URL + WEBTOONS_URL + TAG_URL + GET_URL,
 };
 >>>>>>> 6b4f421 (fix: api 수정)
 

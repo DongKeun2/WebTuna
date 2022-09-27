@@ -84,6 +84,11 @@ function DetailPage() {
         }
         setAuthors(tempauthors);
         setIsLoading(false);
+        setTimeout(() => {
+          slide = document.getElementById("slide");
+          slide.style.left = "0vw";
+          setCount(1);
+        }, 50);
       });
     } else {
       dispatch(detail(toonId)).then((res) => {
@@ -127,6 +132,11 @@ function DetailPage() {
         }
         setAuthors(tempauthors);
         setIsLoading(false);
+        setTimeout(() => {
+          slide = document.getElementById("slide");
+          slide.style.left = "0vw";
+          setCount(1);
+        }, 50);
       });
     }
   }

@@ -7,6 +7,7 @@ import ProfileBorder from "../../../src/assets/profilePage/ProfileBorder.png";
 import Loading from "../../components/common/Loading";
 import BookMark from "../../../src/assets/detail/BookMark.png";
 import { profile } from "../../features/accounts/profileSlice";
+import { getTags } from "../../features/toons/searchSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
 import ModalFrame from "../../components/common/ModalFrame";
@@ -23,6 +24,10 @@ function ProfilePage() {
   const [modal, setModal] = useState(false);
   const [count, setCount] = useState(1);
   const [slideCount, setSlideCount] = useState();
+  const [allTags, setAlltags] = useState();
+  const [likedTags, setLikedTags] = useState();
+  const [unLikedTags, setUnLikedTags] = useState();
+
   let slide;
 
   function getUserInfo() {
@@ -32,6 +37,11 @@ function ProfilePage() {
       let imageType = [];
       let gName = [];
       let gValue = [];
+      let tempLikedTags = [];
+      for (let i = 0; i < res.payload.data.tags.length; i++) {
+        tempLikedTags.push(res.payload.data.tags[i].tag_id);
+      }
+      setLikedTags(tempLikedTags);
       imageType.push(res.payload.image_type.image_type1);
       imageType.push(res.payload.image_type.image_type2);
       imageType.push(res.payload.image_type.image_type3);
@@ -47,9 +57,37 @@ function ProfilePage() {
         Math.ceil(Number(res.payload.data.liked_webtoons.length) / 4)
       );
       setIsLoading(false);
-      console.log(res.payload);
+      dispatch(getTags()).then((tagres) => {
+        let tempAllTags = [];
+        for (let i = 0; i < tagres.payload.length; i++) {
+          tempAllTags.push(i + 1);
+        }
+        setAlltags(tempAllTags);
+        let tempUnLikedTags = [];
+        tempUnLikedTags = tempAllTags.filter((tag) => !tempLikedTags.includes(tag));
+        console.log(tempAllTags);
+        console.log(tempLikedTags);
+        console.log(tempUnLikedTags);
+      })
     });
   }
+
+  // function getAllTags() {
+  //   dispatch(getTags()).then((res) => {
+  //     console.log(res.payload)
+  //     let temp = [];
+  //     Object.keys(res.payload).map((key) =>
+  //       temp.push(key)
+  //     )
+  //     setAlltags(temp);
+  //     for (const num in temp) {
+
+  //     }
+
+  //   })
+  // }
+
+
 
   function viewdWebtoon() {
     const result = [];
@@ -104,6 +142,7 @@ function ProfilePage() {
 
   useEffect(() => {
     getUserInfo();
+    // getAllTags();
   }, []);
 
   const RatingGraphData = {
