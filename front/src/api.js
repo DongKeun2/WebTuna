@@ -73,6 +73,9 @@ const RATING_URL = "rating/";
 >>>>>>> 98c54b9 (feat: Detail 페이지 별점기능 찜기능 구현)
 
 const api = {
+  //main
+  main: () => BASE_URL + WEBTOONS_URL,
+
   //loginSlice
   login: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGIN_URL,
   logout: () => BASE_URL + ACCOUNTS_URL + USER_URL + LOGOUT_URL,

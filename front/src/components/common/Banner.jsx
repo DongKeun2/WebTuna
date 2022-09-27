@@ -1,8 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Carousel from "nuka-carousel";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import items from "../../assets/banner/bannerItem";
+import { changeState } from "../../features/toons/mainSlice";
 
 const Button = styled.button`
   padding: 10px;
@@ -20,11 +22,18 @@ const Button = styled.button`
 `;
 
 function Banner() {
+  const dispatch = useDispatch();
+
+  const state = useSelector((state) => state.main.currentState);
   return (
     <CarouselBox>
       <Carousel
+        animation="zoom"
+        afterSlide={(currentSlice) => {
+          dispatch(changeState(currentSlice));
+        }}
         autoplay={true}
-        autoplayInterval={"3000"}
+        autoplayInterval={"3500"}
         wrapAround={true}
         renderCenterLeftControls={({ previousSlide }) => (
           <Button>

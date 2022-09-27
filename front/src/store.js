@@ -6,6 +6,7 @@ import uploadReducer from './features/toons/uploadSlice'
 <<<<<<< HEAD
 =======
 import { configureStore } from "@reduxjs/toolkit";
+import mainReducer from "./features/toons/mainSlice";
 import loginReducer from "./features/accounts/loginSlice";
 import signupReducer from "./features/accounts/signupSlice";
 import editReducer from "./features/accounts/editSlice";
@@ -23,6 +24,8 @@ import searchReducer from "./features/toons/searchSlice";
 
 const store = configureStore({
   reducer: {
+    main: mainReducer,
+
     login: loginReducer,
     signup: signupReducer,
     edit: editReducer,

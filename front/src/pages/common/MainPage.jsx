@@ -1,11 +1,21 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Banner from "../../components/common/Banner";
+import { fetchMain } from "../../features/toons/mainSlice";
+import ConceptToons from "../../components/toonlist/ConceptToons";
 
 function MainPage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchMain());
+  }, [dispatch]);
+
   return (
     <MainBox>
-      <h1>메인 페이지</h1>
       <Banner></Banner>
+      <ConceptToons></ConceptToons>
     </MainBox>
   );
 }
@@ -13,7 +23,8 @@ function MainPage() {
 const MainBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  margin-top: -5vh;
+  /* justify-content: center; */
   align-items: center;
 `;
 
