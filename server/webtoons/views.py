@@ -551,6 +551,9 @@ def recommendWebtoon(request,typeId):
         
         return HttpResponseRedirect('http://127.0.0.1:8000/api/webtoons/genre/recommend/')
 
+    elif typeId == 5:
+        return HttpResponseRedirect('http://127.0.0.1:8000/api/webtoons/draw/recommend/')
+
 
 # tb_draw_classify 삽입
 @api_view(['GET'])
@@ -955,8 +958,61 @@ def genre_recommend(request):
 
     return Response(serializers.data, status.HTTP_200_OK)
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> ae5d972 (feat: 날씨, 유저가 좋아하는 장르 기반 추천)
 
 >>>>>>> c5812ab (feat : rating model추가, rating views 수정)
 =======
 >>>>>>> cf96830 (fix: 웹툰 상세보기 페이지 api 수정 - 그림체 비슷한 웹툰 추가)
+=======
+
+# 유저가 좋아하는 그림체 기반 추천
+@api_view(['GET'])
+def draw_recommend(request):
+    member = get_object_or_404(get_user_model(), id=request.user.id)
+    webtoons = member.liked_webtoons.all()
+    image_types = {f'draw_type{i}':0 for i in range(1, 31)}
+
+    if len(webtoons):
+
+        for webtoon in webtoons:
+            # 같은 타입애들을 불러오기
+            classify_list = webtoon.draw_classifies.all()
+
+            # 그림체 분류 id로 불러오기
+            classify_id_list = []
+            for classify in classify_list:
+                classify_id_list.append(classify.classify_id)
+            
+            for classify_id in classify_id_list:
+                image_types[f'draw_type{classify_id}'] += 1
+    
+    else:
+        webtoons = member.liked_thumbnail.split(",")
+
+        for i in webtoons:
+            # 같은 타입애들을 불러오기
+            webtoon = Webtoon.objects.get(webtoon_id = i)
+            classify_list = webtoon.draw_classifies.all()
+
+            # 그림체 분류 id로 불러오기
+            classify_id_list = []
+            for classify in classify_list:
+                classify_id_list.append(classify.classify_id)
+            
+            for classify_id in classify_id_list:
+                image_types[f'draw_type{classify_id}'] += 1
+    
+    sort_image_types = sorted(image_types.items(), key=lambda x:x[1], reverse=True)
+
+    print(sort_image_types[:3])
+
+    # 선호 그림체 타입 top3 id 저장
+    like_image_type_id_list = []
+    for like_image_type in sort_image_types[:3]:
+        like_image_type_id_list.append(like_image_type[0][-2:])
+
+    like_image_type_list = Webtoon.objects.filter(draw_classifies__in = like_image_type_id_list).order_by('-rating')[:10]
+
+    print(like_image_type_list)
+>>>>>>> 9015e4e (feat: 선호 그림체 기반 추천 api 작성(미완))
