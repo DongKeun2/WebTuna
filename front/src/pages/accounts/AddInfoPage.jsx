@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import {
   changeSelectImg,
   changeThumbnail,
@@ -65,10 +66,38 @@ function ImgItems({ item }) {
   }
   return (
     <ImgBox onClick={clickImg} selected={selectImg.find((i) => i === item.id)}>
-      <ToonImg src={item.img} alt="select_img" />
+      <ToonImg
+        selected={selectImg.find((i) => i === item.id)}
+        src={item.img}
+        alt="select_img"
+      />
+      {selectImg.find((i) => i === item.id) ? (
+        <CheckCircleBox>
+          <CheckCircleOutlineIcon
+            color="success"
+            sx={checkCircleSt}
+          ></CheckCircleOutlineIcon>
+        </CheckCircleBox>
+      ) : (
+        <div>
+          <h1>잘가</h1>
+        </div>
+      )}
     </ImgBox>
   );
 }
+
+const CheckCircleBox = styled.div`
+  position: relative;
+`;
+
+const checkCircleSt = {
+  position: "absolute",
+  top: -205,
+  left: 100,
+  fontSize: 100,
+  color: "#edff28",
+};
 
 const PageBox = styled.div`
   display: flex;
@@ -110,15 +139,17 @@ const ImgBox = styled.div`
   overflow: hidden;
   :hover {
     cursor: pointer;
+    opacity: 0.4;
   }
   border: ${(props) =>
-    props.selected ? "10px solid green" : "5px solid black"};
+    props.selected ? "5px solid #ffc628" : "5px solid black"};
 `;
 
 const ToonImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: fill;
+  opacity: ${(props) => props.selected && 0.4};
 `;
 
 const BtnBox = styled.div`
