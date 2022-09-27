@@ -51,11 +51,15 @@ function ToonBTIPage() {
       case 0:
         return (
           <PageBox>
-            <StartBox>
+            <ToonBox>
+              <ToonBTITItle>ToonBTI</ToonBTITItle>
+              <StartImgBox>
+                <TunImg src={talkToon} alt="tuntun_img" />
+              </StartImgBox>
               <OuterBtn onClick={onNext} active={true}>
                 <SelectBtn active={true}>시작하기</SelectBtn>
               </OuterBtn>
-            </StartBox>
+            </ToonBox>
           </PageBox>
         );
       case 5:
@@ -67,26 +71,28 @@ function ToonBTIPage() {
         console.log(questionItem);
         return (
           <PageBox>
-            <Header>
-              <TalkBox>
-                <TalkImgBox>
-                  <TalkImg src={talkToon} alt="thumbnail_image" />
-                </TalkImgBox>
-                <ArrowBox>
-                  <QuestionTitle>{questionItem.question}</QuestionTitle>
-                </ArrowBox>
-              </TalkBox>
-            </Header>
-            <OuterBtn active={true}>
-              <SelectBtn active={true} onClick={() => onAnswer(1)}>
-                {questionItem.option1}
-              </SelectBtn>
-            </OuterBtn>
-            <OuterBtn active={true}>
-              <SelectBtn active={true} onClick={() => onAnswer(0)}>
-                {questionItem.option2}
-              </SelectBtn>
-            </OuterBtn>
+            <ToonBox>
+              <Header>
+                <TalkBox>
+                  <TalkImgBox>
+                    <TalkImg src={talkToon} alt="thumbnail_image" />
+                  </TalkImgBox>
+                  <ArrowBox>
+                    <QuestionTitle>{questionItem.question}</QuestionTitle>
+                  </ArrowBox>
+                </TalkBox>
+              </Header>
+              <OuterBtn active={true}>
+                <SelectBtn active={true} onClick={() => onAnswer(1)}>
+                  {questionItem.option1}
+                </SelectBtn>
+              </OuterBtn>
+              <OuterBtn active={true}>
+                <SelectBtn active={true} onClick={() => onAnswer(0)}>
+                  {questionItem.option2}
+                </SelectBtn>
+              </OuterBtn>
+            </ToonBox>
           </PageBox>
         );
     }
@@ -97,22 +103,64 @@ function ToonBTIPage() {
   return <div>{startToonBTI()}</div>;
 }
 
-const PageBox = styled.div`
-  display: flex;
-  padding-top: 100px;
-  gap: 50px;
-  height: 600px;
-  flex-direction: column;
-  align-items: center;
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    height: 100%;
-    gap: 20px;
+const StartImgBox = styled.div`
+  width: 20vw;
+  height: 20vh;
+  min-width: 320px;
+  min-height: 320px;
+  overflow: hidden;
+`;
+
+const TunImg = styled.img`
+  width: 315px;
+  height: 315px;
+  object-fit: fill;
+  margin-left: 2vw;
+`;
+
+const ToonBTITItle = styled.p`
+  margin-top: 2vw;
+  font-size: 2.5vw;
+  font-weight: 700;
+  @media screen and (max-width: 750px) {
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 0;
   }
 `;
 
-const StartBox = styled.div`
-  height: 300px;
+const PageBox = styled.div`
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1vw 0;
+  border: solid 2px;
+  border-radius: 1rem;
+  background-color: white;
+`;
+
+const ToonBox = styled.div`
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 73vh;
+  @media screen and (min-width: 1100px) {
+    min-height: 68vh;
+  }
+  padding: 0.5vw;
+  padding-bottom: 100px;
+  @media screen and (max-width: 750px) {
+    padding-bottom: 70px;
+  }
+  @media screen and (min-width: 1240px) {
+    padding-bottom: 80px;
+  }
+  border: solid 2px;
+  border-radius: 0.8rem;
+  background-color: #fff5c3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Header = styled.div`

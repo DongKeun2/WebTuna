@@ -4,6 +4,7 @@ const OuterBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 3vh;
   width: 400px;
   height: 100px;
   border: 1px solid white;
