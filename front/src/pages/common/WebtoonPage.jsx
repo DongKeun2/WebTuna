@@ -143,6 +143,9 @@ const FilterBtn = styled.button`
 
 const ModalContainer = styled.div`
   width: 98%;
+  @media screen and (max-width: 750px) {
+    width: 80%;
+  }
   height: 43vw;
   display: flex;
   justify-content: space-between;
@@ -241,12 +244,13 @@ const DayGroup = styled.div`
 const DayBtn = styled.div`
   width: 20%;
   margin-bottom: 0.8vw;
-  padding: 0.4vw 0;
+  padding: 0.3vw 0;
   font-size: 12px;
   text-align: center;
   border: 1px solid #D1E2FF;
   border-radius: 0.3vw;
   @media screen and (max-width: 750px) {
+    padding: 0.4vw 0;
     font-size: 10px;
     margin-bottom: 8px;
     border-radius: 5px;
@@ -264,13 +268,14 @@ const GenreGroup = styled.div`
 const GenreBtn = styled.div`
   width: 19%;
   margin-bottom: 1vw;
-  padding: 0.5vw 0;
+  padding: 0.4vw 0;
   font-size: 11px;
   text-align: center;
   border: 1px solid #D1E2FF;
   border-radius: 0.3vw;
   @media screen and (max-width: 750px) {
     font-size: 10px;
+    padding: 0.5vw 0;
     margin-bottom: 8px;
     border-radius: 5px;
   }
