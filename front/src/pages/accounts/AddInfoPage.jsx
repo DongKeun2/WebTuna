@@ -8,6 +8,7 @@ import {
   signup,
 } from "../../features/accounts/signupSlice";
 import addInfoItem from "../../assets/addInfo/addInfoItem";
+import MySwal from "../../components/common/SweetAlert";
 
 function AddInfoPage() {
   const navigate = useNavigate();
@@ -18,7 +19,13 @@ function AddInfoPage() {
   function submitSignup() {
     if (signupInfo.liked_thumbnail) {
       dispatch(signup(signupInfo)).then(() => {
-        alert("회원가입 성공");
+        MySwal.fire({
+          title: "환영합니다!",
+          text: "로그인 후 서비스를 이용해보세요!",
+          icon: "success",
+          confirmButtonColor: "#feec91",
+          confirmButtonText: "확인",
+        });
         navigate("/login");
       });
     }
