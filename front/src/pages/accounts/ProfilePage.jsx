@@ -4,7 +4,6 @@ import styled from "styled-components";
 import ChartShow from "../../components/common/Chart";
 import ProfileBorder from "../../../src/assets/profilePage/ProfileBorder.png";
 import Loading from "../../components/common/Loading";
-import CuteHeart from "../../../src/assets/profilePage/CuteHeart.png";
 import BookMark from "../../../src/assets/detail/BookMark.png";
 import { profile } from "../../features/accounts/profileSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
@@ -111,7 +110,6 @@ function ProfilePage() {
               <UserInfo>
                 <Name>{userInfo.data.nickname}</Name>
                 <Heart>
-                  <HeartImage src={CuteHeart} alt="귀여운 하트" />
                   <HeartNumber>
                     {userInfo.data.liked_webtoons.length}
                   </HeartNumber>
@@ -119,33 +117,31 @@ function ProfilePage() {
               </UserInfo>
               <GenreZone>
                 {userInfo.genre_list.length === 0 ||
-                userInfo.genre_list === undefined
+                  userInfo.genre_list === undefined
                   ? "텅~"
                   : Object.keys(userInfo.genre_list).map((key) => (
-                      <Genre key={key}>#{key} </Genre>
-                    ))}
+                    <Genre key={key}>#{key} </Genre>
+                  ))}
               </GenreZone>
             </UserBack>
           </UserBorder>
           <TagTitleZone>
-            <HeartImage2 src={CuteHeart} alt="귀여운 하트" />
             <TagTitle>찜한 태그</TagTitle>
           </TagTitleZone>
           <TagBorder>
             <TagBack>
               {userInfo.data.tags.length === 0 ||
-              userInfo.data.tags === undefined
+                userInfo.data.tags === undefined
                 ? "텅~"
                 : userInfo.data.tags.map((tag) => (
-                    <Tag key={tag.tag_id} id={tag.tag_id}>
-                      <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
-                    </Tag>
-                  ))}
+                  <Tag key={tag.tag_id} id={tag.tag_id}>
+                    <BookMarkImage src={BookMark} alt="북마크" />
+                    <TagName>{tag.name}</TagName>
+                  </Tag>
+                ))}
             </TagBack>
           </TagBorder>
           <TagTitleZone>
-            <HeartImage2 src={CuteHeart} alt="귀여운 하트" />
             <TagTitle>찜한 웹툰</TagTitle>
           </TagTitleZone>
           <PreferenceBack>
@@ -153,14 +149,13 @@ function ProfilePage() {
               {userInfo.data.liked_webtoons.length === 0
                 ? "텅~"
                 : userInfo.data.liked_webtoons.map((toon) => (
-                    <div key={toon.webtoon_id}>
-                      <ToonItem item={toon} />
-                    </div>
-                  ))}
+                  <div key={toon.webtoon_id}>
+                    <ToonItem item={toon} />
+                  </div>
+                ))}
             </HeartWebToon>
           </PreferenceBack>
           <TagTitleZone>
-            <HeartImage2 src={CuteHeart} alt="귀여운 하트" />
             <TagTitle>최근에 본 웹툰</TagTitle>
           </TagTitleZone>
           <PreferenceBack>
@@ -171,7 +166,6 @@ function ProfilePage() {
             </ViewWebToon>
           </PreferenceBack>
           <TagTitleZone>
-            <HeartImage2 src={CuteHeart} alt="귀여운 하트" />
             <TagTitle>{userInfo.data.nickname}님의 관심사</TagTitle>
           </TagTitleZone>
           <ChartBack>

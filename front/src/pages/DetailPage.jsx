@@ -19,6 +19,7 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import FullHeart from "../assets/detail/FullHeart.png";
 import EmptyHeart from "../assets/detail/EmptyHeart.png";
+import MySwal from "../components/common/SweetAlert";
 
 function DetailPage() {
   let { toonId } = useParams();
@@ -152,21 +153,40 @@ function DetailPage() {
   }
 
   function changeRating(e) {
-    // setModalRating(e.target.value);
-    let data = { toonId, rating: e.target.value };
-    console.log(data);
-    dispatch(webtoonRating(data)).then((res) => {
-      if (res.error) {
-        console.log("실패");
-      } else {
-        dispatch(fetchInfo()).then(() => {
-          console.log("평점 주기 성공");
-          getDetail();
-        });
+    MySwal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
       }
-    });
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        MySwal.fire('Changes are not saved', '', 'info')
+      }
+    })
+    // setModalRating(e.target.value);
+    // let data = { toonId, rating: e.target.value };
+    // console.log(data);
+    // dispatch(webtoonRating(data)).then((res) => {
+    //   if (res.error) {
+    //     console.log("실패");
+    //   } else {
+    //     dispatch(fetchInfo()).then(() => {
+    //       console.log("평점 주기 성공");
+    //       getDetail();
+    //     });
+    //   }
+    // });
 
-    setModal(false);
+    // setModal(false);
   }
 
   function heartClick() {
@@ -435,8 +455,8 @@ function DetailPage() {
                     {webToonInfo.data.days[0].day_id === 8
                       ? "완결 웹툰"
                       : webToonInfo.data.days.length === 1
-                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                      : webToonInfo.data.days
+                        ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                        : webToonInfo.data.days
                           .slice(0, -1)
                           .map((dayy) => day[dayy.day_id]) +
                         " , " +
@@ -475,32 +495,32 @@ function DetailPage() {
             </DetailZone>
             <TagZone>
               {webToonInfo.data.tags.length === 0 ||
-              webToonInfo.data.tags === undefined
+                webToonInfo.data.tags === undefined
                 ? "텅~"
                 : webToonInfo.data.tags.map((tag) =>
-                    loginState === null ? (
-                      <Tag key={tag.tag_id} id={tag.tag_id}>
-                        <BookMarkImage src={BookMark} alt="북마크" />
-                        <TagName>{tag.name}</TagName>
-                      </Tag>
-                    ) : userData.tags.includes(tag.tag_id) ? (
-                      <LikedTag
-                        key={tag.tag_id}
-                        id={tag.tag_id}
-                        onClick={tagSwitch}
-                      >
-                        <BookMarkImage src={BookMark} alt="북마크" />
-                        <TagName>{tag.name}</TagName>
-                        <MinusButton>-</MinusButton>
-                      </LikedTag>
-                    ) : (
-                      <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
-                        <BookMarkImage src={BookMark} alt="북마크" />
-                        <TagName>{tag.name}</TagName>
-                        <PlusButton>+</PlusButton>
-                      </Tag>
-                    )
-                  )}
+                  loginState === null ? (
+                    <Tag key={tag.tag_id} id={tag.tag_id}>
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                    </Tag>
+                  ) : userData.tags.includes(tag.tag_id) ? (
+                    <LikedTag
+                      key={tag.tag_id}
+                      id={tag.tag_id}
+                      onClick={tagSwitch}
+                    >
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                      <MinusButton>-</MinusButton>
+                    </LikedTag>
+                  ) : (
+                    <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                      <PlusButton>+</PlusButton>
+                    </Tag>
+                  )
+                )}
             </TagZone>
             <PaintStyleRecommendZone>
               <div>그림체가 비슷한 웹툰</div>
@@ -541,12 +561,12 @@ function DetailPage() {
                           {otherWebToon.author_name.length === 1
                             ? otherWebToon.author_name[0]
                             : otherWebToon.author_name
-                                .slice(0, -1)
-                                .map((author) => author) +
-                              " / " +
-                              otherWebToon.author_name
-                                .slice(-1)
-                                .map((author) => author)}
+                              .slice(0, -1)
+                              .map((author) => author) +
+                            " / " +
+                            otherWebToon.author_name
+                              .slice(-1)
+                              .map((author) => author)}
                         </OtherWebToonAuthor>
                       </OtherWebToon>
                     ))
@@ -780,7 +800,7 @@ const TagZone = styled.div`
 const LikedTag = styled.div`
   display: flex;
   cursor: pointer;
-  background-color: skyblue;
+  background-color: pink;
   border: 0.1vw solid black;
   border-radius: 1vw;
   white-space: nowrap;
