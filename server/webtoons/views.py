@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 from ast import keyword
 from re import L
 <<<<<<< HEAD
@@ -41,6 +42,12 @@ from django.shortcuts import render, redirect
 >>>>>>> ae5d972 (feat: 날씨, 유저가 좋아하는 장르 기반 추천)
 =======
 >>>>>>> cf96830 (fix: 웹툰 상세보기 페이지 api 수정 - 그림체 비슷한 웹툰 추가)
+=======
+from ast import keyword
+from re import L
+from urllib import response
+from django.shortcuts import render, redirect
+>>>>>>> aad57af (fix : 추천 중복 막음)
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -314,19 +321,11 @@ def webtoonDetail(request,webtoonId):
 
     author_webtoons = WebtoonListSerializer(author_webtoon_list, many= True)
 
-    similar_webtoon_id_list = list(map(int, webtoon.similar_webtoons.split(',')))
-
-    sample_list = random.sample(similar_webtoon_id_list, 4)
-
-    similar_webtoon_list = Webtoon.objects.filter(webtoon_id__in = sample_list)
-
-    similar_webtoon = WebtoonListSerializer(similar_webtoon_list, many= True)
-
     webtoon.view_count += 1
     webtoon.save()
 
     serializer = WebtoonSerializer(webtoon)
-    return Response({'data':serializer.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data}, status.HTTP_200_OK)
+    return Response({'data':serializer.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data}, status.HTTP_200_OK)
 
 
 page_cut = 20
@@ -904,14 +903,14 @@ def weather_recommend(request):
     webtoon_lst = genre_lst.genre_webtoons.all().order_by('-rating')
     cnt = 0 
     real_cnt = 0
-    choice_lst = []
+    choice_lst = set()
 
     if len(webtoon_lst) >= 200:
         while cnt < 15:
             webtoon = random.choice(webtoon_lst[:100])
             if webtoon not in like_webtoons:
                 cnt += 1
-                choice_lst.append(webtoon)
+                choice_lst.add(webtoon)
                 
             real_cnt += 1
             if real_cnt >= 50:
@@ -922,7 +921,7 @@ def weather_recommend(request):
             webtoon = random.choice(webtoon_lst[100:])
             if webtoon not in like_webtoons:
                 cnt += 1
-                choice_lst.append(webtoon)
+                choice_lst.add(webtoon)
             
             real_cnt += 1
             if real_cnt >= 50:
@@ -933,12 +932,13 @@ def weather_recommend(request):
             webtoon = random.choice(list(webtoon_lst))
             if webtoon not in like_webtoons:
                 cnt += 1
-                choice_lst.append(webtoon)
+                choice_lst.add(webtoon)
                 
             real_cnt += 1
             if real_cnt >= 50:
                 break
-
+    
+    choice_lst = list(choice_lst)
     choice_lst = sorted(choice_lst, key = lambda x: -x.rating)
     
     serializers = WebtoonListSerializer(choice_lst, many=True)
@@ -996,11 +996,12 @@ def genre_recommend(request):
         webtoon_lst = genre_data.genre_webtoons.all().order_by('-rating')
         choice_lst += random.sample(list(webtoon_lst[:100]), 10)
         
-    reco_lst = []
+    reco_lst = set()
     for choice in choice_lst:
         if choice not in webtoons:
-            reco_lst.append(choice)
+            reco_lst.add(choice)
             
+    reco_lst = list(reco_lst)
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
@@ -1036,6 +1037,7 @@ def tag_recommend(request):
     serializers = WebtoonListSerializer(reco_lst, many=True)
 
     return Response(serializers.data, status.HTTP_200_OK)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> ae5d972 (feat: 날씨, 유저가 좋아하는 장르 기반 추천)
@@ -1095,3 +1097,6 @@ def draw_recommend(request):
 
     print(like_image_type_list)
 >>>>>>> 9015e4e (feat: 선호 그림체 기반 추천 api 작성(미완))
+=======
+
+>>>>>>> aad57af (fix : 추천 중복 막음)
