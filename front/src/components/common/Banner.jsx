@@ -1,26 +1,9 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Carousel from "nuka-carousel";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import items from "../../assets/banner/bannerItem";
 import { changeState } from "../../features/toons/mainSlice";
 import "./banner.css";
-
-const Button = styled.button`
-  padding: 10px;
-  background-color: transparent;
-  border: none;
-  opacity: 60%;
-  :hover {
-    cursor: pointer;
-    opacity: 90%;
-  }
-  > * {
-    color: white;
-    font-size: large;
-  }
-`;
 
 function Banner() {
   const dispatch = useDispatch();
@@ -30,39 +13,62 @@ function Banner() {
       <Carousel
         disableAnimation={true}
         disableEdgeSwiping={true}
-        dragThreshold="7"
-        animation="zoom"
+        dragThreshold="5"
+        animation="fade"
         afterSlide={(currentSlice) => {
+          const bookMark = document.getElementsByClassName("dots");
+
+          switch (currentSlice) {
+            case 0:
+              for (let i = 0; i <= 5; i++) {
+                bookMark[i].style.backgroundColor = "white";
+              }
+              break;
+            case 1:
+              for (let i = 0; i <= 5; i++) {
+                bookMark[i].style.backgroundColor = "pink";
+              }
+              break;
+            case 2:
+              for (let i = 0; i <= 5; i++) {
+                bookMark[i].style.backgroundColor = "orange";
+              }
+              break;
+            case 3:
+              for (let i = 0; i <= 5; i++) {
+                bookMark[i].style.backgroundColor = "black";
+              }
+              break;
+            case 4:
+              for (let i = 0; i <= 5; i++) {
+                bookMark[i].style.backgroundColor = "yellow";
+              }
+              break;
+            case 5:
+              for (let i = 0; i <= 5; i++) {
+                bookMark[i].style.backgroundColor = "skyblue";
+              }
+              break;
+
+            default:
+              break;
+          }
           dispatch(changeState(currentSlice));
         }}
         autoplay={true}
         autoplayInterval={"3500"}
         wrapAround={true}
-        renderCenterLeftControls={({ previousSlide }) => (
-          <Button>
-            <ArrowBackIosIcon
-              fontSize="large"
-              onClick={previousSlide}
-            ></ArrowBackIosIcon>
-          </Button>
-        )}
-        renderCenterRightControls={({ nextSlide }) => (
-          <Button>
-            <ArrowForwardIosIcon
-              fontSize="large"
-              onClick={nextSlide}
-            ></ArrowForwardIosIcon>
-          </Button>
-        )}
+        renderCenterLeftControls={({ previousSlide }) => null}
+        renderCenterRightControls={({ nextSlide }) => null}
         defaultControlsConfig={{
           pagingDotsContainerClassName: "dotsBox",
           pagingDotsClassName: "dots",
           pagingDotsStyle: {
             fill: "none",
-            backgroundColor: "#feec91",
+            backgroundColor: "white",
             width: "100%",
-            height: "110%",
-            borderTop: "3px solid #feec91",
+            height: "115%",
+            borderTop: "none",
             border: "3px solid black",
             borderRadius: "0px 0px 10px 10px",
           },
@@ -77,8 +83,30 @@ function Banner() {
 }
 
 function Item({ item }) {
+  const state = useSelector((state) => state.main.currentState);
+
+  function selectColor() {
+    switch (state) {
+      case 0:
+        return "white";
+      case 1:
+        return "pink";
+      case 2:
+        return "orange";
+      case 3:
+        return "black";
+      case 4:
+        return "yellow";
+      case 5:
+        return "skyblue";
+      default:
+        break;
+    }
+    return "black";
+  }
+
   return (
-    <OuterBox>
+    <OuterBox color={selectColor()}>
       <ImgBox>
         <BannerImg src={item.img} alt="banner img" />
       </ImgBox>
@@ -107,7 +135,7 @@ const OuterBox = styled.div`
   align-items: center;
   width: 99%;
   height: 47vh;
-  background-color: #feec91;
+  background-color: ${(props) => props.color || "white"};
   border: 3px solid black;
   border-radius: 15px;
   @media screen and (max-width: 900px) {
