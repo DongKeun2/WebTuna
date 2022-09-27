@@ -27,7 +27,10 @@ function Banner() {
   return (
     <CarouselBox>
       <Carousel
-        animation="fade"
+        disableAnimation={true}
+        disableEdgeSwiping={true}
+        dragThreshold="7"
+        animation="zoom"
         afterSlide={(currentSlice) => {
           dispatch(changeState(currentSlice));
         }}
