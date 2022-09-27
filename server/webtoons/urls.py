@@ -20,11 +20,15 @@ urlpatterns = [
     path('weather/recommend/', views.weather_recommend),
     path('genre/recommend/', views.genre_recommend),
 <<<<<<< HEAD
+<<<<<<< HEAD
     # path('classify/insert/', views.insertClassify),
 >>>>>>> ae5d972 (feat: 날씨, 유저가 좋아하는 장르 기반 추천)
 =======
     path('draw/recommend/', views.draw_recommend),
 >>>>>>> 9015e4e (feat: 선호 그림체 기반 추천 api 작성(미완))
+=======
+    path('tag/recommend/', views.tag_recommend),
+>>>>>>> 75cf8f8 (feat : tag기반추천, log남기기 수정)
     # path('classify/similar/', views.insertSimilarWebtoons),
     # path('classify/insert/', views.insertClassify),
 ]
