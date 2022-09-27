@@ -277,109 +277,153 @@ function ToonBTIResult({ setPage }) {
     return <Loading text={toonBTIText()}></Loading>;
   }
   return (
-    <ArticleBox>
-      <ToonBTIBox>
+    <PageBox>
+      <ToonBox>
+        <TitleBox>
+          <ResultHeader>분석 결과</ResultHeader>
+        </TitleBox>
         <ResultBox>
-          <TitleBox>
-            <h1>ToonBTI</h1>
-            <p>{toonInfo.title}</p>
-            <p>{toonInfo.summary}</p>
-          </TitleBox>
           <ImgBox>
             <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
           </ImgBox>
-          <BtnGroup>
-            <OuterBtn active={true}>
-              <SelectBtn active={true} onClick={moveDetail}>
-                상세정보 바로가기
-              </SelectBtn>
-            </OuterBtn>
-            <OuterBtn active={true}>
-              <SelectBtn
+          <TitleBox>
+            <ResultTitle>{toonInfo.title}</ResultTitle>
+            <ResultSummary>{toonInfo.summary}</ResultSummary>
+            <BtnGroup>
+              <ResultBtn active={true} onClick={moveDetail}>
+                상세 정보
+              </ResultBtn>
+              <ResultBtn
                 active={true}
                 onClick={() => {
                   dispatch(addAnswer([]));
                   setPage(0);
                 }}
               >
-                <RestartAltIcon />
-                다시 하기
-              </SelectBtn>
-            </OuterBtn>
-          </BtnGroup>
+                <FlexBox>
+                  <RestartAltIcon />
+                  <TextAgain>다시 하기</TextAgain>
+                </FlexBox>
+              </ResultBtn>
+            </BtnGroup>
+          </TitleBox>
         </ResultBox>
-      </ToonBTIBox>
-    </ArticleBox>
+      </ToonBox>
+    </PageBox>
   );
 }
 
-const ArticleBox = styled.div`
-  display: flex;
-  gap: 50px;
-  height: 750px;
-  flex-direction: column;
-  align-items: center;
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    height: 100%;
-    gap: 20px;
+const ResultHeader = styled.p`
+  font-size: 1.8vw;
+  @media screen and (max-width: 1200px) {
+    font-size: 20px;
   }
-`;
-
-const ToonBTIBox = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  background-color: #feec91;
-  border: 3px solid black;
-  border-radius: 10px;
-  height: 750px;
-  @media screen and (max-width: 600px) {
-    width: 100%;
-  }
+  font-weight: 700;
+  margin-bottom: 5vw;
+  text-align: center;
 `;
 
 const ResultBox = styled.div`
-  display: flex;
-  border: 3px solid black;
-  border-radius: 10px;
-  margin-top: 30px;
-  height: 100%;
-  width: 98%;
-  background-color: white;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  @media screen and (max-width: 600px) {
-    gap: 10px;
+  width: 60%;
+  @media screen and (max-width: 1000px) {
+    width: 80%;
   }
-`;
-
-const TitleBox = styled.div`
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  @media screen and (max-width: 750px) {
+    flex-direction: column;
+  }
+  justify-content: space-between;
 `;
 
 const ImgBox = styled.div`
-  border: 5px solid black;
+  border: 3px solid;
+  width: 20vw;
+  height: 20vw;
+  min-width: 300px;
+  min-height: 300px;
+  @media screen and (max-width: 750px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  background-color: white;
   border-radius: 10%;
   overflow: hidden;
 `;
 
 const ToonImg = styled.img`
-  object-fit: cover;
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+`;
+
+const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 3vw;
+  @media screen and (max-width: 750px) {
+    margin-top: 20px;
+    gap: 10px;
+  }
+`;
+
+const ResultTitle = styled.p`
+  font-size: 1.3vw;
+  font-weight: 600;
+  margin: 0;
+  @media screen and (max-width: 750px) {
+    font-size: 16px;
+    text-align: center;
+  }
+`;
+
+const ResultSummary = styled.div`
+  font-size: 1vw;
+  height: 60%;
+  @media screen and (max-width: 750px) {
+    height: 80px;
+  }
+  padding: 5px 8px;
+  background-color: white;
+  border: 2px solid;
+  border-radius: 1vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const BtnGroup = styled.div`
+  width: 100%;
   display: flex;
-  gap: 30px;
+  justify-content: space-between;
+  @media screen and (max-width: 750px) {
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+  }
+`;
+
+const ResultBtn = styled.button`
+  width: 40%;
+  @media screen and (max-width: 1100px) {
+    width: 48%;
+  }
+  padding: 5px 0;
+  background-color: #feec91;
+  font-size: 0.8vw;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 6px solid white;
+  cursor: pointer;
+`;
+
+const FlexBox = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-    gap: 20px;
-  }
+`;
+
+const TextAgain = styled.p`
+  margin: 0;
 `;
