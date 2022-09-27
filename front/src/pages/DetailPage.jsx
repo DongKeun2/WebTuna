@@ -447,7 +447,6 @@ function DetailPage() {
                     ) : null}
                   </RatingZone>
                   <Genre>
-                    장르{" "}
                     {webToonInfo.data.genres.map(
                       (genre) => genre.genre_type + " "
                     )}
@@ -779,18 +778,26 @@ const EHeart = styled.img`
 const Summary = styled.div`
   background-color: white;
   border: 0.1vw solid black;
-  border-radius: 1vw;
+  border-top-left-radius: 0.5vw;
+  border-top-right-radius: 0.5vw;
+  border-bottom-left-radius: 0.5vw;
+  border-bottom-right-radius: 0.5vw;
   margin-top: 7vw;
   font-size: 1vw;
-  padding: 0.5vw 0.8vw;
+  padding: 0.5vw 0.8vw 1.0vw 0.8vw;
   width: 70%;
   height: 10vw;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: 0.5s;
-  &:hover {
-    transform: translate(0, -10vw);
-    height: 25vw;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width:0.8vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #bab9b9;
+    border-radius: 3vw;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #e7e4e4;
+    border-radius: 3vw;
   }
 `;
 
