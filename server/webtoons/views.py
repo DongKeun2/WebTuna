@@ -325,11 +325,20 @@ def webtoonDetail(request,webtoonId):
 
     author_webtoons = WebtoonListSerializer(author_webtoon_list, many= True)
 
+    similar_webtoon_id_list = list(map(int, webtoon.similar_webtoons.split(',')))
+
+    sample_list = random.sample(similar_webtoon_id_list, 4)
+
+    similar_webtoon_list = Webtoon.objects.filter(webtoon_id__in = sample_list)
+
+    similar_webtoon = WebtoonListSerializer(similar_webtoon_list, many= True)
+
+
     webtoon.view_count += 1
     webtoon.save()
 
     serializer = WebtoonSerializer(webtoon)
-    return Response({'data':serializer.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data}, status.HTTP_200_OK)
+    return Response({'data':serializer.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data}, status.HTTP_200_OK)
 
 
 page_cut = 20
