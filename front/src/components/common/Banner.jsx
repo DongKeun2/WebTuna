@@ -4,9 +4,14 @@ import Carousel from "nuka-carousel";
 import items from "../../assets/banner/bannerItem";
 import { changeState } from "../../features/toons/mainSlice";
 import "./banner.css";
+import { useEffect } from "react";
 
 function Banner() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeState(0));
+  }, [dispatch]);
 
   return (
     <CarouselBox>
