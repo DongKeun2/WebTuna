@@ -72,26 +72,27 @@ function ToonBTIPage() {
         return (
           <PageBox>
             <ToonBox>
-              <Header>
-                <TalkBox>
-                  <TalkImgBox>
-                    <TalkImg src={talkToon} alt="thumbnail_image" />
-                  </TalkImgBox>
+              <ToonBTIBox>
+                <TalkImgBox>
+                  <TalkImg src={talkToon} alt="thumbnail_image" />
+                </TalkImgBox>
+
+                <Body>
                   <ArrowBox>
                     <QuestionTitle>{questionItem.question}</QuestionTitle>
                   </ArrowBox>
-                </TalkBox>
-              </Header>
-              <OuterBtn active={true}>
-                <SelectBtn active={true} onClick={() => onAnswer(1)}>
-                  {questionItem.option1}
-                </SelectBtn>
-              </OuterBtn>
-              <OuterBtn active={true}>
-                <SelectBtn active={true} onClick={() => onAnswer(0)}>
-                  {questionItem.option2}
-                </SelectBtn>
-              </OuterBtn>
+                  <OuterBtn active={true}>
+                    <SelectBtn active={true} onClick={() => onAnswer(1)}>
+                      {questionItem.option1}
+                    </SelectBtn>
+                  </OuterBtn>
+                  <OuterBtn active={true}>
+                    <SelectBtn active={true} onClick={() => onAnswer(0)}>
+                      {questionItem.option2}
+                    </SelectBtn>
+                  </OuterBtn>
+                </Body>
+              </ToonBTIBox>
             </ToonBox>
           </PageBox>
         );
@@ -102,6 +103,24 @@ function ToonBTIPage() {
   const question = useSelector((state) => state.toonBTI.question);
   return <div>{startToonBTI()}</div>;
 }
+
+const ToonBTIBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+  }
+`;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
 
 const StartImgBox = styled.div`
   width: 20vw;
@@ -131,6 +150,7 @@ const ToonBTITItle = styled.p`
 
 const PageBox = styled.div`
   width: 92%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 1vw 0;
@@ -141,6 +161,7 @@ const PageBox = styled.div`
 
 const ToonBox = styled.div`
   width: 96%;
+  height: 96%;
   margin-left: auto;
   margin-right: auto;
   min-height: 73vh;
@@ -161,50 +182,28 @@ const ToonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: end;
-  @media screen and (max-width: 600px) {
-    justify-content: center;
-  }
-`;
-
-const TalkBox = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 50px;
-  width: 80%;
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-    justify-content: center;
-  }
+  justify-content: center;
 `;
 
 const TalkImgBox = styled.div`
-  width: 150px;
-  height: 150px;
-  border-radius: 70%;
-  overflow: hidden;
+  width: 30vw;
+  min-width: 100px;
+  height: auto;
 `;
 
 const TalkImg = styled.img`
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
 `;
 
 const ArrowBox = styled.div`
   position: relative;
   padding: 0px 50px;
-  height: 5vw;
+  height: 10vh;
   display: inline-block;
   background: #ffffff;
-  border: 3px solid #feec91;
+  border: 3px solid black;
   border-radius: 10px;
   :after {
     right: 100%;
@@ -230,24 +229,15 @@ const ArrowBox = styled.div`
     position: absolute;
     pointer-events: none;
     border-color: rgba(254, 236, 145, 0);
-    border-right-color: #feec91;
+    border-right-color: black;
     border-width: 20px;
     margin-top: -20px;
-  }
-
-  @media screen and (max-width: 600px) {
-    width: 85%;
   }
 `;
 
 const QuestionTitle = styled.p`
   position: relative;
-  top: -20%;
-  font-size: 2vw;
-  @media screen and (max-width: 600px) {
-    top: 2%;
-    font-size: 18px;
-  }
+  font-size: 3vh;
 `;
 
 export default ToonBTIPage;
@@ -279,9 +269,7 @@ function ToonBTIResult({ setPage }) {
   return (
     <PageBox>
       <ToonBox>
-        <TitleBox>
-          <ResultHeader>분석 결과</ResultHeader>
-        </TitleBox>
+        <ResultHeader>ToonBTI</ResultHeader>
         <ResultBox>
           <ImgBox>
             <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
