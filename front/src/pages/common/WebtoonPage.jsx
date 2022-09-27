@@ -18,6 +18,7 @@ function WebtoonPage() {
     dispatch(changePage(1));
     dispatch(changeFetchPossible(true));
     dispatch(fetchToonlist(data));
+    window.scrollTo(0, 0);
   }, [dispatch]);
 
   const toons = useSelector((state) => state.toonlist.toons) || [];
