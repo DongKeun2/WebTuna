@@ -1015,7 +1015,6 @@ const OtherWebToonTitle = styled.div`
   margin: 0;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
-  
 `;
 
 const OtherWebToonAuthor = styled.div`

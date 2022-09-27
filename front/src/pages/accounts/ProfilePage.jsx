@@ -23,9 +23,7 @@ function ProfilePage() {
   const [modal, setModal] = useState(false);
   const [count, setCount] = useState(1);
   const [slideCount, setSlideCount] = useState();
-
   let slide;
-
 
   function getUserInfo() {
     dispatch(profile()).then((res) => {
@@ -46,7 +44,7 @@ function ProfilePage() {
       Object.values(res.payload.genre_list).map((value) => gValue.push(value));
       setgGenreValue(gValue);
       setSlideCount(
-        Math.floor(Number(res.payload.data.liked_webtoons.length) / 4)
+        Math.ceil(Number(res.payload.data.liked_webtoons.length) / 4)
       );
       setIsLoading(false);
       console.log(res.payload);
@@ -79,7 +77,7 @@ function ProfilePage() {
       let temp = Number(
         slide.style.left.substring(0, slide.style.left.length - 2)
       );
-      slide.style.left = temp + 71.2 + "vw";
+      slide.style.left = temp + 83 + "vw";
       setCount((prev) => prev - 1);
     }
   }
@@ -92,13 +90,13 @@ function ProfilePage() {
       let temp = Number(
         slide.style.left.substring(0, slide.style.left.length - 2)
       );
-      slide.style.left = temp - 71.2 + "vw";
+      slide.style.left = temp - 83 + "vw";
       setCount((prev) => prev + 1);
     }
   }
 
   function moveDetail(e) {
-    navigate(`/detail/${e.target.parentNode.id}`);
+    navigate(`/detail/${e.target.parentNode.parentNode.id}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 200);
@@ -200,12 +198,14 @@ function ProfilePage() {
           <WebToonTitleZone>
             <TagTitle>찜한 웹툰 {userInfo.data.liked_webtoons.length === 0 ? null : `(${userInfo.data.liked_webtoons.length})`}</TagTitle>
           </WebToonTitleZone>
-          <PrevBtn>
-            이전
-          </PrevBtn>
-          <NextBtn>
-            다음
-          </NextBtn>
+          {slideCount >= 2 ? (
+            <>
+              {count === 1 ? null : <PrevBtn onClick={left}>좌</PrevBtn>}
+              {count === slideCount ? null : (
+                <NextBtn onClick={right}>우</NextBtn>
+              )}
+            </>
+          ) : null}
           <LikedWebToonBack>
             <LikedWebToons id="slide">
               {userInfo.data.liked_webtoons.length === 0 || userInfo.data.liked_webtoons === undefined ? (
@@ -216,14 +216,17 @@ function ProfilePage() {
                     key={likedWebtoon.webtoon_id}
                     id={likedWebtoon.webtoon_id}
                   >
-                    <LikedWebToonThumbnail
-                      src={likedWebtoon.thumbnail}
-                      alt="찜한 웹툰 이미지"
-                      onClick={moveDetail}
-                    ></LikedWebToonThumbnail>
-                    <LikedWebToonTitle onClick={moveDetail}>
-                      {likedWebtoon.title}
-                    </LikedWebToonTitle>
+                    <ThumnailBox onClick={moveDetail}>
+                      <LikedWebToonThumbnail
+                        src={likedWebtoon.thumbnail}
+                        alt="찜한 웹툰 이미지"
+                      ></LikedWebToonThumbnail>
+                    </ThumnailBox>
+                    <ToonInfo>
+                      <LikedWebToonTitle onClick={moveDetail}>
+                        {likedWebtoon.title}
+                      </LikedWebToonTitle>
+                    </ToonInfo>
                   </LikedWebToon>
                 ))
               )}
@@ -437,7 +440,7 @@ const PrevBtn = styled.div`
   cursor: pointer;
   position: absolute;
   margin-top: 7vw;
-  margin-left: -4.5vw;
+  margin-left: -1vw;
   font-size: 5vw;
   z-index: 1;
 `
@@ -446,7 +449,7 @@ const NextBtn = styled.div`
   cursor: pointer;
   position: absolute;
   margin-top: 7vw;
-  margin-left: 73vw;
+  margin-left: 84vw;
   font-size: 5vw;
   z-index: 1;
 `;
@@ -458,7 +461,7 @@ const LikedWebToonBack = styled.div`
   height: 20vw;
   overflow: hidden;
   border-radius: 0.6vw;
-  border: 0.2vw solid black;
+  border: 0.15vw solid black;
 `;
 
 const LikedWebToons = styled.div`
@@ -466,18 +469,23 @@ const LikedWebToons = styled.div`
   display: flex;
   left: 0vw;
   background-color: #feec91;
-  height: 20vw;
   transition: all 1s;
 `;
 
 const LikedWebToon = styled.div`
-  cursor: pointer;
-  width: 14vw;
-  margin-left: 2.2vw;
-  margin-top: 1vw;
-  padding: 0.8vw;
-  padding-bottom: 4vw;
+  width: 16vw;
+  margin-top: 1.5vw;
+  margin-left: 4.75vw;
 `;
+
+const ThumnailBox = styled.div`
+  background-color: white;
+  width: 100%;
+  height: 15vw;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
+  cursor: pointer;
+`
 
 const LikedWebToonThumbnail = styled.img`
   object-fit: fill;
@@ -488,9 +496,18 @@ const LikedWebToonThumbnail = styled.img`
   border-top-right-radius: 0.8vw;
 `
 
+const ToonInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  border-bottom-left-radius: 0.8vw;
+  border-bottom-right-radius: 0.8vw;
+  cursor: pointer;
+`
+
 const LikedWebToonTitle = styled.div`
-  width: 14vw;
-  white-space: nowrap;
+ white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1.3vw;
@@ -498,7 +515,6 @@ const LikedWebToonTitle = styled.div`
   margin: 0;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
-  background-color: white;
 `
 const ViewWebToonBack = styled.div`
   display: flex;
