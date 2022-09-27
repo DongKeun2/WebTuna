@@ -29,7 +29,7 @@ function DetailPage() {
   const [otherWebToons, setOtherWebToons] = useState();
   const [paintGraphData, setPaintGraphData] = useState();
   const [ratingGraphData, setRatingGraphData] = useState();
-  const [averageRating, setAverageRating] = useState();
+  const [ratingCount, setRatingCount] = useState();
   const [modal, setModal] = useState(false);
   const [count, setCount] = useState(1);
   const [slideCount, setSlideCount] = useState();
@@ -68,7 +68,7 @@ function DetailPage() {
           res.payload.data.webtoon_rate[9],
           res.payload.data.webtoon_rate[10],
         ]);
-        setAverageRating(getAverageRating(res.payload.data));
+        setRatingCount(getRatingCount(res.payload.data));
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
           Math.floor(Number(res.payload.author_webtoons.length) / 4)
@@ -111,7 +111,7 @@ function DetailPage() {
           res.payload.data.webtoon_rate[9],
           res.payload.data.webtoon_rate[10],
         ]);
-        setAverageRating(getAverageRating(res.payload.data));
+        setRatingCount(getRatingCount(res.payload.data));
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
           Math.ceil(Number(res.payload.author_webtoons.length) / 4)
@@ -135,17 +135,13 @@ function DetailPage() {
     }
   }
 
-  function getAverageRating(data) {
-    let sum = 0;
+  function getRatingCount(data) {
     let total = 0;
     for (let i = 0; i < 11; i++) {
-      sum += data.webtoon_rate[i] * (0.5 * i);
       total += data.webtoon_rate[i];
     }
-    if (total === 0) {
-      return 0;
-    }
-    return sum / total;
+
+    return total;
   }
 
   function switchModal() {
@@ -409,11 +405,11 @@ function DetailPage() {
                 </TitleAuthor>
                 <RatingGenreDay>
                   <RatingZone>
-                    별점 ★ {averageRating.toFixed(1)}
+                    별점 ★ {Math.round(webToonInfo.data.rating * 10) / 10} ({ratingCount}명)
                     {loginState === null ? (
                       <RatingButton onClick={toLogin}>별점 주기</RatingButton>
                     ) : webToonInfo.is_rated === 1 ? (
-                      " 　이미 평가하셨습니다."
+                      <AlreadyRating>참여 완료</AlreadyRating>
                     ) : (
                       <RatingButton onClick={switchModal}>
                         별점 주기
@@ -703,6 +699,7 @@ const RatingButton = styled.div`
   }
 `;
 
+<<<<<<< HEAD
 const ModalTitle = styled.div`
 margin-top: 3vw;
 font-size:2vw;
@@ -710,6 +707,16 @@ font-size:2vw;
 
 const StarZone = styled.div`
 margin-top: 2vw;
+=======
+const AlreadyRating = styled.div`
+  display: inline;
+  margin-left: 3vw;
+  font-size: 1.5vw;
+  border: 1px solid black;
+  border-radius: 0.6vw;
+  background-color: lightgray;
+  padding: 0.3vw;
+>>>>>>> 36265cc (fix: 프로필 페이지 조금 수정)
 `
 
 const Genre = styled.div`
