@@ -89,6 +89,7 @@ export const searchSlice = createSlice({
     [searchToons.fulfilled]: (state, action) => {
       console.log("데이터 받기 성공");
       console.log(action.payload);
+
       if (action.payload.length < 20) {
         console.log("스크롤 그만");
         state.possibleFetch = false;
@@ -96,12 +97,22 @@ export const searchSlice = createSlice({
       state.toonList = action.payload;
     },
     [addToons.fulfilled]: (state, action) => {
+      const currentToons = [...state.toonList];
+      const toons = [...state.toonList, ...action.payload];
       if (action.payload.length < 20) {
         state.possibleFetch = false;
         console.log("스크롤 그만");
+        state.toonList = toons;
+      } else if (
+        currentToons[currentToons.length - 20].webtoon_id ===
+        action.payload[0].webtoon_id
+      ) {
+        state.possibleFetch = false;
+        console.log("스크롤 그만");
+      } else {
+        console.log("데이터 붙이기");
+        state.toonList = toons;
       }
-      const toons = [...state.toonList, ...action.payload];
-      state.toonList = toons;
     },
     [getTags.fulfilled]: (action) => {
       console.log("태그 가져오기 성공");
