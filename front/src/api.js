@@ -54,6 +54,7 @@ const SEARCH_IMG_URL = "search/image/";
 >>>>>>> 6e82ed7 (feat: toonbti 질문&보기 구현)
 
 const TOON_LIST_URL = "list/";
+const FILTER_URL = "filter/";
 const TAG_URL = "tag/";
 
 const TOONBTI_URL = "games/question/";
@@ -107,10 +108,20 @@ const api = {
 =======
 
   //toonlistSlice
+<<<<<<< HEAD
   fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum,
 <<<<<<< HEAD
 >>>>>>> 921bee3 (feat: 웹툰 전체 목록 api 연결)
 =======
+=======
+  fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum + "/",
+
+  //filterSlice
+  filterToons: (pageNum) => BASE_URL + WEBTOONS_URL + FILTER_URL + pageNum + "/",
+
+  //toonBTISlice
+  fetchToonBTI: () => BASE_URL + TOONBTI_URL,
+>>>>>>> 12b2ccd (feat: 필터 api 생성 및 filterSlice 기초 세팅)
 
   //detailSlice
 <<<<<<< HEAD
