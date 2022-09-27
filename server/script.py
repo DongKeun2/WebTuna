@@ -819,5 +819,9 @@ webtoon_list = json.load(a)
 #         if type_data != i:
 #             num += 1
 #             webtoon.draw_classifies.add(i)
+<<<<<<< HEAD
 #     print(num)
 >>>>>>> c9803bc (fix : profile 수정, email,nickname 중복확인 수정)
+=======
+#     print(num)
+>>>>>>> c5812ab (feat : rating model추가, rating views 수정)

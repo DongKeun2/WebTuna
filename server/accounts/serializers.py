@@ -108,8 +108,6 @@ class ProfileMainSerializer(serializers.ModelSerializer):
             model = Tag
             fields = ('tag_id', 'name')
 
-    liked_webtoons = LikeWebtoonSerializer(many=True)
-    tags = TagSerializer(many=True)
     
     class Meta:
         model = Member

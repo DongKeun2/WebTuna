@@ -57,7 +57,7 @@ class WebtoonSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Webtoon
-        fields= ('webtoon_id','title','summary','thumbnail','page','adult','days','genres','authors','tags','platforms', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'webtoon_rate', 'liked_webtoon_users')
+        fields= ('webtoon_id','title','summary','thumbnail','page','adult','days','genres','authors','tags','platforms', 'image_type1', 'image_type2', 'image_type3', 'image_type4', 'image_type5', 'image_type6', 'webtoon_rate', 'liked_webtoon_users', 'rating')
 
     def get_webtoon_rate(self, obj):
         rate_list = []        

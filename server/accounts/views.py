@@ -169,12 +169,7 @@ def PasswordCheck(request):
 
 # @api_view(['GET'])
 # def TestUser(request):
-#     genre_webtoons = Genre.objects.get(genre_type='소년')
-#     webtoons = genre_webtoons.genre_webtoons.all()
-#     for webtoon in webtoons:
-        
-#     have_rate_webtoon = webtoons.objects.filter(webtoon_ratings = )
-#     print(webtoons)
+#     Webtoon
     
 <<<<<<< HEAD
 #     serializer = TestUserSerializer(member)

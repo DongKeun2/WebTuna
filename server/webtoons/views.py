@@ -420,6 +420,16 @@ def webtoonRate(request, webtoonId):
     if serializer.is_valid(raise_exception=True):
         serializer.save(webtoon=webtoon, user=request.user)
 
+        ratings = webtoon.webtoon_ratings.all()
+        num = 0
+
+        for rating in ratings:
+            num += rating.rating
+
+        rating_num = round(num/len(ratings), 2)
+        webtoon.rating = rating_num
+        webtoon.save()
+
         serializer = WebtoonSerializer(webtoon)
         return Response(serializer.data, status.HTTP_200_OK)
 
@@ -823,4 +833,8 @@ def searchImageWebtoon(request):
 #     serializers = MovieRecommendSerializer(choice_movies, many=True)
 
 #     return Response(serializers.data, status.HTTP_200_OK)
+<<<<<<< HEAD
 >>>>>>> c9803bc (fix : profile 수정, email,nickname 중복확인 수정)
+=======
+
+>>>>>>> c5812ab (feat : rating model추가, rating views 수정)

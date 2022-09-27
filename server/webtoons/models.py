@@ -50,6 +50,7 @@ class Webtoon(models.Model):
     image_type5 = models.FloatField(null=True)
     image_type6 = models.FloatField(null=True)
     view_count = models.IntegerField(default=0)
+    rating = models.FloatField(default=0)
     days = models.ManyToManyField('Day', related_name='day_webtoons')
     authors = models.ManyToManyField('Author', related_name='author_webtoons' )
     genres = models.ManyToManyField('Genre', related_name='genre_webtoons')
