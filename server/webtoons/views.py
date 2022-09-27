@@ -262,12 +262,12 @@ import requests
 
 @api_view(['GET'])
 def mainPage(request):
-    webtoon1 = Webtoon.objects.filter(image_type1__gte = 90).order_by('-image_type1')[:6]
-    webtoon2 = Webtoon.objects.filter(image_type2__gte = 90).order_by('-image_type2')[:6]
-    webtoon3 = Webtoon.objects.filter(image_type3__gte = 90).order_by('-image_type3')[:6]
-    webtoon4 = Webtoon.objects.filter(image_type4__gte = 90).order_by('-image_type4')[:6]
-    webtoon5 = Webtoon.objects.filter(image_type5__gte = 90).order_by('-image_type5')[:6]
-    webtoon6 = Webtoon.objects.filter(image_type6__gte = 90).order_by('-image_type6')[:6]
+    webtoon1 = Webtoon.objects.filter(image_type1__gte = 90).order_by('-rating')[:6]
+    webtoon2 = Webtoon.objects.filter(image_type2__gte = 90).order_by('-rating')[:6]
+    webtoon3 = Webtoon.objects.filter(image_type3__gte = 90).order_by('-rating')[:6]
+    webtoon4 = Webtoon.objects.filter(image_type4__gte = 90).order_by('-rating')[:6]
+    webtoon5 = Webtoon.objects.filter(image_type5__gte = 90).order_by('-rating')[:6]
+    webtoon6 = Webtoon.objects.filter(image_type6__gte = 90).order_by('-rating')[:6]
 
     webtoon_1 = WebtoonListSerializer(webtoon1, many = True)
     webtoon_2 = WebtoonListSerializer(webtoon2, many = True)
