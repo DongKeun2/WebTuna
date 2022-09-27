@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchToonlist } from "../../features/toons/toonlistSlice"
+import { fetchToonlist, addToonlist, changePage, changeFetchPossible } from "../../features/toons/toonlistSlice"
 import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
 import ModalFrame from "../../components/common/ModalFrame";
@@ -12,11 +12,51 @@ function WebtoonPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchToonlist());
+    const data = {
+      page: 1,
+    };
+    dispatch(changePage(1));
+    dispatch(changeFetchPossible(true));
+    dispatch(fetchToonlist(data));
   }, [dispatch]);
 
   const toons = useSelector((state) => state.toonlist.toons) || [];
 
+  const [fetching, setFetching] = useState(false);
+  const fetchPossible = useSelector((state) => state.toonlist.fetchPossible);
+  const page = useSelector((state) => state.toonlist.page);
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (
+      scrollTop + clientHeight >= scrollHeight &&
+      !fetching &&
+      fetchPossible
+    ) {
+      dispatch(changePage(page + 1));
+      fetchNextPage();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
+  const fetchNextPage = async () => {
+    setFetching(true);
+    const data = {
+      page: page+1,
+    };
+    dispatch(addToonlist(data)).then(() => {
+      setFetching(false);
+    });
+  };
+  
   function switchModal() {
     setModal((prev) => !prev);
   }
@@ -216,7 +256,7 @@ const TagBox = styled.div`
 const PlatformGroup = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `
 
 const PlatformBtn = styled.div`
@@ -237,7 +277,7 @@ const PlatformBtn = styled.div`
 const DayGroup = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 `
 
@@ -261,7 +301,7 @@ const DayBtn = styled.div`
 const GenreGroup = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 `
 
@@ -283,7 +323,7 @@ const GenreBtn = styled.div`
 `
 
 const GroupHeader = styled.p`
-  width: 96%;
+  width: 100%;
   margin: 0.5vw auto;
   padding-bottom: 0.5vw;
   font-size: 1.5vw;
