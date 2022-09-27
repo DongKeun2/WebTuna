@@ -1,10 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Carousel from "nuka-carousel";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import items from "../../assets/banner/bannerItem";
 import { changeState } from "../../features/toons/mainSlice";
+import "./banner.css";
 
 const Button = styled.button`
   padding: 10px;
@@ -54,8 +55,16 @@ function Banner() {
           </Button>
         )}
         defaultControlsConfig={{
+          pagingDotsContainerClassName: "dotsBox",
+          pagingDotsClassName: "dots",
           pagingDotsStyle: {
-            padding: "0px 3px",
+            fill: "none",
+            backgroundColor: "#feec91",
+            width: "100%",
+            height: "110%",
+            borderTop: "3px solid #feec91",
+            border: "3px solid black",
+            borderRadius: "0px 0px 10px 10px",
           },
         }}
       >
@@ -80,6 +89,7 @@ function Item({ item }) {
 const CarouselBox = styled.div`
   width: 85vw;
   height: 50vh;
+  margin-bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,7 +107,7 @@ const OuterBox = styled.div`
   align-items: center;
   width: 99%;
   height: 47vh;
-  background-color: white;
+  background-color: #feec91;
   border: 3px solid black;
   border-radius: 15px;
   @media screen and (max-width: 900px) {

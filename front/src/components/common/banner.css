@@ -1,0 +1,34 @@
+.slider-control-bottomcenter {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  top: 3.4vh;
+}
+
+.dotsBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 90%;
+}
+
+.paging-item {
+  display: flex;
+  justify-content: end;
+  border-radius: 0 0 10px 10px;
+  background-color: white;
+  width: 50%;
+  height: 50%;
+}
+
+.paging-item:hover {
+  background-color: #afafaf;
+}
+
+.active {
+  top: 0.5vh;
+  height: 80%;
+}
