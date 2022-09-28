@@ -1221,8 +1221,9 @@ def drawRecommend(user):
 
     # 선호 그림체 타입 top3 id 저장
     like_image_type_id_list = []
+    print(sort_image_types)
     for like_image_type in sort_image_types[:3]:
-        like_image_type_id_list.append(like_image_type[0][-2:])
+        like_image_type_id_list.append(like_image_type[0].split('_')[1][4:])
 
     like_image_type_list = Webtoon.objects.filter(draw_classifies__in = like_image_type_id_list).order_by('-rating')[:10]
 
