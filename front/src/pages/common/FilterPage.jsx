@@ -40,7 +40,7 @@ function FilterPage() {
     dispatch(changePossibleFetch(true));
     dispatch(filterToons(data));
     window.scrollTo(0, 0);
-  }, [dispatch]);
+  }, [dispatch]); 
 
   const toonList = useSelector((state) => state.filter.toonList) || [];
   
