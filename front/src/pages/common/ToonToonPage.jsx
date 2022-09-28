@@ -6,6 +6,8 @@ import MySwal from "../../components/common/SweetAlert";
 import AllToonList from "../../components/toonlist/AllToonList";
 import Loading from "../../components/common/Loading";
 import { fetchtuntun, changeFocusTun } from "../../features/toons/tuntunSlice";
+import tuntunItem from "../../assets/tuntun/tuntunItem";
+import ToonItem from "../../components/toonlist/ToonItem";
 
 function ToonToonPage() {
   const dispatch = useDispatch();
@@ -38,7 +40,6 @@ function ToonToonPage() {
         <Loading text={"웹툰 잡아오는 중..."}></Loading>
       ) : (
         <div>
-          <h1>추천 페이지</h1>
           <div>{toons && <ToonList toons={toons} />}</div>
         </div>
       )}
@@ -53,14 +54,14 @@ function ToonList({ toons }) {
     if (i + 1 < Object.keys(toons).length) {
       rows.push(
         <ToonListBox key={i}>
-          <LeftToon toons={toons[i]} />
-          <RightToon toons={toons[i + 1]} />
+          <LeftToon type={i} toons={toons[i]} />
+          <RightToon type={i + 1} toons={toons[i + 1]} />
         </ToonListBox>
       );
     } else {
       rows.push(
         <ToonListBox key={i}>
-          <LeftToon toons={toons[i]} />
+          <LeftToon type={i} toons={toons[i]} />
         </ToonListBox>
       );
     }
@@ -73,39 +74,94 @@ const ToonListBox = styled.div`
   flex-direction: column;
 `;
 
-function LeftToon({ toons }) {
+function LeftToon({ toons, type }) {
+  const [isHover, setIsHover] = useState(false);
   return (
     <LeftBox>
-      <h1>왼쪽 상자</h1>
-      <ToonBox>
-        <AllToonList toons={toons} />
-      </ToonBox>
+      <LeftContentBox
+        onMouseOver={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        {isHover ? (
+          <ToonBox>
+            {toons.map((toon) => (
+              <ToonItem toontoon={true} key={toon.webtoon_id} item={toon} />
+            ))}
+          </ToonBox>
+        ) : (
+          <ImgBox>
+            <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+          </ImgBox>
+        )}
+      </LeftContentBox>
     </LeftBox>
   );
 }
 
-const ToonBox = styled.div`
-  display: flex;
+const LeftContentBox = styled.div`
+  height: 17vw;
+  overflow: hidden;
 `;
 
 const LeftBox = styled.div`
   align-self: start;
+  width: 80%;
 `;
 
-function RightToon({ toons }) {
+const ImgBox = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`;
+
+const TunImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+`;
+
+const ToonBox = styled.div`
+  display: flex;
+  height: 100%;
+  /* display: grid; */
+  /* grid-template-columns: 100px 100 100 100; */
+`;
+
+function RightToon({ toons, type }) {
+  const [isHover, setIsHover] = useState(false);
   return (
     <RightBox>
-      <h1>오른쪽 상자</h1>
-      <ToonBox>
-        <AllToonList toons={toons} />
-      </ToonBox>
+      <RightContentBox
+        onMouseOver={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        {isHover ? (
+          <ToonBox>
+            <ToonBox>
+              {toons.map((toon) => (
+                <ToonItem toontoon={true} key={toon.webtoon_id} item={toon} />
+              ))}
+            </ToonBox>
+          </ToonBox>
+        ) : (
+          <ImgBox>
+            <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+          </ImgBox>
+        )}
+      </RightContentBox>
     </RightBox>
   );
 }
 
+const RightContentBox = styled.div`
+  height: 17vw;
+  overflow: hidden;
+`;
+
 const RightBox = styled.div`
-  text-align: end;
   align-self: flex-end;
+  width: 80%;
+  text-align: end;
 `;
 
 export default ToonToonPage;

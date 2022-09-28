@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-function ToonItem({ item, main }) {
+function ToonItem({ item, main, toontoon }) {
   // 작가 이름 추출
   let authors = "";
   for (const num in item.author_name) {
@@ -22,7 +22,7 @@ function ToonItem({ item, main }) {
 
   return (
     <OneToon>
-      <ImgBox main={main} onClick={moveDetail}>
+      <ImgBox main={main} toontoon={toontoon} onClick={moveDetail}>
         <ToonThumbnail src={item.thumbnail} alt="" />
       </ImgBox>
       <ToonInfo onClick={moveDetail}>
@@ -41,7 +41,8 @@ const OneToon = styled.div`
 const ImgBox = styled.div`
   background-color: white;
   width: 100%;
-  height: ${(props) => (props.main ? "18vh" : "15vw")};
+  height: ${(props) =>
+    props.main ? "18vh" : props.toontoon ? "12vw" : "15vw"};
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
   cursor: pointer;

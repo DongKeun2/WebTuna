@@ -25,7 +25,7 @@ const LoadingBox = styled.div`
 
 const LoadingMsg = styled.p`
   position: absolute;
-  top: 55%;
+  top: 60%;
   left: 35%;
   font-size: 3vw;
   font-weight: bold;
