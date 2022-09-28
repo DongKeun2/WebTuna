@@ -271,9 +271,17 @@ const PageTitle = styled.p`
 
 const FilterBtn = styled.button`
   font-size: 1vw;
-  width: 8vw;
-  height: 2.5vw;
+  font-weight: 700;
+  padding: 0.8vw 2vw;
   margin-right: 1vw;
+  background-color: white;
+  text-align: center;
+  border: 3px solid #D1E2FF;
+  border-radius: 0.8vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    border-radius: 8px;
+  }
   cursor: pointer;
 `
 
