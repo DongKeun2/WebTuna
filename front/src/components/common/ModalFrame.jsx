@@ -37,7 +37,7 @@ const ModalBlock = styled.div`
   position: fixed;
   border: 1px black solid;
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: 0 1.5rem;
   background-color: white;
   top: ${(props) => props.top || '10rem'};
   width: ${(props) => props.width || '50%'};

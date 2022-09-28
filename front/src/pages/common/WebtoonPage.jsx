@@ -1,16 +1,32 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchToonlist, addToonlist, changePage, changeFetchPossible } from "../../features/toons/toonlistSlice"
+import {
+  fetchToonlist,
+  addToonlist,
+  changePage,
+  changeFetchPossible
+} from "../../features/toons/toonlistSlice"
+import {
+//   filterToons,
+  changePlatform,
+  changeDay,
+  changeGenre,
+//   changeTag,
+} from "../../features/toons/filterSlice"
 import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
 import ModalFrame from "../../components/common/ModalFrame";
 import ToonLoading from "../../components/toonlist/ToonLoading"
 import Fish_0 from "../../assets/filter/fish0.png"
+import Fish_1 from "../../assets/filter/fish1.png"
+import Fish_2 from "../../assets/filter/fish2.png"
+import Fish_3 from "../../assets/filter/fish3.png"
+import Fish_4 from "../../assets/filter/fish4.png"
+import Fish_5 from "../../assets/filter/fish5.png"
 
 function WebtoonPage() {
-  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     const data = {
       page: 1,
@@ -22,7 +38,7 @@ function WebtoonPage() {
   }, [dispatch]);
 
   const toons = useSelector((state) => state.toonlist.toons) || [];
-
+  
   const [fetching, setFetching] = useState(false);
   const fetchPossible = useSelector((state) => state.toonlist.fetchPossible);
   const page = useSelector((state) => state.toonlist.page);
@@ -47,7 +63,7 @@ function WebtoonPage() {
       window.removeEventListener("scroll", handleScroll);
     };
   });
-
+  
   const fetchNextPage = async () => {
     setFetching(true);
     const data = {
@@ -58,9 +74,35 @@ function WebtoonPage() {
     });
   };
   
+  const [modal, setModal] = useState(false);
+  
   function switchModal() {
     setModal((prev) => !prev);
   }
+
+  // const filterInfo = useSelector((state) => state.filter.filterInfo);
+  const platformList = useSelector((state) => state.filter.filterInfo.platform);
+  const dayList = useSelector((state) => state.filter.filterInfo.day);
+  const genreList = useSelector((state) => state.filter.filterInfo.genre);
+  // const tagList = useSelector((state) => state.filter.filterInfo.tag);
+
+  const clickedNum = platformList.length + dayList.length + genreList.length
+
+  function changePlatformList(e) {
+    dispatch(changePlatform(Number(e.target.value)));
+  }
+
+  function changeDayList(e) {
+    dispatch(changeDay(Number(e.target.value)));
+  }
+
+  function changeGenreList(e) {
+    dispatch(changeGenre(Number(e.target.value)));
+  }
+
+  // function changeTagList(e) {
+  //   dispatch(changeTag(Number(e.target.value)));
+  // }
 
   return (
     <Container>
@@ -69,48 +111,48 @@ function WebtoonPage() {
           <PageTitle>전체 웹툰 목록</PageTitle>
           <FilterBtn onClick={switchModal}>필터</FilterBtn>
           {modal ? (
-            <ModalFrame top="1vw" width="75%" height="auto" _handleModal={switchModal}>
+            <ModalFrame top="0.3vw" width="75%" height="auto" _handleModal={switchModal}>
               <ModalContainer>
                 <FilterBox>
                   <PlatformBox>
                     <GroupHeader>플랫폼</GroupHeader>
                     <PlatformGroup>
-                      <PlatformBtn>네이버</PlatformBtn>
-                      <PlatformBtn>카카오웹툰</PlatformBtn>
-                      <PlatformBtn>카카오페이지</PlatformBtn>
+                      <PlatformBtn active={platformList.includes(1)} onClick={changePlatformList} value={1}>네이버</PlatformBtn>
+                      <PlatformBtn active={platformList.includes(2)} onClick={changePlatformList} value={2}>카카오웹툰</PlatformBtn>
+                      <PlatformBtn active={platformList.includes(3)} onClick={changePlatformList} value={3}>카카오페이지</PlatformBtn>
                     </PlatformGroup>
                   </PlatformBox>
                   <DayBox>
                     <GroupHeader>요일</GroupHeader>
                     <DayGroup>
-                      <DayBtn>월</DayBtn>
-                      <DayBtn>화</DayBtn>
-                      <DayBtn>수</DayBtn>
-                      <DayBtn>목</DayBtn>
-                      <DayBtn>금</DayBtn>
-                      <DayBtn>토</DayBtn>
-                      <DayBtn>일</DayBtn>
-                      <DayBtn>완결</DayBtn>
+                      <DayBtn active={dayList.includes(1)} onClick={changeDayList} value={1}>월</DayBtn>
+                      <DayBtn active={dayList.includes(2)} onClick={changeDayList} value={2}>화</DayBtn>
+                      <DayBtn active={dayList.includes(3)} onClick={changeDayList} value={3}>수</DayBtn>
+                      <DayBtn active={dayList.includes(4)} onClick={changeDayList} value={4}>목</DayBtn>
+                      <DayBtn active={dayList.includes(5)} onClick={changeDayList} value={5}>금</DayBtn>
+                      <DayBtn active={dayList.includes(6)} onClick={changeDayList} value={6}>토</DayBtn>
+                      <DayBtn active={dayList.includes(7)} onClick={changeDayList} value={7}>일</DayBtn>
+                      <DayBtn active={dayList.includes(8)} onClick={changeDayList} value={8}>완결</DayBtn>
                     </DayGroup>
                   </DayBox>
                   <GenreBox>
                     <GroupHeader>장르</GroupHeader>
                     <GenreGroup>
-                      <GenreBtn>스토리</GenreBtn>
-                      <GenreBtn>로맨스</GenreBtn>
-                      <GenreBtn>판타지</GenreBtn>
-                      <GenreBtn>드라마</GenreBtn>
-                      <GenreBtn>스릴러</GenreBtn>
-                      <GenreBtn>옴니버스</GenreBtn>
-                      <GenreBtn>일상</GenreBtn>
-                      <GenreBtn>액션</GenreBtn>
-                      <GenreBtn>에피소드</GenreBtn>
-                      <GenreBtn>무협/사극</GenreBtn>
-                      <GenreBtn>스포츠</GenreBtn>
-                      <GenreBtn>개그</GenreBtn>
-                      <GenreBtn>감성</GenreBtn>
-                      <GenreBtn>소년</GenreBtn>
-                      <GenreBtn>BL</GenreBtn>
+                      <GenreBtn active={genreList.includes(1)} onClick={changeGenreList} value={1}>스토리</GenreBtn>
+                      <GenreBtn active={genreList.includes(2)} onClick={changeGenreList} value={2}>로맨스</GenreBtn>
+                      <GenreBtn active={genreList.includes(3)} onClick={changeGenreList} value={3}>판타지</GenreBtn>
+                      <GenreBtn active={genreList.includes(4)} onClick={changeGenreList} value={4}>드라마</GenreBtn>
+                      <GenreBtn active={genreList.includes(5)} onClick={changeGenreList} value={5}>스릴러</GenreBtn>
+                      <GenreBtn active={genreList.includes(6)} onClick={changeGenreList} value={6}>옴니버스</GenreBtn>
+                      <GenreBtn active={genreList.includes(7)} onClick={changeGenreList} value={7}>일상</GenreBtn>
+                      <GenreBtn active={genreList.includes(8)} onClick={changeGenreList} value={8}>액션</GenreBtn>
+                      <GenreBtn active={genreList.includes(9)} onClick={changeGenreList} value={9}>에피소드</GenreBtn>
+                      <GenreBtn active={genreList.includes(10)} onClick={changeGenreList} value={10}>무협/사극</GenreBtn>
+                      <GenreBtn active={genreList.includes(11)} onClick={changeGenreList} value={11}>스포츠</GenreBtn>
+                      <GenreBtn active={genreList.includes(12)} onClick={changeGenreList} value={12}>개그</GenreBtn>
+                      <GenreBtn active={genreList.includes(13)} onClick={changeGenreList} value={13}>감성</GenreBtn>
+                      <GenreBtn active={genreList.includes(14)} onClick={changeGenreList} value={14}>소년</GenreBtn>
+                      <GenreBtn active={genreList.includes(15)} onClick={changeGenreList} value={15}>BL</GenreBtn>
                     </GenreGroup>
                   </GenreBox>
                   <TagBox>
@@ -118,9 +160,35 @@ function WebtoonPage() {
                   </TagBox>
                 </FilterBox>
                 <ImgBox>
-                  <FishingImg src={Fish_0}/>
+                  {clickedNum >= 5 ? (
+                    <FishingImg src={Fish_5}/>
+                  ) : (
+                    clickedNum === 4 ? (
+                      <FishingImg src={Fish_4}/>
+                    ) : (
+                      clickedNum === 3 ? (
+                        <FishingImg src={Fish_3}/>
+                      ) : (
+                        clickedNum === 2 ? (
+                          <FishingImg src={Fish_2}/>
+                        ) : (
+                          clickedNum === 1 ? (
+                            <FishingImg src={Fish_1}/>
+                          ) : (
+                            <FishingImg src={Fish_0}/>
+                          )
+                        )
+                      )    
+                    )
+                  )}
                 </ImgBox>
               </ModalContainer>
+              <SubmitBtn
+                active={clickedNum > 0 ? true : false}
+                // onClick={fileImage ? checkImage : null}
+              >
+                확인
+              </SubmitBtn>
             </ModalFrame>
           ) : null}
         </HeaderBox>
@@ -184,14 +252,13 @@ const FilterBtn = styled.button`
 
 const ModalContainer = styled.div`
   width: 98%;
-  @media screen and (max-width: 750px) {
-    width: 80%;
-  }
   height: 43vw;
+  margin-top: 0.5vw;
   display: flex;
   justify-content: space-between;
   /* border: 1px solid; */
   @media screen and (max-width: 750px) {
+    width: 80%;
     height: auto;
     margin-top: 15px;
   }
@@ -260,7 +327,8 @@ const PlatformGroup = styled.div`
   justify-content: space-between;
 `
 
-const PlatformBtn = styled.div`
+const PlatformBtn = styled.button`
+  background-color: ${(props) => (props.active ? "#D1E2FF" : "white")};
   width: 30%;
   margin-bottom: 0.5vw;
   padding: 0.4vw 0;
@@ -282,8 +350,9 @@ const DayGroup = styled.div`
   flex-wrap: wrap;
 `
 
-const DayBtn = styled.div`
-  width: 20%;
+const DayBtn = styled.button`
+  background-color: ${(props) => (props.active ? "#D1E2FF" : "white")};
+  width: 21%;
   margin-bottom: 0.8vw;
   padding: 0.3vw 0;
   font-size: 12px;
@@ -306,7 +375,8 @@ const GenreGroup = styled.div`
   flex-wrap: wrap;
 `
 
-const GenreBtn = styled.div`
+const GenreBtn = styled.button`
+  background-color: ${(props) => (props.active ? "#D1E2FF" : "white")};
   width: 19%;
   margin-bottom: 1vw;
   padding: 0.4vw 0;
@@ -347,6 +417,22 @@ const ImgBox = styled.div`
 const FishingImg = styled.img`
   width: 100%;
   height: 100%;
+`
+
+const SubmitBtn = styled.button`
+  background-color: ${(props) => (props.active ? "#feec91" : "#e2e8f0")};
+  font-weight: ${(props) => (props.active ? "700" : "500")};
+  padding: 0.6vw 2vw;
+  @media screen and (max-width: 750px) {
+    padding: 8px 16px;
+  }
+  border-radius: 12px;
+  border: 6px solid white;
+  margin-top: 1vw;
+  margin-bottom: 0.5vw;
+  width: "50px";
+  height: "30px";
+  cursor: ${(props) => (props.active ? "pointer" : "not-allowed")};
 `
 
 const ToonListBox = styled.div`

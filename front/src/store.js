@@ -19,6 +19,7 @@ import toonlistReducer from "./features/toons/toonlistSlice"
 >>>>>>> 921bee3 (feat: 웹툰 전체 목록 api 연결)
 =======
 import toonlistReducer from "./features/toons/toonlistSlice";
+import filterReducer from "./features/toons/filterSlice";
 import searchReducer from "./features/toons/searchSlice";
 >>>>>>> 983faba (feat: 검색기능 api 연결)
 
@@ -37,8 +38,12 @@ const store = configureStore({
 
     toonlist: toonlistReducer,
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 921bee3 (feat: 웹툰 전체 목록 api 연결)
 =======
+=======
+    filter: filterReducer,
+>>>>>>> 71cc3a0 (feat: 필터 api 생성 및 태그 제외 필터 관련 모든 기능 제출 빼고 구현 완료)
     search: searchReducer,
 >>>>>>> 983faba (feat: 검색기능 api 연결)
   },

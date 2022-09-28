@@ -28,16 +28,32 @@ export const filterSlice = createSlice({
 
   reducers: {
     changePlatform: (state, action) => {
-    state.filterInfo.platform = action.payload;
+      state.filterInfo.platform.includes(action.payload) ? (
+        state.filterInfo.platform = state.filterInfo.platform.filter((element) => element !== action.payload)
+      ) : (
+        state.filterInfo.platform.push(action.payload)
+      )
     },
     changeDay: (state, action) => {
-    state.filterInfo.day = action.payload;
+      state.filterInfo.day.includes(action.payload) ? (
+        state.filterInfo.day = state.filterInfo.day.filter((element) => element !== action.payload)
+      ) : (
+        state.filterInfo.day.push(action.payload)
+      )
     },
     changeGenre: (state, action) => {
-    state.filterInfo.genre = action.payload;
+      state.filterInfo.genre.includes(action.payload) ? (
+        state.filterInfo.genre = state.filterInfo.genre.filter((element) => element !== action.payload)
+      ) : (
+        state.filterInfo.genre.push(action.payload)
+      )
     },
     changeTag: (state, action) => {
-    state.filterInfo.tag = action.payload;
+      state.filterInfo.tag.includes(action.payload) ? (
+        state.filterInfo.tag = state.filterInfo.tag.filter((element) => element !== action.payload)
+      ) : (
+        state.filterInfo.tag.push(action.payload)
+      )
     },
   },
 
