@@ -29,7 +29,7 @@ const addToonlist = createAsyncThunk(
 export const toonlistSlice = createSlice({
   name: "toonlist",
   initialState: {
-    toons: {},
+    toons: [],
     page: 1,
 
     fetchPossible: true,
@@ -51,11 +51,19 @@ export const toonlistSlice = createSlice({
     },
 
     [addToonlist.fulfilled]: (state, action) => {
+      const currentToons = [...state.toons]
+      const toonlist = [...state.toons, ...action.payload]
       if (action.payload.length < 20) {
         state.fetchPossible = false
+        state.toons = toonlist
+      } else if (
+        currentToons[currentToons.length - 20].webtoon_id ===
+        action.payload[0].webtoon_id
+      ) {
+        state.fetchPossible = false
+      } else {
+        state.toons = toonlist
       }
-      const addToonlist = [...state.toons, ...action.payload]
-      state.toons = addToonlist
     },
   },
 });
