@@ -38,10 +38,13 @@ urlpatterns = [
     # path('classify/insert/', views.insertClassify),
 =======
     path('tag/get/', views.getTag),
+<<<<<<< HEAD
     # path('cf/recommend/', views.cfRecommend),
     # path('weather/recommend/', views.weatherRecommend),
     # path('genre/recommend/', views.genreRecommend),
     # path('tag/recommend/', views.tagRecommend),
     # path('draw/recommend/', views.drawRecommend),
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
+=======
+>>>>>>> 3c6421c (fix: 웹툰 추천 api 수정 - 조건 미달 시 빈 리스트 반환)
 ]

@@ -621,6 +621,7 @@ def recommendWebtoon(request):
 
     # # 유저가 좋아하는 태그 기반 추천
     # elif typeId == 6:
+<<<<<<< HEAD
         
 <<<<<<< HEAD
         return HttpResponseRedirect('http://127.0.0.1:8000/api/webtoons/tag/recommend/')
@@ -902,6 +903,9 @@ def typeToDifference(type, original, comparsion):
 >>>>>>> 09b2f2b (feat: 그림체 기반 추천 알고리즘 구현중)
 =======
 =======
+=======
+            
+>>>>>>> 3c6421c (fix: 웹툰 추천 api 수정 - 조건 미달 시 빈 리스트 반환)
     return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': weather_recommend.data, '3': genre_recommend.data, '4':tag_recommend.data}, status.HTTP_200_OK)
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
@@ -1126,6 +1130,14 @@ def tagRecommend(user):
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
     like_webtoons = member.liked_webtoons.all()
     like_tags = member.tags.all()
+    
+    # 찜한 태그가 3개 미만일 때 빈 리스트 반환
+    if len(like_tags) < 3:
+        reco_lst = []
+        webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+        
+        return webtoons_list
+
     cnt = 0
     reco_lst = set()
     

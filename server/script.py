@@ -875,179 +875,184 @@ webtoon_list = json.load(a)
 =======
 #         print(num)
 
-# 그림체 차이 계산
-def typeToDifference(type, original, comparsion):
-    first_diff = 0
-    second_diff = 0
+# # 그림체 차이 계산
+# def typeToDifference(type, original, comparsion):
+#     first_diff = 0
+#     second_diff = 0
 
-    type1_diff = abs(original.image_type1 - comparsion.image_type1)
-    type2_diff = abs(original.image_type2 - comparsion.image_type2)
-    type3_diff = abs(original.image_type3 - comparsion.image_type3)
-    type4_diff = abs(original.image_type4 - comparsion.image_type4)
-    type5_diff = abs(original.image_type5 - comparsion.image_type5)
-    type6_diff = abs(original.image_type6 - comparsion.image_type6)
+#     type1_diff = abs(original.image_type1 - comparsion.image_type1)
+#     type2_diff = abs(original.image_type2 - comparsion.image_type2)
+#     type3_diff = abs(original.image_type3 - comparsion.image_type3)
+#     type4_diff = abs(original.image_type4 - comparsion.image_type4)
+#     type5_diff = abs(original.image_type5 - comparsion.image_type5)
+#     type6_diff = abs(original.image_type6 - comparsion.image_type6)
 
-    if(type==1): 
-        first_diff = type1_diff
-        second_diff = type2_diff
-    elif(type==2): 
-        first_diff = type1_diff
-        second_diff = type3_diff
-    elif(type==3): 
-        first_diff = type1_diff
-        second_diff = type4_diff
-    elif(type==4): 
-        first_diff = type1_diff
-        second_diff = type5_diff
-    elif(type==5): 
-        first_diff = type1_diff
-        second_diff = type6_diff
-    elif(type==6): 
-        first_diff = type2_diff
-        second_diff = type1_diff
-    elif(type==7): 
-        first_diff = type2_diff
-        second_diff = type3_diff
-    elif(type==8): 
-        first_diff = type2_diff
-        second_diff = type4_diff
-    elif(type==9): 
-        first_diff = type2_diff
-        second_diff = type5_diff
-    elif(type==10): 
-        first_diff = type2_diff
-        second_diff = type6_diff
-    elif(type==11): 
-        first_diff = type3_diff
-        second_diff = type1_diff
-    elif(type==12): 
-        first_diff = type3_diff
-        second_diff = type2_diff
-    elif(type==13): 
-        first_diff = type3_diff
-        second_diff = type4_diff
-    elif(type==14): 
-        first_diff = type3_diff
-        second_diff = type5_diff
-    elif(type==15): 
-        first_diff = type3_diff
-        second_diff = type6_diff
-    elif(type==16): 
-        first_diff = type4_diff
-        second_diff = type1_diff
-    elif(type==17): 
-        first_diff = type4_diff
-        second_diff = type2_diff
-    elif(type==18): 
-        first_diff = type4_diff
-        second_diff = type3_diff
-    elif(type==19): 
-        first_diff = type4_diff
-        second_diff = type5_diff
-    elif(type==20): 
-        first_diff = type4_diff
-        second_diff = type6_diff
-    elif(type==21): 
-        first_diff = type5_diff
-        second_diff = type1_diff
-    elif(type==22): 
-        first_diff = type5_diff
-        second_diff = type2_diff
-    elif(type==23): 
-        first_diff = type5_diff
-        second_diff = type3_diff
-    elif(type==24): 
-        first_diff = type5_diff
-        second_diff = type4_diff
-    elif(type==25): 
-        first_diff = type5_diff
-        second_diff = type6_diff
-    elif(type==26): 
-        first_diff = type6_diff
-        second_diff = type1_diff
-    elif(type==27): 
-        first_diff = type6_diff
-        second_diff = type2_diff
-    elif(type==28): 
-        first_diff = type6_diff
-        second_diff = type3_diff
-    elif(type==29): 
-        first_diff = type6_diff
-        second_diff = type4_diff
-    elif(type==30): 
-        first_diff = type6_diff
-        second_diff = type5_diff
+#     if(type==1): 
+#         first_diff = type1_diff
+#         second_diff = type2_diff
+#     elif(type==2): 
+#         first_diff = type1_diff
+#         second_diff = type3_diff
+#     elif(type==3): 
+#         first_diff = type1_diff
+#         second_diff = type4_diff
+#     elif(type==4): 
+#         first_diff = type1_diff
+#         second_diff = type5_diff
+#     elif(type==5): 
+#         first_diff = type1_diff
+#         second_diff = type6_diff
+#     elif(type==6): 
+#         first_diff = type2_diff
+#         second_diff = type1_diff
+#     elif(type==7): 
+#         first_diff = type2_diff
+#         second_diff = type3_diff
+#     elif(type==8): 
+#         first_diff = type2_diff
+#         second_diff = type4_diff
+#     elif(type==9): 
+#         first_diff = type2_diff
+#         second_diff = type5_diff
+#     elif(type==10): 
+#         first_diff = type2_diff
+#         second_diff = type6_diff
+#     elif(type==11): 
+#         first_diff = type3_diff
+#         second_diff = type1_diff
+#     elif(type==12): 
+#         first_diff = type3_diff
+#         second_diff = type2_diff
+#     elif(type==13): 
+#         first_diff = type3_diff
+#         second_diff = type4_diff
+#     elif(type==14): 
+#         first_diff = type3_diff
+#         second_diff = type5_diff
+#     elif(type==15): 
+#         first_diff = type3_diff
+#         second_diff = type6_diff
+#     elif(type==16): 
+#         first_diff = type4_diff
+#         second_diff = type1_diff
+#     elif(type==17): 
+#         first_diff = type4_diff
+#         second_diff = type2_diff
+#     elif(type==18): 
+#         first_diff = type4_diff
+#         second_diff = type3_diff
+#     elif(type==19): 
+#         first_diff = type4_diff
+#         second_diff = type5_diff
+#     elif(type==20): 
+#         first_diff = type4_diff
+#         second_diff = type6_diff
+#     elif(type==21): 
+#         first_diff = type5_diff
+#         second_diff = type1_diff
+#     elif(type==22): 
+#         first_diff = type5_diff
+#         second_diff = type2_diff
+#     elif(type==23): 
+#         first_diff = type5_diff
+#         second_diff = type3_diff
+#     elif(type==24): 
+#         first_diff = type5_diff
+#         second_diff = type4_diff
+#     elif(type==25): 
+#         first_diff = type5_diff
+#         second_diff = type6_diff
+#     elif(type==26): 
+#         first_diff = type6_diff
+#         second_diff = type1_diff
+#     elif(type==27): 
+#         first_diff = type6_diff
+#         second_diff = type2_diff
+#     elif(type==28): 
+#         first_diff = type6_diff
+#         second_diff = type3_diff
+#     elif(type==29): 
+#         first_diff = type6_diff
+#         second_diff = type4_diff
+#     elif(type==30): 
+#         first_diff = type6_diff
+#         second_diff = type5_diff
 
-    diff = first_diff * 1.1 + second_diff
+#     diff = first_diff * 1.1 + second_diff
 
-    difference = {"webtoon_id" : comparsion.webtoon_id , "diff" : diff}
-    return difference
+#     difference = {"webtoon_id" : comparsion.webtoon_id , "diff" : diff}
+#     return difference
     
     
-# webtoon마다 similar_webtoons id string으로 넣어주기
-webtoon_list = Webtoon.objects.all()
+# # webtoon마다 similar_webtoons id string으로 넣어주기
+# webtoon_list = Webtoon.objects.all()
 
-# 각 이미지 타입 비율 불러와 차이 계산 후 ((1순위 그림체 *1.1) + (2순위 그림체)) 낮은순으로 top30을 similar에 넣는다
-for webtoon in webtoon_list:
-    # 같은 타입애들을 불러오기
-    classify_list = webtoon.draw_classifies.all()
-    original_webtoon = Webtoon.objects.filter(pk=webtoon.webtoon_id)
+# # 각 이미지 타입 비율 불러와 차이 계산 후 ((1순위 그림체 *1.1) + (2순위 그림체)) 낮은순으로 top30을 similar에 넣는다
+# for webtoon in webtoon_list:
+#     # 같은 타입애들을 불러오기
+#     classify_list = webtoon.draw_classifies.all()
+#     original_webtoon = Webtoon.objects.filter(pk=webtoon.webtoon_id)
 
-    # 그림체 분류 id로 불러오기
-    classify_id_list = []
-    for classify in classify_list:
-        classify_id_list.append(classify.classify_id)
+#     # 그림체 분류 id로 불러오기
+#     classify_id_list = []
+#     for classify in classify_list:
+#         classify_id_list.append(classify.classify_id)
 
-    # 그림체 정보가 1개 넘을 때는 대분류 정했던 로직처럼 similar에 넣어주기
-    if len(classify_id_list) > 1:
-        if classify_id_list[0] == 1:
-            similar_list = Webtoon.objects.filter(image_type1__gte = 95)[:31]
+#     # 그림체 정보가 1개 넘을 때는 대분류 정했던 로직처럼 similar에 넣어주기
+#     if len(classify_id_list) > 1:
+#         if classify_id_list[0] == 1:
+#             similar_list = Webtoon.objects.filter(image_type1__gte = 95)[:31]
             
-        elif classify_id_list[0] == 6:
-            similar_list = Webtoon.objects.filter(image_type2__gte = 100)[:31]
+#         elif classify_id_list[0] == 6:
+#             similar_list = Webtoon.objects.filter(image_type2__gte = 100)[:31]
 
-        elif classify_id_list[0] == 11:
-            similar_list = Webtoon.objects.filter(image_type3__gte = 99.99)[:31]
+#         elif classify_id_list[0] == 11:
+#             similar_list = Webtoon.objects.filter(image_type3__gte = 99.99)[:31]
 
-        elif classify_id_list[0] == 16:
-            similar_list = Webtoon.objects.filter(image_type4__gte = 95)[:31]
+#         elif classify_id_list[0] == 16:
+#             similar_list = Webtoon.objects.filter(image_type4__gte = 95)[:31]
 
-        elif classify_id_list[0] == 21:
-            similar_list = Webtoon.objects.filter(image_type5__gte = 99.8)[:31]
+#         elif classify_id_list[0] == 21:
+#             similar_list = Webtoon.objects.filter(image_type5__gte = 99.8)[:31]
 
-        elif classify_id_list[0] == 26:
-            similar_list = Webtoon.objects.filter(image_type6__gte = 98)[:31]
+#         elif classify_id_list[0] == 26:
+#             similar_list = Webtoon.objects.filter(image_type6__gte = 98)[:31]
 
-        similar_id_list = []
-        for similar in similar_list:
-            similar_id_list.append(similar.webtoon_id)
+#         similar_id_list = []
+#         for similar in similar_list:
+#             similar_id_list.append(similar.webtoon_id)
         
-        # 자기 자신 빼주기
-        if webtoon.webtoon_id in similar_id_list:
-            similar_id_list.remove(webtoon.webtoon_id)
+#         # 자기 자신 빼주기
+#         if webtoon.webtoon_id in similar_id_list:
+#             similar_id_list.remove(webtoon.webtoon_id)
         
-        insert_similar_webtoons = ','.join(str(item) for item in similar_id_list)
+#         insert_similar_webtoons = ','.join(str(item) for item in similar_id_list)
 
-    else:
-        type_list = Webtoon.objects.filter(draw_classifies__in = classify_id_list)
+#     else:
+#         type_list = Webtoon.objects.filter(draw_classifies__in = classify_id_list)
         
-        similar_list = []
-        for comparsion in type_list:
-            if(original_webtoon==comparsion):
-                continue
+#         similar_list = []
+#         for comparsion in type_list:
+#             if(original_webtoon==comparsion):
+#                 continue
 
-            diffResult = typeToDifference(classify_id_list[0], webtoon, comparsion)
-            similar_list.append(diffResult)
+#             diffResult = typeToDifference(classify_id_list[0], webtoon, comparsion)
+#             similar_list.append(diffResult)
         
-        # 그림체 차이 순으로 정렬
-        newlist = sorted(similar_list, key = lambda idx: (idx['diff']))
+#         # 그림체 차이 순으로 정렬
+#         newlist = sorted(similar_list, key = lambda idx: (idx['diff']))
 
-        # 자기 자신 빼주기
-        if {"webtoon_id" : webtoon.webtoon_id , "diff" : 0} in newlist:
-            newlist.remove({"webtoon_id" : webtoon.webtoon_id , "diff" : 0})
+#         # 자기 자신 빼주기
+#         if {"webtoon_id" : webtoon.webtoon_id , "diff" : 0} in newlist:
+#             newlist.remove({"webtoon_id" : webtoon.webtoon_id , "diff" : 0})
             
-        insert_similar_webtoons = ','.join([str(item['webtoon_id']) for item in newlist[:30]])
+#         insert_similar_webtoons = ','.join([str(item['webtoon_id']) for item in newlist[:30]])
     
+<<<<<<< HEAD
     # insert to similar 그림체
     original_webtoon.update(similar_webtoons=insert_similar_webtoons)
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
+=======
+#     # insert to similar 그림체
+#     original_webtoon.update(similar_webtoons=insert_similar_webtoons)
+>>>>>>> 3c6421c (fix: 웹툰 추천 api 수정 - 조건 미달 시 빈 리스트 반환)
