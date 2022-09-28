@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 from ast import keyword
 from re import L
 <<<<<<< HEAD
@@ -46,6 +47,8 @@ from django.shortcuts import render, redirect
 from ast import keyword
 from re import L
 from urllib import response
+=======
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 from django.shortcuts import render, redirect
 >>>>>>> aad57af (fix : 추천 중복 막음)
 from rest_framework.decorators import api_view
@@ -62,6 +65,7 @@ from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSeriali
 from accounts.models import Member_View_Webtoons
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 70f416e (fix : log남기기 수정)
 =======
 from django.http import HttpResponseRedirect, HttpRequest
@@ -73,6 +77,11 @@ from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSeriali
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer, TagSerializer
 >>>>>>> 09ecf40 (feat: 전체 태그 요청 api 구현)
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
+=======
+from django.http import HttpResponseRedirect
+from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer, TagSerializer
+from webtoons.models import Webtoon, Genre, Tag
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
@@ -82,6 +91,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 import random
 import requests
+<<<<<<< HEAD
 # import requests
 # import csv
 # from bs4 import BeautifulSoup
@@ -283,6 +293,8 @@ import requests
 =======
 #     return Response(webtoon_list, status.HTTP_200_OK)
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
+=======
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
 @api_view(['GET'])
 def mainPage(request):
@@ -333,12 +345,11 @@ def webtoonDetail(request,webtoonId):
 
     similar_webtoon = WebtoonListSerializer(similar_webtoon_list, many= True)
 
-
     webtoon.view_count += 1
     webtoon.save()
 
-    serializer = WebtoonSerializer(webtoon)
-    return Response({'data':serializer.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data}, status.HTTP_200_OK)
+    webtoon_info = WebtoonSerializer(webtoon)
+    return Response({'data':webtoon_info.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data}, status.HTTP_200_OK)
 
 
 page_cut = 20
@@ -348,15 +359,15 @@ def webtoonList(request,pageNum):
     webtoon_list = Webtoon.objects.order_by('title')
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
-    serializer = WebtoonListSerializer(webtoons, many = True)
-    return Response(serializer.data, status.HTTP_200_OK)
+    webtoons_list = WebtoonListSerializer(webtoons, many = True)
+    return Response(webtoons_list.data, status.HTTP_200_OK)
 
 @api_view(['GET'])
 def getTag(request):
     tags = Tag.objects.all()
-    serializer = TagSerializer(tags, many = True)
+    tags_list = TagSerializer(tags, many = True)
 
-    return Response(serializer.data, status.HTTP_200_OK)
+    return Response(tags_list.data, status.HTTP_200_OK)
 
 @api_view(['GET'])
 def searchWebtoon(request,pageNum):
@@ -376,6 +387,7 @@ def searchWebtoon(request,pageNum):
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
 <<<<<<< HEAD
+<<<<<<< HEAD
     serializer = WebtoonSerializer(webtoons, many = True)
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -392,6 +404,11 @@ def searchWebtoon(request,pageNum):
 =======
     return Response(serializer.data, status.HTTP_200_OK)
 >>>>>>> de4eb85 (fix: json 파일 형식 변경 (webtoonList 삭제))
+=======
+    
+    webtoons_list = WebtoonListSerializer(webtoons, many = True)
+    return Response(webtoons_list.data, status.HTTP_200_OK)
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
 
 @api_view(['POST'])
@@ -410,8 +427,9 @@ def filterWebtoon(request, pageNum):
     
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
-    serializer = WebtoonListSerializer(webtoons, many = True)
-    return Response(serializer.data, status.HTTP_200_OK)
+    
+    webtoons_list = WebtoonListSerializer(webtoons, many = True)
+    return Response(webtoons_list.data, status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -469,8 +487,8 @@ def webtoonRate(request, webtoonId):
         webtoon.rating = rating_num
         webtoon.save()
 
-        serializer = WebtoonSerializer(webtoon)
-        return Response(serializer.data, status.HTTP_200_OK)
+        webtoons_info = WebtoonSerializer(webtoon)
+        return Response(webtoons_info.data, status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -500,6 +518,7 @@ def webtoonLog(request, webtoonId):
 
 
 @api_view(['GET'])
+<<<<<<< HEAD
 def recommendWebtoon(request,typeId):
     if typeId == 1:
         my_webtoons = Webtoon.objects.filter(liked_webtoon_users = request.user.pk)
@@ -567,19 +586,30 @@ def recommendWebtoon(request,typeId):
         webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoons)
         serializer = WebtoonListSerializer(webtoons, many=True)
         return Response(serializer.data)
+=======
+def recommendWebtoon(request):
+    user_id = int(request.user.pk)
+    
+    # CF 기반 추천
+    cf_recommend =  cfRecommend(user_id)
+    
+    # 선호 그림체 기반 추천
+    draw_recommend = drawRecommend(user_id)
+    
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
     # 날씨 기반 추천
-    elif typeId == 3:
-        
-        return HttpResponseRedirect('http://127.0.0.1:8000/api/webtoons/weather/recommend/')
+    weather_recommend = weatherRecommend(user_id)
     
     # 유저가 좋아하는 장르 기반 추천
-    elif typeId == 4:
-        
-        return HttpResponseRedirect('http://127.0.0.1:8000/api/webtoons/genre/recommend/')
+    genre_recommend = genreRecommend(user_id)
     
     # 유저가 좋아하는 태그 기반 추천
-    elif typeId == 5:
+    tag_recommend = tagRecommend(user_id)
+
+    # # 유저가 좋아하는 태그 기반 추천
+    # elif typeId == 6:
         
+<<<<<<< HEAD
         return HttpResponseRedirect('http://127.0.0.1:8000/api/webtoons/tag/recommend/')
 
     elif typeId == 5:
@@ -858,6 +888,9 @@ def typeToDifference(type, original, comparsion):
 <<<<<<< HEAD
 >>>>>>> 09b2f2b (feat: 그림체 기반 추천 알고리즘 구현중)
 =======
+=======
+    return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': weather_recommend.data, '3': genre_recommend.data, '4':tag_recommend.data}, status.HTTP_200_OK)
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
 
 @api_view(['POST'])
@@ -882,18 +915,58 @@ def searchImageWebtoon(request):
                 min_diff = diff
                 min_webtoon = webtoon
     
-    serializer = SearchWebtoonSerializer(min_webtoon)
+    search_webtoons = SearchWebtoonSerializer(min_webtoon)
 
+<<<<<<< HEAD
     return Response(serializer.data, status.HTTP_200_OK)
 <<<<<<< HEAD
 >>>>>>> c4b2854 (feat: 웹툰 이미지 검색 api 구현)
 =======
+=======
+    return Response(search_webtoons.data, status.HTTP_200_OK)
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
+# CF(Collaborate Filtering) 추천
+def cfRecommend(user):
+    my_webtoons = Webtoon.objects.filter(liked_webtoon_users = user)
+        
+    user_list = []
+    
+    for my_webtoon in my_webtoons:
+        now_users = my_webtoon.liked_webtoon_users.all()
+        
+        for now_user in now_users:
+            if now_user not in user_list and now_user.id != user:
+                user_list.append(now_user)
+                
+    recommended_webtoons = []
+    for webtoon_like_user in user_list:
+        now_webtoons = Webtoon.objects.filter(liked_webtoon_users = webtoon_like_user.id)
+        
+        for now_webtoon in now_webtoons:
+            if now_webtoon not in recommended_webtoons:
+                recommended_webtoons.append(now_webtoon)
+                
+    for my_webtoon in my_webtoons:
+        if my_webtoon in recommended_webtoons:
+            recommended_webtoons.remove(my_webtoon)
+            
+    recommended_webtoons.sort(key=lambda x : -x.view_count)
+    recommended_webtoons = recommended_webtoons[:20]
+    
+    recommended_webtoon_ids = []
+    
+    for recommended_webtoon in recommended_webtoons:
+        recommended_webtoon_ids.append(recommended_webtoon.webtoon_id)
+    
+    webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoon_ids)
+    webtoons_list = WebtoonListSerializer(webtoons, many=True)
+    
+    return webtoons_list
 
 # 날씨 기반 추천
-@api_view(['GET'])
-def weather_recommend(request):
-    member = get_object_or_404(get_user_model(), id=request.user.id)
+def weatherRecommend(user):
+    member = get_object_or_404(get_user_model(), id=user)
     like_webtoons = member.liked_webtoons.all()
 
     url = 'http://api.openweathermap.org/data/2.5/weather?lat=37.501317&lon=127.039646&appid=7e625d2f562b1014869529981bd7ee18'
@@ -960,9 +1033,9 @@ def weather_recommend(request):
     choice_lst = list(choice_lst)
     choice_lst = sorted(choice_lst, key = lambda x: -x.rating)
     
-    serializers = WebtoonListSerializer(choice_lst, many=True)
+    webtoons_list = WebtoonListSerializer(choice_lst, many=True)
 
-    return Response(serializers.data, status.HTTP_200_OK)
+    return webtoons_list
 
 <<<<<<< HEAD
 #     return Response(serializers.data, status.HTTP_200_OK)
@@ -972,9 +1045,8 @@ def weather_recommend(request):
 =======
 
 # 유저가 좋아하는 장르 기반 추천
-@api_view(['GET'])
-def genre_recommend(request):
-    member = get_object_or_404(get_user_model(), id=request.user.id)
+def genreRecommend(user):
+    member = get_object_or_404(get_user_model(), id=user)
     webtoons = member.liked_webtoons.all()
     webtoons_length = len(webtoons)
     
@@ -1024,15 +1096,21 @@ def genre_recommend(request):
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
-    serializers = WebtoonListSerializer(reco_lst, many=True)
+    webtoons_list = WebtoonListSerializer(reco_lst, many=True)
 
-    return Response(serializers.data, status.HTTP_200_OK)
+    return webtoons_list
 
 
+<<<<<<< HEAD
 # 유저가 좋아하는 장르 기반 추천
 @api_view(['GET'])
 def tag_recommend(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
+=======
+# 유저가 좋아하는 태그 기반 추천
+def tagRecommend(user):
+    member = get_object_or_404(get_user_model(), id=user)
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
     like_webtoons = member.liked_webtoons.all()
     like_tags = member.tags.all()
     cnt = 0
@@ -1053,8 +1131,9 @@ def tag_recommend(request):
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
-    serializers = WebtoonListSerializer(reco_lst, many=True)
+    webtoons_list = WebtoonListSerializer(reco_lst, many=True)
 
+<<<<<<< HEAD
     return Response(serializers.data, status.HTTP_200_OK)
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1071,6 +1150,14 @@ def tag_recommend(request):
 def draw_recommend(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
     webtoons = member.liked_webtoons.all()
+=======
+    return webtoons_list
+
+# 유저가 좋아하는 그림체 기반 추천
+def drawRecommend(user):
+    member = get_object_or_404(get_user_model(), id=user)
+    member_webtoons = member.liked_webtoons.all()
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
     image_types = {f'draw_type{i}':0 for i in range(1, 31)}
 
     if len(webtoons):
@@ -1118,4 +1205,13 @@ def draw_recommend(request):
 >>>>>>> 9015e4e (feat: 선호 그림체 기반 추천 api 작성(미완))
 =======
 
+<<<<<<< HEAD
 >>>>>>> aad57af (fix : 추천 중복 막음)
+=======
+    like_image_id_list = like_image_id_list[:15] + random.sample(like_image_id_list[15:], 5)
+    recommend_webtoon = Webtoon.objects.filter(webtoon_id__in = like_image_id_list)
+
+    webtoons_list = WebtoonListSerializer(recommend_webtoon, many=True)
+
+    return webtoons_list
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)

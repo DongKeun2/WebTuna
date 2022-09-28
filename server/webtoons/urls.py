@@ -13,8 +13,9 @@ urlpatterns = [
     path('filter/<int:pageNum>/', views.filterWebtoon),
     path('search/<int:pageNum>/',views.searchWebtoon),
     path('search/image/',views.searchImageWebtoon),
-    path('recommend/<int:typeId>/', views.recommendWebtoon),
+    path('recommend/', views.recommendWebtoon),
     path('tag/<int:tagId>/like/',views.tagLike),
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     path('weather/recommend/', views.weather_recommend),
@@ -35,4 +36,12 @@ urlpatterns = [
 >>>>>>> 09ecf40 (feat: 전체 태그 요청 api 구현)
     # path('classify/similar/', views.insertSimilarWebtoons),
     # path('classify/insert/', views.insertClassify),
+=======
+    path('tag/get/', views.getTag),
+    # path('cf/recommend/', views.cfRecommend),
+    # path('weather/recommend/', views.weatherRecommend),
+    # path('genre/recommend/', views.genreRecommend),
+    # path('tag/recommend/', views.tagRecommend),
+    # path('draw/recommend/', views.drawRecommend),
+>>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 ]
