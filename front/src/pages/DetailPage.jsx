@@ -42,6 +42,7 @@ function DetailPage() {
   let slide;
 
   function getDetail() {
+    window.scrollTo(0, 0);
     if (!loginState) {
       dispatch(noLoginDetail(toonId)).then((res) => {
         console.log(res.payload.is_rated + "비로그인");
@@ -218,6 +219,7 @@ function DetailPage() {
   }
 
   function moveDetail(e) {
+    setIsLoading(true);
     toonId = e.target.parentNode.parentNode.id;
     navigate(`/detail/${toonId}`);
     setTimeout(() => {
@@ -282,8 +284,9 @@ function DetailPage() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     getDetail();
-  }, []);
+  }, [toonId]);
 
   const PaintStyleData = {
     margintop: 3,

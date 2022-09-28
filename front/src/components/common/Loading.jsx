@@ -3,6 +3,7 @@ import loadingImg1 from "../../assets/test/tuntun4.png";
 import loadingImg2 from "../../assets/test/tuntun2.png";
 
 function Loading({ type, text }) {
+  window.scrollTo(0, 0);
   return (
     <LoadingBox>
       <LoadingMsg>{text}</LoadingMsg>
