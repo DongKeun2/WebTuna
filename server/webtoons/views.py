@@ -418,12 +418,25 @@ def filterWebtoon(request, pageNum):
     genre_list = request.data['genre']
     tag_list = request.data['tag']
     
+    # 필터에 아무것도 안들어올 때 예외처리
+    if not len(platform_list):
+        platform_list = list(range(1, 4))
+        
+    if not len(day_list):
+        day_list = list(range(1, 9))
+        
+    if not len(genre_list):
+        genre_list = list(range(1, 16))
+        
+    if not len(tag_list):
+        tag_list = list(range(1, 224))
+    
     webtoon_list = Webtoon.objects.filter(
         Q(platforms__in = platform_list) &
         Q(days__in = day_list) &
         Q(genres__in = genre_list) &
         Q(tags__in = tag_list)
-    ).order_by('title')
+    ).distinct().order_by('title')
     
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
