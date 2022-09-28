@@ -66,6 +66,7 @@ from accounts.models import Member_View_Webtoons
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 70f416e (fix : log남기기 수정)
 =======
 from django.http import HttpResponseRedirect, HttpRequest
@@ -79,6 +80,8 @@ from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSeriali
 from webtoons.models import Webtoon, Genre, Author, Tag, Day, Platform
 =======
 from django.http import HttpResponseRedirect
+=======
+>>>>>>> 8f9f8be (scripts.py로 이동)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer, TagSerializer
 from webtoons.models import Webtoon, Genre, Tag
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)

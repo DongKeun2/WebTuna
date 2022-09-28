@@ -1055,4 +1055,163 @@ webtoon_list = json.load(a)
 =======
 #     # insert to similar 그림체
 #     original_webtoon.update(similar_webtoons=insert_similar_webtoons)
+<<<<<<< HEAD
 >>>>>>> 3c6421c (fix: 웹툰 추천 api 수정 - 조건 미달 시 빈 리스트 반환)
+=======
+
+# tb_draw_classify 삽입
+
+# def insertClassify(request):
+#     webtoons = Webtoon.objects.all()
+
+#     for webtoon in webtoons:
+#         list = []   
+#         list.append(webtoon.image_type1)
+#         list.append(webtoon.image_type2)
+#         list.append(webtoon.image_type3)
+#         list.append(webtoon.image_type4)
+#         list.append(webtoon.image_type5)
+#         list.append(webtoon.image_type6)
+        
+#         first_max = max(list)
+#         second_max = 0
+#         for max_i in list:
+#             if(first_max > max_i and max_i > second_max):
+#                 second_max = max_i
+
+#         first = list.index(first_max)+1
+#         second = list.index(second_max)+1
+#         type = 0
+#         if(first==1 and second == 2):
+#             type = 1
+#         elif(first==1 and second == 3):
+#             type = 2 
+#         elif(first==1 and second == 4):
+#             type = 3 
+#         elif(first==1 and second == 5):
+#             type = 4 
+#         elif(first==1 and second == 6):
+#             type = 5 
+#         elif(first==2 and second == 1):
+#             type = 6 
+#         elif(first==2 and second == 3):
+#             type = 7 
+#         elif(first==2 and second == 4):
+#             type = 8 
+#         elif(first==2 and second == 5):
+#             type = 9 
+#         elif(first==2 and second == 6):
+#             type = 10 
+#         elif(first==3 and second == 1):
+#             type = 11 
+#         elif(first==3 and second == 2):
+#             type = 12 
+#         elif(first==3 and second == 4):
+#             type = 13 
+#         elif(first==3 and second == 5):
+#             type = 14 
+#         elif(first==3 and second == 6):
+#             type = 15 
+#         elif(first==4 and second == 1):
+#             type = 16 
+#         elif(first==4 and second == 2):
+#             type = 17 
+#         elif(first==4 and second == 3):
+#             type = 18 
+#         elif(first==4 and second == 5):
+#             type = 19 
+#         elif(first==4 and second == 6):
+#             type = 20 
+#         elif(first==5 and second == 1):
+#             type = 21 
+#         elif(first==5 and second == 2):
+#             type = 22 
+#         elif(first==5 and second == 3):
+#             type = 23 
+#         elif(first==5 and second == 4):
+#             type = 24 
+#         elif(first==5 and second == 6):
+#             type = 25 
+#         elif(first==6 and second == 1):
+#             type = 26 
+#         elif(first==6 and second == 2):
+#             type = 27 
+#         elif(first==6 and second == 3):
+#             type = 28 
+#         elif(first==6 and second == 4):
+#             type = 29 
+#         elif(first==6 and second == 5):
+#             type = 30 
+
+#         # modeling 후 insert 
+#         webtoon.classify_id.add(type)
+
+    # return Response(status.HTTP_201_CREATED)
+
+# webtoon마다 similar_webtoons id string으로 넣어주기
+# webtoon_list = Webtoon.objects.all()
+
+# # 각 이미지 타입 비율 불러와 차이 계산 후 ((1순위 그림체 *1.1) + (2순위 그림체)) 낮은순으로 top30을 similar에 넣는다
+# for webtoon in webtoon_list:
+#     # 같은 타입애들을 불러오기
+#     classify_list = webtoon.draw_classifies.all()
+#     original_webtoon = Webtoon.objects.filter(pk=webtoon.webtoon_id)
+
+#     # 그림체 분류 id로 불러오기
+#     classify_id_list = []
+#     for classify in classify_list:
+#         classify_id_list.append(classify.classify_id)
+
+#     # 그림체 정보가 1개 넘을 때는 대분류 정했던 로직처럼 similar에 넣어주기
+#     if len(classify_id_list) > 1:
+#         if classify_id_list[0] == 1:
+#             similar_list = Webtoon.objects.filter(image_type1__gte = 95)[:31]
+            
+#         elif classify_id_list[0] == 6:
+#             similar_list = Webtoon.objects.filter(image_type2__gte = 100)[:31]
+
+#         elif classify_id_list[0] == 11:
+#             similar_list = Webtoon.objects.filter(image_type3__gte = 99.99)[:31]
+
+#         elif classify_id_list[0] == 16:
+#             similar_list = Webtoon.objects.filter(image_type4__gte = 95)[:31]
+
+#         elif classify_id_list[0] == 21:
+#             similar_list = Webtoon.objects.filter(image_type5__gte = 99.8)[:31]
+
+#         elif classify_id_list[0] == 26:
+#             similar_list = Webtoon.objects.filter(image_type6__gte = 98)[:31]
+
+#         similar_id_list = []
+#         for similar in similar_list:
+#             similar_id_list.append(similar.webtoon_id)
+        
+#         # 자기 자신 빼주기
+#         if webtoon.webtoon_id in similar_id_list:
+#             similar_id_list.remove(webtoon.webtoon_id)
+        
+#         insert_similar_webtoons = ','.join(str(item) for item in similar_id_list)
+
+#     else:
+#         type_list = Webtoon.objects.filter(draw_classifies__in = classify_id_list)
+        
+#         similar_list = []
+#         for comparsion in type_list:
+#             if(original_webtoon==comparsion):
+#                 continue
+
+#             diffResult = typeToDifference(classify_id_list[0], webtoon, comparsion)
+#             similar_list.append(diffResult)
+        
+#         # 그림체 차이 순으로 정렬
+#         newlist = sorted(similar_list, key = lambda idx: (idx['diff']))
+
+#         # 자기 자신 빼주기
+#         if {"webtoon_id" : webtoon.webtoon_id , "diff" : 0} in newlist:
+#             newlist.remove({"webtoon_id" : webtoon.webtoon_id , "diff" : 0})
+            
+#         insert_similar_webtoons = ','.join([str(item['webtoon_id']) for item in newlist[:30]])
+    
+#     # insert to similar 그림체
+#     original_webtoon.update(similar_webtoons=insert_similar_webtoons)
+>>>>>>> 8f9f8be (scripts.py로 이동)
