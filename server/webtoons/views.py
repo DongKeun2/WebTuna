@@ -299,6 +299,7 @@ import requests
 =======
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
+# 메인 페이지
 @api_view(['GET'])
 def mainPage(request):
     webtoon1 = Webtoon.objects.filter(image_type1__gte = 90).order_by('-rating')[:6]
@@ -317,6 +318,8 @@ def mainPage(request):
 
     return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data})
 
+
+# 웹툰 상세 페이지
 @api_view(['GET'])
 def webtoonDetail(request,webtoonId):
     webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
@@ -356,7 +359,7 @@ def webtoonDetail(request,webtoonId):
 
 
 page_cut = 20
-
+# 전체 웹툰 리스트 보기
 @api_view(['GET'])
 def webtoonList(request,pageNum):
     webtoon_list = Webtoon.objects.order_by('title')
@@ -365,6 +368,8 @@ def webtoonList(request,pageNum):
     webtoons_list = WebtoonListSerializer(webtoons, many = True)
     return Response(webtoons_list.data, status.HTTP_200_OK)
 
+
+# 태그 가져오기
 @api_view(['GET'])
 def getTag(request):
     tags = Tag.objects.all()
@@ -372,6 +377,8 @@ def getTag(request):
 
     return Response(tags_list.data, status.HTTP_200_OK)
 
+
+# 웹툰 검색 기능
 @api_view(['GET'])
 def searchWebtoon(request,pageNum):
     webtoon_list = []
@@ -414,6 +421,7 @@ def searchWebtoon(request,pageNum):
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
 
+# 웹툰 필터링
 @api_view(['POST'])
 def filterWebtoon(request, pageNum):
     platform_list = request.data['platform']
@@ -454,6 +462,7 @@ def filterWebtoon(request, pageNum):
     return Response(webtoons_list.data, status.HTTP_200_OK)
 
 
+# 웹툰 찜하기
 @api_view(['POST'])
 def webtoonLike(request, webtoonId):
     webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
@@ -476,6 +485,7 @@ def webtoonLike(request, webtoonId):
         return Response({'data': True})
 
 
+# 태그 좋아요 남기기
 @api_view(['POST'])
 def tagLike(request, tagId):
     tag = get_object_or_404(Tag, pk=int(tagId))
@@ -489,6 +499,7 @@ def tagLike(request, tagId):
         return Response({'data': True})
 
 
+# 웹툰 평점 남기기
 @api_view(['POST'])
 def webtoonRate(request, webtoonId):
     webtoon = get_object_or_404(Webtoon, pk=int(webtoonId))
@@ -511,6 +522,7 @@ def webtoonRate(request, webtoonId):
         return Response(webtoons_info.data, status.HTTP_200_OK)
 
 
+# 웹툰 로그 남기기
 @api_view(['POST'])
 def webtoonLog(request, webtoonId):
     if Member_View_Webtoons.objects.filter(member_id=request.user.id, webtoon_id=webtoonId).exists():
@@ -537,6 +549,7 @@ def webtoonLog(request, webtoonId):
 =======
 
 
+# 추천 종합
 @api_view(['GET'])
 <<<<<<< HEAD
 def recommendWebtoon(request,typeId):
@@ -917,6 +930,7 @@ def typeToDifference(type, original, comparsion):
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
 
+# 이미지 검색
 @api_view(['POST'])
 def searchImageWebtoon(request):
     orginal = request.data['probability']
@@ -950,43 +964,46 @@ def searchImageWebtoon(request):
     return Response(search_webtoons.data, status.HTTP_200_OK)
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
+
 # CF(Collaborate Filtering) 추천
 def cfRecommend(user):
-    my_webtoons = Webtoon.objects.filter(liked_webtoon_users = user)
+    like_webtoons = Webtoon.objects.filter(liked_webtoon_users = user)
         
     user_list = []
     
-    for my_webtoon in my_webtoons:
+    for my_webtoon in like_webtoons:
         now_users = my_webtoon.liked_webtoon_users.all()
         
         for now_user in now_users:
             if now_user not in user_list and now_user.id != user:
                 user_list.append(now_user)
                 
-    recommended_webtoons = []
+    reco_lst = set()
     for webtoon_like_user in user_list:
         now_webtoons = Webtoon.objects.filter(liked_webtoon_users = webtoon_like_user.id)
         
         for now_webtoon in now_webtoons:
-            if now_webtoon not in recommended_webtoons:
-                recommended_webtoons.append(now_webtoon)
+            if now_webtoon not in like_webtoons:
+                reco_lst.add(now_webtoon)
                 
-    for my_webtoon in my_webtoons:
-        if my_webtoon in recommended_webtoons:
-            recommended_webtoons.remove(my_webtoon)
-            
-    recommended_webtoons.sort(key=lambda x : -x.view_count)
-    recommended_webtoons = recommended_webtoons[:20]
+    reco_lst = list(reco_lst)
+    reco_lst.sort(key=lambda x : -x.rating)
+    reco_lst = reco_lst[:20]  
+
+    if len(reco_lst) < 10:
+
+        webtoons = Webtoon.objects.all().order_by('-rating')[:100]
+        
+        while len(reco_lst) < 10:
+            webtoon = random.choice(webtoons)
+            if webtoon not in reco_lst:
+                if webtoon not in like_webtoons:
+                    reco_lst.append(webtoon)
     
-    recommended_webtoon_ids = []
-    
-    for recommended_webtoon in recommended_webtoons:
-        recommended_webtoon_ids.append(recommended_webtoon.webtoon_id)
-    
-    webtoons = Webtoon.objects.filter(webtoon_id__in = recommended_webtoon_ids)
-    webtoons_list = WebtoonListSerializer(webtoons, many=True)
+    webtoons_list = WebtoonListSerializer(reco_lst, many=True)
     
     return webtoons_list
+
 
 # 날씨 기반 추천
 def weatherRecommend(user):
@@ -1009,55 +1026,52 @@ def weatherRecommend(user):
     # 일단 딕셔너리로 날씨에 장르들 하나씩을 선택 하도록 함(더 좋은 방법 있으면 그걸로 구현)
     lst = {'clear sky': '로맨스', 'few clouds': '개그', 'overcast clouds': '무협/사극', 'drizzle': '소년', 'rain': '스릴러', 'light rain': '스포츠', 'moderate rain': '개그','shower rain': '판타지', 'thunderstorm': '액션',
            'snow': '드라마', 'broken clouds': '감성', 'scattered clouds': '일상'}
+    
     if weather['description'] not in lst:
         genre = random.choice(['에피소드', '스토리', '옴니버스'])
     else:
         genre = lst[weather['description']]
     # 장르와 같은 영화 정보들 가지고오기
 
-    genre_lst = Genre.objects.get(genre_type = genre)
-    webtoon_lst = genre_lst.genre_webtoons.all().order_by('-rating')
-    cnt = 0 
+    genre_data = Genre.objects.get(genre_type = genre)
+    webtoon_lst = genre_data.genre_webtoons.all().order_by('-rating')
     real_cnt = 0
-    choice_lst = set()
+    reco_lst = set()
 
     if len(webtoon_lst) >= 200:
-        while cnt < 15:
+        while len(reco_lst) < 15:
             webtoon = random.choice(webtoon_lst[:100])
             if webtoon not in like_webtoons:
-                cnt += 1
-                choice_lst.add(webtoon)
+                reco_lst.add(webtoon)
                 
             real_cnt += 1
             if real_cnt >= 50:
                 break
         
         real_cnt = 0        
-        while cnt < 20:
+        while len(reco_lst) < 20:
             webtoon = random.choice(webtoon_lst[100:])
             if webtoon not in like_webtoons:
-                cnt += 1
-                choice_lst.add(webtoon)
+                reco_lst.add(webtoon)
             
             real_cnt += 1
             if real_cnt >= 50:
                 break
     
     else:
-        while cnt < 20:
+        while len(reco_lst) < 20:
             webtoon = random.choice(list(webtoon_lst))
             if webtoon not in like_webtoons:
-                cnt += 1
-                choice_lst.add(webtoon)
+                reco_lst.add(webtoon)
                 
             real_cnt += 1
             if real_cnt >= 50:
                 break
     
-    choice_lst = list(choice_lst)
-    choice_lst = sorted(choice_lst, key = lambda x: -x.rating)
+    reco_lst = list(reco_lst)
+    reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     
-    webtoons_list = WebtoonListSerializer(choice_lst, many=True)
+    webtoons_list = WebtoonListSerializer(reco_lst, many=True)
 
     return webtoons_list
 
@@ -1071,8 +1085,8 @@ def weatherRecommend(user):
 # 유저가 좋아하는 장르 기반 추천
 def genreRecommend(user):
     member = get_object_or_404(get_user_model(), id=user)
-    webtoons = member.liked_webtoons.all()
-    webtoons_length = len(webtoons)
+    like_webtoons = member.liked_webtoons.all()
+    webtoons_length = len(like_webtoons)
     
     genre_types = {
         '로맨스':0,
@@ -1090,10 +1104,13 @@ def genreRecommend(user):
     }
     
     if webtoons_length == 0:
-        return Response(False)
+        reco_lst = []
+        webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+        
+        return webtoons_list
     
     else:
-        for webtoon in webtoons:
+        for webtoon in like_webtoons:
             genres = webtoon.genres.all()
             for genre in genres:
                 genre_type = genre.genre_type
@@ -1113,7 +1130,7 @@ def genreRecommend(user):
         
     reco_lst = set()
     for choice in choice_lst:
-        if choice not in webtoons:
+        if choice not in like_webtoons:
             reco_lst.add(choice)
             
     reco_lst = list(reco_lst)
@@ -1145,10 +1162,9 @@ def tagRecommend(user):
         
         return webtoons_list
 
-    cnt = 0
     reco_lst = set()
     
-    while cnt < 20:
+    while len(reco_lst) < 20:
         tag = random.choice(list(like_tags))
         tag_data = Tag.objects.get(name = tag.name)
         tag_webtoons = tag_data.tag_webtoons.all()
@@ -1157,7 +1173,6 @@ def tagRecommend(user):
             webtoon = random.choice(list(tag_webtoons))
             if webtoon not in like_webtoons:
                 reco_lst.add(webtoon)
-                cnt += 1
                 
     reco_lst = list(reco_lst)
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
@@ -1185,9 +1200,11 @@ def draw_recommend(request):
 =======
     return webtoons_list
 
+
 # 유저가 좋아하는 그림체 기반 추천
 def drawRecommend(user):
     member = get_object_or_404(get_user_model(), id=user)
+<<<<<<< HEAD
     member_webtoons = member.liked_webtoons.all()
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
     image_types = {f'draw_type{i}':0 for i in range(1, 31)}
@@ -1195,6 +1212,14 @@ def drawRecommend(user):
     if len(webtoons):
 
         for webtoon in webtoons:
+=======
+    like_webtoons = member.liked_webtoons.all()
+    image_types = {f'draw_type{i}':0 for i in range(1, 31)}
+
+    if len(like_webtoons):
+
+        for webtoon in like_webtoons:
+>>>>>>> 30a0ac7 (fix : 추천 함수 수정, 변수 수정)
             # 같은 타입애들을 불러오기
             classify_list = webtoon.draw_classifies.all()
 
@@ -1209,9 +1234,9 @@ def drawRecommend(user):
     else:
         webtoons = member.liked_thumbnail.split(",")
 
-        for i in webtoons:
+        for webtoon_id in webtoons:
             # 같은 타입애들을 불러오기
-            webtoon = Webtoon.objects.get(webtoon_id = i)
+            webtoon = Webtoon.objects.get(webtoon_id = webtoon_id)
             classify_list = webtoon.draw_classifies.all()
 
             # 그림체 분류 id로 불러오기
@@ -1231,6 +1256,7 @@ def drawRecommend(user):
     for like_image_type in sort_image_types[:3]:
         like_image_type_id_list.append(like_image_type[0].split('_')[1][4:])
 
+<<<<<<< HEAD
     like_image_type_list = Webtoon.objects.filter(draw_classifies__in = like_image_type_id_list).order_by('-rating')[:10]
 
     print(like_image_type_list)
@@ -1244,6 +1270,19 @@ def drawRecommend(user):
     recommend_webtoon = Webtoon.objects.filter(webtoon_id__in = like_image_id_list)
 
     webtoons_list = WebtoonListSerializer(recommend_webtoon, many=True)
+=======
+    like_image_webtoon_list = Webtoon.objects.filter(draw_classifies__in = like_image_type_id_list).distinct().order_by('-rating')
+    
+    # 중복 웹툰 빼기
+    choice_lst = []
+    for like_image_webtoon in like_image_webtoon_list:
+        if like_image_webtoon not in like_webtoons:
+            choice_lst.append(like_image_webtoon)
+
+    reco_lst = choice_lst[:15] + random.sample(choice_lst[15:], 5)
+
+    webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+>>>>>>> 30a0ac7 (fix : 추천 함수 수정, 변수 수정)
 
     return webtoons_list
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
