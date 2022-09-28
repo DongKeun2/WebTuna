@@ -10,10 +10,13 @@ import {
 import {
   filterToons,
   changeFilterInfo,
+  changeCurrentInfo,
   changePlatform,
   changeDay,
   changeGenre,
 //   changeTag,
+  changeIsLoad,
+  changePossibleFetch,
 } from "../../features/toons/filterSlice"
 import styled from 'styled-components'
 import AllToonList from "../../components/toonlist/AllToonList"
@@ -118,10 +121,11 @@ function WebtoonPage() {
       page: 1,
       checked: filterInfo,
     }
-    // dispatch(changeIsLoad(true));
-    // dispatch(changePossibleFetch(true));
+    dispatch(changeCurrentInfo(filterInfo))
+    dispatch(changeIsLoad(true));
+    dispatch(changePossibleFetch(true));
     dispatch(filterToons(data)).then((res) => {
-      // dispatch(changeIsLoad(false));
+      dispatch(changeIsLoad(false));
       navigate(`/filter`);
       window.scrollTo(0, 0);
     });
