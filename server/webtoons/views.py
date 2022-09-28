@@ -431,15 +431,21 @@ def filterWebtoon(request, pageNum):
     if not len(genre_list):
         genre_list = list(range(1, 16))
         
-    if not len(tag_list):
-        tag_list = list(range(1, 224))
+    if len(tag_list):
+        webtoon_list = Webtoon.objects.filter(
+            Q(platforms__in = platform_list) &
+            Q(days__in = day_list) &
+            Q(genres__in = genre_list) &
+            Q(tags__in = tag_list)
+        ).distinct().order_by('title')
+        
+    else:
+        webtoon_list = Webtoon.objects.filter(
+            Q(platforms__in = platform_list) &
+            Q(days__in = day_list) &
+            Q(genres__in = genre_list)
+        ).distinct().order_by('title')
     
-    webtoon_list = Webtoon.objects.filter(
-        Q(platforms__in = platform_list) &
-        Q(days__in = day_list) &
-        Q(genres__in = genre_list) &
-        Q(tags__in = tag_list)
-    ).distinct().order_by('title')
     
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
@@ -473,8 +479,6 @@ def webtoonLike(request, webtoonId):
 @api_view(['POST'])
 def tagLike(request, tagId):
     tag = get_object_or_404(Tag, pk=int(tagId))
-
-    print(tag)
 
     if tag.tag_users.filter(id = request.user.pk).exists():
         tag.tag_users.remove(request.user.pk)
@@ -1224,7 +1228,6 @@ def drawRecommend(user):
 
     # 선호 그림체 타입 top3 id 저장
     like_image_type_id_list = []
-    print(sort_image_types)
     for like_image_type in sort_image_types[:3]:
         like_image_type_id_list.append(like_image_type[0].split('_')[1][4:])
 
