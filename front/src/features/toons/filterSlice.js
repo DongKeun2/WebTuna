@@ -39,12 +39,6 @@ export const filterSlice = createSlice({
       genre: [],
       tag: [],
     },
-    currentInfo: {
-      platform: [],
-      day: [],
-      genre: [],
-      tag: [],
-    },
 
     toonList: [],
     page: 1,
@@ -56,9 +50,6 @@ export const filterSlice = createSlice({
   reducers: {
     changeFilterInfo: (state, action) => {
       state.filterInfo = action.payload
-    },
-    changeCurrentInfo: (state, action) => {
-      state.currentInfo = action.payload
     },
     changePlatform: (state, action) => {
       state.filterInfo.platform.includes(action.payload) ? (
@@ -86,34 +77,6 @@ export const filterSlice = createSlice({
         state.filterInfo.tag = state.filterInfo.tag.filter((element) => element !== action.payload)
       ) : (
         state.filterInfo.tag.push(action.payload)
-      )
-    },
-    changeCurrentPlatform: (state, action) => {
-      state.currentInfo.platform.includes(action.payload) ? (
-        state.currentInfo.platform = state.currentInfo.platform.filter((element) => element !== action.payload)
-      ) : (
-        state.currentInfo.platform.push(action.payload)
-      )
-    },
-    changeCurrentDay: (state, action) => {
-      state.currentInfo.day.includes(action.payload) ? (
-        state.currentInfo.day = state.currentInfo.day.filter((element) => element !== action.payload)
-      ) : (
-        state.currentInfo.day.push(action.payload)
-      )
-    },
-    changeCurrentGenre: (state, action) => {
-      state.currentInfo.genre.includes(action.payload) ? (
-        state.currentInfo.genre = state.currentInfo.genre.filter((element) => element !== action.payload)
-      ) : (
-        state.currentInfo.genre.push(action.payload)
-      )
-    },
-    changeCurrentTag: (state, action) => {
-      state.currentInfo.tag.includes(action.payload) ? (
-        state.currentInfo.tag = state.currentInfo.tag.filter((element) => element !== action.payload)
-      ) : (
-        state.currentInfo.tag.push(action.payload)
       )
     },
     changeIsLoad: (state, action) => {
@@ -162,15 +125,10 @@ export const filterSlice = createSlice({
 export { filterToons, addFilterToons };
 export const {
   changeFilterInfo,
-  changeCurrentInfo,
   changePlatform,
   changeDay,
   changeGenre,
   changeTag,
-  changeCurrentPlatform,
-  changeCurrentDay,
-  changeCurrentGenre,
-  changeCurrentTag,
   changeIsLoad,
   changePage,
   changePossibleFetch,

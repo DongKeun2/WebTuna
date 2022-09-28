@@ -10,7 +10,6 @@ import {
 import {
   filterToons,
   changeFilterInfo,
-  changeCurrentInfo,
   changePlatform,
   changeDay,
   changeGenre,
@@ -121,7 +120,7 @@ function WebtoonPage() {
       page: 1,
       checked: filterInfo,
     }
-    dispatch(changeCurrentInfo(filterInfo))
+    sessionStorage.setItem("filterInfo", JSON.stringify(filterInfo))
     dispatch(changeIsLoad(true));
     dispatch(changePossibleFetch(true));
     dispatch(filterToons(data)).then((res) => {

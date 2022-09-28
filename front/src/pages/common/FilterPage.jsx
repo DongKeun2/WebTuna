@@ -5,10 +5,10 @@ import {
   filterToons,
   addFilterToons,
   changeFilterInfo,
-  changeCurrentPlatform,
-  changeCurrentDay,
-  changeCurrentGenre,
-//   changeCurrentTag,
+  changePlatform,
+  changeDay,
+  changeGenre,
+//   changeTag,
   changeIsLoad,
   changePage,
   changePossibleFetch,
@@ -28,14 +28,14 @@ function FilterPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentInfo = useSelector((state) => state.filter.currentInfo);
+  const currentInfo = JSON.parse(sessionStorage.getItem("filterInfo")) || {};
   
   useEffect(() => {
-    console.log(currentInfo)
     const data = {
       page: 1,
       checked: currentInfo,
     };
+    dispatch(changeFilterInfo(currentInfo));
     dispatch(changePage(1));
     dispatch(changePossibleFetch(true));
     dispatch(filterToons(data));
@@ -74,7 +74,7 @@ function FilterPage() {
     setFetching(true);
     const data = {
       page: page+1,
-      checked: currentInfo,
+      checked: filterInfo,
     };
     dispatch(addFilterToons(data)).then(() => {
       setFetching(false);
@@ -88,35 +88,35 @@ function FilterPage() {
   }
 
   const filterInfo = useSelector((state) => state.filter.filterInfo);
-  const platformList = useSelector((state) => state.filter.currentInfo.platform);
-  const dayList = useSelector((state) => state.filter.currentInfo.day);
-  const genreList = useSelector((state) => state.filter.currentInfo.genre);
-  // const tagList = useSelector((state) => state.filter.currentInfo.tag);
+  const platformList = useSelector((state) => state.filter.filterInfo.platform);
+  const dayList = useSelector((state) => state.filter.filterInfo.day);
+  const genreList = useSelector((state) => state.filter.filterInfo.genre);
+  // const tagList = useSelector((state) => state.filter.filterInfo.tag);
 
   const clickedNum = platformList.length + dayList.length + genreList.length
 
   function changePlatformList(e) {
-    dispatch(changeCurrentPlatform(Number(e.target.value)));
+    dispatch(changePlatform(Number(e.target.value)));
   }
 
   function changeDayList(e) {
-    dispatch(changeCurrentDay(Number(e.target.value)));
+    dispatch(changeDay(Number(e.target.value)));
   }
 
   function changeGenreList(e) {
-    dispatch(changeCurrentGenre(Number(e.target.value)));
+    dispatch(changeGenre(Number(e.target.value)));
   }
 
   // function changeTagList(e) {
-  //   dispatch(changeCurrentTag(Number(e.target.value)));
+  //   dispatch(changeTag(Number(e.target.value)));
   // }
 
   function submitFilter() {
     const data = {
       page: 1,
-      checked: currentInfo,
+      checked: filterInfo,
     }
-    dispatch(changeFilterInfo(filterInfo))
+    sessionStorage.setItem("filterInfo", JSON.stringify(filterInfo))
     dispatch(changeIsLoad(true));
     dispatch(changePossibleFetch(true));
     dispatch(filterToons(data)).then((res) => {
