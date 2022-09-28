@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ToonLoading from "../../components/toonlist/ToonLoading";
@@ -7,10 +8,14 @@ import {
   changeKeyword,
   changePages,
   addToons,
+  searchToons,
+  changeIsLoad,
+  changePossibleFetch,
 } from "../../features/toons/searchSlice";
 
 export default function SearchPage() {
   const dispatch = useDispatch();
+  const location = decodeURI(useLocation().pathname.split("/")[2]);
 
   const [fetching, setFetching] = useState(false);
   const possibleFetch = useSelector((state) => state.search.possibleFetch);
@@ -59,10 +64,20 @@ export default function SearchPage() {
   const isLoad = useSelector((state) => state.search.isLoad);
 
   useEffect(() => {
+    dispatch(changeKeyword(location));
+    const data = {
+      pages: 1,
+      keyword: location,
+    };
+    dispatch(changeIsLoad(true));
+    dispatch(changePossibleFetch(true));
+    dispatch(searchToons(data)).then(() => {
+      dispatch(changeIsLoad(false));
+    });
     return () => {
       dispatch(changeKeyword(""));
     };
-  }, [dispatch]);
+  }, [dispatch, location]);
 
   return (
     <Container>
