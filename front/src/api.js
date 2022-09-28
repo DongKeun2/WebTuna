@@ -79,6 +79,8 @@ const SEARCH_URL = "search/";
 const GET_URL = "get/";
 >>>>>>> 6ff183d (feat: 더 하다가 망가질까봐 불안해서 일단 세이브하는 느낌으로 커밋)
 
+const RECOMMEND_URL = "recommend/";
+
 const api = {
   //main
   main: () => BASE_URL + WEBTOONS_URL,
@@ -153,6 +155,9 @@ const api = {
   searchToons: (pageNum) =>
     BASE_URL + WEBTOONS_URL + SEARCH_URL + pageNum + "/",
   getTags: () => BASE_URL + WEBTOONS_URL + TAG_URL + GET_URL,
+
+  // tuntun
+  fetchtuntun: () => BASE_URL + WEBTOONS_URL + RECOMMEND_URL,
 };
 >>>>>>> 6b4f421 (fix: api 수정)
 

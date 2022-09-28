@@ -21,7 +21,11 @@ import toonlistReducer from "./features/toons/toonlistSlice"
 import toonlistReducer from "./features/toons/toonlistSlice";
 import filterReducer from "./features/toons/filterSlice";
 import searchReducer from "./features/toons/searchSlice";
+<<<<<<< HEAD
 >>>>>>> 983faba (feat: 검색기능 api 연결)
+=======
+import tuntunReducer from "./features/toons/tuntunSlice";
+>>>>>>> 5badc62 (feat: 추천페이지 api 구현)
 
 const store = configureStore({
   reducer: {
@@ -45,7 +49,12 @@ const store = configureStore({
     filter: filterReducer,
 >>>>>>> 71cc3a0 (feat: 필터 api 생성 및 태그 제외 필터 관련 모든 기능 제출 빼고 구현 완료)
     search: searchReducer,
+<<<<<<< HEAD
 >>>>>>> 983faba (feat: 검색기능 api 연결)
+=======
+
+    tuntun: tuntunReducer,
+>>>>>>> 5badc62 (feat: 추천페이지 api 구현)
   },
 })
 
