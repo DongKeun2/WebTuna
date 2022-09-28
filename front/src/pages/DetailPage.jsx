@@ -158,20 +158,19 @@ function DetailPage() {
     MySwal.fire({
       title: `${e.target.value}점 확실합니까?`,
       text: "한번 준 별점은 변경할 수 없습니다!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#faaf00',
-      cancelButtonColor: 'gray',
-      confirmButtonText: 'O',
-      cancelButtonText: 'X',
+      confirmButtonColor: "#faaf00",
+      cancelButtonColor: "gray",
+      confirmButtonText: "O",
+      cancelButtonText: "X",
     }).then((result) => {
       if (result.isConfirmed) {
         MySwal.fire({
-          icon: 'success',
-          title: '별점이 반영되었습니다!',
-          confirmButtonColor: '#faaf00',
-        }
-        )
+          icon: "success",
+          title: "별점이 반영되었습니다!",
+          confirmButtonColor: "#faaf00",
+        });
         let data = { toonId, rating: e.target.value };
         console.log(data);
         dispatch(webtoonRating(data)).then((res) => {
@@ -186,8 +185,7 @@ function DetailPage() {
         });
         setModal(false);
       }
-    })
-
+    });
   }
 
   function heartClick() {
@@ -411,7 +409,8 @@ function DetailPage() {
                 </TitleAuthor>
                 <RatingGenreDay>
                   <RatingZone>
-                    별점 ★ {Math.round(webToonInfo.data.rating * 10) / 10} ({ratingCount}명)
+                    별점 ★ {Math.round(webToonInfo.data.rating * 10) / 10} (
+                    {ratingCount}명)
                     {loginState === null ? (
                       <RatingButton onClick={toLogin}>별점 주기</RatingButton>
                     ) : webToonInfo.is_rated === 1 ? (
@@ -457,8 +456,8 @@ function DetailPage() {
                     {webToonInfo.data.days[0].day_id === 8
                       ? "완결 웹툰"
                       : webToonInfo.data.days.length === 1
-                        ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                        : webToonInfo.data.days
+                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                      : webToonInfo.data.days
                           .slice(0, -1)
                           .map((dayy) => day[dayy.day_id]) +
                         " , " +
@@ -497,37 +496,38 @@ function DetailPage() {
             </DetailZone>
             <TagZone>
               {webToonInfo.data.tags.length === 0 ||
-                webToonInfo.data.tags === undefined
+              webToonInfo.data.tags === undefined
                 ? "텅~"
                 : webToonInfo.data.tags.map((tag) =>
-                  loginState === null ? (
-                    <Tag key={tag.tag_id} id={tag.tag_id}>
-                      <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
-                    </Tag>
-                  ) : userData.tags.includes(tag.tag_id) ? (
-                    <LikedTag
-                      key={tag.tag_id}
-                      id={tag.tag_id}
-                      onClick={tagSwitch}
-                    >
-                      <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
-                      <MinusButton>-</MinusButton>
-                    </LikedTag>
-                  ) : (
-                    <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
-                      <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
-                      <PlusButton>+</PlusButton>
-                    </Tag>
-                  )
-                )}
+                    loginState === null ? (
+                      <Tag key={tag.tag_id} id={tag.tag_id}>
+                        <BookMarkImage src={BookMark} alt="북마크" />
+                        <TagName>{tag.name}</TagName>
+                      </Tag>
+                    ) : userData.tags.includes(tag.tag_id) ? (
+                      <LikedTag
+                        key={tag.tag_id}
+                        id={tag.tag_id}
+                        onClick={tagSwitch}
+                      >
+                        <BookMarkImage src={BookMark} alt="북마크" />
+                        <TagName>{tag.name}</TagName>
+                        <MinusButton>-</MinusButton>
+                      </LikedTag>
+                    ) : (
+                      <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
+                        <BookMarkImage src={BookMark} alt="북마크" />
+                        <TagName>{tag.name}</TagName>
+                        <PlusButton>+</PlusButton>
+                      </Tag>
+                    )
+                  )}
             </TagZone>
             <PaintStyleRecommendZone>
               <div>그림체가 비슷한 웹툰</div>
               <PSRecommends>
-                {webToonInfo.similar_webtoon.length === 0 || webToonInfo.similar_webtoon === undefined ? (
+                {webToonInfo.similar_webtoon.length === 0 ||
+                webToonInfo.similar_webtoon === undefined ? (
                   <div>그림체가 비슷한 웹툰이 없어요 ㅠ</div>
                 ) : (
                   webToonInfo.similar_webtoon.map((similarWebtoon) => (
@@ -549,12 +549,12 @@ function DetailPage() {
                           {similarWebtoon.author_name.length === 1
                             ? similarWebtoon.author_name[0]
                             : similarWebtoon.author_name
-                              .slice(0, -1)
-                              .map((author) => author) +
-                            " / " +
-                            similarWebtoon.author_name
-                              .slice(-1)
-                              .map((author) => author)}
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              similarWebtoon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
                         </OtherWebToonAuthor>
                       </ToonInfo>
                     </OtherWebToon>
@@ -597,12 +597,12 @@ function DetailPage() {
                             {otherWebToon.author_name.length === 1
                               ? otherWebToon.author_name[0]
                               : otherWebToon.author_name
-                                .slice(0, -1)
-                                .map((author) => author) +
-                              " / " +
-                              otherWebToon.author_name
-                                .slice(-1)
-                                .map((author) => author)}
+                                  .slice(0, -1)
+                                  .map((author) => author) +
+                                " / " +
+                                otherWebToon.author_name
+                                  .slice(-1)
+                                  .map((author) => author)}
                           </OtherWebToonAuthor>
                         </ToonInfo>
                       </OtherWebToon>
@@ -758,8 +758,21 @@ const AlreadyRating = styled.div`
   border-radius: 0.6vw;
   background-color: lightgray;
   padding: 0.3vw;
+<<<<<<< HEAD
 >>>>>>> 36265cc (fix: 프로필 페이지 조금 수정)
 `
+=======
+`;
+
+const ModalTitle = styled.div`
+  margin-top: 3vw;
+  font-size: 2vw;
+`;
+
+const StarZone = styled.div`
+  margin-top: 2vw;
+`;
+>>>>>>> c5f8629 (feat: 프로필 태그 추가 제거)
 
 const Genre = styled.div`
   padding-bottom: 1vw;
@@ -833,12 +846,12 @@ const Summary = styled.div`
   border-bottom-right-radius: 0.5vw;
   margin-top: 7vw;
   font-size: 1vw;
-  padding: 0.5vw 0.8vw 1.0vw 0.8vw;
+  padding: 0.5vw 0.8vw 1vw 0.8vw;
   width: 70%;
   height: 10vw;
   overflow: auto;
   &::-webkit-scrollbar {
-    width:0.8vw;
+    width: 0.8vw;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #bab9b9;
@@ -896,7 +909,7 @@ const Tag = styled.div`
 const BookMarkImage = styled.img`
   flex: 1;
   width: 1.2vw;
-  height: 2.0vw;
+  height: 2vw;
   padding-left: 1vw;
 `;
 
@@ -913,7 +926,7 @@ const MinusButton = styled.div`
   margin-left: 0.6vw;
   margin-right: 0.2vw;
   margin-top: -0.2vw;
-  padding-right:0.36vw;
+  padding-right: 0.36vw;
   font-size: 2vw;
 `;
 
@@ -929,7 +942,6 @@ const PaintStyleRecommendZone = styled.div`
   margin-left: 7.5vw;
   margin-right: 6.5vw;
   overflow: hidden;
-  
 `;
 
 const PSRecommends = styled.div`

@@ -8,6 +8,7 @@ import Loading from "../../components/common/Loading";
 import BookMark from "../../../src/assets/detail/BookMark.png";
 import { profile } from "../../features/accounts/profileSlice";
 import { getTags } from "../../features/toons/searchSlice";
+import { tagLike } from "../../features/details/detailSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
 import ModalFrame from "../../components/common/ModalFrame";
@@ -24,24 +25,22 @@ function ProfilePage() {
   const [modal, setModal] = useState(false);
   const [count, setCount] = useState(1);
   const [slideCount, setSlideCount] = useState();
-  const [allTags, setAlltags] = useState();
-  const [likedTags, setLikedTags] = useState();
-  const [unLikedTags, setUnLikedTags] = useState();
+  const [unLikedTags, setUnLikedTags] = useState(); //검색가능한 데이터
+  const [searchWord, setSearchWord] = useState("");
+  const [filteredTags, setFilteredTags] = useState();
 
   let slide;
 
   function getUserInfo() {
     dispatch(profile()).then((res) => {
+      console.log(res.payload);
       setUserInfo(res.payload);
       setUserImg(profileImgItem[res.payload.data.profile_image_id].img);
       let imageType = [];
       let gName = [];
       let gValue = [];
       let tempLikedTags = [];
-      for (let i = 0; i < res.payload.data.tags.length; i++) {
-        tempLikedTags.push(res.payload.data.tags[i].tag_id);
-      }
-      setLikedTags(tempLikedTags);
+      res.payload.data.tags.map((tag) => tempLikedTags.push(tag.tag_id));
       imageType.push(res.payload.image_type.image_type1);
       imageType.push(res.payload.image_type.image_type2);
       imageType.push(res.payload.image_type.image_type3);
@@ -57,18 +56,16 @@ function ProfilePage() {
         Math.ceil(Number(res.payload.data.liked_webtoons.length) / 4)
       );
       setIsLoading(false);
+      console.log(res.payload.data.tags);
       dispatch(getTags()).then((tagres) => {
-        let tempAllTags = [];
-        for (let i = 0; i < tagres.payload.length; i++) {
-          tempAllTags.push(i + 1);
-        }
-        setAlltags(tempAllTags);
+        let temp = tagres.payload;
         let tempUnLikedTags = [];
-        tempUnLikedTags = tempAllTags.filter((tag) => !tempLikedTags.includes(tag));
-        console.log(tempAllTags);
-        console.log(tempLikedTags);
+        tempUnLikedTags = temp.filter(
+          (tag) => !tempLikedTags.includes(tag.tag_id)
+        );
+        setUnLikedTags(tempUnLikedTags);
         console.log(tempUnLikedTags);
-      })
+      });
     });
   }
 
@@ -87,12 +84,12 @@ function ProfilePage() {
   //   })
   // }
 
-
-
   function viewdWebtoon() {
     const result = [];
     let size;
-    userInfo.data.member_viewed_webtoons.length > 10 ? size = 10 : size = userInfo.data.member_viewed_webtoons.length;
+    userInfo.data.member_viewed_webtoons.length > 10
+      ? (size = 10)
+      : (size = userInfo.data.member_viewed_webtoons.length);
     for (let i = 0; i < size; i++) {
       result.push(
         <div key={userInfo.data.member_viewed_webtoons[i].webtoon.webtoon_id}>
@@ -140,9 +137,52 @@ function ProfilePage() {
     }, 200);
   }
 
+  function tagSwitch(e) {
+    if (e.target.id) {
+      dispatch(tagLike(e.target.id)).then((res) => {
+        if (res.error) {
+          console.log("태그 찜 실패");
+        } else {
+          getUserInfo();
+          let tempFilteredTags = [];
+          tempFilteredTags = unLikedTags.filter((unLikedTag) =>
+            unLikedTag.name.includes(searchWord)
+          );
+          setFilteredTags(tempFilteredTags);
+          setSearchWord("");
+          console.log("태그 스위치~");
+        }
+      });
+    } else {
+      dispatch(tagLike(e.target.parentNode.id)).then((res) => {
+        if (res.error) {
+          console.log("태그 찜 실패");
+        } else {
+          getUserInfo();
+          let tempFilteredTags = [];
+          tempFilteredTags = unLikedTags.filter((unLikedTag) =>
+            unLikedTag.name.includes(searchWord)
+          );
+          setFilteredTags(tempFilteredTags);
+          setSearchWord("");
+          console.log("태그 스위치~");
+        }
+      });
+    }
+  }
+
+  function search(e) {
+    setSearchWord(e.target.value);
+    let tempFilteredTags = [];
+    tempFilteredTags = unLikedTags.filter((unLikedTag) =>
+      unLikedTag.name.includes(e.target.value)
+    );
+    setFilteredTags(tempFilteredTags);
+    console.log(e.target.value);
+  }
+
   useEffect(() => {
     getUserInfo();
-    // getAllTags();
   }, []);
 
   const RatingGraphData = {
@@ -205,37 +245,85 @@ function ProfilePage() {
               </UserInfo>
               <GenreZone>
                 {userInfo.genre_list.length === 0 ||
-                  userInfo.genre_list === undefined
+                userInfo.genre_list === undefined
                   ? "텅~"
                   : Object.keys(userInfo.genre_list).map((key) => (
-                    <Genre key={key}>#{key} </Genre>
-                  ))}
+                      <Genre key={key}>#{key} </Genre>
+                    ))}
               </GenreZone>
             </UserBack>
           </UserBorder>
           <TagTitleZone>
-            <TagTitle>찜한 태그 {userInfo.data.tags.length === 0 ? null : `(${userInfo.data.tags.length})`}</TagTitle>
+            <TagTitle>
+              찜한 태그{" "}
+              {userInfo.data.tags.length === 0
+                ? null
+                : `(${userInfo.data.tags.length})`}
+            </TagTitle>
             <TagAddRemove onClick={switchModal}>태그 추가/제거</TagAddRemove>
           </TagTitleZone>
           {modal ? (
-            <ModalFrame top="5vw" width="75%" height="auto" _handleModal={switchModal} >
+            <ModalFrame
+              top="5vw"
+              width="75%"
+              height="auto"
+              _handleModal={switchModal}
+            >
               <ModalTitle>태그 추가/제거</ModalTitle>
-              <LikedTagZone></LikedTagZone>
+              <LikedTagZone>
+                {userInfo.data.tags.length === 0 ||
+                userInfo.data.tags === undefined
+                  ? "텅~"
+                  : userInfo.data.tags.map((tag) => (
+                      <LikedTag
+                        key={tag.tag_id}
+                        id={tag.tag_id}
+                        onClick={tagSwitch}
+                      >
+                        <TagName>{tag.name}</TagName>
+                        <MinusButton>-</MinusButton>
+                      </LikedTag>
+                    ))}
+              </LikedTagZone>
+              <Line></Line>
+              <SearchBar
+                placeholder="추가하고 싶은 태그를 입력하세요"
+                value={searchWord}
+                onChange={search}
+              ></SearchBar>
+              <FilterZone>
+                {filteredTags === undefined || searchWord.length === 0
+                  ? ""
+                  : filteredTags.map((filteredTag) => (
+                      <SearchTag
+                        key={filteredTag.tag_id}
+                        id={filteredTag.tag_id}
+                        onClick={tagSwitch}
+                      >
+                        <TagName>{filteredTag.name}</TagName>
+                        <PlusButton>+</PlusButton>
+                      </SearchTag>
+                    ))}
+              </FilterZone>
             </ModalFrame>
           ) : null}
           <TagZone>
-            {userInfo.data.tags.length === 0 ||
-              userInfo.data.tags === undefined
+            {userInfo.data.tags.length === 0 || userInfo.data.tags === undefined
               ? "태그를 찜해주세요~"
               : userInfo.data.tags.map((tag) => (
-                <Tag key={tag.tag_id} id={tag.tag_id}>
-                  <BookMarkImage src={BookMark} alt="북마크" />
-                  <TagName>{tag.name}</TagName>
-                </Tag>
-              ))}
+                  <Tag key={tag.tag_id} id={tag.tag_id}>
+                    <BookMarkImage src={BookMark} alt="북마크" />
+                    <TagName>{tag.name}</TagName>
+                  </Tag>
+                ))}
           </TagZone>
           <WebToonTitleZone>
-            <TagTitle>찜한 웹툰 {userInfo.data.liked_webtoons.length === 0 ? null : `(${userInfo.data.liked_webtoons.length})`}</TagTitle>
+            <TagTitle>
+              찜한 웹툰{" "}
+              {userInfo.data.liked_webtoons.length === 0
+                ? null
+                : `(${userInfo.data.liked_webtoons.length})`}
+            </TagTitle>
           </WebToonTitleZone>
           {slideCount >= 2 ? (
             <>
@@ -247,8 +335,9 @@ function ProfilePage() {
           ) : null}
           <LikedWebToonBack>
             <LikedWebToons id="slide">
-              {userInfo.data.liked_webtoons.length === 0 || userInfo.data.liked_webtoons === undefined ? (
-                <div>작가님의 다른 작품이 없어요 ㅠ</div>
+              {userInfo.data.liked_webtoons.length === 0 ||
+              userInfo.data.liked_webtoons === undefined ? (
+                <div>찜한 웹툰이 없어요 ㅠ</div>
               ) : (
                 userInfo.data.liked_webtoons.map((likedWebtoon) => (
                   <LikedWebToon
@@ -277,7 +366,7 @@ function ProfilePage() {
           <ViewWebToonBack>
             <ViewWebToon>
               {userInfo.data.member_viewed_webtoons.length === 0
-                ? "텅~"
+                ? "웹툰좀 봐라"
                 : viewdWebtoon()}
             </ViewWebToon>
           </ViewWebToonBack>
@@ -447,10 +536,25 @@ const Tag = styled.div`
   background-color: white;
 `;
 
+const SearchTag = styled.div`
+  display: flex;
+  cursor: pointer;
+  border: 0.1vw solid black;
+  border-radius: 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0.5vw;
+  transition: 0.5s;
+  &:hover {
+    background-color: pink;
+  }
+`;
+
 const BookMarkImage = styled.img`
   flex: 1;
   width: 1.2vw;
-  height: 2.0vw;
+  height: 2vw;
   padding-left: 1vw;
 `;
 
@@ -462,18 +566,75 @@ const TagName = styled.div`
   font-size: 1.5vw;
 `;
 
+const MinusButton = styled.div`
+  flex: 1;
+  margin-left: 0.6vw;
+  margin-right: 0.2vw;
+  margin-top: -0.2vw;
+  padding-right: 0.36vw;
+  font-size: 2vw;
+`;
+
+const PlusButton = styled.div`
+  flex: 1;
+  margin-left: 0.38vw;
+  margin-right: 0.2vw;
+  margin-top: -0.2vw;
+  font-size: 2vw;
+`;
+
 const ModalTitle = styled.div`
-  margin-top:2vw;
-`
+  margin-top: 2vw;
+`;
 const LikedTagZone = styled.div`
+  display: flex;
+  flex-flow: wrap;
   margin-top: 3vw;
-`
+`;
+
+const Line = styled.div`
+  border-top: 0.2vw solid black;
+  width: 100%;
+`;
+
+const SearchBar = styled.input`
+  margin-top: 3vw;
+  width: 25vw;
+  height: 3vw;
+  font-size: 1.5vw;
+`;
+
+const FilterZone = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  margin-top: 3vw;
+  padding: 1.5vw;
+  border-top-left-radius: 1vw;
+  border-bottom-left-radius: 1vw;
+  border-bottom-right-radius: 1vw;
+`;
+
+const LikedTag = styled.div`
+  display: flex;
+  cursor: pointer;
+  background-color: pink;
+  border: 0.1vw solid black;
+  border-radius: 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0.5vw;
+  transition: 0.5s;
+  &:hover {
+    background-color: white;
+  }
+`;
 
 const WebToonTitleZone = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 1vw 0vw 1vw 0vw;
-`
+`;
 
 const PrevBtn = styled.div`
   cursor: pointer;
@@ -482,7 +643,7 @@ const PrevBtn = styled.div`
   margin-left: -1vw;
   font-size: 5vw;
   z-index: 1;
-`
+`;
 
 const NextBtn = styled.div`
   cursor: pointer;
@@ -492,7 +653,6 @@ const NextBtn = styled.div`
   font-size: 5vw;
   z-index: 1;
 `;
-
 
 const LikedWebToonBack = styled.div`
   display: flex;
@@ -524,7 +684,7 @@ const ThumnailBox = styled.div`
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
   cursor: pointer;
-`
+`;
 
 const LikedWebToonThumbnail = styled.img`
   object-fit: fill;
@@ -533,7 +693,7 @@ const LikedWebToonThumbnail = styled.img`
   height: 100%;
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
-`
+`;
 
 const ToonInfo = styled.div`
   display: flex;
@@ -543,10 +703,10 @@ const ToonInfo = styled.div`
   border-bottom-left-radius: 0.8vw;
   border-bottom-right-radius: 0.8vw;
   cursor: pointer;
-`
+`;
 
 const LikedWebToonTitle = styled.div`
- white-space: nowrap;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1.3vw;
@@ -554,7 +714,7 @@ const LikedWebToonTitle = styled.div`
   margin: 0;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
-`
+`;
 const ViewWebToonBack = styled.div`
   display: flex;
   background-color: #feec91;
@@ -562,15 +722,12 @@ const ViewWebToonBack = styled.div`
   border-radius: 1.5vw;
 `;
 
-
 const ViewWebToon = styled.div`
   display: grid;
   width: 100%;
   margin-bottom: 2vw;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
-
-
 
 const ChartBack = styled.div`
   display: flex;
