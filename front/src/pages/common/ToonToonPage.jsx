@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MySwal from "../../components/common/SweetAlert";
-import AllToonList from "../../components/toonlist/AllToonList";
 import Loading from "../../components/common/Loading";
 import { fetchtuntun, changeFocusTun } from "../../features/toons/tuntunSlice";
 import tuntunItem from "../../assets/tuntun/tuntunItem";
@@ -39,13 +38,17 @@ function ToonToonPage() {
       {isLoading ? (
         <Loading text={"웹툰 잡아오는 중..."}></Loading>
       ) : (
-        <div>
-          <div>{toons && <ToonList toons={toons} />}</div>
-        </div>
+        <ToonToonBox>{toons && <ToonList toons={toons} />}</ToonToonBox>
       )}
     </>
   );
 }
+
+const ToonToonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
 
 function ToonList({ toons }) {
   let rows = [];
@@ -72,46 +75,94 @@ function ToonList({ toons }) {
 const ToonListBox = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 30px;
 `;
 
 function LeftToon({ toons, type }) {
   const [isHover, setIsHover] = useState(false);
   return (
     <LeftBox>
-      <LeftContentBox
-        onMouseOver={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
-      >
-        {isHover ? (
-          <ToonBox>
-            {toons.map((toon) => (
-              <ToonItem toontoon={true} key={toon.webtoon_id} item={toon} />
-            ))}
-          </ToonBox>
-        ) : (
-          <ImgBox>
-            <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
-          </ImgBox>
-        )}
-      </LeftContentBox>
+      <LeftOuterBox>
+        <LeftContentBox>
+          <LeftInnerBox>
+            <LeftItemBox
+              onMouseOver={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              tun={type}
+            >
+              {isHover ? (
+                <ToonBox>
+                  {toons.map((toon) => (
+                    <ToonItem
+                      toontoon={true}
+                      key={toon.webtoon_id}
+                      item={toon}
+                    />
+                  ))}
+                </ToonBox>
+              ) : (
+                <ImgBox>
+                  <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+                </ImgBox>
+              )}
+            </LeftItemBox>
+          </LeftInnerBox>
+        </LeftContentBox>
+      </LeftOuterBox>
     </LeftBox>
   );
 }
 
+const LeftItemBox = styled.div`
+  width: 99.5%;
+  height: 97%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  border: 3px solid red;
+  background: linear-gradient(-120deg, transparent 130px, white, 0);
+`;
+
+const LeftOuterBox = styled.div`
+  height: 17vw;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  background: linear-gradient(-120deg, transparent 130px, black 0);
+`;
+
 const LeftContentBox = styled.div`
   height: 17vw;
-  overflow: hidden;
+  width: 99.5%;
+  height: 97%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  background: linear-gradient(-120deg, transparent 130px, white 0);
+`;
+
+const LeftInnerBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 99%;
+  height: 97%;
+  background: black;
+  background: linear-gradient(-120deg, transparent 130px, black 0);
 `;
 
 const LeftBox = styled.div`
   align-self: start;
-  width: 80%;
+  width: 75%;
+  height: 17vw;
 `;
 
 const ImgBox = styled.div`
-  width: 100%;
+  width: 80%;
   height: 100%;
-  overflow: hidden;
 `;
 
 const TunImg = styled.img`
