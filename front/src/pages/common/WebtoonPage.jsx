@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom";
 import {
   fetchToonlist,
   addToonlist,
@@ -7,7 +8,8 @@ import {
   changeFetchPossible
 } from "../../features/toons/toonlistSlice"
 import {
-//   filterToons,
+  filterToons,
+  changeFilterInfo,
   changePlatform,
   changeDay,
   changeGenre,
@@ -26,11 +28,18 @@ import Fish_5 from "../../assets/filter/fish5.png"
 
 function WebtoonPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   useEffect(() => {
     const data = {
       page: 1,
     };
+    dispatch(changeFilterInfo({
+      platform: [],
+      day: [],
+      genre: [],
+      tag: [],
+    }));
     dispatch(changePage(1));
     dispatch(changeFetchPossible(true));
     dispatch(fetchToonlist(data));
@@ -80,7 +89,7 @@ function WebtoonPage() {
     setModal((prev) => !prev);
   }
 
-  // const filterInfo = useSelector((state) => state.filter.filterInfo);
+  const filterInfo = useSelector((state) => state.filter.filterInfo);
   const platformList = useSelector((state) => state.filter.filterInfo.platform);
   const dayList = useSelector((state) => state.filter.filterInfo.day);
   const genreList = useSelector((state) => state.filter.filterInfo.genre);
@@ -103,6 +112,20 @@ function WebtoonPage() {
   // function changeTagList(e) {
   //   dispatch(changeTag(Number(e.target.value)));
   // }
+
+  function submitFilter() {
+    const data = {
+      page: 1,
+      checked: filterInfo,
+    }
+    // dispatch(changeIsLoad(true));
+    // dispatch(changePossibleFetch(true));
+    dispatch(filterToons(data)).then((res) => {
+      // dispatch(changeIsLoad(false));
+      navigate(`/filter`);
+      window.scrollTo(0, 0);
+    });
+  }
 
   return (
     <Container>
@@ -185,7 +208,7 @@ function WebtoonPage() {
               </ModalContainer>
               <SubmitBtn
                 active={clickedNum > 0 ? true : false}
-                // onClick={fileImage ? checkImage : null}
+                onClick={clickedNum > 0 ? submitFilter : null}
               >
                 확인
               </SubmitBtn>
@@ -256,7 +279,6 @@ const ModalContainer = styled.div`
   margin-top: 0.5vw;
   display: flex;
   justify-content: space-between;
-  /* border: 1px solid; */
   @media screen and (max-width: 750px) {
     width: 80%;
     height: auto;
@@ -273,7 +295,6 @@ const FilterBox = styled.div`
     margin-right: auto;
   }
   height: 100%;
-  /* border: 1px solid blue; */
 `
 
 const PlatformBox = styled.div`
@@ -285,7 +306,6 @@ const PlatformBox = styled.div`
   @media screen and (max-width: 750px) {
     height: 70px;
   }
-  /* border: 1px solid green; */
 `
 
 const DayBox = styled.div`
@@ -297,7 +317,6 @@ const DayBox = styled.div`
   @media screen and (max-width: 750px) {
     height: 120px;
   }
-  /* border: 1px solid pink; */
 `
 
 const GenreBox = styled.div`
@@ -309,7 +328,6 @@ const GenreBox = styled.div`
   @media screen and (max-width: 750px) {
     height: 150px;
   }
-  /* border: 1px solid yellow; */
 `
 
 const TagBox = styled.div`
@@ -318,7 +336,6 @@ const TagBox = styled.div`
   @media screen and (max-width: 750px) {
     height: 80px;
   }
-  /* border: 1px solid gray; */
 `
 
 const PlatformGroup = styled.div`
@@ -411,7 +428,6 @@ const ImgBox = styled.div`
   }
   width: 48%;
   height: 100%;
-  /* border: 1px solid red; */
 `
 
 const FishingImg = styled.img`

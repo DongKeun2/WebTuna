@@ -39,6 +39,7 @@ import LoginPage from "./pages/accounts/LoginPage";
 import ProfilePage from "./pages/accounts/ProfilePage";
 import ToonToonPage from "./pages/common/ToonToonPage";
 import WebtoonPage from "./pages/common/WebtoonPage";
+import FilterPage from "./pages/common/FilterPage";
 import ToonBTIPage from "./pages/common/ToonBTIPage";
 import UploadPage from "./pages/common/UploadPage";
 import UploadResultPage from "./pages/common/UploadResultPage";
@@ -60,6 +61,7 @@ root.render(
           <Route path="edit" element={<EditPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="webtoonlist" element={<WebtoonPage />} />
+          <Route path="filter" element={<FilterPage />} />
           <Route path="toontoon" element={<ToonToonPage />} />
           <Route path="toonbti" element={<ToonBTIPage />} />
           <Route path="upload" element={<UploadPage />} />
