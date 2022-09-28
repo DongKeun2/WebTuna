@@ -10,6 +10,7 @@ import {
   addToons,
   searchToons,
   changeIsLoad,
+  changeWord,
   changePossibleFetch,
 } from "../../features/toons/searchSlice";
 
@@ -65,6 +66,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     dispatch(changeKeyword(location));
+    dispatch(changeWord(location));
     const data = {
       pages: 1,
       keyword: location,
