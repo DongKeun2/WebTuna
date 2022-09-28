@@ -12,4 +12,4 @@ class QuestionSerializer(serializers.ModelSerializer):
 class WebtoonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Webtoon
-        fields = ('webtoon_id','title','summary','thumbnail', 'page')
+        fields = ('webtoon_id','title','thumbnail', 'page')
