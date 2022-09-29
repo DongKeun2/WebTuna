@@ -8,7 +8,7 @@ import {
   changePlatform,
   changeDay,
   changeGenre,
-//   changeTag,
+  //   changeTag,
   changeIsLoad,
   changePage,
   changePossibleFetch,
@@ -29,7 +29,7 @@ function FilterPage() {
   const navigate = useNavigate();
 
   const currentInfo = JSON.parse(sessionStorage.getItem("filterInfo")) || {};
-  
+
   useEffect(() => {
     const data = {
       page: 1,
@@ -40,10 +40,10 @@ function FilterPage() {
     dispatch(changePossibleFetch(true));
     dispatch(filterToons(data));
     window.scrollTo(0, 0);
-  }, [dispatch]); 
+  }, [dispatch]);
 
   const toonList = useSelector((state) => state.filter.toonList) || [];
-  
+
   const [fetching, setFetching] = useState(false);
   const possibleFetch = useSelector((state) => state.filter.possibleFetch);
   const page = useSelector((state) => state.filter.page);
@@ -69,20 +69,20 @@ function FilterPage() {
       window.removeEventListener("scroll", handleScroll);
     };
   });
-  
+
   const fetchNextPage = async () => {
     setFetching(true);
     const data = {
-      page: page+1,
+      page: page + 1,
       checked: filterInfo,
     };
     dispatch(addFilterToons(data)).then(() => {
       setFetching(false);
     });
   };
-  
+
   const [modal, setModal] = useState(false);
-  
+
   function switchModal() {
     setModal((prev) => !prev);
   }
@@ -184,24 +184,24 @@ function FilterPage() {
                 </FilterBox>
                 <ImgBox>
                   {clickedNum >= 5 ? (
-                    <FishingImg src={Fish_5}/>
+                    <FishingImg src={Fish_5} />
                   ) : (
                     clickedNum === 4 ? (
-                      <FishingImg src={Fish_4}/>
+                      <FishingImg src={Fish_4} />
                     ) : (
                       clickedNum === 3 ? (
-                        <FishingImg src={Fish_3}/>
+                        <FishingImg src={Fish_3} />
                       ) : (
                         clickedNum === 2 ? (
-                          <FishingImg src={Fish_2}/>
+                          <FishingImg src={Fish_2} />
                         ) : (
                           clickedNum === 1 ? (
-                            <FishingImg src={Fish_1}/>
+                            <FishingImg src={Fish_1} />
                           ) : (
-                            <FishingImg src={Fish_0}/>
+                            <FishingImg src={Fish_0} />
                           )
                         )
-                      )    
+                      )
                     )
                   )}
                 </ImgBox>

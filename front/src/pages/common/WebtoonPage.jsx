@@ -13,7 +13,7 @@ import {
   changePlatform,
   changeDay,
   changeGenre,
-//   changeTag,
+  //   changeTag,
   changeIsLoad,
   changePossibleFetch,
 } from "../../features/toons/filterSlice"
@@ -29,9 +29,10 @@ import Fish_4 from "../../assets/filter/fish4.png"
 import Fish_5 from "../../assets/filter/fish5.png"
 
 function WebtoonPage() {
+  sessionStorage.setItem("url", "/webtoonlist");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const data = {
       page: 1,
@@ -49,7 +50,7 @@ function WebtoonPage() {
   }, [dispatch]);
 
   const toons = useSelector((state) => state.toonlist.toons) || [];
-  
+
   const [fetching, setFetching] = useState(false);
   const fetchPossible = useSelector((state) => state.toonlist.fetchPossible);
   const page = useSelector((state) => state.toonlist.page);
@@ -74,19 +75,19 @@ function WebtoonPage() {
       window.removeEventListener("scroll", handleScroll);
     };
   });
-  
+
   const fetchNextPage = async () => {
     setFetching(true);
     const data = {
-      page: page+1,
+      page: page + 1,
     };
     dispatch(addToonlist(data)).then(() => {
       setFetching(false);
     });
   };
-  
+
   const [modal, setModal] = useState(false);
-  
+
   function switchModal() {
     setModal((prev) => !prev);
   }
@@ -187,24 +188,24 @@ function WebtoonPage() {
                 </FilterBox>
                 <ImgBox>
                   {clickedNum >= 5 ? (
-                    <FishingImg src={Fish_5}/>
+                    <FishingImg src={Fish_5} />
                   ) : (
                     clickedNum === 4 ? (
-                      <FishingImg src={Fish_4}/>
+                      <FishingImg src={Fish_4} />
                     ) : (
                       clickedNum === 3 ? (
-                        <FishingImg src={Fish_3}/>
+                        <FishingImg src={Fish_3} />
                       ) : (
                         clickedNum === 2 ? (
-                          <FishingImg src={Fish_2}/>
+                          <FishingImg src={Fish_2} />
                         ) : (
                           clickedNum === 1 ? (
-                            <FishingImg src={Fish_1}/>
+                            <FishingImg src={Fish_1} />
                           ) : (
-                            <FishingImg src={Fish_0}/>
+                            <FishingImg src={Fish_0} />
                           )
                         )
-                      )    
+                      )
                     )
                   )}
                 </ImgBox>

@@ -157,6 +157,7 @@ function NavBar() {
   }
 
   function moveToontoon() {
+    sessionStorage.setItem("url", `/toontoon`);
     navigate(`/toontoon`);
     window.scrollTo(0, 0);
   }

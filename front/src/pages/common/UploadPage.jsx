@@ -30,8 +30,14 @@ import { useEffect } from "react";
 >>>>>>> 5ac0872 (feat: 명탐정 툰툰 비로그인 접근 가능)
 
 function UploadPage() {
+<<<<<<< HEAD
   const dispatch = useDispatch()
   const navigate = useNavigate()
+=======
+  sessionStorage.setItem("url", `/upload`);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+>>>>>>> 77b87b1 (feat: 로그인시 왔던 페이지로 돌아가기)
 
 <<<<<<< HEAD
 <<<<<<< HEAD

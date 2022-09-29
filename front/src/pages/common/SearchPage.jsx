@@ -22,7 +22,7 @@ export default function SearchPage() {
   const possibleFetch = useSelector((state) => state.search.possibleFetch);
   const pages = useSelector((state) => state.search.pages);
   const keyword = useSelector((state) => state.search.keyword);
-
+  sessionStorage.setItem("url", `/search/${keyword}`);
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;

@@ -25,6 +25,7 @@ function LoginPage() {
   }, [dispatch]);
 
   const loginInfo = useSelector((state) => state.login.loginInfo);
+  const returnUrl = sessionStorage.getItem("url");
 
   function loginSubmit(e) {
     e.preventDefault();
@@ -37,6 +38,7 @@ function LoginPage() {
           icon: "error",
           confirmButtonText: "Cool",
         });
+        sessionStorage.setItem("url", returnUrl);
       } else {
         dispatch(fetchInfo()).then(() => {
           MySwal.fire({
@@ -48,7 +50,12 @@ function LoginPage() {
           if (state) {
             navigate(state);
           } else {
-            navigate("/");
+            if (returnUrl) {
+              navigate(returnUrl);
+            }
+            else {
+              navigate("/");
+            }
           }
         });
       }

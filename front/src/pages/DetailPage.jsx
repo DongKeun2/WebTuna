@@ -42,6 +42,7 @@ function DetailPage() {
   let slide;
 
   function getDetail() {
+    sessionStorage.setItem("url", `/detail/${toonId}`);
     window.scrollTo(0, 0);
     if (!loginState) {
       dispatch(noLoginDetail(toonId)).then((res) => {
@@ -465,8 +466,8 @@ function DetailPage() {
                     {webToonInfo.data.days[0].day_id === 8
                       ? "완결 웹툰"
                       : webToonInfo.data.days.length === 1
-                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                      : webToonInfo.data.days
+                        ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                        : webToonInfo.data.days
                           .slice(0, -1)
                           .map((dayy) => day[dayy.day_id]) +
                         " , " +
@@ -505,38 +506,38 @@ function DetailPage() {
             </DetailZone>
             <TagZone>
               {webToonInfo.data.tags.length === 0 ||
-              webToonInfo.data.tags === undefined
+                webToonInfo.data.tags === undefined
                 ? "텅~"
                 : webToonInfo.data.tags.map((tag) =>
-                    loginState === null ? (
-                      <Tag key={tag.tag_id} id={tag.tag_id}>
-                        <BookMarkImage src={BookMark} alt="북마크" />
-                        <TagName>{tag.name}</TagName>
-                      </Tag>
-                    ) : userData.tags.includes(tag.tag_id) ? (
-                      <LikedTag
-                        key={tag.tag_id}
-                        id={tag.tag_id}
-                        onClick={tagSwitch}
-                      >
-                        <BookMarkImage src={BookMark} alt="북마크" />
-                        <TagName>{tag.name}</TagName>
-                        <MinusButton>-</MinusButton>
-                      </LikedTag>
-                    ) : (
-                      <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
-                        <BookMarkImage src={BookMark} alt="북마크" />
-                        <TagName>{tag.name}</TagName>
-                        <PlusButton>+</PlusButton>
-                      </Tag>
-                    )
-                  )}
+                  loginState === null ? (
+                    <Tag key={tag.tag_id} id={tag.tag_id}>
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                    </Tag>
+                  ) : userData.tags.includes(tag.tag_id) ? (
+                    <LikedTag
+                      key={tag.tag_id}
+                      id={tag.tag_id}
+                      onClick={tagSwitch}
+                    >
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                      <MinusButton>-</MinusButton>
+                    </LikedTag>
+                  ) : (
+                    <Tag key={tag.tag_id} id={tag.tag_id} onClick={tagSwitch}>
+                      <BookMarkImage src={BookMark} alt="북마크" />
+                      <TagName>{tag.name}</TagName>
+                      <PlusButton>+</PlusButton>
+                    </Tag>
+                  )
+                )}
             </TagZone>
             <PaintStyleRecommendZone>
               <div>그림체가 비슷한 웹툰</div>
               <PSRecommends>
                 {webToonInfo.similar_webtoon.length === 0 ||
-                webToonInfo.similar_webtoon === undefined ? (
+                  webToonInfo.similar_webtoon === undefined ? (
                   <div>그림체가 비슷한 웹툰이 없어요 ㅠ</div>
                 ) : (
                   webToonInfo.similar_webtoon.map((similarWebtoon) => (
@@ -558,12 +559,12 @@ function DetailPage() {
                           {similarWebtoon.author_name.length === 1
                             ? similarWebtoon.author_name[0]
                             : similarWebtoon.author_name
-                                .slice(0, -1)
-                                .map((author) => author) +
-                              " / " +
-                              similarWebtoon.author_name
-                                .slice(-1)
-                                .map((author) => author)}
+                              .slice(0, -1)
+                              .map((author) => author) +
+                            " / " +
+                            similarWebtoon.author_name
+                              .slice(-1)
+                              .map((author) => author)}
                         </OtherWebToonAuthor>
                       </ToonInfo>
                     </OtherWebToon>
@@ -606,12 +607,12 @@ function DetailPage() {
                             {otherWebToon.author_name.length === 1
                               ? otherWebToon.author_name[0]
                               : otherWebToon.author_name
-                                  .slice(0, -1)
-                                  .map((author) => author) +
-                                " / " +
-                                otherWebToon.author_name
-                                  .slice(-1)
-                                  .map((author) => author)}
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              otherWebToon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
                           </OtherWebToonAuthor>
                         </ToonInfo>
                       </OtherWebToon>

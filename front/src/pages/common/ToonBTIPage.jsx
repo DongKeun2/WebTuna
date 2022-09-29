@@ -13,6 +13,7 @@ import Loading from "../../components/common/Loading";
 import talkToon from "../../assets/test/tuntun4.png";
 
 function ToonBTIPage() {
+  sessionStorage.setItem("url", `/toonbti`);
   const dispatch = useDispatch();
 
   useEffect(() => {

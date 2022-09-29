@@ -6,6 +6,7 @@ import { fetchMain } from "../../features/toons/mainSlice";
 import ConceptToons from "../../components/toonlist/ConceptToons";
 
 function MainPage() {
+  sessionStorage.setItem("url", `/`);
   const dispatch = useDispatch();
 
   const toons = useSelector((state) => state.main.toons);
