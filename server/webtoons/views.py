@@ -57,12 +57,16 @@ from rest_framework import status
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dab37c5 (fix: webtoon search  좌우공백제거, 덮어씌우는 버그 수정, 가나다순 정렬 추가)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer
 >>>>>>> 9f3add1 (fix: 웹툰 전체 페이지 성능개선(WebtoonListSerializer 수정))
 =======
 =======
 from accounts.models import Member_View_Webtoons
+=======
+from accounts.models import Member_View_Webtoons, Member
+>>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -94,6 +98,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 import random
 import requests
+<<<<<<< HEAD
 <<<<<<< HEAD
 # import requests
 # import csv
@@ -299,6 +304,9 @@ import requests
 =======
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 
+=======
+from datetime import datetime 
+>>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
 # 메인 페이지
 @api_view(['GET'])
 def mainPage(request):
@@ -642,6 +650,7 @@ def recommendWebtoon(request):
     # 유저가 좋아하는 태그 기반 추천
     tag_recommend = tagRecommend(user_id)
 
+<<<<<<< HEAD
     # # 유저가 좋아하는 태그 기반 추천
     # elif typeId == 6:
 <<<<<<< HEAD
@@ -931,6 +940,12 @@ def typeToDifference(type, original, comparsion):
 >>>>>>> 3c6421c (fix: 웹툰 추천 api 수정 - 조건 미달 시 빈 리스트 반환)
     return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': weather_recommend.data, '3': genre_recommend.data, '4':tag_recommend.data}, status.HTTP_200_OK)
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
+=======
+    # 유저 나이대, 성별 기준 찜목록 인기순 추천
+    users_popularity_recommend = popularity_recommend(user_id)
+    
+    return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': weather_recommend.data, '3': genre_recommend.data, '4':tag_recommend.data, '5': users_popularity_recommend.data}, status.HTTP_200_OK)
+>>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
 
 
 # 이미지 검색
@@ -1288,4 +1303,69 @@ def drawRecommend(user):
 >>>>>>> 30a0ac7 (fix : 추천 함수 수정, 변수 수정)
 
     return webtoons_list
+<<<<<<< HEAD
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
+=======
+
+# 내 성별, 나이대 찜목록 기반 추천
+def popularity_recommend(user):
+    now_year = datetime.today().year
+    member = get_object_or_404(get_user_model(), id=user)
+    my_liked_list = member.liked_webtoons.all()
+    
+    # 내 성별
+    members = Member.objects.filter(gender=member.gender)
+    # 내 나이대
+    my_age = now_year- int(str(member.birth)[0:4])+1
+    my_age_area = my_age-my_age%10
+    my_ages_members = members.filter(birth__lte=((now_year-my_age_area)*10000+1231), birth__gt=(now_year-(my_age_area+10))*10000)
+
+    recommend_liked_list = []
+    for mem in my_ages_members:
+        if mem.id == user:
+            continue
+        mem_liked_list = mem.liked_webtoons.all()
+        for mem_webtoon in mem_liked_list:
+            if mem_webtoon not in my_liked_list:
+                recommend_liked_list.append(mem_webtoon.webtoon_id)
+    
+    recommend_dictionary = {}
+    for recommend in recommend_liked_list:
+        if str(recommend) in recommend_dictionary.keys() :
+            recommend_dictionary[str(recommend)] += 1
+        else:
+            recommend_dictionary[str(recommend)] = 1
+    
+    sorted_webtoon_ids = sorted(recommend_dictionary.items(), key=lambda x:x[1], reverse=True)
+    webtoon_ids = []
+    for id in sorted_webtoon_ids:
+        webtoon_ids.append(id[0])
+   
+    recommend_liked_webtoon = Webtoon.objects.filter(webtoon_id__in = webtoon_ids[:20]).order_by('-rating').order_by('-view_count')
+    recommend_view_list = []
+    # log기록 maxcount 기준 rating~조회수
+    if(len(recommend_liked_webtoon)<20):
+        for mem in my_ages_members:
+            mem_view_list = Member_View_Webtoons.objects.filter(member_id=mem.id)
+            for mem_webtoon in mem_view_list:
+                if mem_webtoon.webtoon not in my_liked_list and mem_webtoon.webtoon not in recommend_liked_webtoon:
+                    recommend_view_list.append(mem_webtoon.webtoon.webtoon_id)
+    
+    recommend_dictionary = {}
+    for recommend in recommend_view_list:
+        if str(recommend) in recommend_dictionary.keys() :
+            recommend_dictionary[str(recommend)] += 1
+        else:
+            recommend_dictionary[str(recommend)] = 1
+    
+    sorted_webtoon_ids = sorted(recommend_dictionary.items(), key=lambda x:x[1], reverse=True)
+   
+    webtoon_ids = []
+    for id in sorted_webtoon_ids:
+        webtoon_ids.append(id[0])
+    recommend_views_webtoon = Webtoon.objects.filter(webtoon_id__in = webtoon_ids[:20]).order_by('-rating').order_by('-view_count')
+    recommend_list = recommend_liked_webtoon.union(recommend_views_webtoon)[:20]
+    webtoons_list = WebtoonListSerializer(recommend_list, many=True)
+
+    return webtoons_list
+>>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
