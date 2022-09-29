@@ -18,11 +18,16 @@ import cat from "../../assets/profile/cat.jpg";
 =======
 import tuntun from "../../assets/test/tuntun2.png";
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> a56603e (feat: 프로필이미지 수정 / 검색창 배경 수정)
 =======
 import MySwal from "../../components/common/SweetAlert";
 import { useEffect } from "react";
 >>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)
+=======
+// import MySwal from "../../components/common/SweetAlert";
+// import { useEffect } from "react";
+>>>>>>> 5ac0872 (feat: 명탐정 툰툰 비로그인 접근 가능)
 
 function UploadPage() {
   const dispatch = useDispatch()
@@ -126,18 +131,18 @@ function UploadPage() {
     return prediction
   }
 
-  useEffect(() => {
-    if (!sessionStorage.getItem("token")) {
-      MySwal.fire({
-        title: "로그인 후 이용해주세요.",
-        icon: "warning",
-        confirmButtonColor: "#feec91",
-        confirmButtonText: "확인",
-        reverseButtons: true,
-      });
-      navigate("/login", { state: pathname });
-    }
-  }, [navigate, pathname]);
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("token")) {
+  //     MySwal.fire({
+  //       title: "로그인 후 이용해주세요.",
+  //       icon: "warning",
+  //       confirmButtonColor: "#feec91",
+  //       confirmButtonText: "확인",
+  //       reverseButtons: true,
+  //     });
+  //     navigate("/login", { state: pathname });
+  //   }
+  // }, [navigate, pathname]);
 
   return (
     <div>
