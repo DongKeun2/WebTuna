@@ -20,6 +20,8 @@ import StarIcon from "@mui/icons-material/Star";
 import FullHeart from "../assets/detail/FullHeart.png";
 import EmptyHeart from "../assets/detail/EmptyHeart.png";
 import MySwal from "../components/common/SweetAlert";
+import Left from "../../src/assets/detail/Left.png";
+import Right from "../../src/assets/detail/Right.png";
 
 function DetailPage() {
   let { toonId } = useParams();
@@ -299,7 +301,7 @@ function DetailPage() {
     margintop: 3,
     marginleft: 3,
     width: 25,
-    labels: ["순정", "무협", "양산형", "우산형", "우비형", "우리형"],
+    labels: ["동근납작", "반짝섬세", "깔끔단정", "터프투박", "단순캐릭", "트렌디"],
     datasets: [
       {
         type: "radar",
@@ -576,9 +578,9 @@ function DetailPage() {
               <div>같은 작가의 다른 작품</div>
               {slideCount >= 2 ? (
                 <>
-                  {count === 1 ? null : <PrevBtn onClick={left}>좌</PrevBtn>}
+                  {count === 1 ? null : <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>}
                   {count === slideCount ? null : (
-                    <NextBtn onClick={right}>우</NextBtn>
+                    <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
                   )}
                 </>
               ) : null}
@@ -968,21 +970,21 @@ const SameAuthorRecommendZone = styled.div`
   margin-right: 6.5vw;
 `;
 
-const PrevBtn = styled.div`
+const PrevBtn = styled.img`
   cursor: pointer;
   position: absolute;
-  margin-top: 7vw;
-  margin-left: -4.5vw;
-  font-size: 5vw;
+  width: 3vw;
+  margin-top: 7.5vw;
+  margin-left: -4vw;
   z-index: 1;
 `;
 
-const NextBtn = styled.div`
+const NextBtn = styled.img`
   cursor: pointer;
   position: absolute;
-  margin-top: 7vw;
-  margin-left: 73vw;
-  font-size: 5vw;
+  width: 3vw;
+  margin-top: 7.5vw;
+  margin-left: 74.5vw;
   z-index: 1;
 `;
 

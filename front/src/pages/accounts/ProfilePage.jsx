@@ -12,6 +12,8 @@ import { tagLike } from "../../features/details/detailSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
 import ModalFrame from "../../components/common/ModalFrame";
+import Left from "../../../src/assets/detail/Left.png";
+import Right from "../../../src/assets/detail/Right.png";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -30,7 +32,8 @@ function ProfilePage() {
   const [filteredTags, setFilteredTags] = useState();
 
   let slide;
-
+  const boxColor = ["#fea3a3", "#92d7fa", "#fffbaf"];
+  let boxColorIndex = 0;
   function getUserInfo() {
     dispatch(profile()).then((res) => {
       console.log(res.payload);
@@ -68,21 +71,6 @@ function ProfilePage() {
       });
     });
   }
-
-  // function getAllTags() {
-  //   dispatch(getTags()).then((res) => {
-  //     console.log(res.payload)
-  //     let temp = [];
-  //     Object.keys(res.payload).map((key) =>
-  //       temp.push(key)
-  //     )
-  //     setAlltags(temp);
-  //     for (const num in temp) {
-
-  //     }
-
-  //   })
-  // }
 
   function viewdWebtoon() {
     const result = [];
@@ -186,41 +174,68 @@ function ProfilePage() {
   }, []);
 
   const RatingGraphData = {
-    margintop: 10,
-    marginleft: 3,
-    width: 30,
+    margintop: 0,
+    marginleft: 11,
+    width: 20,
     labels: genreName,
     datasets: [
       {
         type: "doughnut",
         label: "선호하는 장르",
         fill: true,
-        backgroundColor: ["tomato", "dodgerblue", "yellow"],
-        borderColor: ["tomato", "dodgerblue", "yellow"],
+        backgroundColor: ["#fea3a3", "#92d7fa", "#fffbaf"],
+        borderColor: ["#fea3a3", "#92d7fa", "#fffbaf"],
         pointBorderColor: "#fff",
-        pointBackgroundColor: "rgba(179,181,198,1)",
+        pointBackgroundColor: "#fff",
         data: genreValue,
       },
     ],
   };
 
   const PaintStyleData = {
-    margintop: 5,
-    marginleft: 15,
-    width: 30,
-    labels: ["순정", "무협", "양산형", "우산형", "우비형", "우리형"],
+    margintop: -1,
+    marginleft: 8.5,
+    width: 25,
+    labels: ["동근납작", "반짝섬세", "깔끔단정", "터프투박", "단순캐릭", "트렌디"],
     datasets: [
       {
         type: "radar",
         label: "선호하는 그림체",
         fill: true,
-        backgroundColor: "rgba(179,181,198,0.2)",
-        borderColor: "rgba(179,181,198,1)",
-        pointBorderColor: "#fff",
-        pointBackgroundColor: "rgba(179,181,198,1)",
+        backgroundColor: "#5fc4f67b",
+        borderColor: "#29adf07d",
+        pointBorderColor: "#4bbffa",
+        pointBackgroundColor: "#65ccff",
         data: paintGraphData,
       },
     ],
+  };
+
+  const RatingGraphOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+
+  };
+
+  const PaintStyleOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      r: {
+
+        pointLabels: {
+          font: {
+            size: 20
+          }
+        }
+      }
+    }
   };
 
   return (
@@ -231,26 +246,52 @@ function ProfilePage() {
         <Profile>
           <UserBorder>
             <UserBack>
-              <ImgBox>
+              <UserInfo>
                 <BorderImg src={ProfileBorder} alt="테두리" />
                 <ProfileImg src={userImg} alt="프로필사진" />
-              </ImgBox>
-              <UserInfo>
-                <Name>{userInfo.data.nickname}</Name>
-                <Heart>
-                  <HeartNumber>
-                    {userInfo.data.liked_webtoons.length}
-                  </HeartNumber>
-                </Heart>
+                <Name>{userInfo.data.nickname}님이 좋아하는 관심 태그X장르</Name>
               </UserInfo>
-              <GenreZone>
-                {userInfo.genre_list.length === 0 ||
-                userInfo.genre_list === undefined
-                  ? "텅~"
-                  : Object.keys(userInfo.genre_list).map((key) => (
-                      <Genre key={key}>#{key} </Genre>
-                    ))}
-              </GenreZone>
+              <ChartZone>
+                <ChartTitleZone>
+                  <PreferGenreTitleZone>
+                    <PreferGenreTitle>선호하는 장르</PreferGenreTitle>
+                    <SubTitleZone>
+                      {userInfo.genre_list.length === 0 ||
+                        userInfo.genre_list === undefined
+                        ? "텅~"
+                        : Object.keys(userInfo.genre_list).map((key) => (
+                          <PreferGenreSubTitle key={key}>{key}<Square style={{ backgroundColor: boxColor[boxColorIndex++] }}></Square></PreferGenreSubTitle>
+                        ))}
+                    </SubTitleZone>
+                  </PreferGenreTitleZone>
+                  <PreferPaintStyleTitleZone>
+                    <PreferPaintStyleTitle>선호하는 그림체</PreferPaintStyleTitle>
+                    <SubTitleZone>
+                      <PreferGenreSubTitle> 나는 어떤 그림체를 좋아할까?<PaintSquare></PaintSquare></PreferGenreSubTitle>
+                    </SubTitleZone>
+                  </PreferPaintStyleTitleZone>
+                </ChartTitleZone>
+                <ChartsBox>
+                  <ChartBox>
+                    <PreferGenre>
+                      {genreName === undefined || genreName.length === 0 ? (
+                        "웹툰 선호좀 해"
+                      ) : (
+                        <ChartShow data={RatingGraphData} options={RatingGraphOptions}></ChartShow>
+                      )}
+                    </PreferGenre>
+                  </ChartBox>
+                  <ChartBox>
+                    <PreferPaintStyle>
+                      {paintGraphData === undefined || paintGraphData.length === 0 ? (
+                        "데이터가 부족해요!"
+                      ) : (
+                        <ChartShow data={PaintStyleData} options={PaintStyleOptions}></ChartShow>
+                      )}
+                    </PreferPaintStyle>
+                  </ChartBox>
+                </ChartsBox>
+              </ChartZone>
             </UserBack>
           </UserBorder>
           <TagTitleZone>
@@ -272,18 +313,18 @@ function ProfilePage() {
               <ModalTitle>태그 추가/제거</ModalTitle>
               <LikedTagZone>
                 {userInfo.data.tags.length === 0 ||
-                userInfo.data.tags === undefined
+                  userInfo.data.tags === undefined
                   ? "텅~"
                   : userInfo.data.tags.map((tag) => (
-                      <LikedTag
-                        key={tag.tag_id}
-                        id={tag.tag_id}
-                        onClick={tagSwitch}
-                      >
-                        <TagName>{tag.name}</TagName>
-                        <MinusButton>-</MinusButton>
-                      </LikedTag>
-                    ))}
+                    <LikedTag
+                      key={tag.tag_id}
+                      id={tag.tag_id}
+                      onClick={tagSwitch}
+                    >
+                      <TagName>{tag.name}</TagName>
+                      <MinusButton>-</MinusButton>
+                    </LikedTag>
+                  ))}
               </LikedTagZone>
               <Line></Line>
               <SearchBar
@@ -295,27 +336,27 @@ function ProfilePage() {
                 {filteredTags === undefined || searchWord.length === 0
                   ? ""
                   : filteredTags.map((filteredTag) => (
-                      <SearchTag
-                        key={filteredTag.tag_id}
-                        id={filteredTag.tag_id}
-                        onClick={tagSwitch}
-                      >
-                        <TagName>{filteredTag.name}</TagName>
-                        <PlusButton>+</PlusButton>
-                      </SearchTag>
-                    ))}
+                    <SearchTag
+                      key={filteredTag.tag_id}
+                      id={filteredTag.tag_id}
+                      onClick={tagSwitch}
+                    >
+                      <TagName>{filteredTag.name}</TagName>
+                      <PlusButton>+</PlusButton>
+                    </SearchTag>
+                  ))}
               </FilterZone>
             </ModalFrame>
           ) : null}
           <TagZone>
             {userInfo.data.tags.length === 0 || userInfo.data.tags === undefined
-              ? "태그를 찜해주세요~"
+              ? <Empty>태그 찜좀 해</Empty>
               : userInfo.data.tags.map((tag) => (
-                  <Tag key={tag.tag_id} id={tag.tag_id}>
-                    <BookMarkImage src={BookMark} alt="북마크" />
-                    <TagName>{tag.name}</TagName>
-                  </Tag>
-                ))}
+                <Tag key={tag.tag_id} id={tag.tag_id}>
+                  <BookMarkImage src={BookMark} alt="북마크" />
+                  <TagName>{tag.name}</TagName>
+                </Tag>
+              ))}
           </TagZone>
           <WebToonTitleZone>
             <TagTitle>
@@ -327,17 +368,17 @@ function ProfilePage() {
           </WebToonTitleZone>
           {slideCount >= 2 ? (
             <>
-              {count === 1 ? null : <PrevBtn onClick={left}>좌</PrevBtn>}
+              {count === 1 ? null : <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>}
               {count === slideCount ? null : (
-                <NextBtn onClick={right}>우</NextBtn>
+                <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
               )}
             </>
           ) : null}
           <LikedWebToonBack>
             <LikedWebToons id="slide">
               {userInfo.data.liked_webtoons.length === 0 ||
-              userInfo.data.liked_webtoons === undefined ? (
-                <div>찜한 웹툰이 없어요 ㅠ</div>
+                userInfo.data.liked_webtoons === undefined ? (
+                <Empty>웹툰 찜좀 해</Empty>
               ) : (
                 userInfo.data.liked_webtoons.map((likedWebtoon) => (
                   <LikedWebToon
@@ -366,34 +407,14 @@ function ProfilePage() {
           <ViewWebToonBack>
             <ViewWebToon>
               {userInfo.data.member_viewed_webtoons.length === 0
-                ? "웹툰좀 봐라"
+                ? <Empty>웹툰좀 봐</Empty>
                 : viewdWebtoon()}
             </ViewWebToon>
           </ViewWebToonBack>
-          <TagTitleZone>
-            <TagTitle>{userInfo.data.nickname}님의 관심사</TagTitle>
-          </TagTitleZone>
-          <ChartBack>
-            <ChartZone>
-              <PreferGenre>
-                {genreName === undefined || genreName.length === 0 ? (
-                  "데이터가 부족해요!"
-                ) : (
-                  <ChartShow data={RatingGraphData}></ChartShow>
-                )}
-              </PreferGenre>
-              <PreferPaintStyle>
-                {paintGraphData === undefined || paintGraphData.length === 0 ? (
-                  "데이터가 부족해요!"
-                ) : (
-                  <ChartShow data={PaintStyleData}></ChartShow>
-                )}
-              </PreferPaintStyle>
-            </ChartZone>
-          </ChartBack>
         </Profile>
-      )}
-    </PageBox>
+      )
+      }
+    </PageBox >
   );
 }
 
@@ -415,74 +436,44 @@ const UserBorder = styled.div`
   border: 0.15vw solid black;
   background-color: white;
   border-radius: 1.5vw;
-  height: 19.5vw;
 `;
 
 const UserBack = styled.div`
-  display: flex;
   background-color: #feec91;
   border: 0.15vw solid black;
-  border-radius: 1.5vw;
+  border-radius: 1.2vw;
   margin: 0.65vw;
-  height: 17.8vw;
-`;
-
-const ImgBox = styled.div`
-  width: 18vw;
 `;
 
 const BorderImg = styled.img`
   position: absolute;
-  margin-top: 1vw;
-  margin-left: 2vw;
-  width: 17vw;
+  margin-top: 0.5vw;
+  margin-left: 0.5vw;
+  width: 5vw;
   overflow: hidden;
   z-index: 1;
 `;
 
 const ProfileImg = styled.img`
-  position: absolute;
-  margin-top: 3.5vw;
-  margin-left: 5.3vw;
-  width: 11vw;
-  height: 11vw;
+
+  margin-top: 1.1vw;
+  margin-left: 1.3vw;
+  width: 3.3vw;
+  height:3.3vw;
   border-radius: 70%;
   object-fit: cover;
   z-index: 0;
 `;
 
 const UserInfo = styled.div`
-  margin-top: 6vw;
-  margin-left: 1vw;
-  width: 20vw;
+  display: flex;
 `;
 
 const Name = styled.div`
-  display: inline;
-  font-size: 2.5vw;
-  font-weight: 600;
-`;
-
-const Heart = styled.div`
-  display: flex;
-  margin-top: 1vw;
-  margin-left: 0.2vw;
-`;
-
-const HeartNumber = styled.div`
+  font-size: 1.2vw;
+  margin-top: 2vw;
   margin-left: 1vw;
-  font-size: 2vw;
-`;
-
-const GenreZone = styled.div`
-  width: 40vw;
-  margin-left: 8vw;
-  margin-top: 6vw;
-  font-size: 2.5vw;
-`;
-
-const Genre = styled.div`
-  display: inline;
+  font-weight: 600;
 `;
 
 const TagTitleZone = styled.div`
@@ -523,6 +514,18 @@ const TagAddRemove = styled.div`
   &:hover {
     background-color: pink;
   }
+`;
+
+const Empty = styled.div`
+margin-left: 45%;
+border: 0.1vw solid black;
+padding: 0.2vw;
+border-radius: 0.5vw;
+font-size: 2vw;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+background-color: white;
 `;
 
 const Tag = styled.div`
@@ -636,21 +639,21 @@ const WebToonTitleZone = styled.div`
   margin: 1vw 0vw 1vw 0vw;
 `;
 
-const PrevBtn = styled.div`
+const PrevBtn = styled.img`
   cursor: pointer;
   position: absolute;
-  margin-top: 7vw;
-  margin-left: -1vw;
-  font-size: 5vw;
+  width: 3vw;
+  margin-top: 7.5vw;
+  margin-left: 0.5vw;
   z-index: 1;
 `;
 
-const NextBtn = styled.div`
+const NextBtn = styled.img`
   cursor: pointer;
   position: absolute;
-  margin-top: 7vw;
-  margin-left: 84vw;
-  font-size: 5vw;
+  width: 3vw;
+  margin-top: 7.5vw;
+  margin-left: 84.5vw;
   z-index: 1;
 `;
 
@@ -729,33 +732,86 @@ const ViewWebToon = styled.div`
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
 
-const ChartBack = styled.div`
-  display: flex;
-  background-color: #feec91;
-  border: 0.15vw solid black;
-  border-radius: 2vw;
-`;
-
 const ChartZone = styled.div`
-  display: flex;
   background-color: white;
   border: 0.15vw solid black;
   border-radius: 1.5vw;
   margin: 1vw;
-  width: 85vw;
+  height: 30vw;
   overflow: hidden;
 `;
 
-const PreferGenre = styled.div`
+const ChartTitleZone = styled.div`
+  display: flex;
+  margin-top: 1vw;
+`;
+
+const PreferGenreTitleZone = styled.div`
+  flex:1;
+  text-align: center;
+`;
+
+const PreferGenreTitle = styled.div`
+    font-size: 1.5vw;
+    margin-bottom:1vw;
+`;
+
+const SubTitleZone = styled.div`
+  display: flex;
+  margin-bottom: 1.5vw;
+  justify-content: center;
+`
+
+const PreferGenreSubTitle = styled.div`
+    display: flex;
+  font-size: 1vw;
+  height:1vw;
+  margin: 0.5vw;
+`;
+
+const Square = styled.div`
+  width: 1vw;
+  height: 1vw;
+  margin-left: 0.2vw;
+`;
+
+const PreferPaintStyleTitleZone = styled.div`
+  flex:1;
+  text-align: center;
+  font-size: 1.5vw;
+`
+
+const PreferPaintStyleTitle = styled.div`
+  font-size: 1.5vw;
+  margin-bottom:1vw;
+`
+
+const PaintSquare = styled.div`
+  width: 1vw;
+  height: 1vw;
+  margin-left: 0.4vw;
+  background-color: #5fc4f67b;
+  border: solid 0.15vw #29adf07d;
+`
+
+const ChartsBox = styled.div`
+display: flex;
+`
+
+const ChartBox = styled.div`
   flex: 1;
-  margin-top: -7vw;
   background-color: white;
+  height: 27.5vw;
+`;
+
+const PreferGenre = styled.div`
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
 `;
 
 const PreferPaintStyle = styled.div`
-  flex: 1;
-  margin-top: -3vw;
-  margin-right: 10vw;
-  margin-bottom: 3vw;
-  background-color: white;
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
 `;
