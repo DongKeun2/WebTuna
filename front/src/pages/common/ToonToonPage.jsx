@@ -97,7 +97,7 @@ function LeftToon({ toons, type }) {
       <LeftOuterBox>
         <LeftContentBox>
           <LeftInnerBox>
-            <LeftBackBox tun={type}>
+            <LeftBackBox>
               <LeftItemBox
                 onClick={onClickHandler}
                 onMouseOver={() => setIsHover(true)}
@@ -135,11 +135,14 @@ function LeftToon({ toons, type }) {
                   </Carousel>
                 ) : isHover ? (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.hover} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.hover} alt="tun_hover_img" />
                   </ImgBox>
                 ) : (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.common} alt="tun_img" />
+                    <TunImg
+                      src={tuntunItem[type]?.common}
+                      alt="tun_common_img"
+                    />
                   </ImgBox>
                 )}
               </LeftItemBox>
@@ -195,12 +198,7 @@ const LeftBackBox = styled.div`
   align-items: center;
   width: 99.5%;
   height: 97%;
-  background: ${(props) =>
-    props.tun === 0
-      ? " linear-gradient(-110deg, transparent 100px, yellow 0)"
-      : props.tun === 2
-      ? "linear-gradient(-110deg, transparent 100px, pink 0)"
-      : "linear-gradient(-110deg, transparent 100px, white 0)"};
+  background: linear-gradient(-110deg, transparent 100px, #feec91 0);
 `;
 
 const LeftItemBox = styled.div`
@@ -245,7 +243,7 @@ function RightToon({ toons, type }) {
       <RightOuterBox>
         <RightContentBox>
           <RightInnerBox>
-            <RightBackBox tun={type}>
+            <RightBackBox>
               <RightItemBox
                 onClick={() => dispatch(changeFocusTun(type))}
                 onMouseOver={() => setIsHover(true)}
@@ -283,11 +281,14 @@ function RightToon({ toons, type }) {
                   </Carousel>
                 ) : isHover ? (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.hover} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.hover} alt="tun_hover_img" />
                   </ImgBox>
                 ) : (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.common} alt="tun_img" />
+                    <TunImg
+                      src={tuntunItem[type]?.common}
+                      alt="tun_common_img"
+                    />
                   </ImgBox>
                 )}
               </RightItemBox>
@@ -344,12 +345,7 @@ const RightBackBox = styled.div`
   align-items: center;
   width: 99.5%;
   height: 97%;
-  background: ${(props) =>
-    props.tun === 1
-      ? " linear-gradient(110deg, transparent 100px, pink 0)"
-      : props.tun === 3
-      ? "linear-gradient(110deg, transparent 100px, green 0)"
-      : "linear-gradient(110deg, transparent 100px, white 0)"};
+  background: linear-gradient(110deg, transparent 100px, #eea6a6 0);
 `;
 
 const RightItemBox = styled.div`
