@@ -207,26 +207,28 @@ function RightToon({ toons, type }) {
       <RightOuterBox>
         <RightContentBox>
           <RightInnerBox>
-            <RightItemBox
-              onMouseOver={() => setIsHover(true)}
-              onMouseLeave={() => setIsHover(false)}
-            >
-              {isHover ? (
-                <ToonBox>
-                  {toons.map((toon) => (
-                    <ToonItem
-                      toontoon={true}
-                      key={toon.webtoon_id}
-                      item={toon}
-                    />
-                  ))}
-                </ToonBox>
-              ) : (
-                <ImgBox>
-                  <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
-                </ImgBox>
-              )}
-            </RightItemBox>
+            <RightBackBox tun={type}>
+              <RightItemBox
+                onMouseOver={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+              >
+                {isHover ? (
+                  <ToonBox>
+                    {toons.map((toon) => (
+                      <ToonItem
+                        toontoon={true}
+                        key={toon.webtoon_id}
+                        item={toon}
+                      />
+                    ))}
+                  </ToonBox>
+                ) : (
+                  <ImgBox>
+                    <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+                  </ImgBox>
+                )}
+              </RightItemBox>
+            </RightBackBox>
           </RightInnerBox>
         </RightContentBox>
       </RightOuterBox>
@@ -265,12 +267,26 @@ const RightContentBox = styled.div`
 
 const RightInnerBox = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   width: 99%;
   height: 97%;
   background: black;
   background: linear-gradient(110deg, transparent 100px, black 0);
+`;
+
+const RightBackBox = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 99.5%;
+  height: 97%;
+  background: ${(props) =>
+    props.tun === 1
+      ? " linear-gradient(110deg, transparent 100px, pink 0)"
+      : props.tun === 3
+      ? "linear-gradient(110deg, transparent 100px, green 0)"
+      : "linear-gradient(110deg, transparent 100px, white 0)"};
 `;
 
 const RightItemBox = styled.div`
