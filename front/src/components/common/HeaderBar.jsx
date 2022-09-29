@@ -3,13 +3,16 @@ import styled from "styled-components";
 import AccountMenu from "./AccountMenu";
 import SearchBar from "./SearchBar";
 import logo from "./../../assets/logo2.png";
+import { useNavigate } from "react-router-dom";
 
 function HeaderBar() {
+  const navigate = useNavigate();
+
   const isPossible = useSelector((state) => state.search.possibleSearch);
 
   return (
     <HeaderSt>
-      <LogoBox>
+      <LogoBox onClick={() => navigate("/")}>
         <LogoImg src={logo} alt="logo_img" />
       </LogoBox>
       {isPossible && <SearchBar></SearchBar>}
@@ -29,6 +32,9 @@ const LogoBox = styled.div`
   width: 10vw;
   min-width: 100px;
   height: auto;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const LogoImg = styled.img`
