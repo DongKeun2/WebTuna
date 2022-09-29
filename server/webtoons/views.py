@@ -944,8 +944,12 @@ def typeToDifference(type, original, comparsion):
     # 유저 나이대, 성별 기준 찜목록 인기순 추천
     users_popularity_recommend = popularity_recommend(user_id)
     
+<<<<<<< HEAD
     return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': weather_recommend.data, '3': genre_recommend.data, '4':tag_recommend.data, '5': users_popularity_recommend.data}, status.HTTP_200_OK)
 >>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
+=======
+    return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': genre_recommend.data, '3': tag_recommend.data, '4':users_popularity_recommend.data, '5': weather_recommend.data}, status.HTTP_200_OK)
+>>>>>>> 9595d51 (fix: 추천 페이지 api 수정 - 추천 순서 변경)
 
 
 # 이미지 검색
