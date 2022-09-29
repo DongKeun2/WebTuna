@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Carousel from "nuka-carousel";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MySwal from "../../components/common/SweetAlert";
 import Loading from "../../components/common/Loading";
 import { fetchtuntun, changeFocusTun } from "../../features/toons/tuntunSlice";
 import tuntunItem from "../../assets/tuntun/tuntunItem";
-import ToonItem from "../../components/toonlist/ToonItem";
+import "./toontoon.css";
 
 function ToonToonPage() {
   const dispatch = useDispatch();
@@ -84,6 +87,11 @@ function LeftToon({ toons, type }) {
 
   const [isHover, setIsHover] = useState(false);
   const isFocus = useSelector((state) => state.tuntun.focusTun);
+
+  function onClickHandler() {
+    dispatch(changeFocusTun(type));
+  }
+
   return (
     <LeftBox>
       <LeftOuterBox>
@@ -91,27 +99,47 @@ function LeftToon({ toons, type }) {
           <LeftInnerBox>
             <LeftBackBox tun={type}>
               <LeftItemBox
-                onClick={() => dispatch(changeFocusTun(type))}
+                onClick={onClickHandler}
                 onMouseOver={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
               >
                 {isFocus === type ? (
-                  <ToonBox>
-                    {toons.map((toon) => (
-                      <ToonItem
-                        toontoon={true}
-                        key={toon.webtoon_id}
-                        item={toon}
-                      />
-                    ))}
-                  </ToonBox>
+                  <Carousel
+                    wrapAround={true}
+                    disableEdgeSwiping={true}
+                    slidesToShow={3}
+                    scrollMode="remainder"
+                    slidesToScroll={3}
+                    cellSpacing={1}
+                    cellAlign="center"
+                    renderCenterLeftControls={({ previousSlide }) => (
+                      <LeftButton>
+                        <ArrowBackIosIcon
+                          fontSize="large"
+                          onClick={previousSlide}
+                        ></ArrowBackIosIcon>
+                      </LeftButton>
+                    )}
+                    renderCenterRightControls={({ nextSlide }) => (
+                      <RightButton>
+                        <ArrowForwardIosIcon
+                          fontSize="large"
+                          onClick={nextSlide}
+                        ></ArrowForwardIosIcon>
+                      </RightButton>
+                    )}
+                  >
+                    {toons.map((toon) => {
+                      return <ToonItem key={toon.webtoon_id} item={toon} />;
+                    })}
+                  </Carousel>
                 ) : isHover ? (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.img2} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.hover} alt="tun_img" />
                   </ImgBox>
                 ) : (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.img1} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.common} alt="tun_img" />
                   </ImgBox>
                 )}
               </LeftItemBox>
@@ -177,10 +205,8 @@ const LeftBackBox = styled.div`
 
 const LeftItemBox = styled.div`
   width: 70vw;
-  height: 97%;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  border: 3px solid red;
+  height: 100%;
+  /* overflow: hidden; */
   background: linear-gradient(-110deg, transparent 100px, white, 0);
 
   @media screen and (max-width: 1290px) {
@@ -226,22 +252,42 @@ function RightToon({ toons, type }) {
                 onMouseLeave={() => setIsHover(false)}
               >
                 {isFocus === type ? (
-                  <ToonBox>
-                    {toons.map((toon) => (
-                      <ToonItem
-                        toontoon={true}
-                        key={toon.webtoon_id}
-                        item={toon}
-                      />
-                    ))}
-                  </ToonBox>
+                  <Carousel
+                    wrapAround={true}
+                    disableEdgeSwiping={true}
+                    slidesToShow={3}
+                    scrollMode="remainder"
+                    slidesToScroll={3}
+                    cellSpacing={1}
+                    cellAlign="center"
+                    renderCenterLeftControls={({ previousSlide }) => (
+                      <LeftButton>
+                        <ArrowBackIosIcon
+                          fontSize="large"
+                          onClick={previousSlide}
+                        ></ArrowBackIosIcon>
+                      </LeftButton>
+                    )}
+                    renderCenterRightControls={({ nextSlide }) => (
+                      <RightButton>
+                        <ArrowForwardIosIcon
+                          fontSize="large"
+                          onClick={nextSlide}
+                        ></ArrowForwardIosIcon>
+                      </RightButton>
+                    )}
+                  >
+                    {toons.map((toon) => {
+                      return <ToonItem key={toon.webtoon_id} item={toon} />;
+                    })}
+                  </Carousel>
                 ) : isHover ? (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.img2} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.hover} alt="tun_img" />
                   </ImgBox>
                 ) : (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.img1} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.common} alt="tun_img" />
                   </ImgBox>
                 )}
               </RightItemBox>
@@ -307,14 +353,9 @@ const RightBackBox = styled.div`
 `;
 
 const RightItemBox = styled.div`
-  display: flex;
-  justify-content: end;
-  align-items: center;
   width: 70vw;
   height: 97%;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  border: 3px solid red;
+  /* overflow: hidden; */
   background: linear-gradient(110deg, transparent 100px, white, 0);
   @media screen and (max-width: 1290px) {
     width: 68vw;
@@ -355,9 +396,131 @@ const TunImg = styled.img`
   object-fit: fill;
 `;
 
-const ToonBox = styled.div`
+function ToonItem({ item }) {
+  // 작가 이름 추출
+  let authors = "";
+  for (const num in item.author_name) {
+    if (num > 0) {
+      authors += " / ";
+      authors += item.author_name[num];
+    } else {
+      authors += item.author_name[num];
+    }
+  }
+
+  const navigate = useNavigate();
+
+  function moveDetail() {
+    navigate(`/detail/${item.webtoon_id}`);
+    window.scrollTo(0, 0);
+  }
+
+  return (
+    <ToonContainer>
+      <OneTun>
+        <ImageBox onClick={moveDetail}>
+          <ToonThumbnail src={item.thumbnail} alt="" />
+        </ImageBox>
+        <ToonInfo onClick={moveDetail}>
+          <ToonTitle>{item.title}</ToonTitle>
+          <ToonAuthor>{authors}</ToonAuthor>
+        </ToonInfo>
+      </OneTun>
+    </ToonContainer>
+  );
+}
+
+const ToonContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   height: 100%;
-  /* display: grid; */
-  /* grid-template-columns: 100px 100 100 100; */
+`;
+
+const OneTun = styled.div`
+  width: 80%;
+`;
+
+const ImageBox = styled.div`
+  background-color: white;
+  width: 100%;
+  height: 10vw;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
+  cursor: pointer;
+`;
+
+const ToonThumbnail = styled.img`
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 0.8vw;
+  border-top-right-radius: 0.8vw;
+`;
+
+const ToonInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 0.2vw;
+  padding-bottom: 0.2vw;
+  background-color: white;
+  border-bottom-left-radius: 0.8vw;
+  border-bottom-right-radius: 0.8vw;
+  cursor: pointer;
+`;
+
+const ToonTitle = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.3vw;
+  font-weight: 600;
+  margin: 0;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+`;
+
+const ToonAuthor = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1vw;
+  font-weight: 500;
+  margin: 0;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+`;
+
+const LeftButton = styled.button`
+  padding: 10px;
+  margin-left: -0.5vw;
+  background-color: transparent;
+  border: none;
+  opacity: 85%;
+  :hover {
+    cursor: pointer;
+    opacity: 100%;
+  }
+  > * {
+    color: white;
+    font-size: large;
+  }
+`;
+
+const RightButton = styled.button`
+  padding: 10px;
+  margin-right: -1vw;
+  background-color: transparent;
+  border: none;
+  opacity: 85%;
+  :hover {
+    cursor: pointer;
+    opacity: 100%;
+  }
+  > * {
+    color: white;
+    font-size: large;
+  }
 `;

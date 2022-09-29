@@ -10,33 +10,33 @@ import item2 from "./2.png";
 const tuntunItem = [
   {
     id: 0,
-    img1: item00,
-    img2: item0,
+    common: item00,
+    hover: item0,
   },
   {
     id: 1,
-    img1: item11,
-    img2: item1,
+    common: item11,
+    hover: item1,
   },
   {
     id: 2,
-    img1: undefined,
-    img2: item2,
+    common: undefined,
+    hover: item2,
   },
   {
     id: 3,
-    img1: undefined,
-    img2: undefined,
+    common: undefined,
+    hover: undefined,
   },
   {
     id: 4,
-    img1: undefined,
-    img2: undefined,
+    common: undefined,
+    hover: undefined,
   },
   {
     id: 5,
-    img1: undefined,
-    img2: undefined,
+    common: undefined,
+    hover: undefined,
   },
 ];
 
