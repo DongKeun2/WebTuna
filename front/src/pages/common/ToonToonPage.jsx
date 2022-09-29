@@ -114,12 +114,36 @@ function LeftToon({ toons, type }) {
 }
 
 const LeftItemBox = styled.div`
-  width: 99.5%;
+  width: 70vw;
   height: 97%;
   overflow: hidden;
   background-repeat: no-repeat;
   border: 3px solid red;
   background: linear-gradient(-120deg, transparent 130px, white, 0);
+  @media screen and (max-width: 1290px) {
+    width: 68vw;
+  }
+  @media screen and (max-width: 1090px) {
+    width: 66vw;
+  }
+  @media screen and (max-width: 910px) {
+    width: 63vw;
+  }
+  @media screen and (max-width: 850px) {
+    width: 60vw;
+  }
+  @media screen and (max-width: 700px) {
+    width: 55vw;
+  }
+  @media screen and (max-width: 500px) {
+    width: 50vw;
+  }
+  @media screen and (max-width: 400px) {
+    width: 45vw;
+  }
+  @media screen and (max-width: 400px) {
+    width: 40vw;
+  }
 `;
 
 const LeftOuterBox = styled.div`
@@ -130,7 +154,7 @@ const LeftOuterBox = styled.div`
   justify-content: center;
   align-items: center;
   background: black;
-  background: linear-gradient(-120deg, transparent 130px, black 0);
+  background: linear-gradient(-110deg, transparent 100px, black 0);
 `;
 
 const LeftContentBox = styled.div`
@@ -141,27 +165,27 @@ const LeftContentBox = styled.div`
   justify-content: center;
   align-items: center;
   background: white;
-  background: linear-gradient(-120deg, transparent 130px, white 0);
+  background: linear-gradient(-110deg, transparent 100px, white 0);
 `;
 
 const LeftInnerBox = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   width: 99%;
   height: 97%;
   background: black;
-  background: linear-gradient(-120deg, transparent 130px, black 0);
+  background: linear-gradient(-110deg, transparent 100px, black 0);
 `;
 
 const LeftBox = styled.div`
   align-self: start;
-  width: 75%;
+  width: 80vw;
   height: 17vw;
 `;
 
 const ImgBox = styled.div`
-  width: 80%;
+  width: 100%;
   height: 100%;
 `;
 
@@ -182,37 +206,109 @@ function RightToon({ toons, type }) {
   const [isHover, setIsHover] = useState(false);
   return (
     <RightBox>
-      <RightContentBox
-        onMouseOver={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
-      >
-        {isHover ? (
-          <ToonBox>
-            <ToonBox>
-              {toons.map((toon) => (
-                <ToonItem toontoon={true} key={toon.webtoon_id} item={toon} />
-              ))}
-            </ToonBox>
-          </ToonBox>
-        ) : (
-          <ImgBox>
-            <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
-          </ImgBox>
-        )}
-      </RightContentBox>
+      <RightOuterBox>
+        <RightContentBox
+          onMouseOver={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          <RightInnerBox>
+            <RightItemBox>
+              {isHover ? (
+                <ToonBox>
+                  {toons.map((toon) => (
+                    <ToonItem
+                      toontoon={true}
+                      key={toon.webtoon_id}
+                      item={toon}
+                    />
+                  ))}
+                </ToonBox>
+              ) : (
+                <ImgBox>
+                  <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+                </ImgBox>
+              )}
+            </RightItemBox>
+          </RightInnerBox>
+        </RightContentBox>
+      </RightOuterBox>
     </RightBox>
   );
 }
 
-const RightContentBox = styled.div`
-  height: 17vw;
-  overflow: hidden;
-`;
-
 const RightBox = styled.div`
   align-self: flex-end;
-  width: 80%;
+  width: 80vw;
+  height: 17vw;
   text-align: end;
+`;
+
+const RightOuterBox = styled.div`
+  height: 17vw;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  background: linear-gradient(110deg, transparent 100px, black 0);
+`;
+
+const RightContentBox = styled.div`
+  height: 17vw;
+  width: 99.5%;
+  height: 97%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  background: linear-gradient(110deg, transparent 100px, white 0);
+`;
+
+const RightInnerBox = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 99%;
+  height: 97%;
+  background: black;
+  background: linear-gradient(110deg, transparent 100px, black 0);
+`;
+
+const RightItemBox = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 70vw;
+  height: 97%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  border: 3px solid red;
+  background: linear-gradient(110deg, transparent 100px, white, 0);
+  @media screen and (max-width: 1290px) {
+    width: 68vw;
+  }
+  @media screen and (max-width: 1090px) {
+    width: 66vw;
+  }
+  @media screen and (max-width: 910px) {
+    width: 63vw;
+  }
+  @media screen and (max-width: 850px) {
+    width: 60vw;
+  }
+  @media screen and (max-width: 700px) {
+    width: 55vw;
+  }
+  @media screen and (max-width: 500px) {
+    width: 50vw;
+  }
+  @media screen and (max-width: 400px) {
+    width: 45vw;
+  }
+  @media screen and (max-width: 400px) {
+    width: 40vw;
+  }
 `;
 
 export default ToonToonPage;
