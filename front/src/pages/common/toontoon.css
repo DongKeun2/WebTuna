@@ -1,18 +1,19 @@
-.slider-control-bottomcenter {
+#tuntun .slider-control-bottomcenter {
   display: none;
 }
 
-.slider {
+#tuntun .slider {
   height: 100%;
 }
 
-.slider-container {
+#tuntun .slider-container {
   height: 100%;
 }
 
-.slider-frame {
+#tuntun .slider-frame {
   height: 100% !important;
 }
-.slider-list {
+
+#tuntun .slider-list {
   height: 100% !important;
 }

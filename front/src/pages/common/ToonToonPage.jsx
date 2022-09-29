@@ -42,7 +42,9 @@ function ToonToonPage() {
       {isLoading ? (
         <Loading text={"웹툰 잡아오는 중..."}></Loading>
       ) : (
-        <ToonToonBox>{toons && <ToonList toons={toons} />}</ToonToonBox>
+        <ToonToonBox id="tuntun">
+          {toons && <ToonList toons={toons} />}
+        </ToonToonBox>
       )}
     </>
   );
