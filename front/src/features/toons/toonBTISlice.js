@@ -37,6 +37,7 @@ export const toonBTISlice = createSlice({
     question: {},
     answer: [],
     result: {},
+    info: "",
   },
   reducers: {
     addAnswer: (state, action) => {
@@ -51,7 +52,8 @@ export const toonBTISlice = createSlice({
     },
     [submitToonBTI.fulfilled]: (state, action) => {
       console.log("제출 성공");
-      state.result = action.payload;
+      state.result = action.payload.webtoons;
+      state.info = action.payload.info;
     },
   },
 });

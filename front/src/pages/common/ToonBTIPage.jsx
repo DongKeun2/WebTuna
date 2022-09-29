@@ -255,6 +255,7 @@ function ToonBTIResult({ setPage }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const toonInfo = useSelector((state) => state.toonBTI.result);
+  const summary = useSelector((state) => state.toonBTI.info);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -285,7 +286,7 @@ function ToonBTIResult({ setPage }) {
           </ImgBox>
           <TitleBox>
             <ResultTitle>{toonInfo.title}</ResultTitle>
-            <ResultSummary>{toonInfo.summary}</ResultSummary>
+            <ResultSummary>{summary}</ResultSummary>
             <BtnGroup>
               <ResultBtn active={true} onClick={moveDetail}>
                 상세 정보
