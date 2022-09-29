@@ -10,6 +10,19 @@ function Banner() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const bookMark = document.getElementsByClassName("dots");
+    bookMark[0].style.backgroundColor = "white";
+
+    bookMark[1].style.backgroundColor = "pink";
+
+    bookMark[2].style.backgroundColor = "orange";
+
+    bookMark[3].style.backgroundColor = "black";
+
+    bookMark[4].style.backgroundColor = "yellow";
+
+    bookMark[5].style.backgroundColor = "skyblue";
+
     dispatch(changeState(0));
   }, [dispatch]);
 
@@ -21,43 +34,43 @@ function Banner() {
         dragThreshold="5"
         animation="fade"
         afterSlide={(currentSlice) => {
-          const bookMark = document.getElementsByClassName("dots");
+          // const bookMark = document.getElementsByClassName("dots");
 
-          switch (currentSlice) {
-            case 0:
-              for (let i = 0; i <= 5; i++) {
-                bookMark[i].style.backgroundColor = "white";
-              }
-              break;
-            case 1:
-              for (let i = 0; i <= 5; i++) {
-                bookMark[i].style.backgroundColor = "pink";
-              }
-              break;
-            case 2:
-              for (let i = 0; i <= 5; i++) {
-                bookMark[i].style.backgroundColor = "orange";
-              }
-              break;
-            case 3:
-              for (let i = 0; i <= 5; i++) {
-                bookMark[i].style.backgroundColor = "black";
-              }
-              break;
-            case 4:
-              for (let i = 0; i <= 5; i++) {
-                bookMark[i].style.backgroundColor = "yellow";
-              }
-              break;
-            case 5:
-              for (let i = 0; i <= 5; i++) {
-                bookMark[i].style.backgroundColor = "skyblue";
-              }
-              break;
+          // switch (currentSlice) {
+          //   case 0:
+          //     for (let i = 0; i <= 5; i++) {
+          //       bookMark[i].style.backgroundColor = "white";
+          //     }
+          //     break;
+          //   case 1:
+          //     for (let i = 0; i <= 5; i++) {
+          //       bookMark[i].style.backgroundColor = "pink";
+          //     }
+          //     break;
+          //   case 2:
+          //     for (let i = 0; i <= 5; i++) {
+          //       bookMark[i].style.backgroundColor = "orange";
+          //     }
+          //     break;
+          //   case 3:
+          //     for (let i = 0; i <= 5; i++) {
+          //       bookMark[i].style.backgroundColor = "black";
+          //     }
+          //     break;
+          //   case 4:
+          //     for (let i = 0; i <= 5; i++) {
+          //       bookMark[i].style.backgroundColor = "yellow";
+          //     }
+          //     break;
+          //   case 5:
+          //     for (let i = 0; i <= 5; i++) {
+          //       bookMark[i].style.backgroundColor = "skyblue";
+          //     }
+          //     break;
 
-            default:
-              break;
-          }
+          //   default:
+          //     break;
+          // }
           dispatch(changeState(currentSlice));
         }}
         autoplay={true}
