@@ -92,6 +92,7 @@ function LeftToon({ toons, type }) {
 
   function onClickHandler() {
     if (type === 0 && (!userInfo.liked_webtoons?.length || !toons.length)) {
+      dispatch(changeFocusTun(undefined));
       MySwal.fire({
         title: "유저 기반 추천 불가!",
         text: "저희 사이트를 열심히 이용하지 않은 당신! 추천받을 자격이 없습니다!",
@@ -104,6 +105,7 @@ function LeftToon({ toons, type }) {
       type === 2 &&
       (!userInfo.liked_webtoons?.length || !toons.length)
     ) {
+      dispatch(changeFocusTun(undefined));
       MySwal.fire({
         title: "장르 기반 추천 불가!",
         text: "저희 사이트를 열심히 이용하지 않은 당신! 추천받을 자격이 없습니다!",
@@ -240,6 +242,10 @@ const LeftItemBox = styled.div`
   /* overflow: hidden; */
   background: linear-gradient(-110deg, transparent 100px, white, 0);
 
+  :hover {
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 1290px) {
     width: 68vw;
   }
@@ -276,6 +282,7 @@ function RightToon({ toons, type }) {
 
   function onClickHandler() {
     if (type === 3 && (!userInfo.tags?.length < 3 || !toons.length)) {
+      dispatch(changeFocusTun(undefined));
       MySwal.fire({
         title: "태그 기반 추천 불가!",
         text: "태그를 세 개 이상 찜해보세요!",
@@ -284,6 +291,7 @@ function RightToon({ toons, type }) {
         confirmButtonText: "확인",
       });
     } else if (!toons?.length) {
+      dispatch(changeFocusTun(undefined));
       MySwal.fire({
         title: "추천 불가!",
         text: "왜인지 모르지만 추천 받을 웹툰이 없습니다!",
@@ -410,6 +418,11 @@ const RightItemBox = styled.div`
   height: 97%;
   /* overflow: hidden; */
   background: linear-gradient(110deg, transparent 100px, white, 0);
+
+  :hover {
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 1290px) {
     width: 68vw;
   }
