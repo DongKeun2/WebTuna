@@ -85,11 +85,44 @@ const ToonListBox = styled.div`
 function LeftToon({ toons, type }) {
   const dispatch = useDispatch();
 
+  const userInfo = JSON.parse(sessionStorage.getItem("user"));
+
   const [isHover, setIsHover] = useState(false);
   const isFocus = useSelector((state) => state.tuntun.focusTun);
 
   function onClickHandler() {
-    dispatch(changeFocusTun(type));
+    if (type === 0 && (!userInfo.liked_webtoons?.length || !toons.length)) {
+      MySwal.fire({
+        title: "유저 기반 추천 불가!",
+        text: "저희 사이트를 열심히 이용하지 않은 당신! 추천받을 자격이 없습니다!",
+        icon: "info",
+        width: "50vw",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+    } else if (
+      type === 2 &&
+      (!userInfo.liked_webtoons?.length || !toons.length)
+    ) {
+      MySwal.fire({
+        title: "장르 기반 추천 불가!",
+        text: "저희 사이트를 열심히 이용하지 않은 당신! 추천받을 자격이 없습니다!",
+        icon: "info",
+        width: "50vw",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+    } else if (!toons.length) {
+      MySwal.fire({
+        title: "추천 불가!",
+        text: "왜인지 모르지만 추천 웹툰이 없습니다!",
+        icon: "info",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+    } else {
+      dispatch(changeFocusTun(type));
+    }
   }
 
   return (
@@ -236,8 +269,32 @@ const LeftItemBox = styled.div`
 function RightToon({ toons, type }) {
   const dispatch = useDispatch();
 
+  const userInfo = JSON.parse(sessionStorage.getItem("user"));
+
   const [isHover, setIsHover] = useState(false);
   const isFocus = useSelector((state) => state.tuntun.focusTun);
+
+  function onClickHandler() {
+    if (type === 3 && (!userInfo.tags?.length < 3 || !toons.length)) {
+      MySwal.fire({
+        title: "태그 기반 추천 불가!",
+        text: "태그를 세 개 이상 찜해보세요!",
+        icon: "info",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+    } else if (!toons?.length) {
+      MySwal.fire({
+        title: "추천 불가!",
+        text: "왜인지 모르지만 추천 받을 웹툰이 없습니다!",
+        icon: "info",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+    } else {
+      dispatch(changeFocusTun(type));
+    }
+  }
   return (
     <RightBox>
       <RightOuterBox>
@@ -245,7 +302,7 @@ function RightToon({ toons, type }) {
           <RightInnerBox>
             <RightBackBox>
               <RightItemBox
-                onClick={() => dispatch(changeFocusTun(type))}
+                onClick={onClickHandler}
                 onMouseOver={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
               >
