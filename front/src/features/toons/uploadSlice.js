@@ -6,8 +6,12 @@ import api from '../../api'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import api from "../../api";
+<<<<<<< HEAD
 import getConfig from "../config";
 >>>>>>> c764e92 (feat: 그림체분석 결과페이지 ui / api 연결)
+=======
+// import getConfig from "../config";
+>>>>>>> 6504b7b (feat: 명탐정 툰툰 비로그인 제출 가능)
 
 const fetchUpload = createAsyncThunk(
   'fetchUpload',
@@ -15,10 +19,15 @@ const fetchUpload = createAsyncThunk(
     console.log(data)
     try {
 <<<<<<< HEAD
+<<<<<<< HEAD
       const res = await axios.post(api.fetchUpload(), data, {})
       return res.data
 =======
       const res = await axios.post(api.fetchUpload(), data, getConfig());
+=======
+      // const res = await axios.post(api.fetchUpload(), data, getConfig());
+      const res = await axios.post(api.fetchUpload(), data, {});
+>>>>>>> 6504b7b (feat: 명탐정 툰툰 비로그인 제출 가능)
       return res.data;
 >>>>>>> c764e92 (feat: 그림체분석 결과페이지 ui / api 연결)
     } catch (err) {
