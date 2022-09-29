@@ -11,17 +11,17 @@ function Banner() {
 
   useEffect(() => {
     const bookMark = document.getElementsByClassName("dots");
-    bookMark[0].style.backgroundColor = "white";
+    bookMark[0].style.backgroundColor = "#ffe357";
 
-    bookMark[1].style.backgroundColor = "pink";
+    bookMark[1].style.backgroundColor = "#eea6a6";
 
-    bookMark[2].style.backgroundColor = "orange";
+    bookMark[2].style.backgroundColor = "#f79f52";
 
-    bookMark[3].style.backgroundColor = "black";
+    bookMark[3].style.backgroundColor = "#212121";
 
-    bookMark[4].style.backgroundColor = "yellow";
+    bookMark[4].style.backgroundColor = "#fdeede";
 
-    bookMark[5].style.backgroundColor = "skyblue";
+    bookMark[5].style.backgroundColor = "#129bda";
 
     dispatch(changeState(0));
   }, [dispatch]);
@@ -106,17 +106,17 @@ function Item({ item }) {
   function selectColor() {
     switch (state) {
       case 0:
-        return "white";
+        return "#ffe357";
       case 1:
-        return "pink";
+        return "#eea6a6";
       case 2:
-        return "orange";
+        return "#f79f52";
       case 3:
-        return "black";
+        return "#212121";
       case 4:
-        return "yellow";
+        return "#fdeede";
       case 5:
-        return "skyblue";
+        return "#129bda";
       default:
         break;
     }
@@ -165,7 +165,7 @@ const OuterBox = styled.div`
 `;
 
 const ImgBox = styled.div`
-  border: 2px solid black;
+  /* border: 2px solid black; */
   border-radius: 10px;
   width: 98%;
   height: 44vh;
