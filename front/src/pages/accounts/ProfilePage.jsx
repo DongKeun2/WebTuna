@@ -14,6 +14,7 @@ import ToonItem from "../../components/toonlist/ToonItem";
 import ModalFrame from "../../components/common/ModalFrame";
 import Left from "../../../src/assets/detail/Left.png";
 import Right from "../../../src/assets/detail/Right.png";
+import Empty from "../../../src/assets/tuntunEmpty.png";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -196,7 +197,7 @@ function ProfilePage() {
     margintop: -1,
     marginleft: 8.5,
     width: 25,
-    labels: ["동근납작", "반짝섬세", "깔끔단정", "터프투박", "단순캐릭", "트렌디"],
+    labels: ["동글납작", "반짝섬세", "깔끔단정", "터프투박", "단순캐릭", "요즘트렌디"],
     datasets: [
       {
         type: "radar",
@@ -249,7 +250,7 @@ function ProfilePage() {
               <UserInfo>
                 <BorderImg src={ProfileBorder} alt="테두리" />
                 <ProfileImg src={userImg} alt="프로필사진" />
-                <Name>{userInfo.data.nickname}님이 좋아하는 관심 태그X장르</Name>
+                <Name>{userInfo.data.nickname} 님의 관심정보</Name>
               </UserInfo>
               <ChartZone>
                 <ChartTitleZone>
@@ -275,7 +276,7 @@ function ProfilePage() {
                   <ChartBox>
                     <PreferGenre>
                       {genreName === undefined || genreName.length === 0 ? (
-                        "웹툰 선호좀 해"
+                        <PreferGenreEmpty><EmptyImg src={Empty} /><Bubble>저희 사이트를 열심히 이용하지 않은 당신!!!!　　　 분석 받을 자격이 없습니다!</Bubble></PreferGenreEmpty>
                       ) : (
                         <ChartShow data={RatingGraphData} options={RatingGraphOptions}></ChartShow>
                       )}
@@ -314,7 +315,7 @@ function ProfilePage() {
               <LikedTagZone>
                 {userInfo.data.tags.length === 0 ||
                   userInfo.data.tags === undefined
-                  ? "텅~"
+                  ? <LikedTagEmptyMessage>추천에 반영될 태그를 검색 후 추가해 주세요!</LikedTagEmptyMessage>
                   : userInfo.data.tags.map((tag) => (
                     <LikedTag
                       key={tag.tag_id}
@@ -350,7 +351,7 @@ function ProfilePage() {
           ) : null}
           <TagZone>
             {userInfo.data.tags.length === 0 || userInfo.data.tags === undefined
-              ? <Empty>태그 찜좀 해</Empty>
+              ? <LikedWebToonEmpty><EmptyImg src={Empty} /><Bubble>찜한 태그가 없어요...</Bubble></LikedWebToonEmpty>
               : userInfo.data.tags.map((tag) => (
                 <Tag key={tag.tag_id} id={tag.tag_id}>
                   <BookMarkImage src={BookMark} alt="북마크" />
@@ -375,12 +376,12 @@ function ProfilePage() {
             </>
           ) : null}
           <LikedWebToonBack>
-            <LikedWebToons id="slide">
-              {userInfo.data.liked_webtoons.length === 0 ||
-                userInfo.data.liked_webtoons === undefined ? (
-                <Empty>웹툰 찜좀 해</Empty>
-              ) : (
-                userInfo.data.liked_webtoons.map((likedWebtoon) => (
+            {userInfo.data.liked_webtoons.length === 0 ||
+              userInfo.data.liked_webtoons === undefined ? (
+              <LikedWebToonEmpty><EmptyImg src={Empty} /><Bubble>찜한 웹툰이 없어요...</Bubble></LikedWebToonEmpty>
+            ) :
+              <LikedWebToons id="slide">
+                {userInfo.data.liked_webtoons.map((likedWebtoon) => (
                   <LikedWebToon
                     key={likedWebtoon.webtoon_id}
                     id={likedWebtoon.webtoon_id}
@@ -397,9 +398,10 @@ function ProfilePage() {
                       </LikedWebToonTitle>
                     </ToonInfo>
                   </LikedWebToon>
-                ))
-              )}
-            </LikedWebToons>
+                ))}</LikedWebToons>
+
+            }
+
           </LikedWebToonBack>
           <TagTitleZone>
             <TagTitle>최근에 본 웹툰</TagTitle>
@@ -407,7 +409,7 @@ function ProfilePage() {
           <ViewWebToonBack>
             <ViewWebToon>
               {userInfo.data.member_viewed_webtoons.length === 0
-                ? <Empty>웹툰좀 봐</Empty>
+                ? <ViewWebToonEmpty><EmptyImg src={Empty} /><Bubble>최근에 본 웹툰이 없어요...</Bubble></ViewWebToonEmpty>
                 : viewdWebtoon()}
             </ViewWebToon>
           </ViewWebToonBack>
@@ -419,6 +421,12 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+
+const EmptyImg = styled.img`
+  width: 10vw;
+  height: 10vw;
+`;
 
 const PageBox = styled.div`
   width: 90%;
@@ -516,18 +524,6 @@ const TagAddRemove = styled.div`
   }
 `;
 
-const Empty = styled.div`
-margin-left: 45%;
-border: 0.1vw solid black;
-padding: 0.2vw;
-border-radius: 0.5vw;
-font-size: 2vw;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-background-color: white;
-`;
-
 const Tag = styled.div`
   display: flex;
   border: 0.1vw solid black;
@@ -595,7 +591,12 @@ const LikedTagZone = styled.div`
   margin-top: 3vw;
 `;
 
+const LikedTagEmptyMessage = styled.div`
+  font-size: 1.5vw;
+`
+
 const Line = styled.div`
+  margin-top: 1vw;
   border-top: 0.2vw solid black;
   width: 100%;
 `;
@@ -680,6 +681,53 @@ const LikedWebToon = styled.div`
   margin-left: 4.75vw;
 `;
 
+const LikedWebToonEmpty = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items:center
+`
+
+const Bubble = styled.div`
+  margin-top: 0vw;
+  position: relative;
+  font-size: 1.2vw;
+  padding: 0px 50px;
+  height: 8vh;
+  display: inline-block;
+  background: #ffffff;
+  border: 3px solid black;
+  border-radius: 10px;
+  :after {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #ffffff;
+    border-width: 16px;
+    margin-top: -16px;
+  }
+  :before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(254, 236, 145, 0);
+    border-right-color: black;
+    border-width: 20px;
+    margin-top: -20px;
+  }
+`
+
 const ThumnailBox = styled.div`
   background-color: white;
   width: 100%;
@@ -731,6 +779,14 @@ const ViewWebToon = styled.div`
   margin-bottom: 2vw;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
+
+const ViewWebToonEmpty = styled.div`
+height: 100%;
+  width: 35vw;
+  display: flex;
+  align-items:center
+  
+`
 
 const ChartZone = styled.div`
   background-color: white;
@@ -808,6 +864,13 @@ const PreferGenre = styled.div`
   object-fit: fill;
   width: 100%;
   height: 100%;
+`;
+
+const PreferGenreEmpty = styled.div`
+  height: 100%;
+  width: 100%;
+  margin-top: 5vw;
+  display: flex;
 `;
 
 const PreferPaintStyle = styled.div`

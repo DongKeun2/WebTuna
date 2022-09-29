@@ -77,7 +77,6 @@ function ToonBTIPage() {
                 <TalkImgBox>
                   <TalkImg src={talkToon} alt="thumbnail_image" />
                 </TalkImgBox>
-
                 <Body>
                   <ArrowBox>
                     <QuestionTitle>{questionItem.question}</QuestionTitle>

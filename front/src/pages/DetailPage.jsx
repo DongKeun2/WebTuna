@@ -22,6 +22,7 @@ import EmptyHeart from "../assets/detail/EmptyHeart.png";
 import MySwal from "../components/common/SweetAlert";
 import Left from "../../src/assets/detail/Left.png";
 import Right from "../../src/assets/detail/Right.png";
+import Empty from "../../src/assets/tuntunEmpty.png";
 
 function DetailPage() {
   let { toonId } = useParams();
@@ -301,7 +302,7 @@ function DetailPage() {
     margintop: 3,
     marginleft: 3,
     width: 25,
-    labels: ["동근납작", "반짝섬세", "깔끔단정", "터프투박", "단순캐릭", "트렌디"],
+    labels: ["동글납작", "반짝섬세", "깔끔단정", "터프투박", "단순캐릭", "요즘트렌디"],
     datasets: [
       {
         type: "radar",
@@ -506,11 +507,11 @@ function DetailPage() {
                 <Summary>{webToonInfo.data.summary}</Summary>
               </SubInfo>
             </DetailZone>
-            <TagZone>
-              {webToonInfo.data.tags.length === 0 ||
-                webToonInfo.data.tags === undefined
-                ? "텅~"
-                : webToonInfo.data.tags.map((tag) =>
+            {webToonInfo.data.tags.length === 0 ||
+              webToonInfo.data.tags === undefined
+              ? <NoTag></NoTag> :
+              <TagZone>
+                {webToonInfo.data.tags.map((tag) =>
                   loginState === null ? (
                     <Tag key={tag.tag_id} id={tag.tag_id}>
                       <BookMarkImage src={BookMark} alt="북마크" />
@@ -534,13 +535,15 @@ function DetailPage() {
                     </Tag>
                   )
                 )}
-            </TagZone>
+              </TagZone>
+            }
+
             <PaintStyleRecommendZone>
               <div>그림체가 비슷한 웹툰</div>
               <PSRecommends>
                 {webToonInfo.similar_webtoon.length === 0 ||
                   webToonInfo.similar_webtoon === undefined ? (
-                  <div>그림체가 비슷한 웹툰이 없어요 ㅠ</div>
+                  <OtherWebToonEmpty><EmptyImg src={Empty} /><Bubble>그림체가 비슷한 웹툰이 없어요...</Bubble></OtherWebToonEmpty>
                 ) : (
                   webToonInfo.similar_webtoon.map((similarWebtoon) => (
                     <OtherWebToon
@@ -575,7 +578,7 @@ function DetailPage() {
               </PSRecommends>
             </PaintStyleRecommendZone>
             <SameAuthorRecommendZone>
-              <div>같은 작가의 다른 작품</div>
+              <div>같은 작가의 다른 웹툰</div>
               {slideCount >= 2 ? (
                 <>
                   {count === 1 ? null : <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>}
@@ -587,7 +590,7 @@ function DetailPage() {
               <SARecommendsBack>
                 <SARecommends id="slide">
                   {otherWebToons.length === 0 || otherWebToons === undefined ? (
-                    <div>작가님의 다른 작품이 없어요 ㅠ</div>
+                    <OtherWebToonEmpty><EmptyImg src={Empty} /><Bubble>작가님의 다른 웹툰이 없어요...</Bubble></OtherWebToonEmpty>
                   ) : (
                     otherWebToons.map((otherWebToon) => (
                       <OtherWebToon
@@ -597,7 +600,7 @@ function DetailPage() {
                         <ImgBox onClick={moveDetail}>
                           <OtherWebToonThumbnail
                             src={otherWebToon.thumbnail}
-                            alt="같은 작가의 다른 작품 이미지"
+                            alt="같은 작가의 다른 웹툰 이미지"
                             onClick={moveDetail}
                           ></OtherWebToonThumbnail>
                         </ImgBox>
@@ -684,6 +687,10 @@ const DetailZone = styled.div`
   /* justify-content: space-between; */
   align-items: center;
 `;
+
+const NoTag = styled.div`
+  height:7.5vw;
+`
 
 const Thumbnail = styled.div`
   background-color: white;
@@ -1004,6 +1011,58 @@ const SARecommends = styled.div`
   padding: 0.8vw;
   transition: all 1s;
 `;
+
+const OtherWebToonEmpty = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items:center
+`
+
+const EmptyImg = styled.img`
+  width: 10vw;
+  height: 10vw;
+`;
+
+const Bubble = styled.div`
+  margin-top: 0vw;
+  position: relative;
+  font-size: 1.2vw;
+  padding: 0px 50px;
+  height: 8vh;
+  display: inline-block;
+  background: #ffffff;
+  border: 3px solid black;
+  border-radius: 10px;
+  :after {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #ffffff;
+    border-width: 16px;
+    margin-top: -16px;
+  }
+  :before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(254, 236, 145, 0);
+    border-right-color: black;
+    border-width: 20px;
+    margin-top: -20px;
+  }
+`
 
 const OtherWebToon = styled.div`
   cursor: pointer;
