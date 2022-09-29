@@ -1214,4 +1214,14 @@ webtoon_list = json.load(a)
     
 #     # insert to similar 그림체
 #     original_webtoon.update(similar_webtoons=insert_similar_webtoons)
+<<<<<<< HEAD
 >>>>>>> 8f9f8be (scripts.py로 이동)
+=======
+
+# QA - Detail 페이지
+# for i in range(1700, 4882):
+#     url = f'http://127.0.0.1:8000/api/webtoons/{i}/detail/'
+#     # request the API data and convert the JSON to Python data types
+#     webtoons = requests.get(url).json()
+#     print(i)
+>>>>>>> d4f77ed (fix: detail 페이지 수정 - similar 웹툰 없을 때 예외처리)
