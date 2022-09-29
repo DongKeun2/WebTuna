@@ -31,6 +31,7 @@ function ToonToonPage() {
         setIsLoading(false);
       });
     }
+    return () => dispatch(changeFocusTun(undefined));
   }, [navigate, pathname, dispatch]);
 
   return (
@@ -54,7 +55,7 @@ function ToonList({ toons }) {
   let rows = [];
   console.log(Object.keys(toons).length);
   for (let i = 0; i < Object.keys(toons).length; i = i + 2) {
-    if (i + 1 < Object.keys(toons).length) {
+    if (i + 1 <= Object.keys(toons).length) {
       rows.push(
         <ToonListBox key={i}>
           <LeftToon type={i} toons={toons[i]} />
@@ -79,7 +80,10 @@ const ToonListBox = styled.div`
 `;
 
 function LeftToon({ toons, type }) {
+  const dispatch = useDispatch();
+
   const [isHover, setIsHover] = useState(false);
+  const isFocus = useSelector((state) => state.tuntun.focusTun);
   return (
     <LeftBox>
       <LeftOuterBox>
@@ -87,10 +91,11 @@ function LeftToon({ toons, type }) {
           <LeftInnerBox>
             <LeftBackBox tun={type}>
               <LeftItemBox
+                onClick={() => dispatch(changeFocusTun(type))}
                 onMouseOver={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
               >
-                {isHover ? (
+                {isFocus === type ? (
                   <ToonBox>
                     {toons.map((toon) => (
                       <ToonItem
@@ -100,9 +105,13 @@ function LeftToon({ toons, type }) {
                       />
                     ))}
                   </ToonBox>
+                ) : isHover ? (
+                  <ImgBox>
+                    <TunImg src={tuntunItem[type]?.img2} alt="tun_img" />
+                  </ImgBox>
                 ) : (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.img1} alt="tun_img" />
                   </ImgBox>
                 )}
               </LeftItemBox>
@@ -201,7 +210,10 @@ const LeftItemBox = styled.div`
 `;
 
 function RightToon({ toons, type }) {
+  const dispatch = useDispatch();
+
   const [isHover, setIsHover] = useState(false);
+  const isFocus = useSelector((state) => state.tuntun.focusTun);
   return (
     <RightBox>
       <RightOuterBox>
@@ -209,10 +221,11 @@ function RightToon({ toons, type }) {
           <RightInnerBox>
             <RightBackBox tun={type}>
               <RightItemBox
+                onClick={() => dispatch(changeFocusTun(type))}
                 onMouseOver={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
               >
-                {isHover ? (
+                {isFocus === type ? (
                   <ToonBox>
                     {toons.map((toon) => (
                       <ToonItem
@@ -222,9 +235,13 @@ function RightToon({ toons, type }) {
                       />
                     ))}
                   </ToonBox>
+                ) : isHover ? (
+                  <ImgBox>
+                    <TunImg src={tuntunItem[type]?.img2} alt="tun_img" />
+                  </ImgBox>
                 ) : (
                   <ImgBox>
-                    <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+                    <TunImg src={tuntunItem[type]?.img1} alt="tun_img" />
                   </ImgBox>
                 )}
               </RightItemBox>
