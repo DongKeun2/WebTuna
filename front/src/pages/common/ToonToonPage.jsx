@@ -85,27 +85,28 @@ function LeftToon({ toons, type }) {
       <LeftOuterBox>
         <LeftContentBox>
           <LeftInnerBox>
-            <LeftItemBox
-              onMouseOver={() => setIsHover(true)}
-              onMouseLeave={() => setIsHover(false)}
-              tun={type}
-            >
-              {isHover ? (
-                <ToonBox>
-                  {toons.map((toon) => (
-                    <ToonItem
-                      toontoon={true}
-                      key={toon.webtoon_id}
-                      item={toon}
-                    />
-                  ))}
-                </ToonBox>
-              ) : (
-                <ImgBox>
-                  <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
-                </ImgBox>
-              )}
-            </LeftItemBox>
+            <LeftBackBox tun={type}>
+              <LeftItemBox
+                onMouseOver={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+              >
+                {isHover ? (
+                  <ToonBox>
+                    {toons.map((toon) => (
+                      <ToonItem
+                        toontoon={true}
+                        key={toon.webtoon_id}
+                        item={toon}
+                      />
+                    ))}
+                  </ToonBox>
+                ) : (
+                  <ImgBox>
+                    <TunImg src={tuntunItem[type]?.img} alt="tun_img" />
+                  </ImgBox>
+                )}
+              </LeftItemBox>
+            </LeftBackBox>
           </LeftInnerBox>
         </LeftContentBox>
       </LeftOuterBox>
@@ -113,37 +114,10 @@ function LeftToon({ toons, type }) {
   );
 }
 
-const LeftItemBox = styled.div`
-  width: 70vw;
-  height: 97%;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  border: 3px solid red;
-  background: linear-gradient(-120deg, transparent 130px, white, 0);
-  @media screen and (max-width: 1290px) {
-    width: 68vw;
-  }
-  @media screen and (max-width: 1090px) {
-    width: 66vw;
-  }
-  @media screen and (max-width: 910px) {
-    width: 63vw;
-  }
-  @media screen and (max-width: 850px) {
-    width: 60vw;
-  }
-  @media screen and (max-width: 700px) {
-    width: 55vw;
-  }
-  @media screen and (max-width: 500px) {
-    width: 50vw;
-  }
-  @media screen and (max-width: 400px) {
-    width: 45vw;
-  }
-  @media screen and (max-width: 400px) {
-    width: 40vw;
-  }
+const LeftBox = styled.div`
+  align-self: start;
+  width: 80vw;
+  height: 17vw;
 `;
 
 const LeftOuterBox = styled.div`
@@ -170,7 +144,7 @@ const LeftContentBox = styled.div`
 
 const LeftInnerBox = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   width: 99%;
   height: 97%;
@@ -178,28 +152,52 @@ const LeftInnerBox = styled.div`
   background: linear-gradient(-110deg, transparent 100px, black 0);
 `;
 
-const LeftBox = styled.div`
-  align-self: start;
-  width: 80vw;
-  height: 17vw;
-`;
-
-const ImgBox = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const TunImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-`;
-
-const ToonBox = styled.div`
+const LeftBackBox = styled.div`
   display: flex;
-  height: 100%;
-  /* display: grid; */
-  /* grid-template-columns: 100px 100 100 100; */
+  justify-content: start;
+  align-items: center;
+  width: 99.5%;
+  height: 97%;
+  background: ${(props) =>
+    props.tun === 0
+      ? " linear-gradient(-110deg, transparent 100px, yellow 0)"
+      : props.tun === 2
+      ? "linear-gradient(-110deg, transparent 100px, pink 0)"
+      : "linear-gradient(-110deg, transparent 100px, white 0)"};
+`;
+
+const LeftItemBox = styled.div`
+  width: 70vw;
+  height: 97%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  border: 3px solid red;
+  background: linear-gradient(-110deg, transparent 100px, white, 0);
+
+  @media screen and (max-width: 1290px) {
+    width: 68vw;
+  }
+  @media screen and (max-width: 1090px) {
+    width: 66vw;
+  }
+  @media screen and (max-width: 910px) {
+    width: 63vw;
+  }
+  @media screen and (max-width: 850px) {
+    width: 60vw;
+  }
+  @media screen and (max-width: 700px) {
+    width: 55vw;
+  }
+  @media screen and (max-width: 500px) {
+    width: 50vw;
+  }
+  @media screen and (max-width: 400px) {
+    width: 45vw;
+  }
+  @media screen and (max-width: 400px) {
+    width: 40vw;
+  }
 `;
 
 function RightToon({ toons, type }) {
@@ -207,12 +205,12 @@ function RightToon({ toons, type }) {
   return (
     <RightBox>
       <RightOuterBox>
-        <RightContentBox
-          onMouseOver={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-        >
+        <RightContentBox>
           <RightInnerBox>
-            <RightItemBox>
+            <RightItemBox
+              onMouseOver={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+            >
               {isHover ? (
                 <ToonBox>
                   {toons.map((toon) => (
@@ -312,3 +310,21 @@ const RightItemBox = styled.div`
 `;
 
 export default ToonToonPage;
+
+const ImgBox = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const TunImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+`;
+
+const ToonBox = styled.div`
+  display: flex;
+  height: 100%;
+  /* display: grid; */
+  /* grid-template-columns: 100px 100 100 100; */
+`;
