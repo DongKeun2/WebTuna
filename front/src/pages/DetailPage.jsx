@@ -279,8 +279,14 @@ function DetailPage() {
   }
 
   function toLogin() {
-    alert("로그인 해주세요~ㅋ");
-    navigate(`/login`);
+    MySwal.fire({
+      icon: 'warning',
+      title: '로그인이 필요합니다!',
+      confirmButtonColor: '#faaf00',
+    })
+    setTimeout(() => {
+      navigate(`/login`);
+    }, 100);
   }
 
   useEffect(() => {
