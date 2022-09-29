@@ -27,7 +27,7 @@ function MainPage() {
 const MainBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: -5vh;
+  margin-top: -1vh;
   align-items: center;
 `;
 
