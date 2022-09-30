@@ -702,6 +702,7 @@ flex-flow: wrap;
 `;
 
 const ChoosedProfileCandidate = styled.img`
+  cursor: pointer;
   margin: 1.5vw;
   width: 8vw;
   height: 8vw;
@@ -714,6 +715,7 @@ const ChoosedProfileCandidate = styled.img`
   `;
 
 const ProfileCandidate = styled.img`
+  cursor: pointer;
   margin: 2vw;
   width: 8vw;
   height: 8vw;
