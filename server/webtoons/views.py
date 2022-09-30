@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 from ast import keyword
 from re import L
 <<<<<<< HEAD
@@ -89,6 +90,11 @@ from django.http import HttpResponseRedirect
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer, TagSerializer
 from webtoons.models import Webtoon, Genre, Tag
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
+=======
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+>>>>>>> bbcfc1c (feat: 오늘의 운세 api 구현 (미완성))
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
@@ -96,8 +102,14 @@ from django.core.paginator import Paginator
 >>>>>>> 5965471 (feat: 웹툰 상세,  전체 목록, 검색(제목, 작성자) API 개발)
 =======
 from django.db.models import Q
+
+from accounts.models import Member_View_Webtoons
+from webtoons.models import Webtoon, Genre, Tag
+from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer, TagSerializer
+
 import random
 import requests
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 # import requests
@@ -105,6 +117,9 @@ import requests
 # from bs4 import BeautifulSoup
 # from matplotlib.image import thumbnail
 # import statistics
+=======
+from datetime import datetime
+>>>>>>> bbcfc1c (feat: 오늘의 운세 api 구현 (미완성))
 
 >>>>>>> 4681354 (feat: 웹툰 필터 api 구현 / 검색 기능 대소문자 구분 제거)
 # webtoon 데이터가공-Naver API : http://localhost:8000/webtoons/naver/week
@@ -324,7 +339,9 @@ def mainPage(request):
     webtoon_5 = WebtoonListSerializer(webtoon5, many = True)
     webtoon_6 = WebtoonListSerializer(webtoon6, many = True)
 
-    return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data})
+    lucky_list = giveLucky(request.user.id)
+
+    return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data, 'lucky': lucky_list})
 
 
 # 웹툰 상세 페이지
@@ -1318,6 +1335,7 @@ def drawRecommend(user):
 
     return webtoons_list
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 =======
 
@@ -1383,3 +1401,30 @@ def popularity_recommend(user):
 
     return webtoons_list
 >>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
+=======
+
+
+# 오늘의 운세
+def giveLucky(user):
+    member = get_object_or_404(get_user_model(), id = user)
+
+    lucky_sample = [
+        '오후에 좋은 일이 있습니다.', '이 고비를 잘 넘겨야 합니다.', '대접을 받는 날입니다.', 
+        '소고기로 체력 보충하자.', '할까 말까 할 때는 해보자!', '결과는 기대 이상입니다.',
+        '좋은 소식이 찾아옵니다.', '식복이 가득합니다.', '하던 일에 결실이 보이네요!',
+        '뭐든 잘 풀리니 행복합니다.', '좋은 자세로 임해야합니다.', '결정과 선택은 서두르지 마세요',
+        '감정에 휘말리시면 안돼요.', '의욕이 넘치네요.', '본인을 믿으세요.', '오늘도 해피엔딩.',
+        '참으면 반드시 득이 돼요.', '결속력이 돈독해집니다.', '들뜨고, 기분이 좋네요!',
+        '미뤄왔던 계획을 실행하세요.', '예상치 못한 잔업이 있습니다.'    
+    ]
+    
+    lucky_list = random.sample(lucky_sample, 3)
+
+    now = datetime.now()
+
+    print(now, member.last_login)
+    # if member.last_login:
+    #     pass
+
+    return lucky_list
+>>>>>>> bbcfc1c (feat: 오늘의 운세 api 구현 (미완성))
