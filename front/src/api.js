@@ -111,15 +111,21 @@ const api = {
 
   //toonlistSlice
 <<<<<<< HEAD
+<<<<<<< HEAD
   fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum,
 <<<<<<< HEAD
 >>>>>>> 921bee3 (feat: 웹툰 전체 목록 api 연결)
 =======
 =======
   fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum + "/",
+=======
+  fetchToonlist: (pageNum) =>
+    BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum + "/",
+>>>>>>> 39fe5fb (feat: 명탐정툰툰 가운데 정렬)
 
   //filterSlice
-  filterToons: (pageNum) => BASE_URL + WEBTOONS_URL + FILTER_URL + pageNum + "/",
+  filterToons: (pageNum) =>
+    BASE_URL + WEBTOONS_URL + FILTER_URL + pageNum + "/",
 
   //toonBTISlice
   fetchToonBTI: () => BASE_URL + TOONBTI_URL,

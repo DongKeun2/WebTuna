@@ -19,6 +19,7 @@ import cat from "../../assets/profile/cat.jpg";
 import tuntun from "../../assets/test/tuntun2.png";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> a56603e (feat: 프로필이미지 수정 / 검색창 배경 수정)
 =======
 import MySwal from "../../components/common/SweetAlert";
@@ -28,6 +29,8 @@ import { useEffect } from "react";
 // import MySwal from "../../components/common/SweetAlert";
 // import { useEffect } from "react";
 >>>>>>> 5ac0872 (feat: 명탐정 툰툰 비로그인 접근 가능)
+=======
+>>>>>>> 39fe5fb (feat: 명탐정툰툰 가운데 정렬)
 
 function UploadPage() {
 <<<<<<< HEAD
@@ -137,19 +140,6 @@ function UploadPage() {
     return prediction
   }
 
-  // useEffect(() => {
-  //   if (!sessionStorage.getItem("token")) {
-  //     MySwal.fire({
-  //       title: "로그인 후 이용해주세요.",
-  //       icon: "warning",
-  //       confirmButtonColor: "#feec91",
-  //       confirmButtonText: "확인",
-  //       reverseButtons: true,
-  //     });
-  //     navigate("/login", { state: pathname });
-  //   }
-  // }, [navigate, pathname]);
-
   return (
     <div>
       {isLoading ? (
@@ -169,7 +159,7 @@ function UploadPage() {
           <PageBox>
             <TitleBox>
               <UploadTitle>업로드한 그림과</UploadTitle>
-              <UploadTitle>그림체가 비슷한 웹툰을 내가 찾아줄게!</UploadTitle>
+              <UploadTitle>그림체가 비슷한 웹툰을 찾아줄게!</UploadTitle>
             </TitleBox>
 
             {fileImage ? (
@@ -275,11 +265,16 @@ function UploadPage() {
 }
 
 const TitleBox = styled.div`
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0px 10px;
   display: flex;
   gap: 1vw;
   @media screen and (max-width: 750px) {
     flex-direction: column;
     align-items: center;
+    padding: 10px;
     gap: 0px;
     margin-bottom: 30px;
   }
@@ -287,11 +282,11 @@ const TitleBox = styled.div`
 
 const UploadTitle = styled.p`
   margin-top: 2vw;
-  font-size: 2.5vw;
+  font-size: 2vw;
   font-weight: 700;
   @media screen and (max-width: 750px) {
-    margin-top: 20px;
-    font-size: 20px;
+    margin-top: 2vw;
+    font-size: 3vw;
     line-height: 0;
   }
 `;
@@ -342,6 +337,10 @@ const Container = styled.div`
 
 >>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
 const PageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 96%;
   margin-left: auto;
   margin-right: auto;
@@ -377,6 +376,9 @@ const ImgBox = styled.div`
 `;
 
 const TunImgBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20vw;
   height: 20vh;
   min-width: 320px;
@@ -395,12 +397,11 @@ const TunImg = styled.img`
   width: 315px;
   height: 315px;
   object-fit: fill;
-  margin-left: 0.4vw;
 `;
 
 const BtnGroup = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 20vw;
   min-width: 300px;
 `;
