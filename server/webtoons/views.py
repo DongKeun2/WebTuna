@@ -393,18 +393,28 @@ def getTag(request):
 @api_view(['GET'])
 def searchWebtoon(request,pageNum):
     webtoon_list = []
-    # keyword = request.GET['keyword']
+    
     keyword = request.GET['keyword'].rstrip().lstrip()
     if(keyword != ""):
+        search_list = Webtoon.objects.filter(title=keyword).order_by('title')
+        for toon in search_list:
+            if(toon not in webtoon_list):
+                webtoon_list.append(toon)
         search_list = Webtoon.objects.filter(title__icontains=keyword).order_by('title')
         for toon in search_list:
-            webtoon_list.append(toon)
+            if(toon not in webtoon_list):
+                webtoon_list.append(toon)
+        search_list = Webtoon.objects.filter(authors__name=keyword).order_by('title')
+        for toon in search_list:
+            if(toon not in webtoon_list):
+                webtoon_list.append(toon)
         search_list = Webtoon.objects.filter(authors__name__icontains=keyword).order_by('title')
         for toon in search_list:
-            webtoon_list.append(toon)
+            if(toon not in webtoon_list):
+                webtoon_list.append(toon)
             
-    webtoon_list = list(set(webtoon_list))
-    webtoon_list.sort(key=lambda webtoon: webtoon.title, reverse=False)
+    # webtoon_list = list(set(webtoon_list))
+    # webtoon_list.sort(key=lambda webtoon: webtoon.title, reverse=False)
     paginator = Paginator(webtoon_list, page_cut)
     webtoons = paginator.get_page(int(pageNum))
 <<<<<<< HEAD
