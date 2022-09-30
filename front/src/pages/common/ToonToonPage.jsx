@@ -283,7 +283,8 @@ function RightToon({ toons, type }) {
   const isFocus = useSelector((state) => state.tuntun.focusTun);
 
   function onClickHandler() {
-    if (type === 3 && (!userInfo.tags?.length < 3 || !toons.length)) {
+    console.log(userInfo);
+    if (type === 3 && (userInfo.tags?.length < 3 || !toons.length)) {
       dispatch(changeFocusTun(undefined));
       MySwal.fire({
         title: "태그 기반 추천 불가!",
