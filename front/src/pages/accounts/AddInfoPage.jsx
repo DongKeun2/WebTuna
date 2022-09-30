@@ -18,15 +18,27 @@ function AddInfoPage() {
 
   function submitSignup() {
     if (signupInfo.liked_thumbnail) {
-      dispatch(signup(signupInfo)).then(() => {
-        MySwal.fire({
-          title: "환영합니다!",
-          text: "로그인 후 서비스를 이용해보세요!",
-          icon: "success",
-          confirmButtonColor: "#feec91",
-          confirmButtonText: "확인",
-        });
-        navigate("/login");
+      dispatch(signup(signupInfo)).then((res) => {
+        if (res.error) {
+          MySwal.fire({
+            title: "회원가입 실패!",
+            text: "처음부터 다시 진행해주세요.",
+            icon: "warning",
+            confirmButtonColor: "#feec91",
+            confirmButtonText: "확인",
+          }).then(() => {
+            navigate("/signup");
+          });
+        } else {
+          MySwal.fire({
+            title: "환영합니다!",
+            text: "로그인 후 서비스를 이용해보세요!",
+            icon: "success",
+            confirmButtonColor: "#feec91",
+            confirmButtonText: "확인",
+          });
+          navigate("/login");
+        }
       });
     }
   }
@@ -85,11 +97,7 @@ function ImgItems({ item }) {
             sx={checkCircleSt}
           ></CheckCircleOutlineIcon>
         </CheckCircleBox>
-      ) : (
-        <div>
-          <h1>잘가</h1>
-        </div>
-      )}
+      ) : null}
     </ImgBox>
   );
 }
@@ -136,6 +144,7 @@ const AddInfoBox = styled.div`
 const ItemBox = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 `;
 
