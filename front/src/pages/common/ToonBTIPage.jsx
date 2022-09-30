@@ -171,15 +171,7 @@ const ToonBox = styled.div`
   margin-right: auto;
   min-height: 73vh;
   @media screen and (min-width: 1100px) {
-    min-height: 68vh;
-  }
-  padding: 0.5vw;
-  padding-bottom: 100px;
-  @media screen and (max-width: 750px) {
-    padding-bottom: 70px;
-  }
-  @media screen and (min-width: 1240px) {
-    padding-bottom: 80px;
+    min-height: 80vh;
   }
   border: solid 2px;
   border-radius: 0.8rem;
@@ -284,60 +276,50 @@ function ToonBTIResult({ setPage }) {
   return (
     <PageBox>
       <ToonBox>
-        <ResultHeader>ToonBTI</ResultHeader>
+        <ToonBTITItle>ToonBTI</ToonBTITItle>
         <ResultBox>
+          <TitleBox>
+            <ResultSummary>{summary}</ResultSummary>
+            <ResultTitle>{toonInfo.title}</ResultTitle>
+          </TitleBox>
           <ImgBox>
             <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
           </ImgBox>
-          <TitleBox>
-            <ResultTitle>{toonInfo.title}</ResultTitle>
-            <ResultSummary>{summary}</ResultSummary>
-            <BtnGroup>
-              <ResultBtn active={true} onClick={moveDetail}>
-                상세 정보
-              </ResultBtn>
-              <ResultBtn
-                active={true}
-                onClick={() => {
-                  dispatch(addAnswer([]));
-                  setPage(0);
-                }}
-              >
-                <FlexBox>
-                  <RestartAltIcon />
-                  <TextAgain>다시 하기</TextAgain>
-                </FlexBox>
-              </ResultBtn>
-            </BtnGroup>
-          </TitleBox>
+          <BtnGroup>
+            <ResultBtn active={true} onClick={moveDetail}>
+              상세 정보
+            </ResultBtn>
+            <ResultBtn
+              active={true}
+              onClick={() => {
+                dispatch(addAnswer([]));
+                setPage(0);
+              }}
+            >
+              <FlexBox>
+                <RestartAltIcon />
+                <TextAgain>다시 하기</TextAgain>
+              </FlexBox>
+            </ResultBtn>
+          </BtnGroup>
         </ResultBox>
       </ToonBox>
     </PageBox>
   );
 }
 
-const ResultHeader = styled.p`
-  font-size: 1.8vw;
-  @media screen and (max-width: 1200px) {
-    font-size: 20px;
-  }
-  font-weight: 700;
-  margin-bottom: 5vw;
-  text-align: center;
-`;
-
 const ResultBox = styled.div`
   width: 60%;
+  height: 100%;
   @media screen and (max-width: 1000px) {
     width: 80%;
   }
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  @media screen and (max-width: 750px) {
-    flex-direction: column;
-  }
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ImgBox = styled.div`
@@ -364,8 +346,8 @@ const ToonImg = styled.img`
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-left: 3vw;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: 750px) {
     margin-top: 20px;
     gap: 10px;
@@ -373,45 +355,38 @@ const TitleBox = styled.div`
 `;
 
 const ResultTitle = styled.p`
+  padding: 1vw 0;
+  text-align: center;
   font-size: 1.3vw;
   font-weight: 600;
   margin: 0;
   @media screen and (max-width: 750px) {
-    font-size: 16px;
-    text-align: center;
+    font-size: 2vw;
   }
 `;
 
 const ResultSummary = styled.div`
-  font-size: 1vw;
-  height: 60%;
-  @media screen and (max-width: 750px) {
-    height: 80px;
-  }
+  font-size: 2vw;
   padding: 5px 8px;
-  background-color: white;
-  border: 2px solid;
-  border-radius: 1vw;
-  overflow: hidden;
   text-overflow: ellipsis;
 `;
 
 const BtnGroup = styled.div`
   width: 100%;
+  padding: 3vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   @media screen and (max-width: 750px) {
-    gap: 10px;
-    margin-top: 20px;
-    margin-bottom: 100px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
   }
 `;
 
 const ResultBtn = styled.button`
+  height: 80px;
   width: 40%;
-  @media screen and (max-width: 1100px) {
-    width: 48%;
-  }
   padding: 5px 0;
   background-color: #feec91;
   font-size: 0.8vw;
@@ -419,6 +394,9 @@ const ResultBtn = styled.button`
   border-radius: 12px;
   border: 6px solid white;
   cursor: pointer;
+  @media screen and (max-width: 750px) {
+    height: 50px;
+  }
 `;
 
 const FlexBox = styled.div`
