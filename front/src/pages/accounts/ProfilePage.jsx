@@ -49,6 +49,7 @@ function ProfilePage() {
       console.log(res.payload);
       setUserInfo(res.payload);
       setUserImg(profileImgItem[res.payload.data.profile_image_id].img);
+      setProfileImageId(res.payload.data.profile_image_id);
       let imageType = [];
       let gName = [];
       let gValue = [];

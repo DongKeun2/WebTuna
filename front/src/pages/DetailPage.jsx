@@ -93,12 +93,12 @@ function DetailPage() {
           slide = document.getElementById("slide");
           slide.style.left = "0vw";
           setCount(1);
-        }, 50);
+        }, 100);
       });
     } else {
       dispatch(detail(toonId)).then((res) => {
         console.log(res.payload.is_rated + "로그인");
-        console.log(res.payload);
+        console.log(res.payload.data.tags.length);
         setWebToonInfo(res.payload);
         setPaintGraphData([
           res.payload.data.image_type1 / 2 + 15,
@@ -141,7 +141,7 @@ function DetailPage() {
           slide = document.getElementById("slide");
           slide.style.left = "0vw";
           setCount(1);
-        }, 50);
+        }, 100);
       });
     }
   }
@@ -507,8 +507,8 @@ function DetailPage() {
                 <Summary>{webToonInfo.data.summary}</Summary>
               </SubInfo>
             </DetailZone>
-            {webToonInfo.data.tags.length === 0 ||
-              webToonInfo.data.tags === undefined
+            {(webToonInfo.data.tags.length === 0 ||
+              webToonInfo.data.tags === undefined)
               ? <NoTag></NoTag> :
               <TagZone>
                 {webToonInfo.data.tags.map((tag) =>
