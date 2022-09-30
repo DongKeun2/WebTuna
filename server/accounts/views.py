@@ -32,6 +32,7 @@ def ProfileUpdate(request):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 프로필 보기
 =======
 # class UserLogin(LoginView):
@@ -52,6 +53,9 @@ def ProfileUpdate(request):
 =======
 =======
 # 비밀번호 수정하기
+=======
+# 프로필 이미지 수정하기
+>>>>>>> 6f6e1b6 (프로필 이미지 수정하기 )
 @api_view(['PUT'])
 def ProfileImage(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
