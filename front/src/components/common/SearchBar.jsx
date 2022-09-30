@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import searchIcon from "../../assets/test/searchIcon.png";
+import searchIcon from "../../assets/toon/searchIcon.png";
 import {
   searchToons,
   changeKeyword,
