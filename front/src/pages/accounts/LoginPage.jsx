@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -25,6 +25,7 @@ function LoginPage() {
   }, [dispatch]);
 
   const loginInfo = useSelector((state) => state.login.loginInfo);
+
   const returnUrl = sessionStorage.getItem("url");
 
   function loginSubmit(e) {
@@ -33,10 +34,11 @@ function LoginPage() {
     dispatch(login(loginInfo)).then((res) => {
       if (res.error) {
         MySwal.fire({
-          title: "Error!",
-          text: "다시 확인해주세요.",
+          title: "로그인 실패!",
+          text: "아이디와 비밀번호를 다시 확인해주세요.",
           icon: "error",
-          confirmButtonText: "Cool",
+          confirmButtonColor: "#feec91",
+          confirmButtonText: "확인",
         });
         sessionStorage.setItem("url", returnUrl);
       } else {
@@ -52,8 +54,7 @@ function LoginPage() {
           } else {
             if (returnUrl) {
               navigate(returnUrl);
-            }
-            else {
+            } else {
               navigate("/");
             }
           }
@@ -71,11 +72,12 @@ function LoginPage() {
     e.preventDefault();
     dispatch(changePassword(e.target.value));
   }
+
   return (
     <PageBox>
       <LoginBox>
         <PageTitle>로그인 페이지</PageTitle>
-        <FormGroup onSubmit={loginSubmit}>
+        <FormGroup>
           <FormItem>
             <FormTitle>이메일</FormTitle>
             <LoginInput
@@ -86,6 +88,7 @@ function LoginPage() {
               onChange={onEmailHandler}
             />
           </FormItem>
+
           <FormItem>
             <FormTitle>비밀번호</FormTitle>
             <LoginInput
@@ -97,7 +100,7 @@ function LoginPage() {
             />
           </FormItem>
           <BtnBox>
-            <SubmitBtn>제출</SubmitBtn>
+            <SubmitBtn onClick={loginSubmit}>제출</SubmitBtn>
           </BtnBox>
         </FormGroup>
       </LoginBox>
@@ -135,6 +138,7 @@ const LoginBox = styled.div`
     width: 95%;
   }
 `;
+
 const FormGroup = styled.form`
   display: flex;
   gap: 20px;
