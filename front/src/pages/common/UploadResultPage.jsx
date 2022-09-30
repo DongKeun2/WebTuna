@@ -163,6 +163,7 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin-left: 3vw;
   @media screen and (max-width: 750px) {
+    margin-left: 0;
     margin-top: 20px;
     gap: 10px;
   }
@@ -181,15 +182,28 @@ const ResultTitle = styled.p`
 const ResultSummary = styled.div`
   font-size: 1vw;
   height: 60%;
-  @media screen and (max-width: 750px) {
-    height: 80px;
-  }
-  padding: 5px 8px;
+  padding: 10px 5px;
+  padding-left: 16px;
   background-color: white;
   border: 2px solid;
-  border-radius: 1vw;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  border-radius: 0.5vw;
+  overflow: auto;
+  @media screen and (max-width: 750px) {
+    height: 80px;
+    padding: 5px 8px;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar {
+    width: 1vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #bab9b9;
+    border-radius: 3vw;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #e7e4e4;
+    border-radius: 3vw;
+  }
 `;
 
 const BtnGroup = styled.div`
