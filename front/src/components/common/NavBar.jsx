@@ -92,8 +92,12 @@ const RightGroup = styled.div`
 `;
 
 const Item = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fddc35;
   @media screen and (min-width: 750px) {
-    width: 180px;
+    width: 150px;
   }
   height: 100%;
   cursor: url(${hover}) 13 13, auto;
@@ -136,6 +140,8 @@ const ToonImg = styled.img`
 `;
 
 const IconImg = styled.img`
+  width: 40px;
+  height: 40px;
   @media screen and (max-width: 750px) {
     position: absolute;
     top: 50%;
@@ -144,6 +150,7 @@ const IconImg = styled.img`
 `;
 
 const IconText = styled.p`
+  width: 110px;
   margin: 0;
   text-align: center;
   @media screen and (max-width: 750px) {
@@ -246,8 +253,8 @@ function NavBar() {
         </Toontoon>
         <RightGroup>
           <Item onClick={moveUpload}>
-            <IconImg src={PaintStyleRecommend} alt="그림체로 웹툰 검색" />
-            <IconText>내 그림으로 웹툰 찾기</IconText>
+            <IconImg src={PaintStyleRecommend} alt="명탐정 툰툰" />
+            <IconText>명탐정 툰툰</IconText>
           </Item>
           <Item onClick={moveToonbti}>
             <IconImg src={ToonBTI} alt="툰비티아이" />
