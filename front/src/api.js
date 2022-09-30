@@ -48,7 +48,11 @@ const PASSWORD_URL = "check/";
 const EDIT_URL = "update/";
 =======
 const PROFILE_URL = "profile/";
+<<<<<<< HEAD
 >>>>>>> 4ca15ff (feat: 프로필 페이지 껍데기 구현 및 API  연동)
+=======
+const IMAGE_URL = "image/";
+>>>>>>> 8f76a36 (feat: 프로필 사진 변경 기능 추가)
 
 const SEARCH_IMG_URL = "search/image/";
 >>>>>>> 6e82ed7 (feat: toonbti 질문&보기 구현)
@@ -101,6 +105,7 @@ const api = {
 
   //profileSlice
   profile: () => BASE_URL + ACCOUNTS_URL + USER_URL + PROFILE_URL,
+  profileImage: () => BASE_URL + ACCOUNTS_URL + USER_URL + IMAGE_URL,
 
   //uploadSlice
   fetchUpload: () => BASE_URL + WEBTOONS_URL + SEARCH_IMG_URL,
@@ -110,6 +115,7 @@ const api = {
 =======
 
   //toonlistSlice
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   fetchToonlist: (pageNum) => BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum,
@@ -122,6 +128,10 @@ const api = {
   fetchToonlist: (pageNum) =>
     BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum + "/",
 >>>>>>> 39fe5fb (feat: 명탐정툰툰 가운데 정렬)
+=======
+  fetchToonlist: (pageNum) =>
+    BASE_URL + WEBTOONS_URL + TOON_LIST_URL + pageNum + "/",
+>>>>>>> 8f76a36 (feat: 프로필 사진 변경 기능 추가)
 
   //filterSlice
   filterToons: (pageNum) =>

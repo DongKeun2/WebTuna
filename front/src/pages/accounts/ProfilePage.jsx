@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -6,15 +6,17 @@ import ChartShow from "../../components/common/Chart";
 import ProfileBorder from "../../../src/assets/profilePage/ProfileBorder.png";
 import Loading from "../../components/common/Loading";
 import BookMark from "../../../src/assets/detail/BookMark.png";
-import { profile } from "../../features/accounts/profileSlice";
+import { profile, profileImage } from "../../features/accounts/profileSlice";
 import { getTags } from "../../features/toons/searchSlice";
 import { tagLike } from "../../features/details/detailSlice";
+import { changeCurrentUser } from "../../features/accounts/loginSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
 import ModalFrame from "../../components/common/ModalFrame";
 import Left from "../../../src/assets/detail/Left.png";
 import Right from "../../../src/assets/detail/Right.png";
 import Empty from "../../../src/assets/tuntunEmpty.png";
+import MySwal from "../../components/common/SweetAlert";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -25,16 +27,23 @@ function ProfilePage() {
   const [paintGraphData, setPaintGraphData] = useState();
   const [genreName, setgGenreName] = useState();
   const [genreValue, setgGenreValue] = useState();
-  const [modal, setModal] = useState(false);
+  const [tagModal, setTagModal] = useState(false);
+  const [profileModal, setProfileModal] = useState(false);
   const [count, setCount] = useState(1);
   const [slideCount, setSlideCount] = useState();
   const [unLikedTags, setUnLikedTags] = useState(); //검색가능한 데이터
   const [searchWord, setSearchWord] = useState("");
   const [filteredTags, setFilteredTags] = useState();
-
+  const [profileImageId, setProfileImageId] = useState(0);
+  const [toolTipDisplay, setToolTipDisplay] = useState("none");
   let slide;
+  let myProfile
+  useSelector(
+    (state) => myProfile = state.login.currentUser
+  )
   const boxColor = ["#fea3a3", "#92d7fa", "#fffbaf"];
   let boxColorIndex = 0;
+  const profileNumbers = [0, 1, 2, 3, 4, 5];
   function getUserInfo() {
     dispatch(profile()).then((res) => {
       console.log(res.payload);
@@ -60,7 +69,6 @@ function ProfilePage() {
         Math.ceil(Number(res.payload.data.liked_webtoons.length) / 4)
       );
       setIsLoading(false);
-      console.log(res.payload.data.tags);
       dispatch(getTags()).then((tagres) => {
         let temp = tagres.payload;
         let tempUnLikedTags = [];
@@ -68,7 +76,6 @@ function ProfilePage() {
           (tag) => !tempLikedTags.includes(tag.tag_id)
         );
         setUnLikedTags(tempUnLikedTags);
-        console.log(tempUnLikedTags);
       });
     });
   }
@@ -89,8 +96,8 @@ function ProfilePage() {
     return result;
   }
 
-  function switchModal() {
-    setModal((prev) => !prev);
+  function switchTagModal() {
+    setTagModal((prev) => !prev);
   }
 
   function left() {
@@ -168,6 +175,41 @@ function ProfilePage() {
     );
     setFilteredTags(tempFilteredTags);
     console.log(e.target.value);
+  }
+
+  function switchProfileModal() {
+    setProfileModal((prev) => !prev);
+  }
+
+  function chooseProfile(e) {
+    console.log(e.target.id);
+    setProfileImageId(e.target.id);
+  }
+
+  function profileChange() {
+    let data = { profile_image_id: profileImageId }
+    dispatch(profileImage(data)).then(() => {
+      let tempMyProfile = JSON.stringify(myProfile);
+      tempMyProfile = JSON.parse(tempMyProfile);
+      tempMyProfile.profile_image_id = profileImageId;
+      dispatch(changeCurrentUser(tempMyProfile));
+      getUserInfo();
+      MySwal.fire({
+        title: "프로필 사진 변경 완료!",
+        icon: "success",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+      setProfileModal(false);
+    });
+  }
+
+  function toolTipOn() {
+    setToolTipDisplay("");
+  }
+
+  function toolTipOff() {
+    setToolTipDisplay("none");
   }
 
   useEffect(() => {
@@ -248,9 +290,37 @@ function ProfilePage() {
           <UserBorder>
             <UserBack>
               <UserInfo>
-                <BorderImg src={ProfileBorder} alt="테두리" />
+                <ToolTip id="ToolTip" data={toolTipDisplay}>프사 바꿀래?</ToolTip>
+                <BorderImg src={ProfileBorder} alt="테두리" onClick={switchProfileModal} onMouseEnter={toolTipOn} onMouseOut={toolTipOff} />
                 <ProfileImg src={userImg} alt="프로필사진" />
-                <Name>{userInfo.data.nickname} 님의 관심정보</Name>
+                {profileModal ? (
+                  <ModalFrame
+                    top="10vw"
+                    width="75%"
+                    height="auto"
+                    _handleModal={switchProfileModal}
+                  >
+                    <ModalTitle>마음에 드는 프로필 이미지를 골라주세요</ModalTitle>
+                    <Line></Line>
+                    <ProfileZone>{profileNumbers.map((profileNumber) => profileNumber === Number(profileImageId) ? <ChoosedProfileCandidate src={profileImgItem[profileNumber].img} id={profileNumber} onClick={chooseProfile} key={profileNumbers}></ChoosedProfileCandidate> : <ProfileCandidate src={profileImgItem[profileNumber].img} id={profileNumber} onClick={chooseProfile} key={profileNumber}></ProfileCandidate>)}</ProfileZone>
+                    <ChangeButton onClick={profileChange}> 변경 </ChangeButton>
+                    <FilterZone>
+                      {filteredTags === undefined || searchWord.length === 0
+                        ? ""
+                        : filteredTags.map((filteredTag) => (
+                          <SearchTag
+                            key={filteredTag.tag_id}
+                            id={filteredTag.tag_id}
+                            onClick={tagSwitch}
+                          >
+                            <TagName>{filteredTag.name}</TagName>
+                            <PlusButton>+</PlusButton>
+                          </SearchTag>
+                        ))}
+                    </FilterZone>
+                  </ModalFrame>
+                ) : null}
+                <Name>{userInfo.data.nickname} 님의 관심사</Name>
               </UserInfo>
               <ChartZone>
                 <ChartTitleZone>
@@ -302,14 +372,14 @@ function ProfilePage() {
                 ? null
                 : `(${userInfo.data.tags.length})`}
             </TagTitle>
-            <TagAddRemove onClick={switchModal}>태그 추가/제거</TagAddRemove>
+            <TagAddRemove onClick={switchTagModal}>태그 추가/제거</TagAddRemove>
           </TagTitleZone>
-          {modal ? (
+          {tagModal ? (
             <ModalFrame
               top="5vw"
               width="75%"
               height="auto"
-              _handleModal={switchModal}
+              _handleModal={switchTagModal}
             >
               <ModalTitle>태그 추가/제거</ModalTitle>
               <LikedTagZone>
@@ -399,9 +469,7 @@ function ProfilePage() {
                     </ToonInfo>
                   </LikedWebToon>
                 ))}</LikedWebToons>
-
             }
-
           </LikedWebToonBack>
           <TagTitleZone>
             <TagTitle>최근에 본 웹툰</TagTitle>
@@ -454,32 +522,59 @@ const UserBack = styled.div`
 `;
 
 const BorderImg = styled.img`
+  cursor: pointer;
   position: absolute;
   margin-top: 0.5vw;
   margin-left: 0.5vw;
-  width: 5vw;
+  width: 7vw;
   overflow: hidden;
   z-index: 1;
 `;
 
 const ProfileImg = styled.img`
-
-  margin-top: 1.1vw;
-  margin-left: 1.3vw;
-  width: 3.3vw;
-  height:3.3vw;
+  margin-top: 1.2vw;
+  margin-left: 1.7vw;
+  width: 4.8vw;
+  height: 4.8vw;
   border-radius: 70%;
   object-fit: cover;
   z-index: 0;
 `;
 
+const ChangeButton = styled.div`
+  cursor: pointer;
+  font-size: 1.5vw;
+  padding: 0.25vw;
+  border: 0.1vw solid black;
+  border-radius: 1vw;
+  background-color: white;
+  margin-top: 1.1vw;
+  &:hover {
+    background-color: pink;
+  }
+`
+
 const UserInfo = styled.div`
   display: flex;
 `;
 
+const ToolTip = styled.div`
+display: ${(props) => props.data};
+position: absolute;
+padding: 0.3vw;
+border-radius: 0.3vw;
+background-color: #4f4f4fb4;
+color:white;
+margin-top: -1vw;
+margin-left: 1.8vw;
+font-size: 0.6vw;
+z-index: 1;
+transition: 0.3s;
+`;
+
 const Name = styled.div`
   font-size: 1.2vw;
-  margin-top: 2vw;
+  margin-top: 3vw;
   margin-left: 1vw;
   font-weight: 600;
 `;
@@ -584,6 +679,7 @@ const PlusButton = styled.div`
 
 const ModalTitle = styled.div`
   margin-top: 2vw;
+  font-size: 1.5vw;
 `;
 const LikedTagZone = styled.div`
   display: flex;
@@ -599,6 +695,36 @@ const Line = styled.div`
   margin-top: 1vw;
   border-top: 0.2vw solid black;
   width: 100%;
+`;
+
+const ProfileZone = styled.div`
+flex-flow: wrap; 
+`;
+
+const ChoosedProfileCandidate = styled.img`
+  margin: 1.5vw;
+  width: 8vw;
+  height: 8vw;
+  border-radius: 70%;
+  border-width: 0.5vw;
+  border-color: #89c4ff;
+  border-style: solid;
+  object-fit: cover;
+  z-index: 0;
+  `;
+
+const ProfileCandidate = styled.img`
+  margin: 2vw;
+  width: 8vw;
+  height: 8vw;
+  border-radius: 70%;
+  object-fit: cover;
+  z-index: 0;
+  transition: 0.3s;
+  &:hover {
+    transform:scale(1.3);
+  }
+
 `;
 
 const SearchBar = styled.input`
