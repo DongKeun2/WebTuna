@@ -5,6 +5,7 @@ import items from "../../assets/banner/bannerItem";
 import { changeState } from "../../features/toons/mainSlice";
 import "./banner.css";
 import { useEffect } from "react";
+import { hover } from "../../assets/cursor/cursorItem";
 
 function Banner() {
   const dispatch = useDispatch();
@@ -89,6 +90,7 @@ function Banner() {
             borderTop: "none",
             border: "3px solid black",
             borderRadius: "0px 0px 10px 10px",
+            cursor: `url(${hover}) 13 13, auto`,
           },
         }}
       >

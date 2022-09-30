@@ -79,41 +79,47 @@ function Avatar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to={`/profile`}>
-          <MenuItem>프로필</MenuItem>
-        </Link>
-        <Link to={`/edit`}>
-          <MenuItem>정보 수정</MenuItem>
-        </Link>
-        <MenuItem
-          onClick={() => {
-            MySwal.fire({
-              title: "로그아웃 하쉴?",
-              text: "정말로?",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#feec91",
-              confirmButtonText: "로그아웃",
-              cancelButtonColor: "#d33",
-              cancelButtonText: "취소",
-              reverseButtons: true,
-            }).then((result) => {
-              if (result.isConfirmed) {
-                MySwal.fire({
-                  title: "로그아웃!",
-                  icon: "success",
-                  confirmButtonColor: "#feec91",
-                  confirmButtonText: "확인",
-                });
-                dispatch(logout()).then(() => {
-                  navigate("/");
-                });
-              }
-            });
-          }}
-        >
-          로그아웃
-        </MenuItem>
+        <ItemBox>
+          <Link to={`/profile`}>
+            <MenuItem>프로필</MenuItem>
+          </Link>
+        </ItemBox>
+        <ItemBox>
+          <Link to={`/edit`}>
+            <MenuItem>정보 수정</MenuItem>
+          </Link>
+        </ItemBox>
+        <ItemBox>
+          <MenuItem
+            onClick={() => {
+              MySwal.fire({
+                title: "로그아웃 하쉴?",
+                text: "정말로?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#feec91",
+                confirmButtonText: "로그아웃",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "취소",
+                reverseButtons: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  MySwal.fire({
+                    title: "로그아웃!",
+                    icon: "success",
+                    confirmButtonColor: "#feec91",
+                    confirmButtonText: "확인",
+                  });
+                  dispatch(logout()).then(() => {
+                    navigate("/");
+                  });
+                }
+              });
+            }}
+          >
+            로그아웃
+          </MenuItem>
+        </ItemBox>
       </Menu>
     </React.Fragment>
   );
@@ -130,6 +136,15 @@ const ProfileImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+
+const ItemBox = styled.div`
+  width: 100%;
+  a {
+    text-decoration: none !important;
+    color: #129bda;
+  }
+  color: #129bda;
 `;
 
 export default Avatar;

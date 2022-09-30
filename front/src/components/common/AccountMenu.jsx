@@ -25,6 +25,11 @@ function AccountMenu() {
 
 const AccountBox = styled.div`
   display: flex;
+  font-weight: bold;
+  text-decoration: none;
+  a {
+    color: #129bda;
+  }
   gap: 20px;
   @media screen and (max-width: 600px) {
     flex-direction: column;
