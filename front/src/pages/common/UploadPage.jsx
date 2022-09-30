@@ -13,6 +13,7 @@ import styled from "styled-components";
 import Loading from "../../components/common/Loading";
 import { fetchUpload } from "../../features/toons/uploadSlice";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import cat from "../../assets/profile/cat.jpg";
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
 =======
@@ -31,6 +32,9 @@ import { useEffect } from "react";
 >>>>>>> 5ac0872 (feat: 명탐정 툰툰 비로그인 접근 가능)
 =======
 >>>>>>> 39fe5fb (feat: 명탐정툰툰 가운데 정렬)
+=======
+import tuntun from "../../assets/toon/conanTun.png";
+>>>>>>> e136dee (docs: assets정리)
 
 function UploadPage() {
 <<<<<<< HEAD

@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
-import loadingImg1 from "../../assets/test/tuntun4.png";
-import loadingImg2 from "../../assets/test/tuntun2.png";
+import loadingImg1 from "../../assets/toon/tunbti.png";
+import loadingImg2 from "../../assets/toon/conanTun.png";
 
 function Loading({ type, text }) {
   window.scrollTo(0, 0);

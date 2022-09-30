@@ -1,12 +1,12 @@
 import { createGlobalStyle } from "styled-components";
-import cursor from "./assets/cursor/cursor1.png";
+import { common } from "./assets/cursor/cursorItem";
 
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: #D1E2FF;
     margin: 0;
     :hover {
-      cursor:  url(${cursor}) 0 0, auto;
+      cursor:  url(${common}) 0 0, auto;
     }
   }
 `;

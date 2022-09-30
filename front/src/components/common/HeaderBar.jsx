@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import AccountMenu from "./AccountMenu";
 import SearchBar from "./SearchBar";
-import logo from "./../../assets/logo2.png";
+import logo from "./../../assets/logo/logo2.png";
 import { useNavigate } from "react-router-dom";
 
 function HeaderBar() {
