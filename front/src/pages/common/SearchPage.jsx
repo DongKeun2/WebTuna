@@ -32,8 +32,6 @@ export default function SearchPage() {
       !fetching &&
       possibleFetch
     ) {
-      console.log("끝에 도달");
-      console.log(possibleFetch);
       dispatch(changePages(pages + 1));
       fetchNextPage();
     }
@@ -49,12 +47,10 @@ export default function SearchPage() {
 
   const fetchNextPage = async () => {
     setFetching(true);
-
     const data = {
       keyword,
       pages: pages + 1,
     };
-    console.log(data);
     dispatch(addToons(data)).then(() => {
       setFetching(false);
     });

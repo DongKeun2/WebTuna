@@ -5,13 +5,12 @@ import api from "../../api";
 const filterToons = createAsyncThunk(
   "filterToons",
   async (data, { rejectWithValue }) => {
-    const checked = data.checked
+    const checked = data.checked;
     try {
-      const res = await axios.post(api.filterToons(data.page), checked, {})
-      console.log(res.data)
-      return res.data
+      const res = await axios.post(api.filterToons(data.page), checked, {});
+      return res.data;
     } catch (err) {
-      return rejectWithValue(err.response.data)
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -19,13 +18,12 @@ const filterToons = createAsyncThunk(
 const addFilterToons = createAsyncThunk(
   "addFilterToons",
   async (data, { rejectWithValue }) => {
-    const checked = data.checked
+    const checked = data.checked;
     try {
-      const res = await axios.post(api.filterToons(data.page), checked, {})
-      console.log(res.data)
-      return res.data
+      const res = await axios.post(api.filterToons(data.page), checked, {});
+      return res.data;
     } catch (err) {
-      return rejectWithValue(err.response.data)
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -49,35 +47,35 @@ export const filterSlice = createSlice({
 
   reducers: {
     changeFilterInfo: (state, action) => {
-      state.filterInfo = action.payload
+      state.filterInfo = action.payload;
     },
     changePlatform: (state, action) => {
-      state.filterInfo.platform.includes(action.payload) ? (
-        state.filterInfo.platform = state.filterInfo.platform.filter((element) => element !== action.payload)
-      ) : (
-        state.filterInfo.platform.push(action.payload)
-      )
+      state.filterInfo.platform.includes(action.payload)
+        ? (state.filterInfo.platform = state.filterInfo.platform.filter(
+            (element) => element !== action.payload
+          ))
+        : state.filterInfo.platform.push(action.payload);
     },
     changeDay: (state, action) => {
-      state.filterInfo.day.includes(action.payload) ? (
-        state.filterInfo.day = state.filterInfo.day.filter((element) => element !== action.payload)
-      ) : (
-        state.filterInfo.day.push(action.payload)
-      )
+      state.filterInfo.day.includes(action.payload)
+        ? (state.filterInfo.day = state.filterInfo.day.filter(
+            (element) => element !== action.payload
+          ))
+        : state.filterInfo.day.push(action.payload);
     },
     changeGenre: (state, action) => {
-      state.filterInfo.genre.includes(action.payload) ? (
-        state.filterInfo.genre = state.filterInfo.genre.filter((element) => element !== action.payload)
-      ) : (
-        state.filterInfo.genre.push(action.payload)
-      )
+      state.filterInfo.genre.includes(action.payload)
+        ? (state.filterInfo.genre = state.filterInfo.genre.filter(
+            (element) => element !== action.payload
+          ))
+        : state.filterInfo.genre.push(action.payload);
     },
     changeTag: (state, action) => {
-      state.filterInfo.tag.includes(action.payload) ? (
-        state.filterInfo.tag = state.filterInfo.tag.filter((element) => element !== action.payload)
-      ) : (
-        state.filterInfo.tag.push(action.payload)
-      )
+      state.filterInfo.tag.includes(action.payload)
+        ? (state.filterInfo.tag = state.filterInfo.tag.filter(
+            (element) => element !== action.payload
+          ))
+        : state.filterInfo.tag.push(action.payload);
     },
     changeIsLoad: (state, action) => {
       state.isLoad = action.payload;
@@ -92,11 +90,7 @@ export const filterSlice = createSlice({
 
   extraReducers: {
     [filterToons.fulfilled]: (state, action) => {
-      console.log("데이터 받기 성공");
-      console.log(action.payload);
-
       if (action.payload.length < 20) {
-        console.log("스크롤 그만");
         state.possibleFetch = false;
       }
       state.toonList = action.payload;
@@ -106,16 +100,13 @@ export const filterSlice = createSlice({
       const toons = [...state.toonList, ...action.payload];
       if (action.payload.length < 20) {
         state.possibleFetch = false;
-        console.log("스크롤 그만");
         state.toonList = toons;
       } else if (
         currentToons[currentToons.length - 20].webtoon_id ===
         action.payload[0].webtoon_id
       ) {
         state.possibleFetch = false;
-        console.log("스크롤 그만");
       } else {
-        console.log("데이터 붙이기");
         state.toonList = toons;
       }
     },
@@ -135,4 +126,3 @@ export const {
 } = filterSlice.actions;
 
 export default filterSlice.reducer;
-  

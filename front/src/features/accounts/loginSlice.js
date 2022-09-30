@@ -4,12 +4,10 @@ import api from "../../api";
 import getConfig from "../config";
 
 const login = createAsyncThunk("login", async (data, { rejectWithValue }) => {
-  console.log(data);
   try {
     const res = await axios.post(api.login(), data, {});
     return res.data;
   } catch (err) {
-    console.log(err);
     return rejectWithValue(err.response.data);
   }
 });
@@ -18,11 +16,9 @@ const fetchInfo = createAsyncThunk(
   "fetchInfo",
   async (arg, { rejectWithValue }) => {
     try {
-      console.log(getConfig());
       const res = await axios.get(api.fetchInfo(), getConfig());
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -60,14 +56,11 @@ export const loginSlice = createSlice({
       state.loginState = true;
     },
     changeCurrentUser: (state, action) => {
-      console.log(action.payload);
       state.currentUser = action.payload;
     },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
-      console.log("로그인 성공");
-      console.log(action.payload);
       state.loginInfo = {
         email: "",
         password: "",
@@ -77,8 +70,6 @@ export const loginSlice = createSlice({
       state.loginState = true;
     },
     [login.rejected]: (state, action) => {
-      console.log("로그인 실패 ㅠㅠ");
-      console.log(action.payload);
       sessionStorage.clear();
       state.loginState = false;
     },
@@ -88,23 +79,21 @@ export const loginSlice = createSlice({
       state.luckyMsg = action.payload.lucky;
       sessionStorage.setItem("user", JSON.stringify(action.payload.user));
     },
-    [fetchInfo.rejected]: (state, action) => {
-      console.log(action.payload);
-    },
+    [fetchInfo.rejected]: (state, action) => {},
     [logout.fulfilled]: (state) => {
-      console.log("로그아웃 성공 ^^");
       sessionStorage.clear();
       state.loginState = false;
       state.currentUser = {};
     },
     [logout.rejected]: (state) => {
+      sessionStorage.clear();
       state.loginState = false;
     },
   },
 });
 
 export { login, logout, fetchInfo };
-// Action creators are generated for each case reducer function
+
 export const {
   changeEmail,
   changePassword,

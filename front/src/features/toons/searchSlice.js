@@ -5,7 +5,6 @@ import api from "../../api";
 const searchToons = createAsyncThunk(
   "searchToons",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     const params = {
       keyword: data.keyword,
     };
@@ -15,16 +14,14 @@ const searchToons = createAsyncThunk(
       });
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
-  },
+  }
 );
 
 const addToons = createAsyncThunk(
   "addToons",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     const params = {
       keyword: data.keyword,
     };
@@ -34,10 +31,9 @@ const addToons = createAsyncThunk(
       });
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
-  },
+  }
 );
 
 const getTags = createAsyncThunk(
@@ -47,10 +43,9 @@ const getTags = createAsyncThunk(
       const res = await axios.get(api.getTags(), {});
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
-  },
+  }
 );
 
 export const searchSlice = createSlice({
@@ -87,11 +82,7 @@ export const searchSlice = createSlice({
   },
   extraReducers: {
     [searchToons.fulfilled]: (state, action) => {
-      console.log("데이터 받기 성공");
-      console.log(action.payload);
-
       if (action.payload.length < 20) {
-        console.log("스크롤 그만");
         state.possibleFetch = false;
       }
       state.toonList = action.payload;
@@ -101,26 +92,21 @@ export const searchSlice = createSlice({
       const toons = [...state.toonList, ...action.payload];
       if (action.payload.length < 20) {
         state.possibleFetch = false;
-        console.log("스크롤 그만");
         state.toonList = toons;
       } else if (
         currentToons[currentToons.length - 20].webtoon_id ===
         action.payload[0].webtoon_id
       ) {
         state.possibleFetch = false;
-        console.log("스크롤 그만");
       } else {
-        console.log("데이터 붙이기");
         state.toonList = toons;
       }
     },
     [getTags.fulfilled]: (action) => {
       console.log("태그 가져오기 성공");
-      console.log(action.payload);
     },
     [getTags.rejected]: (action) => {
       console.log("태그 가져오기 실패ㅠㅠ");
-      console.log(action.payload);
     },
   },
 });

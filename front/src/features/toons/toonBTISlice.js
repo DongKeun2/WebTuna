@@ -7,10 +7,8 @@ const fetchToonBTI = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.get(api.fetchToonBTI(), {});
-      console.log(res);
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -19,13 +17,10 @@ const fetchToonBTI = createAsyncThunk(
 const submitToonBTI = createAsyncThunk(
   "submitToonBTI",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     try {
       const res = await axios.post(api.fetchToonBTI(), data, {});
-      console.log(res);
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -46,12 +41,9 @@ export const toonBTISlice = createSlice({
   },
   extraReducers: {
     [fetchToonBTI.fulfilled]: (state, action) => {
-      console.log("데이터 받기 성공");
-      console.log(action.payload);
       state.question = action.payload.question;
     },
     [submitToonBTI.fulfilled]: (state, action) => {
-      console.log("제출 성공");
       state.result = action.payload.webtoons;
       state.info = action.payload.info;
     },
@@ -59,7 +51,7 @@ export const toonBTISlice = createSlice({
 });
 
 export { fetchToonBTI, submitToonBTI };
-// Action creators are generated for each case reducer function
+
 export const { addAnswer } = toonBTISlice.actions;
 
 export default toonBTISlice.reducer;

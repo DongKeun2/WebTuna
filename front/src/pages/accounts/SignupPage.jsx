@@ -52,7 +52,6 @@ function SignupPage() {
     }
   }
   function chkEmail(str) {
-    console.log(str);
     const reg_email =
       /^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 
@@ -95,7 +94,6 @@ function SignupPage() {
   }
 
   function onGenderHandler(e) {
-    console.log(e.target.value);
     dispatch(changeGender(e.target.value));
   }
   function onBirthHandler(e) {
@@ -132,7 +130,6 @@ function SignupPage() {
 
   function signupSubmit(e) {
     e.preventDefault();
-    console.log(signupInfo);
     if (
       signupInfo.gender &&
       signupInfo.birth.length >= 8 &&
@@ -141,7 +138,6 @@ function SignupPage() {
       !passwordError &&
       signupInfo.password === signupInfo.pwdVerify
     ) {
-      console.log(1);
       navigate("/addinfo");
     }
   }

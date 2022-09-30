@@ -3,12 +3,10 @@ import axios from "axios";
 import api from "../../api";
 
 const signup = createAsyncThunk("signup", async (data, { rejectWithValue }) => {
-  console.log(data);
   try {
     const res = await axios.post(api.signup(), data, {});
     return res.data;
   } catch (err) {
-    console.log(err);
     return rejectWithValue(err.response.data);
   }
 });
@@ -16,12 +14,10 @@ const signup = createAsyncThunk("signup", async (data, { rejectWithValue }) => {
 const checkEmail = createAsyncThunk(
   "checkEmail",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     try {
       const res = await axios.post(api.checkEmail(), data, {});
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -30,12 +26,10 @@ const checkEmail = createAsyncThunk(
 const checkNickname = createAsyncThunk(
   "checkNickname",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     try {
       const res = await axios.post(api.checkNickname(), data, {});
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -78,11 +72,9 @@ export const singupSlice = createSlice({
       state.signupInfo.birth = action.payload;
     },
     changeSelectImg: (state, action) => {
-      console.log("선택 그림체", action.payload);
       state.selectImg = action.payload;
     },
     changeThumbnail: (state, action) => {
-      console.log("선택 그림체 문자열", action.payload);
       state.signupInfo.liked_thumbnail = action.payload;
     },
     changeIsPossibleEmail: (state, action) => {

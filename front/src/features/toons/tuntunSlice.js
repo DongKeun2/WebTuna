@@ -8,10 +8,8 @@ const fetchtuntun = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.get(api.fetchtuntun(), getConfig());
-      console.log(res.data);
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -30,8 +28,6 @@ export const tuntunSlice = createSlice({
   },
   extraReducers: {
     [fetchtuntun.fulfilled]: (state, action) => {
-      console.log("데이터 받기 성공");
-      console.log(action.payload);
       state.tuntun = action.payload;
     },
   },

@@ -10,25 +10,21 @@ const profile = createAsyncThunk(
       const res = await axios.get(api.profile(), getConfig());
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
-  },
+  }
 );
 
 const profileImage = createAsyncThunk(
   "profileImage",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     try {
       const res = await axios.put(api.profileImage(), data, getConfig());
-      console.log(res.data);
       return res.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
-  },
+  }
 );
 
 export const profileSlice = createSlice({

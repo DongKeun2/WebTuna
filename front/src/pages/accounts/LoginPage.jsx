@@ -30,7 +30,6 @@ function LoginPage() {
 
   function loginSubmit(e) {
     e.preventDefault();
-    console.log(loginInfo);
     dispatch(login(loginInfo)).then((res) => {
       if (res.error) {
         MySwal.fire({
@@ -64,7 +63,6 @@ function LoginPage() {
   }
 
   function onEmailHandler(e) {
-    console.log(loginInfo.email);
     dispatch(changeEmail(e.target.value));
   }
 

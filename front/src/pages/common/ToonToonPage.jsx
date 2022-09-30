@@ -58,7 +58,6 @@ const ToonToonBox = styled.div`
 
 function ToonList({ toons }) {
   let rows = [];
-  console.log(Object.keys(toons).length);
   for (let i = 0; i < Object.keys(toons).length; i = i + 2) {
     if (i + 1 <= Object.keys(toons).length) {
       rows.push(
@@ -283,7 +282,6 @@ function RightToon({ toons, type }) {
   const isFocus = useSelector((state) => state.tuntun.focusTun);
 
   function onClickHandler() {
-    console.log(userInfo);
     if (type === 3 && (userInfo.tags?.length < 3 || !toons.length)) {
       dispatch(changeFocusTun(undefined));
       MySwal.fire({
@@ -419,7 +417,6 @@ const RightBackBox = styled.div`
 const RightItemBox = styled.div`
   width: 70vw;
   height: 97%;
-  /* overflow: hidden; */
   background: linear-gradient(110deg, transparent 100px, white, 0);
 
   :hover {
@@ -466,7 +463,6 @@ const TunImg = styled.img`
 `;
 
 function ToonItem({ item }) {
-  // 작가 이름 추출
   let authors = "";
   for (const num in item.author_name) {
     if (num > 0) {

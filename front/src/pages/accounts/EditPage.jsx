@@ -25,7 +25,6 @@ function EditPage() {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log(password);
     const data = {
       password,
     };
@@ -74,15 +73,12 @@ function EditPage() {
 
   function onConfirmPasswordHandler(e) {
     e.preventDefault();
-    console.log(password);
-    console.log(e.target.value);
     dispatch(changeConfirmPassword(e.target.value));
   }
 
   function editSubmit(e) {
     e.preventDefault();
     if (!passwordError && editInfo.password === editInfo.pwdVerify) {
-      console.log("제출^^");
       const data = {
         password: editInfo.password,
       };

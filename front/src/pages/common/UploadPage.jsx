@@ -34,7 +34,11 @@ import { useEffect } from "react";
 >>>>>>> 39fe5fb (feat: 명탐정툰툰 가운데 정렬)
 =======
 import tuntun from "../../assets/toon/conanTun.png";
+<<<<<<< HEAD
 >>>>>>> e136dee (docs: assets정리)
+=======
+import MySwal from "../../components/common/SweetAlert";
+>>>>>>> 9798239 (docs: 콘솔로그 삭제(프로필&디테일 관련 제외))
 
 function UploadPage() {
 <<<<<<< HEAD
@@ -105,6 +109,7 @@ function UploadPage() {
       const data = {
         probability,
       };
+      console.log(data);
       dispatch(fetchUpload(data)).then((res) => {
         if (res.type === "fetchUpload/fulfilled") {
           setTimeout(() => {
@@ -113,7 +118,12 @@ function UploadPage() {
             navigate("./result", { state: pathname });
           }, 1000);
         } else {
-          alert("다시 시도해주세요");
+          MySwal.fire({
+            title: "다시 시도해 주세요!",
+            icon: "error",
+            confirmButtonColor: "#feec91",
+            confirmButtonText: "확인",
+          });
           setIsLoading(false);
         }
       });
@@ -137,11 +147,18 @@ function UploadPage() {
     const modelURL = baseURL + 'model.json'
     const metadataURL = baseURL + 'metadata.json'
     // eslint-disable-next-line
+<<<<<<< HEAD
     const model = await tmImage.load(modelURL, metadataURL)
     const tempImage = document.getElementById('canvas')
     const prediction = await model.predict(tempImage, false)
     console.log(prediction)
     return prediction
+=======
+    const model = await tmImage.load(modelURL, metadataURL);
+    const tempImage = document.getElementById("canvas");
+    const prediction = await model.predict(tempImage, false);
+    return prediction;
+>>>>>>> 9798239 (docs: 콘솔로그 삭제(프로필&디테일 관련 제외))
   }
 
   return (

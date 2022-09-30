@@ -42,7 +42,6 @@ function ToonBTIPage() {
   const answerList = useSelector((state) => state.toonBTI.answer);
   function onAnswer(answer) {
     const newAnswer = [...answerList, answer];
-    console.log(newAnswer);
     dispatch(addAnswer(newAnswer));
     onNext(newAnswer);
   }
@@ -69,7 +68,6 @@ function ToonBTIPage() {
         const questionItem = question.filter((item) => {
           return findQuestion(item);
         })[0];
-        console.log(questionItem);
         return (
           <PageBox>
             <ToonBox>
