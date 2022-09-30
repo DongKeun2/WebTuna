@@ -123,6 +123,8 @@ const Body = styled.div`
 `;
 
 const StartImgBox = styled.div`
+  display: flex;
+  justify-content: center;
   width: 20vw;
   height: 20vh;
   min-width: 320px;
@@ -134,16 +136,19 @@ const TunImg = styled.img`
   width: 315px;
   height: 315px;
   object-fit: fill;
-  margin-left: 2vw;
+  margin-left: 1vw;
 `;
 
 const ToonBTITItle = styled.p`
   margin-top: 2vw;
   font-size: 2.5vw;
   font-weight: 700;
+  @media screen and (max-width: 1200px) {
+    font-size: 3.5vw;
+  }
   @media screen and (max-width: 750px) {
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 4vw;
     line-height: 0;
   }
 `;
