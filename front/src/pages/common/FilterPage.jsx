@@ -59,6 +59,7 @@ function FilterPage() {
       !fetching &&
       possibleFetch
     ) {
+      console.log(page)
       dispatch(changePage(page + 1));
       fetchNextPage();
     }
@@ -123,7 +124,12 @@ function FilterPage() {
     dispatch(filterToons(data)).then((res) => {
       dispatch(changeIsLoad(false));
       navigate(`/filter`);
+<<<<<<< HEAD
       switchModal();
+=======
+      switchModal()
+      dispatch(changePage(1));
+>>>>>>> 7a1ab19 (fix: 필터 재설정 후 페이지 변수 초기화 안되는 것 수정)
       window.scrollTo(0, 0);
     });
   }
