@@ -162,9 +162,11 @@ def giveLucky():
 @api_view(['GET'])
 def MainProfile(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
+    webtoon = []
     
     if member.is_today.date() != datetime.now().date():
-        webtoon = random.choice(list(Webtoon.objects.all()))
+        webtoon.append(random.choice(list(Webtoon.objects.all())))
+        print(webtoon)
         lucky = giveLucky()
 
     else:
