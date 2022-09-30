@@ -10,6 +10,7 @@ import {
   changePages,
   changePossibleFetch,
 } from "../../features/toons/searchSlice";
+import { hover } from "../../assets/cursor/cursorItem";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -78,7 +79,7 @@ const SearchIconBox = styled.button`
   background-color: #d1e2ff;
   border: 0;
   outline: 0;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 
 export default SearchBar;

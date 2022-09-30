@@ -1,6 +1,7 @@
-import {React, useEffect} from "react";
+import { React, useEffect } from "react";
 import styled from "styled-components";
 import close from "../../assets/detail/Close.png";
+import { hover } from "../../assets/cursor/cursorItem";
 
 const Container = styled.div`
   position: fixed;
@@ -39,9 +40,9 @@ const ModalBlock = styled.div`
   border-radius: 10px;
   padding: 0 1.5rem;
   background-color: white;
-  top: ${(props) => props.top || '10rem'};
-  width: ${(props) => props.width || '50%'};
-  height: ${(props) => props.height || '20rem'};
+  top: ${(props) => props.top || "10rem"};
+  width: ${(props) => props.width || "50%"};
+  height: ${(props) => props.height || "20rem"};
   animation: modal-show 1s;
   @keyframes modal-show {
     from {
@@ -62,7 +63,7 @@ const Close = styled.img.attrs({
   position: absolute;
   right: 1rem;
   top: 1rem;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 
 const Contents = styled.div`
@@ -80,8 +81,8 @@ const ModalFrame = ({ _handleModal, children, ...rest }) => {
       width: 100%;`;
     return () => {
       const scrollY = document.body.style.top;
-      document.body.style.cssText = '';
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
 

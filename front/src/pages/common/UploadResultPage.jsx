@@ -207,7 +207,6 @@ const ResultBtn = styled.button`
   font-weight: 700;
   border-radius: 12px;
   border: 6px solid white;
-  cursor: pointer;
 `;
 
 const FlexBox = styled.div`

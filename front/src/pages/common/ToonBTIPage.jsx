@@ -391,7 +391,6 @@ const ResultBtn = styled.button`
   font-weight: 700;
   border-radius: 12px;
   border: 6px solid white;
-  cursor: pointer;
   @media screen and (max-width: 750px) {
     height: 50px;
   }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { forbidden, hover } from "../../assets/cursor/cursorItem";
 import {
   checkEmail,
   checkNickname,
@@ -364,7 +365,6 @@ const CheckBtn = styled.button`
   background-color: white;
   :hover {
     font-size: 90%;
-    cursor: pointer;
   }
 `;
 
@@ -426,7 +426,7 @@ const MaleLabel = styled.label`
   border-radius: 5px;
   background-color: ${(props) => props.active && " #d1e2ff"};
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
   }
   @media screen and (max-width: 800px) {
     margin: 0px 15px;
@@ -448,7 +448,7 @@ const FemaleLabel = styled.label`
     margin-left: 5%;
   }
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
   }
 `;
 
@@ -472,7 +472,7 @@ const SubmitBtn = styled.button`
   width: "50px";
   height: "30px";
   :hover {
-    cursor: ${(props) => props.active && "pointer"};
+    cursor: ${(props) => !props.active && `url(${forbidden}) 13 13, auto`};
   }
 `;
 

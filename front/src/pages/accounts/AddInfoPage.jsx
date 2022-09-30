@@ -9,6 +9,7 @@ import {
 } from "../../features/accounts/signupSlice";
 import addInfoItem from "../../assets/addInfo/addInfoItem";
 import MySwal from "../../components/common/SweetAlert";
+import { forbidden, hover } from "../../assets/cursor/cursorItem";
 
 function AddInfoPage() {
   const navigate = useNavigate();
@@ -154,7 +155,7 @@ const ImgBox = styled.div`
   border-radius: 10%;
   overflow: hidden;
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
     opacity: 0.4;
   }
   border: ${(props) =>
@@ -187,7 +188,10 @@ const SubmitBtn = styled.button`
   width: "50px";
   height: "30px";
   :hover {
-    cursor: ${(props) => (props.deactive ? null : "pointer")};
+    cursor: ${(props) =>
+      props.deactive
+        ? `url(${forbidden}) 13 13, auto`
+        : `url(${hover}) 13 13, auto`};
   }
 `;
 export default AddInfoPage;

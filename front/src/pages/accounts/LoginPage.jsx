@@ -10,6 +10,7 @@ import {
 } from "../../features/accounts/loginSlice";
 import { changePossibleSearch } from "../../features/toons/searchSlice";
 import MySwal from "../../components/common/SweetAlert";
+import { hover } from "../../assets/cursor/cursorItem";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -191,7 +192,7 @@ const SubmitBtn = styled.button`
   width: "50px";
   height: "30px";
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
   }
 `;
 

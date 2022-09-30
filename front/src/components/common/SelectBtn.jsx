@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { hover, forbidden } from "../../assets/cursor/cursorItem";
 
 const OuterBtn = styled.div`
   display: flex;
@@ -27,7 +28,10 @@ const SelectBtn = styled.div`
   border-radius: 10px;
   background-color: ${(props) => (props.active ? "white" : "#feec91")};
   :hover {
-    cursor: ${(props) => (props.active ? "pointer" : null)};
+    cursor: ${(props) =>
+      props.active
+        ? `url(${hover}) 13 13, auto`
+        : `url(${forbidden}) 13 13, auto`};
     background-color: ${(props) => (props.active ? "#feec91" : null)};
   }
 `;

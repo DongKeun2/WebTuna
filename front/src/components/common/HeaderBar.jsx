@@ -4,6 +4,7 @@ import AccountMenu from "./AccountMenu";
 import SearchBar from "./SearchBar";
 import logo from "./../../assets/logo/logo2.png";
 import { useNavigate } from "react-router-dom";
+import { hover } from "../../assets/cursor/cursorItem";
 
 function HeaderBar() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const LogoBox = styled.div`
   min-width: 100px;
   height: auto;
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
   }
 `;
 

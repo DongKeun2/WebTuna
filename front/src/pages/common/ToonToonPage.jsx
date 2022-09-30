@@ -10,6 +10,7 @@ import Loading from "../../components/common/Loading";
 import { fetchtuntun, changeFocusTun } from "../../features/toons/tuntunSlice";
 import tuntunItem from "../../assets/tuntun/tuntunItem";
 import "./toontoon.css";
+import { hover } from "../../assets/cursor/cursorItem";
 
 function ToonToonPage() {
   const dispatch = useDispatch();
@@ -244,7 +245,7 @@ const LeftItemBox = styled.div`
   background: linear-gradient(-110deg, transparent 100px, white, 0);
 
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
   }
 
   @media screen and (max-width: 1290px) {
@@ -420,7 +421,7 @@ const RightItemBox = styled.div`
   background: linear-gradient(110deg, transparent 100px, white, 0);
 
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
   }
 
   @media screen and (max-width: 1290px) {
@@ -513,7 +514,7 @@ const ImageBox = styled.div`
   height: 10vw;
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 
 const ToonThumbnail = styled.img`
@@ -533,7 +534,7 @@ const ToonInfo = styled.div`
   background-color: white;
   border-bottom-left-radius: 0.8vw;
   border-bottom-right-radius: 0.8vw;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 
 const ToonTitle = styled.p`
@@ -565,7 +566,7 @@ const LeftButton = styled.button`
   border: none;
   opacity: 85%;
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
     opacity: 100%;
   }
   > * {
@@ -581,7 +582,7 @@ const RightButton = styled.button`
   border: none;
   opacity: 85%;
   :hover {
-    cursor: pointer;
+    cursor: url(${hover}) 13 13, auto;
     opacity: 100%;
   }
   > * {

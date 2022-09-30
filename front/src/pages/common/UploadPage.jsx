@@ -24,6 +24,7 @@ import tuntun from "../../assets/test/tuntun2.png";
 >>>>>>> a56603e (feat: 프로필이미지 수정 / 검색창 배경 수정)
 =======
 import MySwal from "../../components/common/SweetAlert";
+<<<<<<< HEAD
 import { useEffect } from "react";
 >>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)
 =======
@@ -39,6 +40,9 @@ import tuntun from "../../assets/toon/conanTun.png";
 =======
 import MySwal from "../../components/common/SweetAlert";
 >>>>>>> 9798239 (docs: 콘솔로그 삭제(프로필&디테일 관련 제외))
+=======
+import { forbidden, hover } from "../../assets/cursor/cursorItem";
+>>>>>>> 68bf4c3 (feat: 프로필&상세페이지 제외 모든 페이지 커서 수정)
 
 function UploadPage() {
 <<<<<<< HEAD
@@ -334,10 +338,14 @@ const SubmitBtn = styled.button`
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
   :hover {
 <<<<<<< HEAD
+<<<<<<< HEAD
     cursor: ${props => (props.active ? 'pointer' : null)};
 =======
     cursor: ${(props) => (props.active ? "pointer" : "not-allowed")};
 >>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
+=======
+    cursor: ${(props) => !props.active && `url(${forbidden}) 13 13, auto`};
+>>>>>>> 68bf4c3 (feat: 프로필&상세페이지 제외 모든 페이지 커서 수정)
   }
 `
 
@@ -439,7 +447,7 @@ const InputBtn = styled.label`
   padding: 10px 16px;
   border-radius: 10px;
   font-weight: 700;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 
 export default UploadPage;

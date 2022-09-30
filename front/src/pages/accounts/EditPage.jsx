@@ -10,6 +10,7 @@ import {
   edit,
 } from "../../features/accounts/editSlice";
 import MySwal from "../../components/common/SweetAlert";
+import { forbidden, hover } from "../../assets/cursor/cursorItem";
 
 function EditPage() {
   const dispatch = useDispatch();
@@ -254,7 +255,10 @@ const SubmitBtn = styled.button`
   width: "50px";
   height: "30px";
   :hover {
-    cursor: ${(props) => props.active && "pointer"};
+    cursor: ${(props) =>
+      props.active
+        ? `url(${hover}) 13 13, auto`
+        : `url(${forbidden}) 13 13, auto`};
   }
 `;
 

@@ -18,7 +18,11 @@ import All from "../../assets/navbar/All.png";
 import PaintStyleRecommend from "../../assets/navbar/PaintStyleRecommend.png";
 import ToonBTI from "../../assets/navbar/ToonBTI.png";
 import ToonToonRecommend from "../../assets/navbar/ToonToonRecommend.png";
+<<<<<<< HEAD
 >>>>>>> 3be130a (fix: NavBar 반응형 수정)
+=======
+import { hover } from "../../assets/cursor/cursorItem";
+>>>>>>> 68bf4c3 (feat: 프로필&상세페이지 제외 모든 페이지 커서 수정)
 
 const Nav = styled.div`
   position: fixed;
@@ -92,7 +96,7 @@ const Item = styled.div`
     width: 180px;
   }
   height: 100%;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 >>>>>>> eece598 (feat: NavBar 반응형 UI)
 
@@ -116,9 +120,13 @@ const Toontoon = styled.div`
 >>>>>>> eece598 (feat: NavBar 반응형 UI)
   overflow: hidden;
 <<<<<<< HEAD
+<<<<<<< HEAD
 `
 =======
   cursor: pointer;
+=======
+  cursor: url(${hover}) 13 13, auto;
+>>>>>>> 68bf4c3 (feat: 프로필&상세페이지 제외 모든 페이지 커서 수정)
 `;
 >>>>>>> 3be130a (fix: NavBar 반응형 수정)
 
