@@ -19,6 +19,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+<<<<<<< HEAD
 import requests
 import csv
 from bs4 import BeautifulSoup
@@ -34,6 +35,8 @@ from .serializers import WebtoonSerializer, RatingSerializer
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
 =======
 =======
+=======
+>>>>>>> afa7792 (fix: Merge 충돌 제거)
 
 from tuntun.settings import SWAGGER_SETTINGS
 >>>>>>> bf925b8 (fix: webtoon search url 변경)
@@ -89,12 +92,15 @@ from django.http import HttpResponseRedirect
 >>>>>>> 8f9f8be (scripts.py로 이동)
 from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSerializer, SearchWebtoonSerializer, TagSerializer
 from webtoons.models import Webtoon, Genre, Tag
+<<<<<<< HEAD
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 =======
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 >>>>>>> bbcfc1c (feat: 오늘의 운세 api 구현 (미완성))
+=======
+>>>>>>> afa7792 (fix: Merge 충돌 제거)
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
@@ -109,6 +115,7 @@ from .serializers import WebtoonSerializer, RatingSerializer, WebtoonListSeriali
 
 import random
 import requests
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -322,6 +329,10 @@ from datetime import datetime
 =======
 from datetime import datetime 
 >>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
+=======
+
+
+>>>>>>> afa7792 (fix: Merge 충돌 제거)
 # 메인 페이지
 @api_view(['GET'])
 def mainPage(request):
@@ -341,7 +352,7 @@ def mainPage(request):
 
     lucky_list = giveLucky(request.user.id)
 
-    return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data, 'lucky': lucky_list})
+    return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data})
 
 
 # 웹툰 상세 페이지
@@ -1418,11 +1429,8 @@ def giveLucky(user):
         '미뤄왔던 계획을 실행하세요.', '예상치 못한 잔업이 있습니다.'    
     ]
     
-    lucky_list = random.sample(lucky_sample, 3)
+    lucky_list = random.choice(lucky_sample)
 
-    now = datetime.now()
-
-    print(now, member.last_login)
     # if member.last_login:
     #     pass
 
