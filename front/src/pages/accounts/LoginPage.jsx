@@ -19,6 +19,19 @@ function LoginPage() {
   const { state } = useLocation();
 
   useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      MySwal.fire({
+        title: "잘못된 접근입니다!",
+        text: "메인페이지로 이동합니다.",
+        icon: "info",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+      navigate("/");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     dispatch(changePossibleSearch(false));
     return () => {
       dispatch(changePossibleSearch(true));

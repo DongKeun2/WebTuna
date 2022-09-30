@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { forbidden, hover } from "../../assets/cursor/cursorItem";
+import MySwal from "../../components/common/SweetAlert";
 import {
   checkEmail,
   checkNickname,
@@ -20,6 +21,19 @@ function SignupPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const signupInfo = useSelector((state) => state.signup.signupInfo);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      MySwal.fire({
+        title: "잘못된 접근입니다!",
+        text: "메인페이지로 이동합니다.",
+        icon: "info",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+      navigate("/");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     dispatch(changePossibleSearch(false));
