@@ -8,6 +8,7 @@ urlpatterns =[
     path('user/', include('dj_rest_auth.urls')),
     path('user/update/', views.ProfileUpdate),
     path('user/profile/', views.Profile),
+    path('user/image/', views.ProfileImage),
     path('user/email/', views.EmailCheck),
     path('user/nickname/', views.NicknameCheck),
     path('user/check/', views.PasswordCheck),

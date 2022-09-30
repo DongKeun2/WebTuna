@@ -31,6 +31,7 @@ def ProfileUpdate(request):
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 프로필 보기
 =======
 # class UserLogin(LoginView):
@@ -49,6 +50,18 @@ def ProfileUpdate(request):
 
 >>>>>>> 4ad957b (fix:로그인 수정)
 =======
+=======
+# 비밀번호 수정하기
+@api_view(['PUT'])
+def ProfileImage(request):
+    member = get_object_or_404(get_user_model(), id=request.user.id)
+    profile_image_id = request.data['profile_image_id']
+    member.profile_image_id = profile_image_id
+    member.save()
+    return Response(True)
+
+    
+>>>>>>> cb5751b (feat : 프로필 이미지 수정)
 # 프로필 정보 받기
 >>>>>>> f81c1cd (fix: 회원 로그인/로그아웃 등 수정)
 @api_view(['GET'])
@@ -172,6 +185,7 @@ def PasswordCheck(request):
 #     Webtoon
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 #     serializer = TestUserSerializer(member)
 #     # member_lst = Member_View_Webtoons.objects.filter(member_id=request.user.id).order_by('id')
 #     # print(member_lst)
@@ -190,3 +204,6 @@ def Test_req(request):
 =======
 #     return Response(True)
 >>>>>>> 70f416e (fix : log남기기 수정)
+=======
+#     return Response(True)
+>>>>>>> cb5751b (feat : 프로필 이미지 수정)
