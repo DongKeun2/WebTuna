@@ -158,7 +158,7 @@ function UploadPage() {
         <Container>
           <PageBox>
             <TitleBox>
-              <UploadTitle>업로드한 그림과</UploadTitle>
+              <UploadTitle>너의 그림과</UploadTitle>
               <UploadTitle>그림체가 비슷한 웹툰을 찾아줄게!</UploadTitle>
             </TitleBox>
 
@@ -268,21 +268,21 @@ const TitleBox = styled.div`
   border: 2px solid black;
   background-color: white;
   border-radius: 10px;
-  padding: 0px 10px;
+  padding: 0px 1vw;
+  margin-bottom: 30px;
   display: flex;
-  gap: 1vw;
+  gap: 0.5vw;
   @media screen and (max-width: 750px) {
     flex-direction: column;
     align-items: center;
     padding: 10px;
     gap: 0px;
-    margin-bottom: 30px;
   }
 `;
 
 const UploadTitle = styled.p`
   margin-top: 2vw;
-  font-size: 2vw;
+  font-size: 1.5vw;
   font-weight: 700;
   @media screen and (max-width: 750px) {
     margin-top: 2vw;
