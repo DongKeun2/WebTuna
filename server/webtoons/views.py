@@ -350,8 +350,6 @@ def mainPage(request):
     webtoon_5 = WebtoonListSerializer(webtoon5, many = True)
     webtoon_6 = WebtoonListSerializer(webtoon6, many = True)
 
-    lucky_list = giveLucky(request.user.id)
-
     return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data})
 
 
@@ -1410,6 +1408,7 @@ def popularity_recommend(user):
     recommend_list = recommend_liked_webtoon.union(recommend_views_webtoon)[:20]
     webtoons_list = WebtoonListSerializer(recommend_list, many=True)
 
+<<<<<<< HEAD
     return webtoons_list
 >>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
 =======
@@ -1436,3 +1435,6 @@ def giveLucky(user):
 
     return lucky_list
 >>>>>>> bbcfc1c (feat: 오늘의 운세 api 구현 (미완성))
+=======
+    return webtoons_list
+>>>>>>> ccac3f0 (fix: Merge 충돌 제거)
