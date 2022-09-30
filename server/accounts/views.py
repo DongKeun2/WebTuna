@@ -171,7 +171,7 @@ def MainProfile(request):
 
     else:
         webtoon = []
-        lucky = []
+        lucky = ""
         
     webtoon_data = WebtoonLuckySerializer(webtoon, many=True)
     serializer = ProfileMainSerializer(member)
