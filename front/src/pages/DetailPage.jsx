@@ -23,6 +23,7 @@ import MySwal from "../components/common/SweetAlert";
 import Left from "../../src/assets/detail/Left.png";
 import Right from "../../src/assets/detail/Right.png";
 import Empty from "../../src/assets/tuntunEmpty.png";
+import { forbidden, hover } from "../assets/cursor/cursorItem";
 
 function DetailPage() {
   let { toonId } = useParams();
@@ -284,10 +285,10 @@ function DetailPage() {
 
   function toLogin() {
     MySwal.fire({
-      icon: 'warning',
-      title: '로그인이 필요합니다!',
-      confirmButtonColor: '#faaf00',
-    })
+      icon: "warning",
+      title: "로그인이 필요합니다!",
+      confirmButtonColor: "#faaf00",
+    });
     setTimeout(() => {
       navigate(`/login`);
     }, 100);
@@ -302,7 +303,14 @@ function DetailPage() {
     margintop: 3,
     marginleft: 3,
     width: 25,
-    labels: ["동글납작", "반짝섬세", "깔끔단정", "터프투박", "단순캐릭", "요즘트렌디"],
+    labels: [
+      "동글납작",
+      "반짝섬세",
+      "깔끔단정",
+      "터프투박",
+      "단순캐릭",
+      "요즘트렌디",
+    ],
     datasets: [
       {
         type: "radar",
@@ -469,8 +477,8 @@ function DetailPage() {
                     {webToonInfo.data.days[0].day_id === 8
                       ? "완결 웹툰"
                       : webToonInfo.data.days.length === 1
-                        ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                        : webToonInfo.data.days
+                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                      : webToonInfo.data.days
                           .slice(0, -1)
                           .map((dayy) => day[dayy.day_id]) +
                         " , " +
@@ -507,9 +515,16 @@ function DetailPage() {
                 <Summary>{webToonInfo.data.summary}</Summary>
               </SubInfo>
             </DetailZone>
+<<<<<<< HEAD
             {(webToonInfo.data.tags.length === 0 ||
               webToonInfo.data.tags === undefined)
               ? <NoTag></NoTag> :
+=======
+            {webToonInfo.data.tags.length === 0 ||
+            webToonInfo.data.tags === undefined ? (
+              <NoTag></NoTag>
+            ) : (
+>>>>>>> ae3b8f2 (feat: 프로필&상세페이지 커서 변경)
               <TagZone>
                 {webToonInfo.data.tags.map((tag) =>
                   loginState === null ? (
@@ -536,14 +551,17 @@ function DetailPage() {
                   )
                 )}
               </TagZone>
-            }
+            )}
 
             <PaintStyleRecommendZone>
               <div>그림체가 비슷한 웹툰</div>
               <PSRecommends>
                 {webToonInfo.similar_webtoon.length === 0 ||
-                  webToonInfo.similar_webtoon === undefined ? (
-                  <OtherWebToonEmpty><EmptyImg src={Empty} /><Bubble>그림체가 비슷한 웹툰이 없어요...</Bubble></OtherWebToonEmpty>
+                webToonInfo.similar_webtoon === undefined ? (
+                  <OtherWebToonEmpty>
+                    <EmptyImg src={Empty} />
+                    <Bubble>그림체가 비슷한 웹툰이 없어요...</Bubble>
+                  </OtherWebToonEmpty>
                 ) : (
                   webToonInfo.similar_webtoon.map((similarWebtoon) => (
                     <OtherWebToon
@@ -564,12 +582,12 @@ function DetailPage() {
                           {similarWebtoon.author_name.length === 1
                             ? similarWebtoon.author_name[0]
                             : similarWebtoon.author_name
-                              .slice(0, -1)
-                              .map((author) => author) +
-                            " / " +
-                            similarWebtoon.author_name
-                              .slice(-1)
-                              .map((author) => author)}
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              similarWebtoon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
                         </OtherWebToonAuthor>
                       </ToonInfo>
                     </OtherWebToon>
@@ -581,7 +599,9 @@ function DetailPage() {
               <div>같은 작가의 다른 웹툰</div>
               {slideCount >= 2 ? (
                 <>
-                  {count === 1 ? null : <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>}
+                  {count === 1 ? null : (
+                    <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>
+                  )}
                   {count === slideCount ? null : (
                     <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
                   )}
@@ -590,7 +610,10 @@ function DetailPage() {
               <SARecommendsBack>
                 <SARecommends id="slide">
                   {otherWebToons.length === 0 || otherWebToons === undefined ? (
-                    <OtherWebToonEmpty><EmptyImg src={Empty} /><Bubble>작가님의 다른 웹툰이 없어요...</Bubble></OtherWebToonEmpty>
+                    <OtherWebToonEmpty>
+                      <EmptyImg src={Empty} />
+                      <Bubble>작가님의 다른 웹툰이 없어요...</Bubble>
+                    </OtherWebToonEmpty>
                   ) : (
                     otherWebToons.map((otherWebToon) => (
                       <OtherWebToon
@@ -612,12 +635,12 @@ function DetailPage() {
                             {otherWebToon.author_name.length === 1
                               ? otherWebToon.author_name[0]
                               : otherWebToon.author_name
-                                .slice(0, -1)
-                                .map((author) => author) +
-                              " / " +
-                              otherWebToon.author_name
-                                .slice(-1)
-                                .map((author) => author)}
+                                  .slice(0, -1)
+                                  .map((author) => author) +
+                                " / " +
+                                otherWebToon.author_name
+                                  .slice(-1)
+                                  .map((author) => author)}
                           </OtherWebToonAuthor>
                         </ToonInfo>
                       </OtherWebToon>
@@ -689,8 +712,8 @@ const DetailZone = styled.div`
 `;
 
 const NoTag = styled.div`
-  height:7.5vw;
-`
+  height: 7.5vw;
+`;
 
 const Thumbnail = styled.div`
   background-color: white;
@@ -749,7 +772,7 @@ const RatingZone = styled.div`
 
 const RatingButton = styled.div`
   display: inline;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   margin-left: 3vw;
   border: 1px solid black;
   border-radius: 0.6vw;
@@ -778,9 +801,13 @@ const AlreadyRating = styled.div`
   background-color: lightgray;
   padding: 0.3vw;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 36265cc (fix: 프로필 페이지 조금 수정)
 `
 =======
+=======
+  cursor: url(${forbidden}) 13 13, auto;
+>>>>>>> ae3b8f2 (feat: 프로필&상세페이지 커서 변경)
 `;
 
 const ModalTitle = styled.div`
@@ -822,7 +849,7 @@ const WebToonLink = styled.div`
 `;
 
 const LinkButton = styled.div`
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -839,7 +866,7 @@ const LinkButton = styled.div`
 `;
 
 const FHeart = styled.img`
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   width: 3.3vw;
   transition: 0.5s;
   &:hover {
@@ -848,7 +875,7 @@ const FHeart = styled.img`
 `;
 
 const EHeart = styled.img`
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   width: 3.3vw;
   transition: 0.5s;
   &:hover {
@@ -896,7 +923,7 @@ const TagZone = styled.div`
 
 const LikedTag = styled.div`
   display: flex;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   background-color: pink;
   border: 0.1vw solid black;
   border-radius: 1vw;
@@ -912,7 +939,7 @@ const LikedTag = styled.div`
 
 const Tag = styled.div`
   display: flex;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   border: 0.1vw solid black;
   border-radius: 1vw;
   white-space: nowrap;
@@ -978,7 +1005,7 @@ const SameAuthorRecommendZone = styled.div`
 `;
 
 const PrevBtn = styled.img`
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   position: absolute;
   width: 3vw;
   margin-top: 7.5vw;
@@ -987,7 +1014,7 @@ const PrevBtn = styled.img`
 `;
 
 const NextBtn = styled.img`
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   position: absolute;
   width: 3vw;
   margin-top: 7.5vw;
@@ -1016,8 +1043,8 @@ const OtherWebToonEmpty = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-  align-items:center
-`
+  align-items: center;
+`;
 
 const EmptyImg = styled.img`
   width: 10vw;
@@ -1062,10 +1089,10 @@ const Bubble = styled.div`
     border-width: 20px;
     margin-top: -20px;
   }
-`
+`;
 
 const OtherWebToon = styled.div`
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
   width: 14vw;
   margin-left: 2vw;
   margin-right: 2vw;
@@ -1077,7 +1104,7 @@ const ImgBox = styled.div`
   height: 15vw;
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 
 const OtherWebToonThumbnail = styled.img`
@@ -1096,7 +1123,7 @@ const ToonInfo = styled.div`
   background-color: white;
   border-bottom-left-radius: 0.8vw;
   border-bottom-right-radius: 0.8vw;
-  cursor: pointer;
+  cursor: url(${hover}) 13 13, auto;
 `;
 
 const OtherWebToonTitle = styled.div`
