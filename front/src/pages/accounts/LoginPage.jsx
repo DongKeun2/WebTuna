@@ -27,8 +27,6 @@ function LoginPage() {
 
   const loginInfo = useSelector((state) => state.login.loginInfo);
 
-  const returnUrl = sessionStorage.getItem("url");
-
   function loginSubmit(e) {
     e.preventDefault();
     dispatch(login(loginInfo)).then((res) => {
@@ -40,8 +38,12 @@ function LoginPage() {
           confirmButtonColor: "#feec91",
           confirmButtonText: "확인",
         });
-        sessionStorage.setItem("url", returnUrl);
       } else {
+        if (state) {
+          navigate(state);
+        } else {
+          navigate("/");
+        }
         dispatch(fetchInfo()).then(() => {
           MySwal.fire({
             title: "로그인 성공!",
@@ -49,15 +51,6 @@ function LoginPage() {
             confirmButtonColor: "#feec91",
             confirmButtonText: "확인",
           });
-          if (state) {
-            navigate(state);
-          } else {
-            if (returnUrl) {
-              navigate(returnUrl);
-            } else {
-              navigate("/");
-            }
-          }
         });
       }
     });

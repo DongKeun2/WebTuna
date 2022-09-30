@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   detail,
   noLoginDetail,
@@ -44,6 +44,8 @@ function DetailPage() {
   let userData = useSelector((state) => state.login.currentUser);
   let loginState = sessionStorage.getItem("token");
   let slide;
+
+  const { pathname } = useLocation();
 
   function getDetail() {
     sessionStorage.setItem("url", `/detail/${toonId}`);
@@ -285,13 +287,13 @@ function DetailPage() {
 
   function toLogin() {
     MySwal.fire({
+      title: "로그인 후 이용해주세요.",
       icon: "warning",
-      title: "로그인이 필요합니다!",
-      confirmButtonColor: "#faaf00",
+      confirmButtonColor: "#feec91",
+      confirmButtonText: "확인",
+      reverseButtons: true,
     });
-    setTimeout(() => {
-      navigate(`/login`);
-    }, 100);
+    navigate("/login", { state: pathname });
   }
 
   useEffect(() => {
@@ -532,7 +534,7 @@ function DetailPage() {
                       <BookMarkImage src={BookMark} alt="북마크" />
                       <TagName onClick={toLogin}>{tag.name}</TagName>
                     </Tag>
-                  ) : userData.tags.includes(tag.tag_id) ? (
+                  ) : userData.tags?.includes(tag.tag_id) ? (
                     <LikedTag
                       key={tag.tag_id}
                       id={tag.tag_id}

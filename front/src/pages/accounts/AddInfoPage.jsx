@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -16,6 +17,19 @@ function AddInfoPage() {
   const dispatch = useDispatch();
 
   const signupInfo = useSelector((state) => state.signup.signupInfo);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      MySwal.fire({
+        title: "잘못된 접근입니다!",
+        text: "메인페이지로 이동합니다.",
+        icon: "info",
+        confirmButtonColor: "#feec91",
+        confirmButtonText: "확인",
+      });
+      navigate("/");
+    }
+  }, [navigate]);
 
   function submitSignup() {
     if (signupInfo.liked_thumbnail) {
