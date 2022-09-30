@@ -119,6 +119,7 @@ import requests
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # import requests
 # import csv
 # from bs4 import BeautifulSoup
@@ -291,6 +292,9 @@ from datetime import datetime
 #             toon.platforms.add(i)
 >>>>>>> b8725e9 (feat: 웹툰 로그 / 웹툰 찜 / 웹툰 평점 api 구현)
 
+=======
+from datetime import datetime
+>>>>>>> eefc662 (fix: 누락된 datetime import 추가)
 
 #     # C부터 경로 탐색하기 때문에 위치선정 잘해야함 (Csv 활용 코드-안씀)
 #     # with open('C:/Users/user/Documents/tuntun/tuntun/webtoons/naver.csv', mode='r', encoding='ANSI') as webtoon_lists:
