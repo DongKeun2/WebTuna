@@ -16,6 +16,7 @@ import {
   //   changeTag,
   changeIsLoad,
   changePossibleFetch,
+<<<<<<< HEAD
 } from "../../features/toons/filterSlice";
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
@@ -28,6 +29,20 @@ import Fish_3 from "../../assets/filter/fish3.png";
 import Fish_4 from "../../assets/filter/fish4.png";
 import Fish_5 from "../../assets/filter/fish5.png";
 import { forbidden } from "../../assets/cursor/cursorItem";
+=======
+} from "../../features/toons/filterSlice"
+import styled from 'styled-components'
+import AllToonList from "../../components/toonlist/AllToonList"
+import ModalFrame from "../../components/common/ModalFrame"
+import ToonLoading from "../../components/toonlist/ToonLoading"
+import MoveTop from "../../components/common/MoveTop"
+import Fish_0 from "../../assets/filter/fish0.png"
+import Fish_1 from "../../assets/filter/fish1.png"
+import Fish_2 from "../../assets/filter/fish2.png"
+import Fish_3 from "../../assets/filter/fish3.png"
+import Fish_4 from "../../assets/filter/fish4.png"
+import Fish_5 from "../../assets/filter/fish5.png"
+>>>>>>> 9e0eee3 (feat: 무한스크롤 있는 페이지에 최상단 이동 버튼 추가)
 
 function WebtoonPage() {
   sessionStorage.setItem("url", "/webtoonlist");
@@ -136,6 +151,7 @@ function WebtoonPage() {
 
   return (
     <Container>
+      <MoveTop></MoveTop>
       <PageBox>
         <HeaderBox>
           <PageTitle>전체 웹툰 목록</PageTitle>

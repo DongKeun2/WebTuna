@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ToonLoading from "../../components/toonlist/ToonLoading";
+import MoveTop from "../../components/common/MoveTop";
 import {
   changeKeyword,
   changePages,
@@ -79,6 +80,7 @@ export default function SearchPage() {
 
   return (
     <Container>
+      <MoveTop></MoveTop>
       <PageBox>
         <HeaderBox>
           <PageTitle>'{word}'에 대한 검색 결과</PageTitle>
