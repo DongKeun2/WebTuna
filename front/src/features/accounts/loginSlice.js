@@ -45,6 +45,8 @@ export const loginSlice = createSlice({
     currentUser: {},
     luckyWebtoon: [],
     luckyMsg: "",
+    isPossibleModal: undefined,
+    luckyModal: undefined,
   },
   reducers: {
     changeEmail: (state, action) => {
@@ -59,6 +61,12 @@ export const loginSlice = createSlice({
     changeCurrentUser: (state, action) => {
       state.currentUser = action.payload;
     },
+    changeIsPossibleModal: (state, action) => {
+      state.isPossibleModal = action.payload;
+    },
+    changeLuckyModal: (state, action) => {
+      state.luckyModal = action.payload;
+    },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
@@ -68,6 +76,7 @@ export const loginSlice = createSlice({
       };
       sessionStorage.setItem("token", action.payload.access_token);
 
+      state.isPossibleModal = true;
       state.loginState = true;
     },
     [login.rejected]: (state, action) => {
@@ -78,6 +87,12 @@ export const loginSlice = createSlice({
       state.currentUser = action.payload.user;
       state.luckyWebtoon = action.payload.lucky_webtoon;
       state.luckyMsg = action.payload.lucky;
+      if (action.payload.lucky) {
+        state.luckyModal = true;
+      } else {
+        state.luckyModal = false;
+        state.isPossibleModal = false;
+      }
       sessionStorage.setItem("user", JSON.stringify(action.payload.user));
     },
     [fetchInfo.rejected]: (state, action) => {},
@@ -100,6 +115,8 @@ export const {
   changePassword,
   changeLoginState,
   changeCurrentUser,
+  changeIsPossibleModal,
+  changeLuckyModal,
 } = loginSlice.actions;
 
 export default loginSlice.reducer;
