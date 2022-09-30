@@ -75,7 +75,7 @@ function LoginPage() {
   return (
     <PageBox>
       <LoginBox>
-        <PageTitle>로그인 페이지</PageTitle>
+        <PageTitle>로그인</PageTitle>
         <FormGroup>
           <FormItem>
             <FormTitle>이메일</FormTitle>
