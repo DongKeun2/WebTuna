@@ -18,6 +18,7 @@ const fetchInfo = createAsyncThunk(
   "fetchInfo",
   async (arg, { rejectWithValue }) => {
     try {
+      console.log(getConfig());
       const res = await axios.get(api.fetchInfo(), getConfig());
       return res.data;
     } catch (err) {
@@ -45,6 +46,8 @@ export const loginSlice = createSlice({
     },
     loginState: false,
     currentUser: {},
+    luckyWebtoon: [],
+    luckyMsg: "",
   },
   reducers: {
     changeEmail: (state, action) => {
@@ -80,8 +83,10 @@ export const loginSlice = createSlice({
       state.loginState = false;
     },
     [fetchInfo.fulfilled]: (state, action) => {
-      state.currentUser = action.payload;
-      sessionStorage.setItem("user", JSON.stringify(action.payload));
+      state.currentUser = action.payload.user;
+      state.luckyWebtoon = action.payload.lucky_webtoon;
+      state.luckyMsg = action.payload.lucky;
+      sessionStorage.setItem("user", JSON.stringify(action.payload.user));
     },
     [fetchInfo.rejected]: (state, action) => {
       console.log(action.payload);
