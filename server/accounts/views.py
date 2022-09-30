@@ -2,13 +2,15 @@ from django.shortcuts import render
 from rest_framework import generics
 from webtoons.models import Genre
 
-from webtoons.serializers import WebtoonListSerializer 
+from webtoons.serializers import WebtoonListSerializer, WebtoonLuckySerializer 
 from .serializers import *
 from .models import *
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
+from datetime import datetime
+import random
 
 
 # Create your views here.
@@ -138,12 +140,40 @@ def Profile(request):
     return Response({'data':serializer.data, 'image_type':image_types, 'genre_list':genre_list}, status.HTTP_200_OK)
 
 
+# 오늘의 운세
+def giveLucky():
+
+    lucky_sample = [
+        '오후에 좋은 일이 있습니다.', '이 고비를 잘 넘겨야 합니다.', '대접을 받는 날입니다.', 
+        '소고기로 체력 보충하자.', '할까 말까 할 때는 해보자!', '결과는 기대 이상입니다.',
+        '좋은 소식이 찾아옵니다.', '식복이 가득합니다.', '하던 일에 결실이 보이네요!',
+        '뭐든 잘 풀리니 행복합니다.', '좋은 자세로 임해야합니다.', '결정과 선택은 서두르지 마세요',
+        '감정에 휘말리시면 안돼요.', '의욕이 넘치네요.', '본인을 믿으세요.', '오늘도 해피엔딩.',
+        '참으면 반드시 득이 돼요.', '결속력이 돈독해집니다.', '들뜨고, 기분이 좋네요!',
+        '미뤄왔던 계획을 실행하세요.', '예상치 못한 잔업이 있습니다.'    
+    ]
+    
+    lucky_list = random.choice(lucky_sample)
+
+    return lucky_list
+
+
 # 메인 프로필 정보 받기
 @api_view(['GET'])
 def MainProfile(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
+    
+    if member.is_today.date() != datetime.now().date():
+        webtoon = random.choice(list(Webtoon.objects.all()))
+        lucky = giveLucky()
+
+    else:
+        webtoon = []
+        lucky = []
+        
+    webtoon_data = WebtoonLuckySerializer(webtoon, many=True)
     serializer = ProfileMainSerializer(member)
-    return Response(serializer.data)
+    return Response({'user':serializer.data, 'lucky_webtoon': webtoon_data.data, 'lucky':lucky}, status.HTTP_200_OK)
 
 
 # 이메일 중복 체크하기

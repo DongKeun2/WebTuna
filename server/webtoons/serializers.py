@@ -20,6 +20,23 @@ class WebtoonListSerializer(serializers.ModelSerializer):
 
         return author_name_list
 
+
+class WebtoonLuckySerializer(serializers.ModelSerializer):
+    author_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Webtoon
+        fields = ('webtoon_id', 'title', 'thumbnail', 'author_name', 'summary')
+
+    def get_author_name(self, obj):
+        author_name_list = []
+
+        for author_name in obj.authors.values('name'):
+            author_name_list.append(author_name['name'])
+
+        return author_name_list
+    
+    
 class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:

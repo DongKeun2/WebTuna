@@ -60,6 +60,7 @@ class Member(AbstractBaseUser):
     tags = models.ManyToManyField(Tag,related_name="tag_users")
     view_webtoons = models.ManyToManyField(Webtoon, through='Member_View_Webtoons')
     liked_webtoons = models.ManyToManyField(Webtoon,related_name="liked_webtoon_users")
+<<<<<<< HEAD
 =======
     created_time = models.DateTimeField(auto_now_add=True)
     is_removed = models.BooleanField(default=False)
@@ -70,6 +71,10 @@ class Member(AbstractBaseUser):
     liked_webtoon = models.ManyToManyField(Webtoon,related_name="fav_webtoons")
     followings = models.ManyToManyField('self', symmetrical=False, related_name="follwers")
 >>>>>>> b984062 (feat: db-kakao)
+=======
+    is_today = models.DateTimeField(blank=True, null=True)
+    
+>>>>>>> 3ede295 (feat: 오늘의 운세)
     
     # User 모델의 필수 field
     is_active = models.BooleanField(default=True)    
