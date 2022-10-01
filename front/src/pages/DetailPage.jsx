@@ -530,7 +530,7 @@ function DetailPage() {
                   loginState === null ? (
                     <Tag key={tag.tag_id} id={tag.tag_id}>
                       <BookMarkImage src={BookMark} alt="북마크" />
-                      <TagName>{tag.name}</TagName>
+                      <TagName onClick={toLogin}>{tag.name}</TagName>
                     </Tag>
                   ) : userData.tags.includes(tag.tag_id) ? (
                     <LikedTag
