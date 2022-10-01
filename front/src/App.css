@@ -1,0 +1,27 @@
+div.clickEffect {
+    position: fixed;
+    box-sizing: border-box;
+    width: 5vw;
+    height: 5vw;
+    border-style: solid;
+    border-color: pink;
+    border-radius: 50%;
+    animation: clickEffect 0.5s ease-out;
+    z-index: 99999;
+}
+
+@keyframes clickEffect {
+    0% {
+        opacity: 1;
+        width: 0.5vw;
+        height: 0.5vw;
+        margin: -0.25vw;
+        border-width: 0.5vw;
+    }
+
+    100% {
+        opacity: 0.2;
+        margin: -3vw;
+        border-width: 0.03vw;
+    }
+}

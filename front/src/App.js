@@ -12,9 +12,13 @@ import {
 <<<<<<< HEAD
 import ModalFrame from "./components/common/ModalFrame";
 import ClickSound from "../src/music/571119__elfstonepress__boing-sfx.mp3";
+<<<<<<< HEAD
 =======
 import Today from "./components/common/Today";
 >>>>>>> 5aa3ecb (feat: 오늘의 운세 안 닫히게 / 카드 클릭 시 운세 / 상세 페이지 이동)
+=======
+import style from "./App.css";
+>>>>>>> e8e608b (feat: 마우스 클릭시 효과 추가)
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +47,21 @@ function App() {
   function test() {
     clickSound.play();
   }
+
+  function clickEffect(e) {
+    var d = document.createElement("div");
+    d.className = "clickEffect";
+    d.style.top = e.clientY + "px";
+    d.style.left = e.clientX + "px";
+    document.body.appendChild(d);
+    d.addEventListener(
+      "animationend",
+      function () {
+        d.parentElement.removeChild(d);
+      }.bind(this),
+    );
+  }
+  document.addEventListener("click", clickEffect);
 
   return (
     <>
