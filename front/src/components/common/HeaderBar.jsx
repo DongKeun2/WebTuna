@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import logo from "./../../assets/logo/logo2.png";
 import { useNavigate } from "react-router-dom";
 import { hover } from "../../assets/cursor/cursorItem";
+import AudioBar from "./AudioBar";
 
 function HeaderBar() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function HeaderBar() {
         <LogoImg src={logo} alt="logo_img" />
       </LogoBox>
       {isPossible && <SearchBar></SearchBar>}
+      <AudioBar></AudioBar>
       <AccountMenu></AccountMenu>
     </HeaderSt>
   );
