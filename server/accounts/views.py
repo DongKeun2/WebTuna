@@ -163,7 +163,7 @@ def giveLucky():
 def MainProfile(request):
     member = get_object_or_404(get_user_model(), id=request.user.id)
     webtoon = []
-    if member.is_today == null:
+    if member.is_today is None:
         webtoon.append(random.choice(list(Webtoon.objects.all())))
         lucky = giveLucky()
     
