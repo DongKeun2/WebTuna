@@ -7,19 +7,16 @@ function AudioBar() {
   const [playing, setPlaying] = useState(false);
 
   function reset() {
-    console.log("노래 리셋!");
     BGM.currentTime = 0;
     setPlaying(false);
   }
 
   function stop() {
-    console.log("노래 멈춰!");
     BGM.pause();
     setPlaying(false);
   }
 
   function play() {
-    console.log("노래 재생!");
     BGM.play();
     BGM.loop = setPlaying(true);
   }
