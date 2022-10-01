@@ -18,7 +18,8 @@ function AudioBar() {
 
   function play() {
     BGM.play();
-    BGM.loop = setPlaying(true);
+    BGM.loop = true;
+    setPlaying(true);
   }
 
   return (
