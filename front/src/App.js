@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import styled from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 import Loading from "./components/common/Loading";
 import HeaderBar from "./components/common/HeaderBar";
@@ -9,11 +8,13 @@ import NavBar from "./components/common/NavBar";
 import {
   changeLoginState,
   changeCurrentUser,
-  changeLuckyModal,
-  changeIsPossibleModal,
 } from "./features/accounts/loginSlice";
+<<<<<<< HEAD
 import ModalFrame from "./components/common/ModalFrame";
 import ClickSound from "../src/music/571119__elfstonepress__boing-sfx.mp3";
+=======
+import Today from "./components/common/Today";
+>>>>>>> 5aa3ecb (feat: 오늘의 운세 안 닫히게 / 카드 클릭 시 운세 / 상세 페이지 이동)
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function App() {
   const isPossibleModal = useSelector((state) => state.login.isPossibleModal);
   const isLockyModal = useSelector((state) => state.login.luckyModal);
 
+<<<<<<< HEAD
   function switchModal() {
     dispatch(changeIsPossibleModal(false));
     dispatch(changeLuckyModal(false));
@@ -55,13 +57,17 @@ function App() {
         {isLoading ? <Loading></Loading> : <Outlet></Outlet>}
         <NavBar></NavBar>
       </div>
+=======
+  return (
+    <>
+      <GlobalStyle />
+      <HeaderBar></HeaderBar>
+      {isPossibleModal && isLockyModal && <Today></Today>}
+      {isLoading ? <Loading></Loading> : <Outlet></Outlet>}
+      <NavBar></NavBar>
+>>>>>>> 5aa3ecb (feat: 오늘의 운세 안 닫히게 / 카드 클릭 시 운세 / 상세 페이지 이동)
     </>
   );
 }
-
-const ModalTitle = styled.div`
-  margin-top: 3vw;
-  font-size: 2vw;
-`;
 
 export default App;
