@@ -54,12 +54,9 @@ function App() {
     d.style.top = e.clientY + "px";
     d.style.left = e.clientX + "px";
     document.body.appendChild(d);
-    d.addEventListener(
-      "animationend",
-      function () {
-        d.parentElement.removeChild(d);
-      }.bind(this),
-    );
+    d.addEventListener("animationend", function () {
+      d.parentElement.removeChild(d);
+    });
   }
   document.addEventListener("click", clickEffect);
 
