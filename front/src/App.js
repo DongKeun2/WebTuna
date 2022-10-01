@@ -13,9 +13,12 @@ import {
   changeIsPossibleModal,
 } from "./features/accounts/loginSlice";
 import ModalFrame from "./components/common/ModalFrame";
+import ClickSound from "../src/music/571119__elfstonepress__boing-sfx.mp3";
 
 function App() {
   const dispatch = useDispatch();
+
+  const clickSound = new Audio(ClickSound);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -35,17 +38,23 @@ function App() {
     dispatch(changeLuckyModal(false));
   }
 
+  function test() {
+    clickSound.play();
+  }
+
   return (
     <>
-      <GlobalStyle />
-      <HeaderBar></HeaderBar>
-      {isPossibleModal && isLockyModal && (
-        <ModalFrame _handleModal={switchModal}>
-          <ModalTitle>당신의 운세를 확인해드립니다!</ModalTitle>
-        </ModalFrame>
-      )}
-      {isLoading ? <Loading></Loading> : <Outlet></Outlet>}
-      <NavBar></NavBar>
+      <div onClick={test}>
+        <GlobalStyle />
+        <HeaderBar></HeaderBar>
+        {isPossibleModal && isLockyModal && (
+          <ModalFrame _handleModal={switchModal}>
+            <ModalTitle>당신의 운세를 확인해드립니다!</ModalTitle>
+          </ModalFrame>
+        )}
+        {isLoading ? <Loading></Loading> : <Outlet></Outlet>}
+        <NavBar></NavBar>
+      </div>
     </>
   );
 }
