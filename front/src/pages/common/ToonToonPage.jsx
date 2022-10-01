@@ -54,7 +54,17 @@ function ToonToonPage() {
 const ToonToonBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  margin-bottom: 8vw;
+  @media screen and (max-width: 1500px) {
+    gap: 10px;
+  }
+  @media screen and (max-width: 1100px) {
+    gap: 5px;
+  }
+  @media screen and (max-width: 850px) {
+    gap: 2vh;
+  }
 `;
 
 function ToonList({ toons }) {
@@ -82,6 +92,15 @@ const ToonListBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  @media screen and (max-width: 1500px) {
+    gap: 10px;
+  }
+  @media screen and (max-width: 1100px) {
+    gap: 5px;
+  }
+  @media screen and (max-width: 850px) {
+    gap: 2vh;
+  }
 `;
 
 function LeftToon({ toons, type }) {
@@ -193,8 +212,12 @@ function LeftToon({ toons, type }) {
 
 const LeftBox = styled.div`
   align-self: start;
-  width: 80vw;
+  width: 85vw;
   height: 17vw;
+  @media screen and (max-width: 850px) {
+    width: 100vw;
+    height: 20vh;
+  }
 `;
 
 const LeftOuterBox = styled.div`
@@ -205,7 +228,7 @@ const LeftOuterBox = styled.div`
   justify-content: center;
   align-items: center;
   background: black;
-  background: linear-gradient(-110deg, transparent 100px, black 0);
+  background: linear-gradient(-110deg, transparent 130px, black 0);
 `;
 
 const LeftContentBox = styled.div`
@@ -216,7 +239,7 @@ const LeftContentBox = styled.div`
   justify-content: center;
   align-items: center;
   background: white;
-  background: linear-gradient(-110deg, transparent 100px, white 0);
+  background: linear-gradient(-110deg, transparent 130px, white 0);
 `;
 
 const LeftInnerBox = styled.div`
@@ -226,7 +249,7 @@ const LeftInnerBox = styled.div`
   width: 99%;
   height: 97%;
   background: black;
-  background: linear-gradient(-110deg, transparent 100px, black 0);
+  background: linear-gradient(-110deg, transparent 130px, black 0);
 `;
 
 const LeftBackBox = styled.div`
@@ -235,14 +258,14 @@ const LeftBackBox = styled.div`
   align-items: center;
   width: 99.5%;
   height: 97%;
-  background: linear-gradient(-110deg, transparent 100px, #feec91 0);
+  background: linear-gradient(-110deg, transparent 130px, #feec91 0);
 `;
 
 const LeftItemBox = styled.div`
   width: 70vw;
   height: 100%;
   /* overflow: hidden; */
-  background: linear-gradient(-110deg, transparent 100px, white, 0);
+  background: linear-gradient(-110deg, transparent 130px, white, 0);
 
   :hover {
     cursor: url(${hover}) 13 13, auto;
@@ -258,19 +281,28 @@ const LeftItemBox = styled.div`
     width: 63vw;
   }
   @media screen and (max-width: 850px) {
+    width: 80vw;
+  }
+  @media screen and (max-width: 770px) {
+    width: 77vw;
+  }
+  @media screen and (max-width: 660px) {
+    width: 75vw;
+  }
+  @media screen and (max-width: 600px) {
+    width: 73vw;
+  }
+  @media screen and (max-width: 550px) {
+    width: 70vw;
+  }
+  @media screen and (max-width: 490px) {
+    width: 65vw;
+  }
+  @media screen and (max-width: 420px) {
+    width: 62vw;
+  }
+  @media screen and (max-width: 380vw) {
     width: 60vw;
-  }
-  @media screen and (max-width: 700px) {
-    width: 55vw;
-  }
-  @media screen and (max-width: 500px) {
-    width: 50vw;
-  }
-  @media screen and (max-width: 400px) {
-    width: 45vw;
-  }
-  @media screen and (max-width: 400px) {
-    width: 40vw;
   }
 `;
 
@@ -369,9 +401,13 @@ function RightToon({ toons, type }) {
 
 const RightBox = styled.div`
   align-self: flex-end;
-  width: 80vw;
+  width: 85vw;
   height: 17vw;
   text-align: end;
+  @media screen and (max-width: 850px) {
+    width: 100vw;
+    height: 20vh;
+  }
 `;
 
 const RightOuterBox = styled.div`
@@ -382,7 +418,7 @@ const RightOuterBox = styled.div`
   justify-content: center;
   align-items: center;
   background: black;
-  background: linear-gradient(110deg, transparent 100px, black 0);
+  background: linear-gradient(110deg, transparent 130px, black 0);
 `;
 
 const RightContentBox = styled.div`
@@ -393,7 +429,7 @@ const RightContentBox = styled.div`
   justify-content: center;
   align-items: center;
   background: white;
-  background: linear-gradient(110deg, transparent 100px, white 0);
+  background: linear-gradient(110deg, transparent 130px, white 0);
 `;
 
 const RightInnerBox = styled.div`
@@ -403,7 +439,7 @@ const RightInnerBox = styled.div`
   width: 99%;
   height: 97%;
   background: black;
-  background: linear-gradient(110deg, transparent 100px, black 0);
+  background: linear-gradient(110deg, transparent 130px, black 0);
 `;
 
 const RightBackBox = styled.div`
@@ -412,13 +448,13 @@ const RightBackBox = styled.div`
   align-items: center;
   width: 99.5%;
   height: 97%;
-  background: linear-gradient(110deg, transparent 100px, #eea6a6 0);
+  background: linear-gradient(110deg, transparent 130px, #eea6a6 0);
 `;
 
 const RightItemBox = styled.div`
   width: 70vw;
   height: 97%;
-  background: linear-gradient(110deg, transparent 100px, white, 0);
+  background: linear-gradient(110deg, transparent 130px, white, 0);
 
   :hover {
     cursor: url(${hover}) 13 13, auto;
@@ -434,19 +470,28 @@ const RightItemBox = styled.div`
     width: 63vw;
   }
   @media screen and (max-width: 850px) {
+    width: 80vw;
+  }
+  @media screen and (max-width: 770px) {
+    width: 77vw;
+  }
+  @media screen and (max-width: 660px) {
+    width: 75vw;
+  }
+  @media screen and (max-width: 600px) {
+    width: 73vw;
+  }
+  @media screen and (max-width: 550px) {
+    width: 70vw;
+  }
+  @media screen and (max-width: 490px) {
+    width: 65vw;
+  }
+  @media screen and (max-width: 420px) {
+    width: 62vw;
+  }
+  @media screen and (max-width: 380vw) {
     width: 60vw;
-  }
-  @media screen and (max-width: 700px) {
-    width: 55vw;
-  }
-  @media screen and (max-width: 500px) {
-    width: 50vw;
-  }
-  @media screen and (max-width: 400px) {
-    width: 45vw;
-  }
-  @media screen and (max-width: 400px) {
-    width: 40vw;
   }
 `;
 
