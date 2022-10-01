@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../../components/common/Loading";
+<<<<<<< HEAD
 import { fetchUpload } from "../../features/toons/uploadSlice";
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -23,6 +24,13 @@ import tuntun from "../../assets/test/tuntun2.png";
 <<<<<<< HEAD
 >>>>>>> a56603e (feat: 프로필이미지 수정 / 검색창 배경 수정)
 =======
+=======
+import {
+  fetchProbability,
+  fetchUpload,
+} from "../../features/toons/uploadSlice";
+import tuntun from "../../assets/toon/conanTun.png";
+>>>>>>> e4fa0a4 (feat: 그림체 분석 결과 결과페이지에 디스플레이)
 import MySwal from "../../components/common/SweetAlert";
 <<<<<<< HEAD
 import { useEffect } from "react";
@@ -116,6 +124,7 @@ function UploadPage() {
       console.log(data);
       dispatch(fetchUpload(data)).then((res) => {
         if (res.type === "fetchUpload/fulfilled") {
+          dispatch(fetchProbability(probability));
           setTimeout(() => {
             setIsLoading(false);
 

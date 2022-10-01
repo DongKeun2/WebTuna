@@ -52,10 +52,15 @@ export const uploadSlice = createSlice({
   name: 'upload',
   initialState: {
     webtoonInfo: undefined,
+    probability: undefined,
   },
   reducers: {
     cleanResultData: (state, action) => {
       state.webtoonInfo = action.payload;
+      state.probability = action.payload;
+    },
+    fetchProbability: (state, action) => {
+      state.probability = action.payload;
     },
   },
   extraReducers: {
@@ -77,7 +82,11 @@ export { fetchUpload }
 =======
 export { fetchUpload };
 
+<<<<<<< HEAD
 >>>>>>> 9798239 (docs: 콘솔로그 삭제(프로필&디테일 관련 제외))
 export const { cleanResultData } = uploadSlice.actions;
+=======
+export const { cleanResultData, fetchProbability } = uploadSlice.actions;
+>>>>>>> e4fa0a4 (feat: 그림체 분석 결과 결과페이지에 디스플레이)
 
 export default uploadSlice.reducer

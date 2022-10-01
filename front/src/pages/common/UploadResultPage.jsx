@@ -33,13 +33,15 @@ function UploadResultPage() {
   const dispatch = useDispatch();
 
   const toonInfo = useSelector((state) => state.upload.webtoonInfo);
+  const probability = useSelector((state) => state.upload.probability);
   const { state } = useLocation();
 
   useEffect(() => {
+    console.log(probability);
     return () => {
       dispatch(cleanResultData(undefined));
     };
-  }, [dispatch]);
+  }, [dispatch, probability]);
 
   function moveDetail() {
     navigate(`/detail/${toonInfo.webtoon_id}`);
@@ -52,6 +54,10 @@ function UploadResultPage() {
       <Container>
         <PageBox>
           <ResultHeader>분석 결과</ResultHeader>
+          {/* 그림체 분석 결과 */}
+          {probability.map((item, idx) => {
+            return <p key={idx}>{item}</p>;
+          })}
           <ResultBox>
             <ImgBox>
               <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
@@ -103,6 +109,7 @@ const PageBox = styled.div`
   background-color: #fff5c3;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const ResultHeader = styled.p`
