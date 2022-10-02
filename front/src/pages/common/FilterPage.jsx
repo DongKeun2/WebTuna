@@ -639,6 +639,12 @@ const ToonListBox = styled.div`
   width: 100%;
   margin-bottom: 70px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 `;
 
 const EmptyMsg = styled.p`
