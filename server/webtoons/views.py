@@ -398,23 +398,28 @@ def webtoonDetail(request,webtoonId):
     webtoon_info = WebtoonSerializer(webtoon)
 
     # 성별, 나이대
-    webtoons_member = Member_View_Webtoons.objects.filter(webtoon_id = int(webtoonId))
-    
-    gender = {'M':0, 'F':0}
-    age = {'10':0, '20':0, '30':0, '40':0, 'etc':0}
+    users = webtoon.liked_webtoon_users.all()
+    gender_age = dict()
 
-    for webtoon in webtoons_member:
-        member = Member.objects.get(pk = webtoon.member_id)
-        gender[f'{member.gender}'] += 1
-        member_age = datetime.now().year - (member.birth//10000) +1
-        
-        if member_age > 50:
-            age['etc'] += 1
-        else:
-            age_key = str(member_age // 10)+'0'
-            age[age_key] += 1
+    for user in users:
+        user_age = datetime.now().year - user.birth//10000
+        age_key = str(user_age // 10) + '0' + user.gender 
+
+        try:
+            gender_age[age_key] += 1
+        except:
+            gender_age[age_key] = 1
+
+    sort_gender = sorted(gender_age.items(), key=lambda x:x[1], reverse=True)
+    gender_age = []
+    if len(sort_gender) >= 5:
+        for i in range(5):
+            gender_age.append((sort_gender[i][0], sort_gender[i][1]))
+    else:
+        for i in range(len(sort_gender)):
+            gender_age.append((sort_gender[i][0], sort_gender[i][1]))
     
-    return Response({'data':webtoon_info.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data, 'age':age, 'gender':gender}, status.HTTP_200_OK)
+    return Response({'data':webtoon_info.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data, 'gender_age':gender_age}, status.HTTP_200_OK)
 
 
 
