@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import bgm from "../../../src/music/Like Spring.mp3";
-import { forbidden, hover } from "../../assets/cursor/cursorItem";
+import { hover } from "../../assets/cursor/cursorItem";
 
 const BGM = new Audio(bgm);
 
@@ -31,7 +31,6 @@ function AudioBar() {
 
   function sourceBoxOff() {
     setSourceBoxDisplay("none");
-
   }
 
   return (
@@ -42,9 +41,11 @@ function AudioBar() {
       ) : (
         <PlayButton onClick={play}>▶</PlayButton>
       )}
-      <SourceBox id="SourceBox" data={sourceBoxDisplay}>음원제공 - BGM팩토리 (https://bgmfactory.com) <br />사용음원 - Like Spring</SourceBox>
+      <SourceBox id="SourceBox" data={sourceBoxDisplay}>
+        음원제공 - BGM팩토리 (https://bgmfactory.com) <br />
+        사용음원 - Like Spring
+      </SourceBox>
     </AudioBox>
-
   );
 }
 
@@ -62,20 +63,20 @@ const AudioBox = styled.div`
 
 const ResetButton = styled.div`
   cursor: url(${hover}) 13 13, auto;
-  margin-top:0.5vw;
+  margin-top: 0.5vw;
   font-size: 1vw;
 `;
 
 const StopButton = styled.div`
   cursor: url(${hover}) 13 13, auto;
-  margin-top:0.2vw;
-  margin-left:0.15vw;
+  margin-top: 0.2vw;
+  margin-left: 0.15vw;
   font-size: 1vw;
 `;
 
 const PlayButton = styled.div`
   cursor: url(${hover}) 13 13, auto;
-  margin-top:0.5vw;
+  margin-top: 0.5vw;
   font-size: 1vw;
 `;
 
@@ -90,6 +91,6 @@ const SourceBox = styled.div`
   font-size: 0.6vw;
   z-index: 1;
   transition: 0.3s;
-`
+`;
 
 export default AudioBar;
