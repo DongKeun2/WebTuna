@@ -396,7 +396,26 @@ def webtoonDetail(request,webtoonId):
     webtoon.save()
 
     webtoon_info = WebtoonSerializer(webtoon)
-    return Response({'data':webtoon_info.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data}, status.HTTP_200_OK)
+
+    # 성별, 나이대
+    webtoons_member = Member_View_Webtoons.objects.filter(webtoon_id = int(webtoonId))
+    
+    gender = {'M':0, 'F':0}
+    age = {'10':0, '20':0, '30':0, '40':0, 'etc':0}
+
+    for webtoon in webtoons_member:
+        member = Member.objects.get(pk = webtoon.member_id)
+        gender[f'{member.gender}'] += 1
+        member_age = datetime.now().year - (member.birth//10000) +1
+        
+        if member_age > 50:
+            age['etc'] += 1
+        else:
+            age_key = str(member_age // 10)+'0'
+            age[age_key] += 1
+    
+    return Response({'data':webtoon_info.data, 'is_rated':flag, 'author_webtoons':author_webtoons.data, 'similar_webtoon': similar_webtoon.data, 'age':age, 'gender':gender}, status.HTTP_200_OK)
+
 
 
 page_cut = 20
@@ -1413,6 +1432,7 @@ def popularity_recommend(user):
     webtoons_list = WebtoonListSerializer(recommend_list, many=True)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     return webtoons_list
 >>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
 =======
@@ -1442,3 +1462,6 @@ def giveLucky(user):
 =======
     return webtoons_list
 >>>>>>> ccac3f0 (fix: Merge 충돌 제거)
+=======
+    return webtoons_list
+>>>>>>> a0dbb40 (feat : 상세페이지 나이대, 성별추가)
