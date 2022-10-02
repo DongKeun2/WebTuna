@@ -982,11 +982,8 @@ webtoon_list = json.load(a)
 
 #     difference = {"webtoon_id" : comparsion.webtoon_id , "diff" : diff}
 #     return difference
-    
-    
-# # webtoon마다 similar_webtoons id string으로 넣어주기
-# webtoon_list = Webtoon.objects.all()
 
+<<<<<<< HEAD
 # # 각 이미지 타입 비율 불러와 차이 계산 후 ((1순위 그림체 *1.1) + (2순위 그림체)) 낮은순으로 top30을 similar에 넣는다
 # for webtoon in webtoon_list:
 #     # 같은 타입애들을 불러오기
@@ -1058,6 +1055,8 @@ webtoon_list = json.load(a)
 <<<<<<< HEAD
 >>>>>>> 3c6421c (fix: 웹툰 추천 api 수정 - 조건 미달 시 빈 리스트 반환)
 =======
+=======
+>>>>>>> 59718a9 (중복 제거)
 
 # tb_draw_classify 삽입
 
@@ -1224,4 +1223,7 @@ webtoon_list = json.load(a)
 #     # request the API data and convert the JSON to Python data types
 #     webtoons = requests.get(url).json()
 #     print(i)
+<<<<<<< HEAD
 >>>>>>> d4f77ed (fix: detail 페이지 수정 - similar 웹툰 없을 때 예외처리)
+=======
+>>>>>>> 59718a9 (중복 제거)
