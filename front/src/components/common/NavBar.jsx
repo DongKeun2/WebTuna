@@ -100,7 +100,7 @@ const Item = styled.div`
     width: 150px;
   }
   height: 100%;
-  cursor: url(${hover}) 13 13, auto;
+  cursor: url(${hover}) 13 13, auto; 
 `;
 >>>>>>> eece598 (feat: NavBar 반응형 UI)
 
