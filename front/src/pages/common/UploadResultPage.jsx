@@ -105,17 +105,22 @@ function UploadResultPage() {
       <Container>
         <PageBox>
           <ResultHeader>분석 결과</ResultHeader>
-          <ChartShow
-            data={PaintStyleData}
-            options={PaintStyleOptions}
-          ></ChartShow>
+          
           <ResultBox>
             <ImgBox>
               <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
             </ImgBox>
-            <TitleBox>
-              <ResultTitle>{toonInfo.title}</ResultTitle>
-              <ResultSummary>{toonInfo.summary}</ResultSummary>
+            <RightBox>
+              <InfoBox>
+                <LeftBox>
+                  <ResultTitle>{toonInfo.title}</ResultTitle>
+                  <ResultSummary>{toonInfo.summary}</ResultSummary>
+                </LeftBox>
+                <ChartShow
+                  data={PaintStyleData}
+                  options={PaintStyleOptions}
+                ></ChartShow>
+              </InfoBox>
               <BtnGroup>
                 <ResultBtn active={true} onClick={moveDetail}>
                   상세 정보
@@ -132,7 +137,7 @@ function UploadResultPage() {
                   </FlexBox>
                 </ResultBtn>
               </BtnGroup>
-            </TitleBox>
+            </RightBox>
           </ResultBox>
         </PageBox>
       </Container>
@@ -174,10 +179,7 @@ const ResultHeader = styled.p`
 `;
 
 const ResultBox = styled.div`
-  width: 60%;
-  @media screen and (max-width: 1000px) {
-    width: 80%;
-  }
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -208,7 +210,7 @@ const ToonImg = styled.img`
   height: 100%;
 `;
 
-const TitleBox = styled.div`
+const RightBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -218,6 +220,18 @@ const TitleBox = styled.div`
     margin-top: 20px;
     gap: 10px;
   }
+`;
+
+const InfoBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const LeftBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const ResultTitle = styled.p`
@@ -232,16 +246,15 @@ const ResultTitle = styled.p`
 
 const ResultSummary = styled.div`
   font-size: 1vw;
+  width: 15vw;
   height: 60%;
-  padding: 10px 5px;
-  padding-left: 16px;
+  padding: 8px 10px;
   background-color: white;
   border: 2px solid;
   border-radius: 0.5vw;
   overflow: auto;
   @media screen and (max-width: 750px) {
     height: 80px;
-    padding: 5px 8px;
     border-radius: 3px;
   }
   &::-webkit-scrollbar {
