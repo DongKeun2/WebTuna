@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { useState } from "react";
 import bgm from "../../../src/music/Like Spring.mp3";
 
+const BGM = new Audio(bgm);
+
 function AudioBar() {
-  const [BGM, setBGM] = useState(new Audio(bgm));
   const [playing, setPlaying] = useState(false);
 
   function reset() {

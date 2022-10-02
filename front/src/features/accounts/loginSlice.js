@@ -17,7 +17,6 @@ const fetchInfo = createAsyncThunk(
   async (arg, { rejectWithValue }) => {
     try {
       const res = await axios.get(api.fetchInfo(), getConfig());
-      console.log(res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response.data);

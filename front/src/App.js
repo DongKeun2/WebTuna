@@ -13,12 +13,16 @@ import {
 import ModalFrame from "./components/common/ModalFrame";
 import ClickSound from "../src/music/571119__elfstonepress__boing-sfx.mp3";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import Today from "./components/common/Today";
 >>>>>>> 5aa3ecb (feat: 오늘의 운세 안 닫히게 / 카드 클릭 시 운세 / 상세 페이지 이동)
 =======
 import style from "./App.css";
 >>>>>>> e8e608b (feat: 마우스 클릭시 효과 추가)
+=======
+import "./App.css";
+>>>>>>> 17c4c6a (feat: 운세 미리보기 삭제 /  audio관련 eslint에러)
 
 function App() {
   const dispatch = useDispatch();
