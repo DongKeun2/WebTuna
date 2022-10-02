@@ -63,7 +63,6 @@ function DetailPage() {
           res.payload.data.image_type6 / 2 + 15,
         ]);
         setRatingGraphData([
-          res.payload.data.webtoon_rate[0],
           res.payload.data.webtoon_rate[1],
           res.payload.data.webtoon_rate[2],
           res.payload.data.webtoon_rate[3],
@@ -110,7 +109,6 @@ function DetailPage() {
           res.payload.data.image_type6 / 2 + 15,
         ]);
         setRatingGraphData([
-          res.payload.data.webtoon_rate[0],
           res.payload.data.webtoon_rate[1],
           res.payload.data.webtoon_rate[2],
           res.payload.data.webtoon_rate[3],
@@ -382,7 +380,7 @@ function DetailPage() {
     margintop: 5,
     marginleft: 15,
     width: 40,
-    labels: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
+    labels: [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
     datasets: [
       {
         type: "bar",
