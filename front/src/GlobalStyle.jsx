@@ -2,6 +2,12 @@ import { createGlobalStyle } from "styled-components";
 import { common, hover, input } from "./assets/cursor/cursorItem";
 
 const GlobalStyle = createGlobalStyle`
+  @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+  }
   html {
     :hover {
       cursor:  url(${common}) 13 13, auto;
@@ -9,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     background-color: #D1E2FF;
+    font-family: 'Pretendard-Regular';
     margin: 0;
     :hover {
       cursor:  url(${common}) 13 13, auto;
