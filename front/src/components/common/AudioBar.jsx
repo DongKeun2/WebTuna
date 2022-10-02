@@ -11,6 +11,7 @@ function AudioBar() {
 
   function reset() {
     BGM.currentTime = 0;
+    BGM.pause();
     setPlaying(false);
   }
 
