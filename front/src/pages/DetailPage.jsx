@@ -52,7 +52,6 @@ function DetailPage() {
     window.scrollTo(0, 0);
     if (!loginState) {
       dispatch(noLoginDetail(toonId)).then((res) => {
-        console.log(res.payload.is_rated + "비로그인");
         console.log(res.payload);
         setWebToonInfo(res.payload);
         setPaintGraphData([
@@ -100,8 +99,7 @@ function DetailPage() {
       });
     } else {
       dispatch(detail(toonId)).then((res) => {
-        console.log(res.payload.is_rated + "로그인");
-        console.log(res.payload.data.tags.length);
+        console.log(res.payload);
         setWebToonInfo(res.payload);
         setPaintGraphData([
           res.payload.data.image_type1 / 2 + 15,
@@ -479,8 +477,8 @@ function DetailPage() {
                     {webToonInfo.data.days[0].day_id === 8
                       ? "완결 웹툰"
                       : webToonInfo.data.days.length === 1
-                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                      : webToonInfo.data.days
+                        ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                        : webToonInfo.data.days
                           .slice(0, -1)
                           .map((dayy) => day[dayy.day_id]) +
                         " , " +
@@ -523,7 +521,7 @@ function DetailPage() {
               ? <NoTag></NoTag> :
 =======
             {webToonInfo.data.tags.length === 0 ||
-            webToonInfo.data.tags === undefined ? (
+              webToonInfo.data.tags === undefined ? (
               <NoTag></NoTag>
             ) : (
 >>>>>>> ae3b8f2 (feat: 프로필&상세페이지 커서 변경)
@@ -559,7 +557,7 @@ function DetailPage() {
               <div>그림체가 비슷한 웹툰</div>
               <PSRecommends>
                 {webToonInfo.similar_webtoon.length === 0 ||
-                webToonInfo.similar_webtoon === undefined ? (
+                  webToonInfo.similar_webtoon === undefined ? (
                   <OtherWebToonEmpty>
                     <EmptyImg src={Empty} />
                     <Bubble>그림체가 비슷한 웹툰이 없어요...</Bubble>
@@ -573,7 +571,7 @@ function DetailPage() {
                       <ImgBox onClick={moveDetail}>
                         <OtherWebToonThumbnail
                           src={similarWebtoon.thumbnail}
-                          alt="같은 작가의 다른 작품 이미지"
+                          alt="그림체가 비슷한 웹툰 이미지"
                         ></OtherWebToonThumbnail>
                       </ImgBox>
                       <ToonInfo onClick={moveDetail}>
@@ -584,12 +582,12 @@ function DetailPage() {
                           {similarWebtoon.author_name.length === 1
                             ? similarWebtoon.author_name[0]
                             : similarWebtoon.author_name
-                                .slice(0, -1)
-                                .map((author) => author) +
-                              " / " +
-                              similarWebtoon.author_name
-                                .slice(-1)
-                                .map((author) => author)}
+                              .slice(0, -1)
+                              .map((author) => author) +
+                            " / " +
+                            similarWebtoon.author_name
+                              .slice(-1)
+                              .map((author) => author)}
                         </OtherWebToonAuthor>
                       </ToonInfo>
                     </OtherWebToon>
@@ -626,23 +624,22 @@ function DetailPage() {
                           <OtherWebToonThumbnail
                             src={otherWebToon.thumbnail}
                             alt="같은 작가의 다른 웹툰 이미지"
-                            onClick={moveDetail}
                           ></OtherWebToonThumbnail>
                         </ImgBox>
                         <ToonInfo onClick={moveDetail}>
-                          <OtherWebToonTitle onClick={moveDetail}>
+                          <OtherWebToonTitle>
                             {otherWebToon.title}
                           </OtherWebToonTitle>
-                          <OtherWebToonAuthor onClick={moveDetail}>
+                          <OtherWebToonAuthor>
                             {otherWebToon.author_name.length === 1
                               ? otherWebToon.author_name[0]
                               : otherWebToon.author_name
-                                  .slice(0, -1)
-                                  .map((author) => author) +
-                                " / " +
-                                otherWebToon.author_name
-                                  .slice(-1)
-                                  .map((author) => author)}
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              otherWebToon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
                           </OtherWebToonAuthor>
                         </ToonInfo>
                       </OtherWebToon>
@@ -915,7 +912,7 @@ const TagZone = styled.div`
   display: flex;
   flex-flow: wrap;
   padding: 1.5vw;
-  margin-top: 8vw;
+  margin-top: 3vw;
   margin-left: 7.5vw;
   margin-right: 6.5vw;
   border: solid 0.1vw;
