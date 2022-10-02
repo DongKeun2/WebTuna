@@ -341,15 +341,15 @@ function ProfilePage() {
                       {filteredTags === undefined || searchWord.length === 0
                         ? ""
                         : filteredTags.map((filteredTag) => (
-                            <SearchTag
-                              key={filteredTag.tag_id}
-                              id={filteredTag.tag_id}
-                              onClick={tagSwitch}
-                            >
-                              <TagName>{filteredTag.name}</TagName>
-                              <PlusButton>+</PlusButton>
-                            </SearchTag>
-                          ))}
+                          <SearchTag
+                            key={filteredTag.tag_id}
+                            id={filteredTag.tag_id}
+                            onClick={tagSwitch}
+                          >
+                            <TagName>{filteredTag.name}</TagName>
+                            <PlusButton>+</PlusButton>
+                          </SearchTag>
+                        ))}
                     </FilterZone>
                   </ModalFrame>
                 ) : null}
@@ -361,18 +361,18 @@ function ProfilePage() {
                     <PreferGenreTitle>선호하는 장르</PreferGenreTitle>
                     <SubTitleZone>
                       {userInfo.genre_list.length === 0 ||
-                      userInfo.genre_list === undefined
+                        userInfo.genre_list === undefined
                         ? "텅~"
                         : Object.keys(userInfo.genre_list).map((key) => (
-                            <PreferGenreSubTitle key={key}>
-                              {key}
-                              <Square
-                                style={{
-                                  backgroundColor: boxColor[boxColorIndex++],
-                                }}
-                              ></Square>
-                            </PreferGenreSubTitle>
-                          ))}
+                          <PreferGenreSubTitle key={key}>
+                            {key}
+                            <Square
+                              style={{
+                                backgroundColor: boxColor[boxColorIndex++],
+                              }}
+                            ></Square>
+                          </PreferGenreSubTitle>
+                        ))}
                     </SubTitleZone>
                   </PreferGenreTitleZone>
                   <PreferPaintStyleTitleZone>
@@ -394,8 +394,8 @@ function ProfilePage() {
                         <PreferGenreEmpty>
                           <EmptyImg src={Empty} />
                           <Bubble>
-                            저희 사이트를 열심히 이용하지 않은 당신!!!!　　　
-                            분석 받을 자격이 없습니다!
+                            마음에 드는 웹툰이 있으면 찜해주세요!<br />
+                            찜한 웹툰을 기반으로 그래프를 그려드려요!
                           </Bubble>
                         </PreferGenreEmpty>
                       ) : (
@@ -409,7 +409,7 @@ function ProfilePage() {
                   <ChartBox>
                     <PreferPaintStyle>
                       {paintGraphData === undefined ||
-                      paintGraphData.length === 0 ? (
+                        paintGraphData.length === 0 ? (
                         "데이터가 부족해요!"
                       ) : (
                         <ChartShow
@@ -442,7 +442,7 @@ function ProfilePage() {
               <ModalTitle>태그 추가/제거</ModalTitle>
               <LikedTagZone>
                 {userInfo.data.tags.length === 0 ||
-                userInfo.data.tags === undefined ? (
+                  userInfo.data.tags === undefined ? (
                   <LikedTagEmptyMessage>
                     추천에 반영될 태그를 검색 후 추가해 주세요!
                   </LikedTagEmptyMessage>
@@ -469,21 +469,21 @@ function ProfilePage() {
                 {filteredTags === undefined || searchWord.length === 0
                   ? ""
                   : filteredTags.map((filteredTag) => (
-                      <SearchTag
-                        key={filteredTag.tag_id}
-                        id={filteredTag.tag_id}
-                        onClick={tagSwitch}
-                      >
-                        <TagName>{filteredTag.name}</TagName>
-                        <PlusButton>+</PlusButton>
-                      </SearchTag>
-                    ))}
+                    <SearchTag
+                      key={filteredTag.tag_id}
+                      id={filteredTag.tag_id}
+                      onClick={tagSwitch}
+                    >
+                      <TagName>{filteredTag.name}</TagName>
+                      <PlusButton>+</PlusButton>
+                    </SearchTag>
+                  ))}
               </FilterZone>
             </ModalFrame>
           ) : null}
           <TagZone>
             {userInfo.data.tags.length === 0 ||
-            userInfo.data.tags === undefined ? (
+              userInfo.data.tags === undefined ? (
               <LikedWebToonEmpty>
                 <EmptyImg src={Empty} />
                 <Bubble>찜한 태그가 없어요...</Bubble>
@@ -517,7 +517,7 @@ function ProfilePage() {
           ) : null}
           <LikedWebToonBack>
             {userInfo.data.liked_webtoons.length === 0 ||
-            userInfo.data.liked_webtoons === undefined ? (
+              userInfo.data.liked_webtoons === undefined ? (
               <LikedWebToonEmpty>
                 <EmptyImg src={Empty} />
                 <Bubble>찜한 웹툰이 없어요...</Bubble>

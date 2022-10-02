@@ -116,7 +116,7 @@ function LeftToon({ toons, type }) {
       dispatch(changeFocusTun(undefined));
       MySwal.fire({
         title: "유저 기반 추천 불가!",
-        text: "저희 사이트를 열심히 이용하지 않은 당신! 추천받을 자격이 없습니다!",
+        html: "맘에 드는 웹툰을 찜해보세요! <br/>찜한 목록을 기반으로 추천을 해드립니다! ",
         icon: "info",
         width: "50vw",
         confirmButtonColor: "#feec91",
@@ -129,7 +129,7 @@ function LeftToon({ toons, type }) {
       dispatch(changeFocusTun(undefined));
       MySwal.fire({
         title: "장르 기반 추천 불가!",
-        text: "저희 사이트를 열심히 이용하지 않은 당신! 추천받을 자격이 없습니다!",
+        html: "맘에 드는 웹툰을 찜해보세요! <br/>찜한 목록을 기반으로 추천을 해드립니다! ",
         icon: "info",
         width: "50vw",
         confirmButtonColor: "#feec91",
@@ -138,7 +138,7 @@ function LeftToon({ toons, type }) {
     } else if (!toons.length) {
       MySwal.fire({
         title: "추천 불가!",
-        text: "왜인지 모르지만 추천 웹툰이 없습니다!",
+        html: "회원님과 비슷한 나이, 연령대의 유저가 없습니다!<br/>  회원님이 기준이 되어주세요!",
         icon: "info",
         confirmButtonColor: "#feec91",
         confirmButtonText: "확인",

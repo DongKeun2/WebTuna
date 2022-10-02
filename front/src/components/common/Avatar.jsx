@@ -30,7 +30,7 @@ function Avatar() {
   };
   return (
     <React.Fragment>
-      <Tooltip title={`눌러보시던가~`}>
+      <Tooltip title={`눌러볼래?`}>
         <IconButton
           onClick={handleClick}
           size="small"
