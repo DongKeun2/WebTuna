@@ -8,6 +8,7 @@ import {
   changeThumbnail,
   signup,
 } from "../../features/accounts/signupSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import addInfoItem from "../../assets/addInfo/addInfoItem";
 import MySwal from "../../components/common/SweetAlert";
 import { forbidden, hover } from "../../assets/cursor/cursorItem";
@@ -17,6 +18,10 @@ function AddInfoPage() {
   const dispatch = useDispatch();
 
   const signupInfo = useSelector((state) => state.signup.signupInfo);
+  
+  useEffect(() => {
+    dispatch(changeCurrentpage(""));
+  }, [dispatch]);
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {

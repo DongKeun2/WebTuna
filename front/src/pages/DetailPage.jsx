@@ -10,6 +10,7 @@ import {
   tagLike,
 } from "../features/details/detailSlice";
 import { fetchInfo } from "../features/accounts/loginSlice";
+import { changeCurrentpage } from "../features/toons/navBarSlice";
 import styled from "styled-components";
 import BookMark from "../assets/detail/BookMark.png";
 import ChartShow from "../components/common/Chart";
@@ -364,6 +365,7 @@ function DetailPage() {
   }
 
   useEffect(() => {
+    dispatch(changeCurrentpage(""));
     setIsLoading(true);
     getDetail();
   }, [toonId]);

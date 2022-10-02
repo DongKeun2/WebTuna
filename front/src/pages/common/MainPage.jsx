@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Banner from "../../components/common/Banner";
 import { fetchMain } from "../../features/toons/mainSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import ConceptToons from "../../components/toonlist/ConceptToons";
 
 function MainPage() {
@@ -13,6 +14,7 @@ function MainPage() {
   const isLoading = useSelector((state) => state.main.isLoading);
 
   useEffect(() => {
+    dispatch(changeCurrentpage("main"));
     dispatch(fetchMain());
   }, [dispatch]);
 

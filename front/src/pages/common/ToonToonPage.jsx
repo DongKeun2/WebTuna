@@ -8,6 +8,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MySwal from "../../components/common/SweetAlert";
 import Loading from "../../components/common/Loading";
 import { fetchtuntun, changeFocusTun } from "../../features/toons/tuntunSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import tuntunItem from "../../assets/tuntun/tuntunItem";
 import "./toontoon.css";
 import { hover } from "../../assets/cursor/cursorItem";
@@ -20,6 +21,7 @@ function ToonToonPage() {
   const [isLoading, setIsLoading] = useState(true);
   const toons = useSelector((state) => state.tuntun.tuntun);
   useEffect(() => {
+    dispatch(changeCurrentpage(""));
     if (!sessionStorage.getItem("token")) {
       MySwal.fire({
         title: "로그인 후 이용해주세요.",

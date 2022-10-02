@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +8,9 @@ import Loading from '../../components/common/Loading'
 import { fetchUpload } from '../../features/toons/uploadSlice'
 =======
 import { useState } from "react";
+=======
+import { useEffect, useState } from "react";
+>>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -29,6 +33,7 @@ import {
   fetchProbability,
   fetchUpload,
 } from "../../features/toons/uploadSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import tuntun from "../../assets/toon/conanTun.png";
 >>>>>>> e4fa0a4 (feat: 그림체 분석 결과 결과페이지에 디스플레이)
 import MySwal from "../../components/common/SweetAlert";
@@ -64,10 +69,17 @@ function UploadPage() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [fileImage, setFileImage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 =======
 =======
+=======
+  useEffect(() => {
+    dispatch(changeCurrentpage("upload"));
+  }, [dispatch]);
+
+>>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
   const { pathname } = useLocation();
 
 >>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)

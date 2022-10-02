@@ -10,6 +10,7 @@ import { profile, profileImage } from "../../features/accounts/profileSlice";
 import { getTags } from "../../features/toons/searchSlice";
 import { tagLike } from "../../features/details/detailSlice";
 import { changeCurrentUser } from "../../features/accounts/loginSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
 import ModalFrame from "../../components/common/ModalFrame";
@@ -213,6 +214,7 @@ function ProfilePage() {
   }
 
   useEffect(() => {
+    dispatch(changeCurrentpage(""));
     getUserInfo();
   }, []);
 

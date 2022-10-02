@@ -16,6 +16,7 @@ import {
   changeIsPossibleEmail,
 } from "../../features/accounts/signupSlice";
 import { changePossibleSearch } from "../../features/toons/searchSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 
 function SignupPage() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function SignupPage() {
   }, [navigate]);
 
   useEffect(() => {
+    dispatch(changeCurrentpage(""));
     dispatch(changePossibleSearch(false));
     return () => {
       dispatch(changePossibleSearch(true));

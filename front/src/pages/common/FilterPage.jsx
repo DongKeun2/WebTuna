@@ -14,6 +14,7 @@ import {
   changePossibleFetch,
 <<<<<<< HEAD
 } from "../../features/toons/filterSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ModalFrame from "../../components/common/ModalFrame";
@@ -47,6 +48,7 @@ function FilterPage() {
   const currentInfo = JSON.parse(sessionStorage.getItem("filterInfo")) || {};
 
   useEffect(() => {
+    dispatch(changeCurrentpage("toons"));
     const data = {
       page: 1,
       checked: currentInfo,

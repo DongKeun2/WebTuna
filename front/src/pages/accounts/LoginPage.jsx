@@ -8,6 +8,7 @@ import {
   login,
   fetchInfo,
 } from "../../features/accounts/loginSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import { changePossibleSearch } from "../../features/toons/searchSlice";
 import MySwal from "../../components/common/SweetAlert";
 import { hover } from "../../assets/cursor/cursorItem";
@@ -32,6 +33,7 @@ function LoginPage() {
   }, [navigate]);
 
   useEffect(() => {
+    dispatch(changeCurrentpage(""));
     dispatch(changePossibleSearch(false));
     return () => {
       dispatch(changePossibleSearch(true));

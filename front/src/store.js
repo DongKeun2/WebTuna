@@ -25,7 +25,11 @@ import searchReducer from "./features/toons/searchSlice";
 >>>>>>> 983faba (feat: 검색기능 api 연결)
 =======
 import tuntunReducer from "./features/toons/tuntunSlice";
+<<<<<<< HEAD
 >>>>>>> 5badc62 (feat: 추천페이지 api 구현)
+=======
+import navbarReducer from "./features/toons/navBarSlice";
+>>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
 
 const store = configureStore({
   reducer: {
@@ -54,7 +58,12 @@ const store = configureStore({
 =======
 
     tuntun: tuntunReducer,
+<<<<<<< HEAD
 >>>>>>> 5badc62 (feat: 추천페이지 api 구현)
+=======
+
+    navbar: navbarReducer,
+>>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
   },
 })
 

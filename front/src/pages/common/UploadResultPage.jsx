@@ -31,6 +31,7 @@ import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { cleanResultData } from "../../features/toons/uploadSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import ChartShow from "../../components/common/Chart";
 
 function UploadResultPage() {
@@ -77,6 +78,7 @@ function UploadResultPage() {
   };
 
   useEffect(() => {
+    dispatch(changeCurrentpage("upload"));
     setTimeout(() => {
       setPaintGraphData([
         probability[0] / 2 + 15,

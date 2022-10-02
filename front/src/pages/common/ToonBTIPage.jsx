@@ -8,6 +8,7 @@ import {
   fetchToonBTI,
   submitToonBTI,
 } from "../../features/toons/toonBTISlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import { OuterBtn, SelectBtn } from "../../components/common/SelectBtn";
 import Loading from "../../components/common/Loading";
 import talkToon from "../../assets/toon/tunbti.png";
@@ -17,6 +18,7 @@ function ToonBTIPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(changeCurrentpage("toonbti"));
     dispatch(fetchToonBTI());
     return () => {
       dispatch(addAnswer([]));

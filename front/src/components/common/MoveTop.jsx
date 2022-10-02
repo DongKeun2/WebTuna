@@ -16,7 +16,7 @@ function MoveTop () {
 
 const TopBtn = styled.button`
   position: fixed;
-  bottom: 80px;
+  bottom: 60px;
   right: 10px;
   width: 40px;
   height: 40px;

@@ -9,6 +9,7 @@ import {
   changePossible,
   edit,
 } from "../../features/accounts/editSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import MySwal from "../../components/common/SweetAlert";
 import { forbidden, hover } from "../../assets/cursor/cursorItem";
 
@@ -21,6 +22,7 @@ function EditPage() {
   const [passwordError, setPasswordError] = useState("비밀번호를 입력해주세요");
 
   useEffect(() => {
+    dispatch(changeCurrentpage(""));
     dispatch(changePossible(false));
   }, [dispatch]);
 

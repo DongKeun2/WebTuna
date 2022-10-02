@@ -14,6 +14,7 @@ import {
   changeWord,
   changePossibleFetch,
 } from "../../features/toons/searchSlice";
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
 
 export default function SearchPage() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ export default function SearchPage() {
   const isLoad = useSelector((state) => state.search.isLoad);
 
   useEffect(() => {
+    dispatch(changeCurrentpage(""));
     dispatch(changeKeyword(location));
     dispatch(changeWord(location));
     const data = {
