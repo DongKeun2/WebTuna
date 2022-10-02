@@ -354,7 +354,7 @@ def mainPage(request):
     webtoon_5 = WebtoonListSerializer(webtoon5, many = True)
     webtoon_6 = WebtoonListSerializer(webtoon6, many = True)
 
-    return Response({'0': webtoon_1.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_5.data, '5':webtoon_6.data})
+    return Response({'0': webtoon_5.data, '1':webtoon_2.data, '2':webtoon_3.data, '3':webtoon_4.data, '4':webtoon_1.data, '5':webtoon_6.data})
 
 
 # 웹툰 상세 페이지
