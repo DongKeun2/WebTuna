@@ -203,24 +203,28 @@ function UploadPage() {
       ) : (
         <Container>
           <PageBox>
-            <TitleBox>
-              <UploadTitle>너의 그림과</UploadTitle>
-              <UploadTitle>그림체가 비슷한 웹툰을 찾아줄게!</UploadTitle>
-            </TitleBox>
-
             {fileImage ? (
-              <ImgBox>
-                <ToonImg
-                  id="canvas"
-                  alt="sample"
-                  src={fileImage}
-                  style={{ margin: "auto" }}
-                />
-              </ImgBox>
+              <>
+                <MyeongToon>명탐정 툰툰</MyeongToon>
+                <ImgBox>
+                  <ToonImg
+                    id="canvas"
+                    alt="sample"
+                    src={fileImage}
+                    style={{ margin: "auto" }}
+                  />
+                </ImgBox>
+              </>
             ) : (
-              <TunImgBox>
-                <TunImg src={tuntun} alt="toon_img" />
-              </TunImgBox>
+              <>
+                <TitleBox>
+                  <UploadTitle>너의 그림과</UploadTitle>
+                  <UploadTitle>그림체가 비슷한 웹툰을 찾아줄게!</UploadTitle>
+                </TitleBox>
+                <TunImgBox>
+                  <TunImg src={tuntun} alt="toon_img" />
+                </TunImgBox>
+              </>
             )}
             <BtnGroup>
               <OuterBtn>
@@ -311,29 +315,65 @@ function UploadPage() {
 }
 
 const TitleBox = styled.div`
+  position: relative;
+  min-height: 50px;
   border: 2px solid black;
-  background-color: white;
   border-radius: 10px;
-  padding: 0px 1vw;
-  margin-bottom: 30px;
+  background-color: white;
+  padding: 0.5vw 2vw;
+  margin-bottom: 20px;
   display: flex;
-  gap: 0.5vw;
+  align-items: center;
+  gap: 5px;
   @media screen and (max-width: 750px) {
     flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    gap: 0px;
+    padding: 10px 12px;
+    gap: 0;
+  }
+  :after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 27px solid transparent;
+    border-top-color: white;
+    border-bottom: 0;
+    margin-left: -13.3px;
+    margin-bottom: -27px;
+  }
+  :before {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 28px solid transparent;
+    border-top-color: black;
+    border-bottom: 0;
+    margin-left: -14px;
+    margin-bottom: -29.5px;
   }
 `;
 
 const UploadTitle = styled.p`
-  margin-top: 2vw;
   font-size: 1.5vw;
   font-weight: 700;
   @media screen and (max-width: 750px) {
-    margin-top: 2vw;
-    font-size: 3vw;
+    font-size: 16px;
     line-height: 0;
+  }
+`;
+
+const MyeongToon = styled.p`
+  font-size: 2vw;
+  font-weight: 700;
+  margin-bottom: 3vw;
+  @media screen and (max-width: 750px) {
+    font-size: 20px;
+    margin-bottom: 30px;
   }
 `;
 
@@ -390,7 +430,6 @@ const PageBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 96%;
   margin-left: auto;
   margin-right: auto;
@@ -398,13 +437,11 @@ const PageBox = styled.div`
   @media screen and (min-width: 1100px) {
     min-height: 68vh;
   }
-  padding: 0.5vw;
+  padding-top: 1vw;
   padding-bottom: 100px;
   @media screen and (max-width: 750px) {
-    padding-bottom: 70px;
-  }
-  @media screen and (min-width: 1240px) {
-    padding-bottom: 80px;
+    padding-top: 20px;
+    padding-bottom: 90px;
   }
   border: solid 2px;
   border-radius: 0.8rem;
