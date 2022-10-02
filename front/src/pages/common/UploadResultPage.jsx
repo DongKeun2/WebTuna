@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useSelector } from 'react-redux'
 
 function UploadResultPage() {
@@ -17,6 +18,9 @@ export default UploadResultPage
 import { useSelector } from "react-redux";
 =======
 import { useEffect } from "react";
+=======
+import { useEffect, useState } from "react";
+>>>>>>> 6f89415 (fix: 업로드한 이미지 결과페이지에 그래프 까지 띄웠음)
 import { useDispatch, useSelector } from "react-redux";
 <<<<<<< HEAD
 >>>>>>> 1d997a0 (feat: 모델 생성 실패 시 경고창 / 그림체 result페이지 cleanup 추가)
@@ -27,6 +31,7 @@ import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { cleanResultData } from "../../features/toons/uploadSlice";
+import ChartShow from "../../components/common/Chart";
 
 function UploadResultPage() {
   const navigate = useNavigate();
@@ -34,10 +39,54 @@ function UploadResultPage() {
 
   const toonInfo = useSelector((state) => state.upload.webtoonInfo);
   const probability = useSelector((state) => state.upload.probability);
+  const [paintGraphData, setPaintGraphData] = useState();
   const { state } = useLocation();
 
+  const PaintStyleData = {
+    margintop: -3,
+    width: 25,
+    labels: [
+      "동글납작",
+      "반짝섬세",
+      "깔끔단정",
+      "터프투박",
+      "단순캐릭",
+      "요즘트렌디",
+    ],
+    datasets: [
+      {
+        type: "radar",
+        label: "업로드한 이미지의 그림체",
+        fill: true,
+        backgroundColor: "#5fc4f67b",
+        borderColor: "#29adf07d",
+        pointBorderColor: "#4bbffa",
+        pointBackgroundColor: "#65ccff",
+        data: paintGraphData,
+      },
+    ],
+  };
+
+  const PaintStyleOptions = {
+    scales: {
+      r: {
+        suggestedMin: 0,
+        suggestedMax: 70,
+      },
+    },
+  };
+
   useEffect(() => {
-    console.log(probability);
+    setTimeout(() => {
+      setPaintGraphData([
+        probability[0] / 2 + 15,
+        probability[1] / 2 + 15,
+        probability[2] / 2 + 15,
+        probability[3] / 2 + 15,
+        probability[4] / 2 + 15,
+        probability[5] / 2 + 15,
+      ]);
+    }, 500);
     return () => {
       dispatch(cleanResultData(undefined));
     };
@@ -54,10 +103,10 @@ function UploadResultPage() {
       <Container>
         <PageBox>
           <ResultHeader>분석 결과</ResultHeader>
-          {/* 그림체 분석 결과 */}
-          {probability.map((item, idx) => {
-            return <p key={idx}>{item}</p>;
-          })}
+          <ChartShow
+            data={PaintStyleData}
+            options={PaintStyleOptions}
+          ></ChartShow>
           <ResultBox>
             <ImgBox>
               <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
