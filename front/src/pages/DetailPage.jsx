@@ -39,6 +39,8 @@ function DetailPage() {
   const [count, setCount] = useState(1);
   const [slideCount, setSlideCount] = useState();
   const [authors, setAuthors] = useState();
+  const [ageGroupLabel, setAgeGroupLabel] = useState();
+  const [ageGroupData, setAgeGroupData] = useState();
   // const [modalRating, setModalRating] = useState(5);
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
   let userData = useSelector((state) => state.login.currentUser);
@@ -74,6 +76,20 @@ function DetailPage() {
           res.payload.data.webtoon_rate[9],
           res.payload.data.webtoon_rate[10],
         ]);
+
+        if (res.payload.gender_age.length !== 0) {
+          let tempLabel = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+          }
+          setAgeGroupLabel(tempLabel);
+          let tempData = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempData.push(res.payload.gender_age[i][1]);
+          }
+          setAgeGroupData(tempData);
+        }
+
         setRatingCount(getRatingCount(res.payload.data));
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
@@ -120,6 +136,20 @@ function DetailPage() {
           res.payload.data.webtoon_rate[9],
           res.payload.data.webtoon_rate[10],
         ]);
+
+        if (res.payload.gender_age.length !== 0) {
+          let tempLabel = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+          }
+          setAgeGroupLabel(tempLabel);
+          let tempData = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempData.push(res.payload.gender_age[i][1]);
+          }
+          setAgeGroupData(tempData);
+        }
+
         setRatingCount(getRatingCount(res.payload.data));
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
@@ -144,6 +174,47 @@ function DetailPage() {
       });
     }
   }
+
+  function getAgeGroupData() {
+    if (!loginState) {
+      dispatch(noLoginDetail(toonId)).then((res) => {
+        if (res.payload.gender_age.length !== 0) {
+          let tempLabel = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+          }
+          setAgeGroupLabel(tempLabel);
+          let tempData = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempData.push(res.payload.gender_age[i][1]);
+          }
+          setAgeGroupData(tempData);
+        } else {
+          setAgeGroupData(0);
+        }
+      }
+      )
+    } else {
+      dispatch(detail(toonId)).then((res) => {
+        if (res.payload.gender_age.length !== 0) {
+          let tempLabel = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+          }
+          setAgeGroupLabel(tempLabel);
+          let tempData = [];
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempData.push(res.payload.gender_age[i][1]);
+          }
+          setAgeGroupData(tempData);
+        } else {
+          setAgeGroupData(0);
+        }
+      }
+      )
+    }
+  }
+
 
   function getRatingCount(data) {
     let total = 0;
@@ -297,6 +368,10 @@ function DetailPage() {
     getDetail();
   }, [toonId]);
 
+  useEffect(() => {
+    getAgeGroupData();
+  }, [heartClick])
+
   const PaintStyleData = {
     margintop: 3,
     marginleft: 3,
@@ -336,29 +411,29 @@ function DetailPage() {
     margintop: 3,
     marginleft: 3,
     width: 23,
-    labels: ["10대 남성", "20대 남성", "20대 여성", "10대 여성", "90대 중성"],
+    labels: ageGroupLabel,
     datasets: [
       {
         type: "pie",
         label: "이 웹툰을 좋아하는 연령대",
         fill: true,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 99, 132, 0.2)",
           "rgba(255, 206, 86, 0.2)",
           "rgba(75, 192, 192, 0.2)",
           "rgba(153, 102, 255, 0.2)",
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
+          "rgba(255, 99, 132, 1)",
           "rgba(255, 206, 86, 1)",
           "rgba(75, 192, 192, 1)",
           "rgba(153, 102, 255, 1)",
         ],
         pointBorderColor: "#fff",
         pointBackgroundColor: "rgba(179,181,198,1)",
-        data: [40.33, 32.17, 25.53, 17.53, 9.53],
+        data: ageGroupData,
       },
     ],
   };
@@ -659,10 +734,15 @@ function DetailPage() {
                   </PaintStyleAnalysis>
                   <AgeGroupAnalysis>
                     <ChartTitle1>연령대 분석</ChartTitle1>
-                    <ChartShow
-                      data={AgeGroupData}
-                      options={AgeGrouoOptions}
-                    ></ChartShow>
+                    {ageGroupData === 0 ?
+                      <AgeGroupEmpty>
+                        <EmptyImg src={Empty} />
+                        <Bubble>데이터가 부족해요...<br /> 이 웹툰을 찜해서 <br />그래프를 만들어주세요</Bubble>
+                      </AgeGroupEmpty> : <ChartShow
+                        data={AgeGroupData}
+                        options={AgeGrouoOptions}
+                      ></ChartShow>}
+
                   </AgeGroupAnalysis>
                 </Analysis>
                 <Graph>
@@ -1042,6 +1122,13 @@ const OtherWebToonEmpty = styled.div`
   display: flex;
   align-items: center;
 `;
+
+const AgeGroupEmpty = styled.div`
+    height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+`
 
 const EmptyImg = styled.img`
   width: 10vw;

@@ -303,7 +303,7 @@ function ProfilePage() {
                   alt="테두리"
                   onClick={switchProfileModal}
                   onMouseEnter={toolTipOn}
-                  onMouseOut={toolTipOff}
+                  onMouseLeave={toolTipOff}
                 />
                 <ProfileImg src={userImg} alt="프로필사진" />
                 {profileModal ? (
