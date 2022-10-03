@@ -606,7 +606,7 @@ const LeftButton = styled.button`
     opacity: 100%;
   }
   > * {
-    color: white;
+    color: black;
     font-size: large;
   }
 `;
@@ -622,7 +622,7 @@ const RightButton = styled.button`
     opacity: 100%;
   }
   > * {
-    color: white;
+    color: black;
     font-size: large;
   }
 `;
