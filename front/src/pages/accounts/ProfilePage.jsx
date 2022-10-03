@@ -55,12 +55,12 @@ function ProfilePage() {
       let gValue = [];
       let tempLikedTags = [];
       res.payload.data.tags.map((tag) => tempLikedTags.push(tag.tag_id));
-      imageType.push(res.payload.image_type.image_type1);
-      imageType.push(res.payload.image_type.image_type2);
-      imageType.push(res.payload.image_type.image_type3);
-      imageType.push(res.payload.image_type.image_type4);
-      imageType.push(res.payload.image_type.image_type5);
-      imageType.push(res.payload.image_type.image_type6);
+      imageType.push(res.payload.image_type.image_type1 / 2 + 15,);
+      imageType.push(res.payload.image_type.image_type2 / 2 + 15,);
+      imageType.push(res.payload.image_type.image_type3 / 2 + 15,);
+      imageType.push(res.payload.image_type.image_type4 / 2 + 15,);
+      imageType.push(res.payload.image_type.image_type5 / 2 + 15,);
+      imageType.push(res.payload.image_type.image_type6 / 2 + 15,);
       setPaintGraphData(imageType);
       Object.keys(res.payload.genre_list).map((key) => gName.push(key));
       setgGenreName(gName);
@@ -279,6 +279,8 @@ function ProfilePage() {
     },
     scales: {
       r: {
+        suggestedMin: 0,
+        suggestedMax: 70,
         pointLabels: {
           font: {
             size: 20,
