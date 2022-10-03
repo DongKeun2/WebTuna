@@ -115,7 +115,7 @@ const Container = styled.div`
 
 const PageBox = styled.div`
   width: 96%;
-  min-height: 38vw;
+  min-height: 40vw;
   margin-left: auto;
   margin-right: auto;
   padding: 0.5vw;
