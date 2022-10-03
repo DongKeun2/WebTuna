@@ -176,7 +176,7 @@ const PageBox = styled.div`
 const ResultHeader = styled.p`
   font-size: 1.8vw;
   @media screen and (max-width: 1200px) {
-    font-size: 20px;
+    font-size: 24px;
   }
   font-weight: 700;
   margin-bottom: 5vw;
@@ -240,11 +240,11 @@ const ChartBox = styled.div`
 `;
 
 const ResultTitle = styled.p`
-  font-size: 1.3vw;
+  font-size: 1.5vw;
   font-weight: 600;
   margin: 0;
   @media screen and (max-width: 800px) {
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
   }
 `;
