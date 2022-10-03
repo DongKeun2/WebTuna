@@ -43,8 +43,14 @@ function DetailPage() {
   const [authors, setAuthors] = useState();
   const [ageGroupLabel, setAgeGroupLabel] = useState();
   const [ageGroupData, setAgeGroupData] = useState();
+  const [ageGroupColor, setAgeGroupColor] = useState();
   // const [modalRating, setModalRating] = useState(5);
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
+  const maleColor = ["rgba(46, 157, 248, 0.2)", "rgba(47, 147, 229, 0.593)", "rgba(101, 193, 243, 0.73)", "rgba(77, 119, 236, 0.451)", "rgba(37, 163, 191, 0.451)"];
+  const femaleColor = ["rgba(255, 99, 132, 0.2)", "rgba(213, 70, 101, 0.358)", "rgba(213, 70, 168, 0.358)", "rgba(206, 97, 97, 0.37)", "rgba(200, 78, 38, 0.37)"];
+  let maleIndex = 0;
+  let femaleIndex = 0;
+
   let userData = useSelector((state) => state.login.currentUser);
   let loginState = sessionStorage.getItem("token");
   let slide;
@@ -79,19 +85,6 @@ function DetailPage() {
           res.payload.data.webtoon_rate[10],
         ]);
 
-        if (res.payload.gender_age.length !== 0) {
-          let tempLabel = [];
-          for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
-          }
-          setAgeGroupLabel(tempLabel);
-          let tempData = [];
-          for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempData.push(res.payload.gender_age[i][1]);
-          }
-          setAgeGroupData(tempData);
-        }
-
         setRatingCount(getRatingCount(res.payload.data));
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
@@ -139,19 +132,6 @@ function DetailPage() {
           res.payload.data.webtoon_rate[10],
         ]);
 
-        if (res.payload.gender_age.length !== 0) {
-          let tempLabel = [];
-          for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
-          }
-          setAgeGroupLabel(tempLabel);
-          let tempData = [];
-          for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempData.push(res.payload.gender_age[i][1]);
-          }
-          setAgeGroupData(tempData);
-        }
-
         setRatingCount(getRatingCount(res.payload.data));
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
@@ -185,10 +165,13 @@ function DetailPage() {
       dispatch(noLoginDetail(toonId)).then((res) => {
         if (res.payload.gender_age.length !== 0) {
           let tempLabel = [];
+          let tempColor = [];
           for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+            tempLabel.push((res.payload.gender_age[i][0].substr(0, 2) === "00" ? "10대 미만" : res.payload.gender_age[i][0].substr(0, 2) + "대") + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+            tempColor.push(res.payload.gender_age[i][0].substr(-1) === 'F' ? femaleColor[femaleIndex++] : maleColor[maleIndex++]);
           }
           setAgeGroupLabel(tempLabel);
+          setAgeGroupColor(tempColor);
           let tempData = [];
           for (let i = 0; i < res.payload.gender_age.length; i++) {
             tempData.push(res.payload.gender_age[i][1]);
@@ -203,10 +186,13 @@ function DetailPage() {
       dispatch(detail(toonId)).then((res) => {
         if (res.payload.gender_age.length !== 0) {
           let tempLabel = [];
+          let tempColor = [];
           for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempLabel.push(res.payload.gender_age[i][0].substr(0, 2) + "대" + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+            tempLabel.push((res.payload.gender_age[i][0].substr(0, 2) === "00" ? "10대 미만" : res.payload.gender_age[i][0].substr(0, 2) + "대") + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
+            tempColor.push(res.payload.gender_age[i][0].substr(-1) === 'F' ? femaleColor[femaleIndex++] : maleColor[maleIndex++]);
           }
           setAgeGroupLabel(tempLabel);
+          setAgeGroupColor(tempColor);
           let tempData = [];
           for (let i = 0; i < res.payload.gender_age.length; i++) {
             tempData.push(res.payload.gender_age[i][1]);
@@ -439,19 +425,13 @@ function DetailPage() {
         type: "pie",
         label: "이 웹툰을 좋아하는 연령대",
         fill: true,
-        backgroundColor: [
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-        ],
+        backgroundColor: ageGroupColor,
         borderColor: [
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 99, 132, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white"
         ],
         pointBorderColor: "#fff",
         pointBackgroundColor: "rgba(179,181,198,1)",
