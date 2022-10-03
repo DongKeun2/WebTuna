@@ -25,6 +25,7 @@ import Left from "../../src/assets/detail/Left.png";
 import Right from "../../src/assets/detail/Right.png";
 import Empty from "../../src/assets/tuntunEmpty.png";
 import { forbidden, hover } from "../assets/cursor/cursorItem";
+import "./DetailPage.css";
 
 function DetailPage() {
   let { toonId } = useParams();
@@ -171,6 +172,9 @@ function DetailPage() {
           slide = document.getElementById("slide");
           slide.style.left = "0vw";
           setCount(1);
+          if (document.getElementById("test") != null) {
+            document.getElementById("test").addEventListener("click", heartClickEffect);
+          };
         }, 100);
       });
     }
@@ -271,6 +275,9 @@ function DetailPage() {
       } else {
         dispatch(fetchInfo()).then(() => {
           console.log("하트 스위치~");
+          if (document.getElementById("test") != null) {
+            document.getElementById("test").addEventListener("click", heartClickEffect);
+          };
         });
       }
     });
@@ -363,6 +370,20 @@ function DetailPage() {
     });
     navigate("/login", { state: pathname });
   }
+
+  function heartClickEffect(e) {
+    console.log("이게 되나?");
+    let d = document.createElement("img");
+    d.src = FullHeart;
+    d.className = "heartClickEffect";
+    d.style.top = e.clientY + "px";
+    d.style.left = e.clientX + "px";
+    document.body.appendChild(d);
+    d.addEventListener("animationend", function () {
+      d.parentElement.removeChild(d);
+    });
+  }
+
 
   useEffect(() => {
     dispatch(changeCurrentpage(""));
@@ -583,6 +604,7 @@ function DetailPage() {
                       src={EmptyHeart}
                       alt="노찜"
                       onClick={heartClick}
+                      id="test"
                     ></EHeart>
                   )}
                   <LinkButton onClick={logAndLink}>웹툰 보러가기</LinkButton>

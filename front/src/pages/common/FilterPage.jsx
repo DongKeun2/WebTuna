@@ -23,12 +23,16 @@ import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import { getTags } from "../../features/toons/searchSlice";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f8cfcbc (feat: 필터에 태그 추가)
 =======
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
 >>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
 =======
 >>>>>>> ec27d10 (fix: 하단 Navbar 가운데 추천 버튼 수정)
+=======
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
+>>>>>>> 34fd34e (feat: 웹툰 찜 클릭시 간단한  애니메이션)
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ModalFrame from "../../components/common/ModalFrame";

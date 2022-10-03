@@ -1,0 +1,24 @@
+img.heartClickEffect {
+    position: fixed;
+    box-sizing: border-box;
+    width: 10vw;
+    height: 10vw;
+    animation: heartClickEffect 0.5s ease-out;
+    z-index: 99999;
+}
+
+@keyframes heartClickEffect {
+    0% {
+        opacity: 1;
+        width: 0.5vw;
+        height: 0.5vw;
+        margin: -0.25vw;
+        border-width: 0.5vw;
+    }
+
+    100% {
+        opacity: 0.2;
+        margin: -5vw;
+        border-width: 0.03vw;
+    }
+}

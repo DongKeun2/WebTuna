@@ -53,7 +53,7 @@ function App() {
   }
 
   function clickEffect(e) {
-    var d = document.createElement("div");
+    let d = document.createElement("div");
     d.className = "clickEffect";
     d.style.top = e.clientY + "px";
     d.style.left = e.clientX + "px";
