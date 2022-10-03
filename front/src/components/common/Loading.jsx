@@ -27,10 +27,12 @@ const LoadingBox = styled.div`
 const LoadingMsg = styled.p`
   position: absolute;
   top: 60%;
-  left: 35%;
+  left: 40%;
   font-size: 3vw;
   font-weight: bold;
   @media screen and (max-width: 600px) {
+    top: 70%;
+  left: 33%;
     font-size: 25px;
   }
 `;

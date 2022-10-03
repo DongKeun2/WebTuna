@@ -22,12 +22,15 @@ import {
 <<<<<<< HEAD
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
 >>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
 =======
 >>>>>>> ec27d10 (fix: 하단 Navbar 가운데 추천 버튼 수정)
+=======
+>>>>>>> 6140013 (fix: QA 웹툰 잡아오는 중 가운데로 (미디어 쿼리는 적용 X),)
 import { getTags } from "../../features/toons/searchSlice";
 >>>>>>> f8cfcbc (feat: 필터에 태그 추가)
 import styled from "styled-components";

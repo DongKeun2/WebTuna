@@ -93,8 +93,7 @@ function Avatar() {
           <MenuItem
             onClick={() => {
               MySwal.fire({
-                title: "로그아웃 하쉴?",
-                text: "정말로?",
+                title: "로그아웃 하시겠습니까?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#feec91",

@@ -15,8 +15,11 @@ import {
 <<<<<<< HEAD
 } from "../../features/toons/filterSlice";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
 =======
+=======
+>>>>>>> 6140013 (fix: QA 웹툰 잡아오는 중 가운데로 (미디어 쿼리는 적용 X),)
 import { getTags } from "../../features/toons/searchSlice";
 <<<<<<< HEAD
 <<<<<<< HEAD
