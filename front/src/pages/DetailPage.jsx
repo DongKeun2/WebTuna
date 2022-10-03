@@ -372,7 +372,6 @@ function DetailPage() {
   }
 
   function heartClickEffect(e) {
-    console.log("이게 되나?");
     let d = document.createElement("img");
     d.src = FullHeart;
     d.className = "heartClickEffect";
