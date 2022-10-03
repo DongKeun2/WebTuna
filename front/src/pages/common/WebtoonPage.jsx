@@ -19,8 +19,12 @@ import {
 <<<<<<< HEAD
 } from "../../features/toons/filterSlice";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
 =======
+=======
+import { changeCurrentpage } from "../../features/toons/navBarSlice";
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
 import { getTags } from "../../features/toons/searchSlice";
 >>>>>>> f8cfcbc (feat: 필터에 태그 추가)
 import styled from "styled-components";

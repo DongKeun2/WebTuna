@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +12,9 @@ import { useState } from "react";
 =======
 import { useEffect, useState } from "react";
 >>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
+=======
+import { useEffect, useState } from "react";
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -70,16 +74,22 @@ function UploadPage() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [fileImage, setFileImage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 =======
 =======
 =======
+=======
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
   useEffect(() => {
     dispatch(changeCurrentpage("upload"));
   }, [dispatch]);
 
+<<<<<<< HEAD
 >>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
+=======
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
   const { pathname } = useLocation();
 
 >>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)

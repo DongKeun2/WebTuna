@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Home from '../../assets/navbar/Home.png'
@@ -20,6 +21,13 @@ import {
   changeCurrentpage
 } from "../../features/toons/navBarSlice";
 >>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
+=======
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  changeCurrentpage
+} from "../../features/toons/navBarSlice";
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
 import styled from "styled-components";
 import Tooltip from "@mui/material/Tooltip";
 import Home from "../../assets/navbar/Home.png";
@@ -96,6 +104,28 @@ const Item = styled.div`
   margin: 3px 0;
   border-radius: 30px;
   font-weight: 500;
+<<<<<<< HEAD
+=======
+  @media screen and (min-width: 750px) {
+    width: 150px;
+  }
+  @media screen and (max-width: 750px) {
+    border-radius: 10px;
+  }
+  height: 100%;
+  cursor: url(${hover}) 13 13, auto; 
+`;
+
+const ActiveItem = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2px 5px;
+  margin: 3px 0;
+  border-radius: 30px;
+  font-weight: 600;
+  background-color: #fddc35;
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
   @media screen and (min-width: 750px) {
     width: 150px;
   }
@@ -131,6 +161,7 @@ const Toontoon = styled.div`
   left: 50%;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   margin-left: -50px;
 <<<<<<< HEAD
 =======
@@ -145,6 +176,10 @@ const Toontoon = styled.div`
   margin-left: -37.5px;
   bottom: 8px;
 >>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
+=======
+  margin-left: -37.5px;
+  bottom: 8px;
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
   box-shadow: 4px 4px;
   border-radius: 100%;
   background-color: white;
@@ -223,6 +258,7 @@ function NavBar() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <LeftItem>
           <Link to="/" style={{ textDecoration: 'none' }}>
             <div>
@@ -298,6 +334,8 @@ function NavBar() {
         </RightGroup>
 >>>>>>> 3be130a (fix: NavBar 반응형 수정)
 =======
+=======
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
         <ItemGroup>
           {currentpage === "main" ? (
             <ActiveItem onClick={moveMain}>
@@ -351,7 +389,10 @@ function NavBar() {
             </Item>
           )}
         </ItemGroup>
+<<<<<<< HEAD
 >>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
+=======
+>>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
       </Items>
     </Nav>
   )
