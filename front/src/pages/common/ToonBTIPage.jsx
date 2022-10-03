@@ -54,13 +54,14 @@ function ToonBTIPage() {
         return (
           <PageBox>
             <ToonBox>
-              <ToonBTITItle>ToonBTI</ToonBTITItle>
+              <ToonBTITitleBox>
+                <ToonBTITItle>너에게 어울리는</ToonBTITItle>
+                <ToonBTITItle>웹툰을 추천해줄게!</ToonBTITItle>
+              </ToonBTITitleBox>
               <StartImgBox>
                 <TunImg src={talkToon} alt="tuntun_img" />
               </StartImgBox>
-              <OuterBtn onClick={onNext} active={true}>
-                <SelectBtn active={true}>시작하기</SelectBtn>
-              </OuterBtn>
+              <StartBtn onClick={onNext}>시작하기</StartBtn>
             </ToonBox>
           </PageBox>
         );
@@ -104,6 +105,130 @@ function ToonBTIPage() {
   return <div>{startToonBTI()}</div>;
 }
 
+const PageBox = styled.div`
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1vw 0;
+  border: solid 2px;
+  border-radius: 1rem;
+  background-color: white;
+`;
+
+const ToonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 73vh;
+  @media screen and (min-width: 1100px) {
+    min-height: 68vh;
+  }
+  padding-top: 3vw;
+  padding-bottom: 80px;
+  @media screen and (max-width: 750px) {
+    padding-top: 20px;
+    padding-bottom: 90px;
+  }
+  border: solid 2px;
+  border-radius: 0.8rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #fff5c3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ToonBTITitleBox = styled.div`
+  position: relative;
+  min-height: 50px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+  padding: 0.5vw 2vw;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  @media screen and (max-width: 750px) {
+    flex-direction: column;
+    padding: 10px 24px;
+    gap: 0;
+  }
+  :after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 27px solid transparent;
+    border-top-color: white;
+    border-bottom: 0;
+    margin-left: -13.3px;
+    margin-bottom: -27px;
+  }
+  :before {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 28px solid transparent;
+    border-top-color: black;
+    border-bottom: 0;
+    margin-left: -14px;
+    margin-bottom: -29.5px;
+  }
+`;
+
+const ToonBTITItle = styled.p`
+  font-size: 1.6vw;
+  font-weight: 700;
+  @media screen and (max-width: 750px) {
+    font-size: 16px;
+    line-height: 0;
+  }
+`;
+
+const StartImgBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  height: 20vh;
+  min-width: 320px;
+  min-height: 320px;
+  overflow: hidden;
+`;
+
+const TunImg = styled.img`
+  width: 315px;
+  height: 315px;
+  object-fit: fill;
+`;
+
+const StartBtn = styled.button`
+  background-color: #feec91;
+  font-size: 1.2vw;
+  font-weight: 700;
+  padding: 15px 30px;
+  border-radius: 12px;
+  border: 6px solid white;
+  margin-top: 20px;
+  width: "50px";
+  height: "30px";
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+  }
+`;
+
+/////////////////////////////////
+
 const ToonBTIBox = styled.div`
   display: flex;
   justify-content: center;
@@ -120,66 +245,6 @@ const Body = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-`;
-
-const StartImgBox = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 20vw;
-  height: 20vh;
-  min-width: 320px;
-  min-height: 320px;
-  overflow: hidden;
-`;
-
-const TunImg = styled.img`
-  width: 315px;
-  height: 315px;
-  object-fit: fill;
-  margin-left: 1vw;
-`;
-
-const ToonBTITItle = styled.p`
-  margin-top: 2vw;
-  font-size: 2.5vw;
-  font-weight: 700;
-  @media screen and (max-width: 1200px) {
-    font-size: 3.5vw;
-  }
-  @media screen and (max-width: 750px) {
-    margin-top: 20px;
-    font-size: 4vw;
-    line-height: 0;
-  }
-`;
-
-const PageBox = styled.div`
-  width: 92%;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1vw 0;
-  border: solid 2px;
-  border-radius: 1rem;
-  background-color: white;
-`;
-
-const ToonBox = styled.div`
-  width: 96%;
-  height: 96%;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 73vh;
-  @media screen and (min-width: 1100px) {
-    min-height: 80vh;
-  }
-  border: solid 2px;
-  border-radius: 0.8rem;
-  background-color: #fff5c3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const TalkImgBox = styled.div`
