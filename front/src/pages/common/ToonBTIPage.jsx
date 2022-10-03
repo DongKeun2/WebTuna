@@ -127,7 +127,7 @@ const ToonBox = styled.div`
     min-height: 68vh;
   }
   padding-top: 3vw;
-  padding-bottom: 80px;
+  padding-bottom: 70px;
   @media screen and (max-width: 750px) {
     padding-top: 20px;
     padding-bottom: 90px;
@@ -187,7 +187,7 @@ const ToonBTITitleBox = styled.div`
 `;
 
 const ToonBTITItle = styled.p`
-  font-size: 1.6vw;
+  font-size: 1.5vw;
   font-weight: 700;
   @media screen and (max-width: 750px) {
     font-size: 16px;
@@ -226,8 +226,6 @@ const StartBtn = styled.button`
     font-size: 12px;
   }
 `;
-
-/////////////////////////////////
 
 const ToonBTIBox = styled.div`
   display: flex;
@@ -341,7 +339,7 @@ function ToonBTIResult({ setPage }) {
   return (
     <PageBox>
       <ToonBox>
-        <ToonBTITItle>ToonBTI</ToonBTITItle>
+        <ResultHeader>이런 웹툰은 어때요?</ResultHeader>
         <ResultBox>
           <TitleBox>
             <ResultSummary>{summary}</ResultSummary>
@@ -373,12 +371,21 @@ function ToonBTIResult({ setPage }) {
   );
 }
 
-const ResultBox = styled.div`
-  width: 60%;
-  height: 100%;
-  @media screen and (max-width: 1000px) {
-    width: 80%;
+const ResultHeader = styled.p`
+  margin-top: 0;
+  margin-bottom: 3vw;
+  font-size: 1.6vw;
+  font-weight: 700;
+  @media screen and (max-width: 750px) {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
+`;
+
+const ResultBox = styled.div`
+  width: 90%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -414,19 +421,19 @@ const TitleBox = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 750px) {
-    margin-top: 20px;
     gap: 10px;
   }
 `;
 
 const ResultTitle = styled.p`
-  padding: 1vw 0;
+  padding: 2vw 0;
+  padding-bottom: 1vw;
   text-align: center;
   font-size: 1.3vw;
   font-weight: 600;
   margin: 0;
   @media screen and (max-width: 750px) {
-    font-size: 2vw;
+    font-size: 16px;
   }
 `;
 
@@ -434,33 +441,42 @@ const ResultSummary = styled.div`
   font-size: 2vw;
   padding: 5px 8px;
   text-overflow: ellipsis;
+  @media screen and (max-width: 750px) {
+    font-size: 20px;
+  }
 `;
 
 const BtnGroup = styled.div`
-  width: 100%;
-  padding: 3vh;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 3vw;
+  margin-top: 2.5vw;
+  margin-bottom: 10px;
   @media screen and (max-width: 750px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1vh;
+    width: 60%;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 40px;
   }
 `;
 
 const ResultBtn = styled.button`
-  height: 80px;
   width: 40%;
-  padding: 5px 0;
+  @media screen and (max-width: 1100px) {
+    width: 48%;
+  }
+  padding: 10px 0;
+  @media screen and (max-width: 750px) {
+    padding: 5px 0;
+  }
   background-color: #feec91;
   font-size: 0.8vw;
   font-weight: 700;
   border-radius: 12px;
   border: 6px solid white;
-  @media screen and (max-width: 750px) {
-    height: 50px;
-  }
 `;
 
 const FlexBox = styled.div`
