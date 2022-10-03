@@ -13,12 +13,16 @@ import {
   changePlatform,
   changeDay,
   changeGenre,
-  //   changeTag,
+  changeTag,
   changeIsLoad,
   changePossibleFetch,
 <<<<<<< HEAD
 } from "../../features/toons/filterSlice";
+<<<<<<< HEAD
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
+=======
+import { getTags } from "../../features/toons/searchSlice";
+>>>>>>> f8cfcbc (feat: 필터에 태그 추가)
 import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ModalFrame from "../../components/common/ModalFrame";
@@ -74,6 +78,18 @@ function WebtoonPage() {
   const [fetching, setFetching] = useState(false);
   const fetchPossible = useSelector((state) => state.toonlist.fetchPossible);
   const page = useSelector((state) => state.toonlist.page);
+  const [allTags, setAllTags] = useState();
+  const [noPickTags, setNoPickTags] = useState();
+  const [searchedTags, setSearchedTags] = useState([]);
+  const [searchWord, setSearchWord] = useState("");
+
+  useEffect(() => {
+    dispatch(getTags()).then((res) => {
+      console.log(res.payload);
+      setAllTags(res.payload);
+      setNoPickTags(res.payload);
+    });
+  }, [])
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -116,9 +132,9 @@ function WebtoonPage() {
   const platformList = useSelector((state) => state.filter.filterInfo.platform);
   const dayList = useSelector((state) => state.filter.filterInfo.day);
   const genreList = useSelector((state) => state.filter.filterInfo.genre);
-  // const tagList = useSelector((state) => state.filter.filterInfo.tag);
+  const tagList = useSelector((state) => state.filter.filterInfo.tag);
 
-  const clickedNum = platformList.length + dayList.length + genreList.length;
+  const clickedNum = platformList.length + dayList.length + genreList.length + tagList.length;
 
   function changePlatformList(e) {
     dispatch(changePlatform(Number(e.target.value)));
@@ -132,9 +148,19 @@ function WebtoonPage() {
     dispatch(changeGenre(Number(e.target.value)));
   }
 
-  // function changeTagList(e) {
-  //   dispatch(changeTag(Number(e.target.value)));
-  // }
+  function AddTagList(e) {
+    let tempNoPickTags = noPickTags.filter((tag) => tag.tag_id !== Number(e.target.value));
+    setNoPickTags(tempNoPickTags);
+    dispatch(changeTag(Number(e.target.value)));
+    setSearchWord("");
+  }
+
+  function RemoveTagList(e) {
+    let tempNoPickTags = [...noPickTags, allTags[e.target.value - 1]];
+    setNoPickTags(tempNoPickTags);
+    dispatch(changeTag(Number(e.target.value)));
+    setSearchWord("");
+  }
 
   function submitFilter() {
     const data = {
@@ -149,6 +175,16 @@ function WebtoonPage() {
       navigate(`/filter`);
       window.scrollTo(0, 0);
     });
+  }
+
+  function search(e) {
+    setSearchWord(e.target.value);
+    console.log(e.target.value);
+    let tempFilteredTags = [];
+    tempFilteredTags = noPickTags.filter((allTag) =>
+      allTag.name.includes(e.target.value)
+    );
+    setSearchedTags(tempFilteredTags);
   }
 
   return (
@@ -365,7 +401,14 @@ function WebtoonPage() {
                     </GenreGroup>
                   </GenreBox>
                   <TagBox>
-                    <GroupHeader>태그</GroupHeader>
+                    <GroupHeader>태그<TagSaerchBar placeholder="추가히실 태그를 입력해주세요" onChange={search} value={searchWord}></TagSaerchBar></GroupHeader>
+                    <PickTagGroup>{tagList.length === 0 ? <EmptyTag>선택된 태그가 없습니다</EmptyTag> : tagList.map((tag) => <PickTagBtn key={tag} onClick={RemoveTagList} value={tag}>{allTags[tag - 1].name}</PickTagBtn>)}</PickTagGroup>
+                    <SearchTagGroup>{searchWord === "" ? null : searchedTags.map((searchTag) =>
+                      <TagBtn
+                        key={searchTag.tag_id}
+                        onClick={AddTagList}
+                        value={searchTag.tag_id}
+                      >{searchTag.name}</TagBtn>)}</SearchTagGroup>
                   </TagBox>
                 </FilterBox>
                 <ImgBox>
@@ -603,6 +646,74 @@ const GroupHeader = styled.p`
   font-weight: 600;
   border-bottom: 1px solid;
 `;
+
+const TagSaerchBar = styled.input`
+  margin-top:1vw;
+  width: 10vw;
+  border-radius: 0.2vw;
+  float: right;
+`
+
+const PickTagGroup = styled.div`
+  width: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+  border-bottom: 1px solid;
+`
+
+const EmptyTag = styled.div`
+  font-size:0.8vw;
+`
+
+const PickTagBtn = styled.button`
+  background-color: #D1E2FF;
+  width: 19%;
+  margin-bottom: 0.5vw;
+  margin-right:0.3vw;
+  padding: 0.4vw 0;
+  font-size: 11px;
+  text-align: center;
+  border: 1px solid #d1e2ff;
+  border-radius: 0.3vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    padding: 0.5vw 0;
+    margin-bottom: 8px;
+    border-radius: 5px;
+  }
+  `;
+
+const SearchTagGroup = styled.div`
+  width: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+  `;
+
+const TagBtn = styled.button`
+  background-color: white;
+  width: 19%;
+  margin-bottom: 0.5vw;
+  margin-right:0.3vw;
+  padding: 0.4vw 0;
+  font-size: 11px;
+  text-align: center;
+  border: 1px solid #d1e2ff;
+  border-radius: 0.3vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    padding: 0.5vw 0;
+    margin-bottom: 8px;
+    border-radius: 5px;
+  }
+`
 
 const ImgBox = styled.div`
   @media screen and (max-width: 750px) {
