@@ -51,45 +51,59 @@ function AudioBar() {
 }
 
 const AudioBox = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   background-color: white;
-  width: 5vw;
-  height: 2vw;
-  border: 0.1vw solid black;
-  border-radius: 1vw;
-  margin-left: 75vw;
+  width: 70px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 30px;
 `;
 
-const ResetButton = styled.div`
+const ResetButton = styled.button`
+  width: 20px;
+  height: 24px;
+  padding: 0;
+  margin-bottom: 5px;
+  border: 0;
+  background-color: white;
+  font-size: 20px;
   cursor: url(${hover}) 13 13, auto;
-  margin-top: 0.5vw;
-  font-size: 1vw;
 `;
 
-const StopButton = styled.div`
+const StopButton = styled.button`
+  width: 20px;
+  height: 24px;
+  padding: 0;
+  margin-bottom: 5px;
+  border: 0;
+  background-color: white;
+  font-size: 18.5px;
   cursor: url(${hover}) 13 13, auto;
-  margin-top: 0.2vw;
-  margin-left: 0.15vw;
-  font-size: 1vw;
 `;
 
-const PlayButton = styled.div`
+const PlayButton = styled.button`
+  width: 20px;
+  height: 24px;
+  padding: 0;
+  margin-bottom: 5px;
+  border: 0;
+  background-color: white;
+  font-size: 16px;
   cursor: url(${hover}) 13 13, auto;
-  margin-top: 0.5vw;
-  font-size: 1vw;
 `;
 
 const SourceBox = styled.div`
   display: ${(props) => props.data};
   position: absolute;
-  padding: 0.3vw;
-  border-radius: 0.3vw;
+  padding: 6px;
+  border-radius: 8px;
   background-color: #4f4f4fb4;
   color: white;
-  margin-top: 2.5vw;
-  font-size: 0.6vw;
+  margin-top: 90px;
+  font-size: 10px;
   z-index: 1;
   transition: 0.3s;
 `;

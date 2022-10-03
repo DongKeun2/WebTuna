@@ -125,9 +125,9 @@ function Avatar() {
 }
 
 const ImgBox = styled.div`
-  width: 70px;
-  height: 70px;
-  border-radius: 70%;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
   overflow: hidden;
 `;
 

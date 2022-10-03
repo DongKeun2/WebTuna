@@ -2,10 +2,11 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import AccountMenu from "./AccountMenu";
 import SearchBar from "./SearchBar";
+import AudioBar from "./AudioBar";
+import HamMenu from "./HamMenu";
 import logo from "./../../assets/logo/logo2.png";
 import { useNavigate } from "react-router-dom";
 import { hover } from "../../assets/cursor/cursorItem";
-import AudioBar from "./AudioBar";
 
 function HeaderBar() {
   const navigate = useNavigate();
@@ -18,8 +19,15 @@ function HeaderBar() {
         <LogoImg src={logo} alt="logo_img" />
       </LogoBox>
       {isPossible && <SearchBar></SearchBar>}
-      <AudioBar></AudioBar>
-      <AccountMenu></AccountMenu>
+      <RightBox>
+        <AudioBar></AudioBar>
+        <AccountMenuBox>
+          <AccountMenu></AccountMenu>
+        </AccountMenuBox>
+        <HamBox>
+          <HamMenu></HamMenu>
+        </HamBox>
+      </RightBox>
     </HeaderSt>
   );
 }
@@ -32,12 +40,20 @@ const HeaderSt = styled.div`
 `;
 
 const LogoBox = styled.div`
-  width: 10vw;
-  min-width: 100px;
+  width: 140px;
+  @media screen and (max-width: 750px) {
+    width: 100px;
+  }
   height: auto;
   :hover {
     cursor: url(${hover}) 13 13, auto;
   }
+`;
+
+const RightBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const LogoImg = styled.img`
@@ -45,4 +61,15 @@ const LogoImg = styled.img`
   height: 100%;
 `;
 
+const AccountMenuBox = styled.div`
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
+`;
+
+const HamBox = styled.div`
+  @media screen and (min-width: 750px) {
+    display: none;
+  }
+`;
 export default HeaderBar;

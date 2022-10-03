@@ -24,6 +24,8 @@ function AccountMenu() {
 }
 
 const AccountBox = styled.div`
+  margin-left: 20px;
+  margin-right: 10px;
   display: flex;
   font-weight: bold;
   text-decoration: none;
