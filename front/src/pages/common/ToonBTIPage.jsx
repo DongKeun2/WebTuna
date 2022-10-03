@@ -46,6 +46,7 @@ function ToonBTIPage() {
     const newAnswer = [...answerList, answer];
     dispatch(addAnswer(newAnswer));
     onNext(newAnswer);
+    window.scrollTo(0, 0);
   }
 
   function startToonBTI() {
@@ -75,6 +76,9 @@ function ToonBTIPage() {
           <PageBox>
             <ToonBox>
               <ToonBTIBox>
+                <MArrowBox>
+                  <QuestionTitle>{questionItem.question}</QuestionTitle>
+                </MArrowBox>
                 <TalkImgBox>
                   <TalkImg src={talkToon} alt="thumbnail_image" />
                 </TalkImgBox>
@@ -122,9 +126,9 @@ const ToonBox = styled.div`
   width: 96%;
   margin-left: auto;
   margin-right: auto;
-  min-height: 73vh;
+  min-height: 75vh;
   @media screen and (min-width: 1100px) {
-    min-height: 68vh;
+    min-height: 73vh;
   }
   padding-top: 3vw;
   padding-bottom: 70px;
@@ -231,7 +235,7 @@ const ToonBTIBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: 800px) {
     flex-direction: column;
   }
 `;
@@ -239,19 +243,18 @@ const ToonBTIBox = styled.div`
 const Body = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+  @media screen and (max-width: 800px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const TalkImgBox = styled.div`
   width: 30vw;
-  min-width: 100px;
+  min-width: 240px;
   height: auto;
-  @media screen and (max-width: 1100px) {
-    width: 25vw;
-  }
 `;
 
 const TalkImg = styled.img`
@@ -262,9 +265,10 @@ const TalkImg = styled.img`
 
 const ArrowBox = styled.div`
   position: relative;
-  padding: 0px 50px;
-  height: 8vh;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  width: 80%;
+  padding: 10px 30px;
   background: #ffffff;
   border: 3px solid black;
   border-radius: 10px;
@@ -296,16 +300,58 @@ const ArrowBox = styled.div`
     border-width: 20px;
     margin-top: -20px;
   }
-  @media screen and (max-width: 750px) {
-    height: 6vh;
+  @media screen and (max-width: 800px) {
+    display: none;
   }
 `;
 
+const MArrowBox = styled.div`
+  position: relative;
+  width: 90%;
+  border: 3px solid black;
+  border-radius: 10px;
+  background-color: white;
+  padding: 8px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  :after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 27px solid transparent;
+    border-top-color: white;
+    border-bottom: 0;
+    margin-left: -13.3px;
+    margin-bottom: -27px;
+  }
+  :before {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 28px solid transparent;
+    border-top-color: black;
+    border-bottom: 0;
+    margin-left: -14px;
+    margin-bottom: -29.5px;
+  }
+  @media screen and (min-width: 800px) {
+    display: none;
+  }
+`;
+
+
 const QuestionTitle = styled.p`
   position: relative;
-  font-size: 2vh;
-  @media screen and (max-width: 750px) {
-    font-size: 1.8vh;
+  font-size: 1.5vw;
+  @media screen and (max-width: 800px) {
+    font-size: 16px;
   }
 `;
 

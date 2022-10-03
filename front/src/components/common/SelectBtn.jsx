@@ -6,6 +6,8 @@ const OuterBtn = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 3vh;
+  margin-left: auto;
+  margin-right: auto;
   width: 400px;
   height: 100px;
   border: 1px solid white;
