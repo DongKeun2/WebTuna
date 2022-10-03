@@ -21,7 +21,7 @@ function ToonToonPage() {
   const [isLoading, setIsLoading] = useState(true);
   const toons = useSelector((state) => state.tuntun.tuntun);
   useEffect(() => {
-    dispatch(changeCurrentpage(""));
+    dispatch(changeCurrentpage("myeong"));
     if (!sessionStorage.getItem("token")) {
       MySwal.fire({
         title: "로그인 후 이용해주세요.",

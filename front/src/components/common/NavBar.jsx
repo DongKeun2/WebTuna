@@ -175,12 +175,30 @@ const Toontoon = styled.div`
 =======
   margin-left: -37.5px;
   bottom: 8px;
+<<<<<<< HEAD
 >>>>>>> d09e4a4 (fix: 하단 NavBar UI 수정 완료 (페이지마다 버튼 활성화 포함))
 =======
   margin-left: -37.5px;
   bottom: 8px;
 >>>>>>> add08c0 (feat: 깃 풀 오리진 프론트)
   box-shadow: 4px 4px;
+=======
+  box-shadow: 1px 5px 2px rgba(0,0,0,0.5);
+  border: 4px black double;
+  border-radius: 100%;
+  background-color: white;
+  overflow: hidden;
+  cursor: url(${hover}) 13 13, auto;
+`;
+
+const ActiveToon = styled.div`
+  position: absolute;
+  left: 50%;
+  margin-left: -37.5px;
+  bottom: 8px;
+  box-shadow: 1px 5px 2px rgba(0,0,0,0.5);
+  border: 4px #fddc35 double;
+>>>>>>> ec27d10 (fix: 하단 Navbar 가운데 추천 버튼 수정)
   border-radius: 100%;
   background-color: white;
 >>>>>>> eece598 (feat: NavBar 반응형 UI)
@@ -236,7 +254,7 @@ function NavBar() {
   function moveToontoon() {
     sessionStorage.setItem("url", `/toontoon`);
     navigate(`/toontoon`);
-    dispatch(changeCurrentpage(""))
+    dispatch(changeCurrentpage("myeong"))
     window.scrollTo(0, 0);
   }
 
@@ -360,10 +378,16 @@ function NavBar() {
             </Item>
           )}
         </ItemGroup>
-        <Tooltip title={`툰툰이의 추천 받기`} placement="right-start" arrow>
-          <Toontoon onClick={moveToontoon}>
-            <ToonImg src={ToonToonRecommend} alt="툰툰추천" />
-          </Toontoon>
+        <Tooltip title={`툰툰이의 추천 받아볼래?`} placement="top" arrow>
+          {currentpage === "myeong" ? (
+            <ActiveToon onClick={moveToontoon}>
+              <ToonImg src={ToonToonRecommend} alt="툰툰추천" />
+            </ActiveToon>
+          ) : (
+            <Toontoon onClick={moveToontoon}>
+              <ToonImg src={ToonToonRecommend} alt="툰툰추천" />
+            </Toontoon>
+          )}
         </Tooltip>
         <ItemGroup>
           {currentpage === "upload" ? (
