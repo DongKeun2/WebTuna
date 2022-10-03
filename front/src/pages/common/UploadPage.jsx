@@ -447,8 +447,8 @@ const PageBox = styled.div`
   @media screen and (min-width: 1100px) {
     min-height: 68vh;
   }
-  padding-top: 1vw;
-  padding-bottom: 100px;
+  padding-top: 3vw;
+  padding-bottom: 80px;
   @media screen and (max-width: 750px) {
     padding-top: 20px;
     padding-bottom: 90px;

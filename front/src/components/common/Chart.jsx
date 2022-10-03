@@ -9,9 +9,10 @@ const ChartShow = (props) => {
   const options = props.options;
 
   const width = data.width;
+  const mwidth = data.mwidth;
   const margintop = data.margintop;
   const marginleft = data.marginleft;
-  const size = { width, marginleft, margintop };
+  const size = { width, mwidth, marginleft, margintop };
 
   return (
     <Container data={size}>
@@ -28,4 +29,7 @@ const Container = styled.div`
   margin-left: ${(props) => props.data.marginleft}vw;
   margin-top: ${(props) => props.data.margintop}vw;
   width: ${(props) => props.data.width}vw;
+  @media screen and (max-width: 750px) {
+    width: ${(props) => props.data.mwidth}px;
+  }
 `;

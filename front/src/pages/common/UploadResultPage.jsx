@@ -44,8 +44,8 @@ function UploadResultPage() {
   const { state } = useLocation();
 
   const PaintStyleData = {
-    margintop: -3,
-    width: 25,
+    width: 20,
+    mwidth: 300,
     labels: [
       "동글납작",
       "반짝섬세",
@@ -105,40 +105,37 @@ function UploadResultPage() {
       <Container>
         <PageBox>
           <ResultHeader>분석 결과</ResultHeader>
-          
           <ResultBox>
             <ImgBox>
               <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />
             </ImgBox>
-            <RightBox>
-              <InfoBox>
-                <LeftBox>
-                  <ResultTitle>{toonInfo.title}</ResultTitle>
-                  <ResultSummary>{toonInfo.summary}</ResultSummary>
-                </LeftBox>
-                <ChartShow
-                  data={PaintStyleData}
-                  options={PaintStyleOptions}
-                ></ChartShow>
-              </InfoBox>
-              <BtnGroup>
-                <ResultBtn active={true} onClick={moveDetail}>
-                  상세 정보
-                </ResultBtn>
-                <ResultBtn
-                  active={true}
-                  onClick={() => {
-                    navigate("/upload");
-                  }}
-                >
-                  <FlexBox>
-                    <RestartAltIcon />
-                    <TextAgain>다시 하기</TextAgain>
-                  </FlexBox>
-                </ResultBtn>
-              </BtnGroup>
-            </RightBox>
+            <InfoBox>
+              <ResultTitle>{toonInfo.title}</ResultTitle>
+              <ResultSummary>{toonInfo.summary}</ResultSummary>
+            </InfoBox>
+            <ChartBox>
+              <ChartShow
+                data={PaintStyleData}
+                options={PaintStyleOptions}
+              ></ChartShow>
+            </ChartBox>
           </ResultBox>
+          <BtnGroup>
+            <ResultBtn active={true} onClick={moveDetail}>
+              상세 정보
+            </ResultBtn>
+            <ResultBtn
+              active={true}
+              onClick={() => {
+                navigate("/upload");
+              }}
+            >
+              <FlexBox>
+                <RestartAltIcon />
+                <TextAgain>다시 하기</TextAgain>
+              </FlexBox>
+            </ResultBtn>
+          </BtnGroup>
         </PageBox>
       </Container>
     );
@@ -157,9 +154,17 @@ const Container = styled.div`
 const PageBox = styled.div`
   width: 96%;
   min-height: 73vh;
+  @media screen and (min-width: 1100px) {
+    min-height: 68vh;
+  }
   margin-left: auto;
   margin-right: auto;
-  padding: 0.5vw;
+  padding-top: 2vw;
+  padding-bottom: 70px;
+  @media screen and (max-width: 800px) {
+    padding-top: 20px;
+    padding-bottom: 90px;
+  }
   border: solid 2px;
   border-radius: 0.8rem;
   background-color: #fff5c3;
@@ -179,12 +184,17 @@ const ResultHeader = styled.p`
 `;
 
 const ResultBox = styled.div`
-  width: 90%;
+  width: 80%;
+  @media screen and (max-width: 1100px) {
+    width: 90%;
+  }
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  @media screen and (max-width: 750px) {
+  gap: 2vw;
+  @media screen and (max-width: 800px) {
     flex-direction: column;
+    gap: 20px;
   }
   justify-content: space-between;
 `;
@@ -195,7 +205,9 @@ const ImgBox = styled.div`
   height: 20vw;
   min-width: 300px;
   min-height: 300px;
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 800px) {
+    width: 240px;
+    height: 240px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -210,35 +222,28 @@ const ToonImg = styled.img`
   height: 100%;
 `;
 
-const RightBox = styled.div`
+const InfoBox = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 3vw;
-  @media screen and (max-width: 750px) {
-    margin-left: 0;
-    margin-top: 20px;
+  align-items: center;
+  @media screen and (max-width: 800px) {
     gap: 10px;
   }
 `;
 
-const InfoBox = styled.div`
-  width: 100%;
+const ChartBox = styled.div`
   display: flex;
-  justify-content: space-between;
-`;
-
-const LeftBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ResultTitle = styled.p`
   font-size: 1.3vw;
   font-weight: 600;
   margin: 0;
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 800px) {
     font-size: 16px;
     text-align: center;
   }
@@ -246,14 +251,17 @@ const ResultTitle = styled.p`
 
 const ResultSummary = styled.div`
   font-size: 1vw;
-  width: 15vw;
-  height: 60%;
+  width: 80%;
+  height: 15vw;
+  @media screen and (max-width: 1200px) {
+    height: 240px;
+  }
   padding: 8px 10px;
   background-color: white;
   border: 2px solid;
   border-radius: 0.5vw;
   overflow: auto;
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 800px) {
     height: 80px;
     border-radius: 3px;
   }
@@ -271,13 +279,18 @@ const ResultSummary = styled.div`
 `;
 
 const BtnGroup = styled.div`
-  width: 100%;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
-  justify-content: space-between;
-  @media screen and (max-width: 750px) {
-    gap: 10px;
+  justify-content: center;
+  gap: 3vw;
+  margin-top: 3vw;
+  margin-bottom: 4vw;
+  @media screen and (max-width: 800px) {
+    gap: 20px;
     margin-top: 20px;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
   }
 `;
 
