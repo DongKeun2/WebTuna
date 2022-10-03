@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { hover } from "../../assets/cursor/cursorItem";
 
 function MoveTop() {
   function topMove() {
@@ -24,7 +25,6 @@ const TopBtn = styled.button`
   border-radius: 100%;
   color: #82adf8;
   background-color: white;
-  cursor: pointer;
 `
 
 export default MoveTop;
