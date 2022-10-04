@@ -12,6 +12,7 @@ function HeaderBar() {
   const navigate = useNavigate();
 
   const isPossible = useSelector((state) => state.search.possibleSearch);
+  const isAuthenticated = useSelector((state) => state.login.loginState);
 
   return (
     <HeaderSt>
@@ -21,12 +22,18 @@ function HeaderBar() {
       {isPossible && <SearchBar></SearchBar>}
       <RightBox>
         <AudioBar></AudioBar>
-        <AccountMenuBox>
+        {isAuthenticated ? (
           <AccountMenu></AccountMenu>
-        </AccountMenuBox>
-        <HamBox>
-          <HamMenu></HamMenu>
-        </HamBox>
+        ) : (
+          <>
+            <AccountMenuBox>
+              <AccountMenu></AccountMenu>
+            </AccountMenuBox>
+            <HamBox>
+              <HamMenu></HamMenu>
+            </HamBox>
+          </>
+        )}
       </RightBox>
     </HeaderSt>
   );
