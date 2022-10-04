@@ -37,6 +37,10 @@ import styled from "styled-components";
 import AllToonList from "../../components/toonlist/AllToonList";
 import ModalFrame from "../../components/common/ModalFrame";
 import ToonLoading from "../../components/toonlist/ToonLoading";
+<<<<<<< HEAD
+=======
+import MoveTop from "../../components/common/MoveTop";
+>>>>>>> b2ff74b (fix: 무한스크롤 수정)
 import Fish_0 from "../../assets/filter/fish0.png";
 import Fish_1 from "../../assets/filter/fish1.png";
 import Fish_2 from "../../assets/filter/fish2.png";
@@ -93,19 +97,20 @@ function FilterPage() {
     dispatch(getTags()).then((res) => {
       console.log(res.payload);
       setAllTags(res.payload);
-      let tempNoPickTags = res.payload.filter((tag) => !tagList.includes(tag.tag_id));
+      let tempNoPickTags = res.payload.filter(
+        (tag) => !tagList.includes(tag.tag_id)
+      );
       console.log(tempNoPickTags);
       setNoPickTags(tempNoPickTags);
-
     });
-  }, [])
+  }, []);
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
     if (
-      scrollTop + clientHeight >= scrollHeight &&
+      Math.ceil(scrollTop + clientHeight) >= scrollHeight &&
       !fetching &&
       possibleFetch
     ) {
@@ -145,7 +150,8 @@ function FilterPage() {
   const genreList = useSelector((state) => state.filter.filterInfo.genre);
   const tagList = useSelector((state) => state.filter.filterInfo.tag);
 
-  const clickedNum = platformList.length + dayList.length + genreList.length + tagList.length;
+  const clickedNum =
+    platformList.length + dayList.length + genreList.length + tagList.length;
 
   function changePlatformList(e) {
     dispatch(changePlatform(Number(e.target.value)));
@@ -160,7 +166,9 @@ function FilterPage() {
   }
 
   function AddTagList(e) {
-    let tempNoPickTags = noPickTags.filter((tag) => tag.tag_id !== Number(e.target.value));
+    let tempNoPickTags = noPickTags.filter(
+      (tag) => tag.tag_id !== Number(e.target.value)
+    );
     setNoPickTags(tempNoPickTags);
     dispatch(changeTag(Number(e.target.value)));
     setSearchWord("");
@@ -195,9 +203,13 @@ function FilterPage() {
       dispatch(changeIsLoad(false));
       navigate(`/filter`);
 <<<<<<< HEAD
+<<<<<<< HEAD
       switchModal();
 =======
       switchModal()
+=======
+      switchModal();
+>>>>>>> b2ff74b (fix: 무한스크롤 수정)
       dispatch(changePage(1));
 >>>>>>> 7a1ab19 (fix: 필터 재설정 후 페이지 변수 초기화 안되는 것 수정)
       window.scrollTo(0, 0);
@@ -418,14 +430,42 @@ function FilterPage() {
                     </GenreGroup>
                   </GenreBox>
                   <TagBox>
-                    <GroupHeader>태그<TagSaerchBar placeholder="추가히실 태그를 입력해주세요" onChange={search} value={searchWord}></TagSaerchBar></GroupHeader>
-                    <PickTagGroup>{tagList.length === 0 ? <EmptyTag>선택된 태그가 없습니다</EmptyTag> : tagList.map((tag) => <PickTagBtn key={tag} onClick={RemoveTagList} value={tag}>{allTags[tag - 1].name}</PickTagBtn>)}</PickTagGroup>
-                    <SearchTagGroup>{searchWord === "" ? null : searchedTags.map((searchTag) =>
-                      <TagBtn
-                        key={searchTag.tag_id}
-                        onClick={AddTagList}
-                        value={searchTag.tag_id}
-                      >{searchTag.name}</TagBtn>)}</SearchTagGroup>
+                    <GroupHeader>
+                      태그
+                      <TagSaerchBar
+                        placeholder="추가히실 태그를 입력해주세요"
+                        onChange={search}
+                        value={searchWord}
+                      ></TagSaerchBar>
+                    </GroupHeader>
+                    <PickTagGroup>
+                      {tagList.length === 0 ? (
+                        <EmptyTag>선택된 태그가 없습니다</EmptyTag>
+                      ) : (
+                        tagList.map((tag) => (
+                          <PickTagBtn
+                            key={tag}
+                            onClick={RemoveTagList}
+                            value={tag}
+                          >
+                            {allTags[tag - 1].name}
+                          </PickTagBtn>
+                        ))
+                      )}
+                    </PickTagGroup>
+                    <SearchTagGroup>
+                      {searchWord === ""
+                        ? null
+                        : searchedTags.map((searchTag) => (
+                            <TagBtn
+                              key={searchTag.tag_id}
+                              onClick={AddTagList}
+                              value={searchTag.tag_id}
+                            >
+                              {searchTag.name}
+                            </TagBtn>
+                          ))}
+                    </SearchTagGroup>
                   </TagBox>
                 </FilterBox>
                 <ImgBox>
@@ -668,11 +708,11 @@ const GroupHeader = styled.p`
 `;
 
 const TagSaerchBar = styled.input`
-  margin-top:1vw;
+  margin-top: 1vw;
   width: 10vw;
   border-radius: 0.2vw;
   float: right;
-`
+`;
 
 const PickTagGroup = styled.div`
   width: 100%;
@@ -680,17 +720,17 @@ const PickTagGroup = styled.div`
   /* justify-content: space-between; */
   flex-wrap: wrap;
   border-bottom: 1px solid;
-`
+`;
 
 const EmptyTag = styled.div`
-  font-size:0.8vw;
-`
+  font-size: 0.8vw;
+`;
 
 const PickTagBtn = styled.button`
-  background-color: #D1E2FF;
+  background-color: #d1e2ff;
   width: 19%;
   margin-bottom: 0.5vw;
-  margin-right:0.3vw;
+  margin-right: 0.3vw;
   padding: 0.4vw 0;
   font-size: 11px;
   text-align: center;
@@ -705,20 +745,20 @@ const PickTagBtn = styled.button`
     margin-bottom: 8px;
     border-radius: 5px;
   }
-  `;
+`;
 
 const SearchTagGroup = styled.div`
-width: 100%;
-display: flex;
-/* justify-content: space-between; */
-flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
 `;
 
 const TagBtn = styled.button`
   background-color: white;
   width: 19%;
   margin-bottom: 0.5vw;
-  margin-right:0.3vw;
+  margin-right: 0.3vw;
   padding: 0.4vw 0;
   font-size: 11px;
   text-align: center;
@@ -733,7 +773,7 @@ const TagBtn = styled.button`
     margin-bottom: 8px;
     border-radius: 5px;
   }
-`
+`;
 
 const ImgBox = styled.div`
   @media screen and (max-width: 750px) {
