@@ -266,6 +266,7 @@ const TalkImg = styled.img`
 const ArrowBox = styled.div`
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 80%;
   padding: 10px 30px;
@@ -314,6 +315,7 @@ const MArrowBox = styled.div`
   padding: 8px 20px;
   margin-bottom: 20px;
   display: flex;
+  justify-content: center;
   align-items: center;
   :after {
     position: absolute;
