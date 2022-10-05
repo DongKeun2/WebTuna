@@ -198,7 +198,9 @@ function DetailPage() {
           for (let i = 0; i < res.payload.gender_age.length; i++) {
             tempLabel.push(
               (res.payload.gender_age[i][0].substr(0, 2) === "00"
-                ? "10대 미만"
+                ? "10세 미만"
+                : res.payload.gender_age[i][0].substr(0, 2) === "90"
+                ? "90세 이상"
                 : res.payload.gender_age[i][0].substr(0, 2) + "대") +
                 (res.payload.gender_age[i][0].substr(-1) === "F"
                   ? " 여성"
@@ -229,7 +231,9 @@ function DetailPage() {
           for (let i = 0; i < res.payload.gender_age.length; i++) {
             tempLabel.push(
               (res.payload.gender_age[i][0].substr(0, 2) === "00"
-                ? "10대 미만"
+                ? "10세 미만"
+                : res.payload.gender_age[i][0].substr(0, 2) === "90"
+                ? "90세 이상"
                 : res.payload.gender_age[i][0].substr(0, 2) + "대") +
                 (res.payload.gender_age[i][0].substr(-1) === "F"
                   ? " 여성"
