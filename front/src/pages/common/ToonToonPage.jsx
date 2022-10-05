@@ -72,21 +72,12 @@ const ToonToonBox = styled.div`
 `;
 
 function ToonList({ toons }) {
-  function customMsg(msg) {
-    return msg.split(" ");
-  }
-
   let rows = [];
   for (let i = 0; i < Object.keys(toons).length; i = i + 2) {
     if (i + 1 <= Object.keys(toons).length) {
       rows.push(
         <ToonListBox key={i}>
-          <LeftToon
-            type={i}
-            toons={toons[i][0]}
-            msg={toons[i][1]}
-            customMsg={customMsg}
-          />
+          <LeftToon type={i} toons={toons[i][0]} msg={toons[i][1]} />
           <RightToon
             type={i + 1}
             toons={toons[i + 1][0]}
@@ -97,12 +88,7 @@ function ToonList({ toons }) {
     } else {
       rows.push(
         <ToonListBox key={i}>
-          <LeftToon
-            type={i}
-            toons={toons[i][0]}
-            msg={toons[i][1]}
-            customMsg={customMsg}
-          />
+          <LeftToon type={i} toons={toons[i][0]} msg={toons[i][1]} />
         </ToonListBox>
       );
     }
@@ -126,7 +112,7 @@ const ToonListBox = styled.div`
   }
 `;
 
-function LeftToon({ toons, type, msg, customMsg }) {
+function LeftToon({ toons, type, msg }) {
   const dispatch = useDispatch();
 
   const userInfo = JSON.parse(sessionStorage.getItem("user"));
@@ -172,7 +158,7 @@ function LeftToon({ toons, type, msg, customMsg }) {
   }
 
   return (
-    <LeftContainer>
+    <>
       {isFocus === type && (
         <LeftTitleBox>
           <LeftTitle>{msg}</LeftTitle>
@@ -239,18 +225,9 @@ function LeftToon({ toons, type, msg, customMsg }) {
           </LeftContentBox>
         </LeftOuterBox>
       </LeftBox>
-    </LeftContainer>
+    </>
   );
 }
-
-const LeftContainer = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: start;
-  @media screen and (max-width: 850px) {
-    flex-direction: column;
-  }
-`;
 
 const LeftBox = styled.div`
   align-self: start;
@@ -268,10 +245,21 @@ const LeftTitleBox = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  margin-left: 1vw;
+  font-size: 3vw;
+  @media screen and (max-width: 850px) {
+    margin-left: 1vh;
+    font-size: 3.5vw;
+  }
 `;
 const LeftTitle = styled.p`
-  font-size: 2.8vw;
+  font-weight: bold;
   text-align: center;
+  padding: 0;
+  margin: 1vw 0;
+  @media screen and (max-width: 850px) {
+    vertical-align: bottom;
+  }
 `;
 
 const LeftOuterBox = styled.div`
@@ -376,7 +364,11 @@ function RightToon({ toons, type, msg }) {
   }
   return (
     <RightContainer>
-      {isFocus === type && <RightTitle>{msg}</RightTitle>}
+      {isFocus === type && (
+        <RightTitleBox>
+          <RightTitle>{msg}</RightTitle>
+        </RightTitleBox>
+      )}
       <RightBox>
         <RightOuterBox>
           <RightContentBox>
@@ -457,10 +449,26 @@ const RightContainer = styled.div`
   }
 `;
 
-const RightTitle = styled.p`
-  text-align: start;
+const RightTitleBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 1vw;
+  font-size: 3vw;
   @media screen and (max-width: 850px) {
-    text-align: end;
+    margin-left: 1vh;
+    font-size: 3.5vw;
+  }
+`;
+
+const RightTitle = styled.p`
+  font-weight: bold;
+  text-align: center;
+  padding: 0;
+  margin: 1vw 0;
+  @media screen and (max-width: 850px) {
+    vertical-align: bottom;
   }
 `;
 
