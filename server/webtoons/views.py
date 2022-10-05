@@ -402,7 +402,9 @@ def webtoonDetail(request,webtoonId):
     gender_age = dict()
 
     for user in users:
-        user_age = datetime.now().year - user.birth//10000
+        user_age = datetime.now().year - (user.birth//10000) +1
+        if user_age >= 90:
+            user_age = 90
         age_key = str(user_age // 10) + '0' + user.gender 
 
         try:
@@ -1498,10 +1500,20 @@ def popularity_recommend(user):
     recommend_views_webtoon = Webtoon.objects.filter(webtoon_id__in = webtoon_ids[:20]).order_by('-rating').order_by('-view_count')
     recommend_list = recommend_liked_webtoon.union(recommend_views_webtoon)[:20]
     
-    if member.gender == 'M': 
-        msg = f"{my_age_area}대 남자한테 인기있는 웹툰"
+    if member.gender == 'M':
+        if my_age_area == 0:
+            msg = f"10세미만 남자에게 인기있는 웹툰"
+        elif my_age_area >= 90:
+            msg = f"90세이상 남자에게 인기있는 웹툰"
+        else:
+            msg = f"{my_age_area}대 남자에게 인기있는 웹툰"
     else:
-        msg = f"{my_age_area}대 여자한테 인기있는 웹툰"
+        if my_age_area == 0:
+            msg = f"10세미만 여자에게 인기있는 웹툰"
+        elif my_age_area >= 90:
+            msg = f"90세이상 여자에게 인기있는 웹툰"
+        else:
+            msg = f"{my_age_area}대 여자에게 인기있는 웹툰"
         
     webtoons_list = WebtoonListSerializer(recommend_list, many=True)
     send_data = [webtoons_list.data, msg]
