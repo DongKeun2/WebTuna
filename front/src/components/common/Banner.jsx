@@ -75,7 +75,7 @@ function Banner() {
           dispatch(changeState(currentSlice));
         }}
         autoplay={true}
-        autoplayInterval={"3500"}
+        autoplayInterval={"5000"}
         wrapAround={true}
         renderCenterLeftControls={({ previousSlide }) => null}
         renderCenterRightControls={({ nextSlide }) => null}
