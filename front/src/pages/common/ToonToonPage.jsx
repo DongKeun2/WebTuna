@@ -37,6 +37,7 @@ function ToonToonPage() {
         setIsLoading(false);
       });
     }
+
     return () => dispatch(changeFocusTun(undefined));
   }, [navigate, pathname, dispatch]);
 
@@ -56,6 +57,7 @@ function ToonToonPage() {
 const ToonToonBox = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 30px;
   margin-bottom: 8vw;
   @media screen and (max-width: 1500px) {
@@ -70,19 +72,37 @@ const ToonToonBox = styled.div`
 `;
 
 function ToonList({ toons }) {
+  function customMsg(msg) {
+    return msg.split(" ");
+  }
+
   let rows = [];
   for (let i = 0; i < Object.keys(toons).length; i = i + 2) {
     if (i + 1 <= Object.keys(toons).length) {
       rows.push(
         <ToonListBox key={i}>
-          <LeftToon type={i} toons={toons[i]} />
-          <RightToon type={i + 1} toons={toons[i + 1]} />
+          <LeftToon
+            type={i}
+            toons={toons[i][0]}
+            msg={toons[i][1]}
+            customMsg={customMsg}
+          />
+          <RightToon
+            type={i + 1}
+            toons={toons[i + 1][0]}
+            msg={toons[i + 1][1]}
+          />
         </ToonListBox>
       );
     } else {
       rows.push(
         <ToonListBox key={i}>
-          <LeftToon type={i} toons={toons[i]} />
+          <LeftToon
+            type={i}
+            toons={toons[i][0]}
+            msg={toons[i][1]}
+            customMsg={customMsg}
+          />
         </ToonListBox>
       );
     }
@@ -93,6 +113,7 @@ function ToonList({ toons }) {
 const ToonListBox = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 30px;
   @media screen and (max-width: 1500px) {
     gap: 10px;
@@ -105,7 +126,7 @@ const ToonListBox = styled.div`
   }
 `;
 
-function LeftToon({ toons, type }) {
+function LeftToon({ toons, type, msg, customMsg }) {
   const dispatch = useDispatch();
 
   const userInfo = JSON.parse(sessionStorage.getItem("user"));
@@ -151,75 +172,106 @@ function LeftToon({ toons, type }) {
   }
 
   return (
-    <LeftBox>
-      <LeftOuterBox>
-        <LeftContentBox>
-          <LeftInnerBox>
-            <LeftBackBox>
-              <LeftItemBox
-                onClick={onClickHandler}
-                onMouseOver={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-              >
-                {isFocus === type ? (
-                  <Carousel
-                    wrapAround={true}
-                    disableEdgeSwiping={true}
-                    slidesToShow={3}
-                    scrollMode="remainder"
-                    slidesToScroll={3}
-                    cellSpacing={1}
-                    cellAlign="center"
-                    renderCenterLeftControls={({ previousSlide }) => (
-                      <LeftButton>
-                        <ArrowBackIosIcon
-                          fontSize="large"
-                          onClick={previousSlide}
-                        ></ArrowBackIosIcon>
-                      </LeftButton>
-                    )}
-                    renderCenterRightControls={({ nextSlide }) => (
-                      <RightButton>
-                        <ArrowForwardIosIcon
-                          fontSize="large"
-                          onClick={nextSlide}
-                        ></ArrowForwardIosIcon>
-                      </RightButton>
-                    )}
-                  >
-                    {toons.map((toon) => {
-                      return <ToonItem key={toon.webtoon_id} item={toon} />;
-                    })}
-                  </Carousel>
-                ) : isHover ? (
-                  <ImgBox>
-                    <TunImg src={tuntunItem[type]?.hover} alt="tun_hover_img" />
-                  </ImgBox>
-                ) : (
-                  <ImgBox>
-                    <TunImg
-                      src={tuntunItem[type]?.common}
-                      alt="tun_common_img"
-                    />
-                  </ImgBox>
-                )}
-              </LeftItemBox>
-            </LeftBackBox>
-          </LeftInnerBox>
-        </LeftContentBox>
-      </LeftOuterBox>
-    </LeftBox>
+    <LeftContainer>
+      {isFocus === type && (
+        <LeftTitleBox>
+          <LeftTitle>{msg}</LeftTitle>
+        </LeftTitleBox>
+      )}
+      <LeftBox>
+        <LeftOuterBox>
+          <LeftContentBox>
+            <LeftInnerBox>
+              <LeftBackBox>
+                <LeftItemBox
+                  onClick={onClickHandler}
+                  onMouseOver={() => setIsHover(true)}
+                  onMouseLeave={() => setIsHover(false)}
+                >
+                  {isFocus === type ? (
+                    <Carousel
+                      wrapAround={true}
+                      disableEdgeSwiping={true}
+                      slidesToShow={3}
+                      scrollMode="remainder"
+                      slidesToScroll={3}
+                      cellSpacing={1}
+                      cellAlign="center"
+                      renderCenterLeftControls={({ previousSlide }) => (
+                        <LeftButton>
+                          <ArrowBackIosIcon
+                            fontSize="large"
+                            onClick={previousSlide}
+                          ></ArrowBackIosIcon>
+                        </LeftButton>
+                      )}
+                      renderCenterRightControls={({ nextSlide }) => (
+                        <RightButton>
+                          <ArrowForwardIosIcon
+                            fontSize="large"
+                            onClick={nextSlide}
+                          ></ArrowForwardIosIcon>
+                        </RightButton>
+                      )}
+                    >
+                      {toons.map((toon) => {
+                        return <ToonItem key={toon.webtoon_id} item={toon} />;
+                      })}
+                    </Carousel>
+                  ) : isHover ? (
+                    <ImgBox>
+                      <TunImg
+                        src={tuntunItem[type]?.hover}
+                        alt="tun_hover_img"
+                      />
+                    </ImgBox>
+                  ) : (
+                    <ImgBox>
+                      <TunImg
+                        src={tuntunItem[type]?.common}
+                        alt="tun_common_img"
+                      />
+                    </ImgBox>
+                  )}
+                </LeftItemBox>
+              </LeftBackBox>
+            </LeftInnerBox>
+          </LeftContentBox>
+        </LeftOuterBox>
+      </LeftBox>
+    </LeftContainer>
   );
 }
+
+const LeftContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+  }
+`;
 
 const LeftBox = styled.div`
   align-self: start;
   width: 80vw;
+  min-width: 80vw;
   height: 17vw;
   @media screen and (max-width: 850px) {
     width: 100vw;
     height: 20vh;
   }
+`;
+
+const LeftTitleBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+`;
+const LeftTitle = styled.p`
+  font-size: 2.8vw;
+  text-align: center;
 `;
 
 const LeftOuterBox = styled.div`
@@ -291,7 +343,7 @@ const LeftItemBox = styled.div`
   }
 `;
 
-function RightToon({ toons, type }) {
+function RightToon({ toons, type, msg }) {
   const dispatch = useDispatch();
 
   const userInfo = JSON.parse(sessionStorage.getItem("user"));
@@ -323,72 +375,94 @@ function RightToon({ toons, type }) {
     }
   }
   return (
-    <RightBox>
-      <RightOuterBox>
-        <RightContentBox>
-          <RightInnerBox>
-            <RightBackBox>
-              {isFocus === type ? (
-                <RightItemBox onMouseLeave={() => setIsHover(false)}>
-                  <Carousel
-                    wrapAround={true}
-                    disableEdgeSwiping={true}
-                    slidesToShow={3}
-                    scrollMode="remainder"
-                    slidesToScroll={3}
-                    cellSpacing={1}
-                    cellAlign="center"
-                    renderCenterLeftControls={({ previousSlide }) => (
-                      <LeftButton>
-                        <ArrowBackIosIcon
-                          fontSize="large"
-                          onClick={previousSlide}
-                        ></ArrowBackIosIcon>
-                      </LeftButton>
-                    )}
-                    renderCenterRightControls={({ nextSlide }) => (
-                      <RightButton>
-                        <ArrowForwardIosIcon
-                          fontSize="large"
-                          onClick={nextSlide}
-                        ></ArrowForwardIosIcon>
-                      </RightButton>
-                    )}
+    <RightContainer>
+      {isFocus === type && <RightTitle>{msg}</RightTitle>}
+      <RightBox>
+        <RightOuterBox>
+          <RightContentBox>
+            <RightInnerBox>
+              <RightBackBox>
+                {isFocus === type ? (
+                  <RightItemBox onMouseLeave={() => setIsHover(false)}>
+                    <Carousel
+                      wrapAround={true}
+                      disableEdgeSwiping={true}
+                      slidesToShow={3}
+                      scrollMode="remainder"
+                      slidesToScroll={3}
+                      cellSpacing={1}
+                      cellAlign="center"
+                      renderCenterLeftControls={({ previousSlide }) => (
+                        <LeftButton>
+                          <ArrowBackIosIcon
+                            fontSize="large"
+                            onClick={previousSlide}
+                          ></ArrowBackIosIcon>
+                        </LeftButton>
+                      )}
+                      renderCenterRightControls={({ nextSlide }) => (
+                        <RightButton>
+                          <ArrowForwardIosIcon
+                            fontSize="large"
+                            onClick={nextSlide}
+                          ></ArrowForwardIosIcon>
+                        </RightButton>
+                      )}
+                    >
+                      {toons.map((toon) => {
+                        return <ToonItem key={toon.webtoon_id} item={toon} />;
+                      })}
+                    </Carousel>
+                  </RightItemBox>
+                ) : isHover ? (
+                  <RightImgBox
+                    onClick={onClickHandler}
+                    onMouseLeave={() => setIsHover(false)}
                   >
-                    {toons.map((toon) => {
-                      return <ToonItem key={toon.webtoon_id} item={toon} />;
-                    })}
-                  </Carousel>
-                </RightItemBox>
-              ) : isHover ? (
-                <RightImgBox
-                  onClick={onClickHandler}
-                  onMouseLeave={() => setIsHover(false)}
-                >
-                  <ImgBox>
-                    <TunImg src={tuntunItem[type]?.hover} alt="tun_hover_img" />
-                  </ImgBox>
-                </RightImgBox>
-              ) : (
-                <RightImgBox
-                  onMouseOver={() => setIsHover(true)}
-                  onMouseLeave={() => setIsHover(false)}
-                >
-                  <ImgBox>
-                    <TunImg
-                      src={tuntunItem[type]?.common}
-                      alt="tun_common_img"
-                    />
-                  </ImgBox>
-                </RightImgBox>
-              )}
-            </RightBackBox>
-          </RightInnerBox>
-        </RightContentBox>
-      </RightOuterBox>
-    </RightBox>
+                    <ImgBox>
+                      <TunImg
+                        src={tuntunItem[type]?.hover}
+                        alt="tun_hover_img"
+                      />
+                    </ImgBox>
+                  </RightImgBox>
+                ) : (
+                  <RightImgBox
+                    onMouseOver={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                  >
+                    <ImgBox>
+                      <TunImg
+                        src={tuntunItem[type]?.common}
+                        alt="tun_common_img"
+                      />
+                    </ImgBox>
+                  </RightImgBox>
+                )}
+              </RightBackBox>
+            </RightInnerBox>
+          </RightContentBox>
+        </RightOuterBox>
+      </RightBox>
+    </RightContainer>
   );
 }
+
+const RightContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+const RightTitle = styled.p`
+  text-align: start;
+  @media screen and (max-width: 850px) {
+    text-align: end;
+  }
+`;
 
 const RightImgBox = styled.div`
   display: flex;
@@ -412,6 +486,7 @@ const RightBox = styled.div`
   width: 80vw;
   height: 17vw;
   text-align: end;
+  min-width: 80vw;
   @media screen and (max-width: 850px) {
     width: 100vw;
     height: 20vh;
@@ -551,6 +626,9 @@ const ImageBox = styled.div`
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
   cursor: url(${hover}) 13 13, auto;
+  @media screen and (max-width: 850px) {
+    height: 13vh;
+  }
 `;
 
 const ToonThumbnail = styled.img`
