@@ -430,14 +430,14 @@ function FilterPage() {
                     </GenreGroup>
                   </GenreBox>
                   <TagBox>
-                    <GroupHeader>
-                      태그
+                    <TagGroupBox>
+                      <TagHeader>태그</TagHeader>
                       <TagSaerchBar
-                        placeholder="추가히실 태그를 입력해주세요"
+                        placeholder="태그 검색"
                         onChange={search}
                         value={searchWord}
                       ></TagSaerchBar>
-                    </GroupHeader>
+                    </TagGroupBox>
                     <PickTagGroup>
                       {tagList.length === 0 ? (
                         <EmptyTag>선택된 태그가 없습니다</EmptyTag>
@@ -453,19 +453,20 @@ function FilterPage() {
                         ))
                       )}
                     </PickTagGroup>
-                    <SearchTagGroup>
                       {searchWord === ""
                         ? null
-                        : searchedTags.map((searchTag) => (
-                            <TagBtn
-                              key={searchTag.tag_id}
-                              onClick={AddTagList}
-                              value={searchTag.tag_id}
-                            >
-                              {searchTag.name}
-                            </TagBtn>
-                          ))}
-                    </SearchTagGroup>
+                        : 
+                          <SearchTagGroup>
+                            {searchedTags.map((searchTag) => (
+                              <TagBtn
+                                key={searchTag.tag_id}
+                                onClick={AddTagList}
+                                value={searchTag.tag_id}
+                              >
+                                {searchTag.name}
+                              </TagBtn>
+                            ))}
+                          </SearchTagGroup>}
                   </TagBox>
                 </FilterBox>
                 <ImgBox>
@@ -563,7 +564,7 @@ const FilterBtn = styled.button`
 
 const ModalContainer = styled.div`
   width: 98%;
-  height: 43vw;
+  height: 100%;
   margin-top: 0.5vw;
   display: flex;
   justify-content: space-between;
@@ -582,7 +583,6 @@ const FilterBox = styled.div`
     margin-left: auto;
     margin-right: auto;
   }
-  height: 100%;
 `;
 
 const PlatformBox = styled.div`
@@ -624,6 +624,7 @@ const TagBox = styled.div`
   @media screen and (max-width: 750px) {
     height: 80px;
   }
+  position: relative;
 `;
 
 const PlatformGroup = styled.div`
@@ -707,71 +708,131 @@ const GroupHeader = styled.p`
   border-bottom: 1px solid;
 `;
 
+const TagGroupBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid;
+  margin-bottom: 0.5vw;
+`;
+
+const TagHeader = styled.p`
+  width: 100%;
+  margin-top: 0.5vw;
+  margin-bottom: 0;
+  padding-bottom: 0.5vw;
+  font-size: 1.5vw;
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+  }
+  font-weight: 600;
+`;
+
 const TagSaerchBar = styled.input`
-  margin-top: 1vw;
-  width: 10vw;
-  border-radius: 0.2vw;
-  float: right;
+  font-size: 12px;
+  @media screen and (max-width: 1100px) {
+    font-size: 11px;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+  }
+  margin: 0.5vw auto;
+  padding: 0.2vw 0.3vw;
+  width: 40%;
 `;
 
 const PickTagGroup = styled.div`
-  width: 100%;
+  width: 97%;
+  height: 60%;
+  margin: 0 auto;
+  padding: 0.5vw 0.5vw 0;
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: flex-start;
   flex-wrap: wrap;
-  border-bottom: 1px solid;
+  gap: 0 0.5vw;
+  border: 1px solid #82adf8;
+  border-radius: 0.5vw;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 1vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #bab9b9;
+    border-radius: 3vw;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #e7e4e4;
+    border-radius: 3vw;
+  }
 `;
 
 const EmptyTag = styled.div`
-  font-size: 0.8vw;
+  font-size: 15px;
+  @media screen and (max-width: 1100px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 11px;
+  }
+  margin: 0.2vw 0.3vw 0;
 `;
 
 const PickTagBtn = styled.button`
   background-color: #d1e2ff;
-  width: 19%;
-  margin-bottom: 0.5vw;
-  margin-right: 0.3vw;
-  padding: 0.4vw 0;
+  height: 30px;
+  margin: 0 0 0.5vw;
+  padding: 0 0.8vw;
   font-size: 11px;
-  text-align: center;
   border: 1px solid #d1e2ff;
-  border-radius: 0.3vw;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  border-radius: 0.5vw;
   @media screen and (max-width: 750px) {
     font-size: 10px;
-    padding: 0.5vw 0;
-    margin-bottom: 8px;
-    border-radius: 5px;
+    height: 20px;
+    padding: 0 12px;
   }
 `;
 
 const SearchTagGroup = styled.div`
-  width: 100%;
+  background-color: white;
+  width: 60%;
+  height: 60%;
+  padding: 0.5vw 0.5vw 0;
+  position: absolute;
+  top: 25%;
+  right: 0;
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: flex-start;
   flex-wrap: wrap;
+  gap: 0 0.5vw;
+  border: 2px solid #d1e2ff;
+  border-radius: 0.5vw;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.8vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #bab9b9;
+    border-radius: 2vw;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #e7e4e4;
+    border-radius: 2vw;
+  }
 `;
 
 const TagBtn = styled.button`
   background-color: white;
-  width: 19%;
-  margin-bottom: 0.5vw;
-  margin-right: 0.3vw;
-  padding: 0.4vw 0;
+  height: 30px;
+  margin: 0 0 0.5vw;
+  padding: 0 0.8vw;
   font-size: 11px;
-  text-align: center;
   border: 1px solid #d1e2ff;
-  border-radius: 0.3vw;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  border-radius: 0.5vw;
   @media screen and (max-width: 750px) {
     font-size: 10px;
-    padding: 0.5vw 0;
-    margin-bottom: 8px;
-    border-radius: 5px;
+    height: 20px;
+    padding: 0 12px;
   }
 `;
 
