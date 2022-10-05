@@ -697,6 +697,8 @@ def recommendWebtoon(request,typeId):
 =======
 def recommendWebtoon(request):
     user_id = int(request.user.pk)
+    user = get_object_or_404(Member, pk = request.user.pk)
+    user_nickname = user.nickname
     
     # CF 기반 추천
     cf_recommend =  cfRecommend(user_id)
@@ -1009,11 +1011,15 @@ def typeToDifference(type, original, comparsion):
     users_popularity_recommend = popularity_recommend(user_id)
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': weather_recommend.data, '3': genre_recommend.data, '4':tag_recommend.data, '5': users_popularity_recommend.data}, status.HTTP_200_OK)
 >>>>>>> 69ba463 (feat: 나이, 연령대별 인기순 추천 시스템 구현 완료)
 =======
     return Response({'0': cf_recommend.data, '1': draw_recommend.data, '2': genre_recommend.data, '3': tag_recommend.data, '4':users_popularity_recommend.data, '5': weather_recommend.data}, status.HTTP_200_OK)
 >>>>>>> 9595d51 (fix: 추천 페이지 api 수정 - 추천 순서 변경)
+=======
+    return Response({'0': cf_recommend, '1': draw_recommend, '2': genre_recommend, '3': tag_recommend, '4':users_popularity_recommend, '5': weather_recommend}, status.HTTP_200_OK)
+>>>>>>> 5ad957e (feat: 추천 msg)
 
 
 # 이미지 검색
@@ -1053,8 +1059,9 @@ def searchImageWebtoon(request):
 
 # CF(Collaborate Filtering) 추천
 def cfRecommend(user):
+    member_nickname = Member.objects.get(pk=user).nickname
     like_webtoons = Webtoon.objects.filter(liked_webtoon_users = user)
-        
+    
     user_list = []
     
     for my_webtoon in like_webtoons:
@@ -1086,9 +1093,11 @@ def cfRecommend(user):
                 if webtoon not in like_webtoons:
                     reco_lst.append(webtoon)
     
+    msg = f"'{member_nickname}'님의 취향에 맞는 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+    send_data = [webtoons_list.data,msg]
     
-    return webtoons_list
+    return send_data
 
 
 # 날씨 기반 추천
@@ -1108,6 +1117,12 @@ def weatherRecommend(user):
         'icon': city_weather['weather'][0]['icon']
     }
     
+    sunny = ['clear sky', 'few clouds']
+    clouds = ['overcast clouds', 'broken clouds', 'scattered clouds']
+    rain = ['drizzle', 'rain', 'light rain', 'moderate rain']
+    powerRain = ['shower rain', 'thunderstorm']
+    snow = ['snow']
+    
     # 로맨스, 판타지, 드라마, 스릴러, 일상, 액션, 무협/사극, 스포츠, 개그, 감성, 소년, BL
     # 일단 딕셔너리로 날씨에 장르들 하나씩을 선택 하도록 함(더 좋은 방법 있으면 그걸로 구현)
     lst = {'clear sky': '로맨스', 'few clouds': '개그', 'overcast clouds': '무협/사극', 'drizzle': '소년', 'rain': '스릴러', 'light rain': '스포츠', 'moderate rain': '개그','shower rain': '판타지', 'thunderstorm': '액션',
@@ -1117,8 +1132,8 @@ def weatherRecommend(user):
         genre = random.choice(['에피소드', '스토리', '옴니버스'])
     else:
         genre = lst[weather['description']]
+    
     # 장르와 같은 영화 정보들 가지고오기
-
     genre_data = Genre.objects.get(genre_type = genre)
     webtoon_lst = genre_data.genre_webtoons.all().order_by('-rating')
     real_cnt = 0
@@ -1158,8 +1173,23 @@ def weatherRecommend(user):
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+    
+    if weather['description'] in sunny:
+        msg = '맑은 날 어울리는 웹툰'
+    elif weather['description'] in clouds:
+        msg = '흐린 날 어울리는 웹툰'
+    elif weather['description'] in rain:
+        msg = '비오는 날 어울리는 웹툰'
+    elif weather['description'] in powerRain:
+        msg = '폭우내리는 날 어울리는 웹툰'
+    elif weather['description'] in snow:
+        msg = '눈 내리는 날 어울리는 웹툰'
+    else:
+        msg = '오늘 같은 날 어울리는 웹툰'
+    
+    send_data = [webtoons_list.data, msg]
 
-    return webtoons_list
+    return send_data
 
 <<<<<<< HEAD
 #     return Response(serializers.data, status.HTTP_200_OK)
@@ -1223,9 +1253,11 @@ def genreRecommend(user):
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
+    msg = f"'{member.nickname}'님이 좋아하시는 '{genre_list[0]}','{genre_list[1]}','{genre_list[2]}' 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+    send_data = [webtoons_list.data, msg]
 
-    return webtoons_list
+    return send_data
 
 
 <<<<<<< HEAD
@@ -1249,23 +1281,39 @@ def tagRecommend(user):
         return webtoons_list
 
     reco_lst = set()
+    tag_lst = {}
     
     while len(reco_lst) < 20:
         tag = random.choice(list(like_tags))
         tag_data = Tag.objects.get(name = tag.name)
         tag_webtoons = tag_data.tag_webtoons.all()
+        cnt = 0
         
         for _ in range(5):
             webtoon = random.choice(list(tag_webtoons))
             if webtoon not in like_webtoons:
                 reco_lst.add(webtoon)
+                cnt += 1
+        
+        try:
+            tag_lst[tag.name] += cnt
+        except:
+            tag_lst[tag.name] = cnt
+    
+    sort_tag = sorted(tag_lst.items(), key=lambda x:x[1], reverse=True)
+    tag_lst = []
+    for i in range(3):
+        tag_lst.append(sort_tag[i][0])
                 
     reco_lst = list(reco_lst)
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
+    msg = f"'{tag_lst[0]}', '{tag_lst[1]}', '{tag_lst[2]}' 태그의 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+    send_data = [webtoons_list.data, msg]
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     return Response(serializers.data, status.HTTP_200_OK)
 <<<<<<< HEAD
@@ -1285,6 +1333,9 @@ def draw_recommend(request):
     webtoons = member.liked_webtoons.all()
 =======
     return webtoons_list
+=======
+    return send_data
+>>>>>>> 5ad957e (feat: 추천 msg)
 
 
 # 유저가 좋아하는 그림체 기반 추천
@@ -1367,7 +1418,9 @@ def drawRecommend(user):
 
     reco_lst = choice_lst[:15] + random.sample(choice_lst[15:], 5)
 
+    msg = f"'{member.nickname}'님이 좋아하는 그림체 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+<<<<<<< HEAD
 >>>>>>> 30a0ac7 (fix : 추천 함수 수정, 변수 수정)
 
     return webtoons_list
@@ -1375,6 +1428,12 @@ def drawRecommend(user):
 <<<<<<< HEAD
 >>>>>>> 1b0b37b (fix: 웹툰 추천 페이지 api 수정 - 한번에 다보내기 / db 설정 부분 scripts.py로 이전)
 =======
+=======
+    send_data = [webtoons_list.data, msg]
+
+    return send_data
+
+>>>>>>> 5ad957e (feat: 추천 msg)
 
 # 내 성별, 나이대 찜목록 기반 추천
 def popularity_recommend(user):
@@ -1434,8 +1493,16 @@ def popularity_recommend(user):
         webtoon_ids.append(id[0])
     recommend_views_webtoon = Webtoon.objects.filter(webtoon_id__in = webtoon_ids[:20]).order_by('-rating').order_by('-view_count')
     recommend_list = recommend_liked_webtoon.union(recommend_views_webtoon)[:20]
+    
+    if member.gender == 'M': 
+        msg = f"{my_age_area}대 남자한테 인기있는 웹툰"
+    else:
+        msg = f"{my_age_area}대 여자한테 인기있는 웹툰"
+        
     webtoons_list = WebtoonListSerializer(recommend_list, many=True)
+    send_data = [webtoons_list.data, msg]
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     return webtoons_list
@@ -1470,3 +1537,6 @@ def giveLucky(user):
 =======
     return webtoons_list
 >>>>>>> a0dbb40 (feat : 상세페이지 나이대, 성별추가)
+=======
+    return send_data
+>>>>>>> 5ad957e (feat: 추천 msg)
