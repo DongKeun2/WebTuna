@@ -241,7 +241,10 @@ const LeftBox = styled.div`
 `;
 
 const LeftTitleBox = styled.div`
-  width: 100%;
+  background-color: white;
+  width: fit-content;
+  border-radius: 10px;
+  padding: 0 1vw;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -254,6 +257,7 @@ const LeftTitleBox = styled.div`
 `;
 const LeftTitle = styled.p`
   font-weight: bold;
+  color: #feec91;
   text-align: center;
   padding: 0;
   margin: 1vw 0;
@@ -442,13 +446,25 @@ function RightToon({ toons, type, msg }) {
 
 const RightContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  gap: 30px;
   flex-direction: column;
   align-items: flex-end;
+  @media screen and (max-width: 1500px) {
+    gap: 10px;
+  }
+  @media screen and (max-width: 1100px) {
+    gap: 5px;
+  }
+  @media screen and (max-width: 850px) {
+    gap: 2vh;
+  }
 `;
 
 const RightTitleBox = styled.div`
-  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 1vw;
+  width: fit-content;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -461,6 +477,7 @@ const RightTitleBox = styled.div`
 `;
 
 const RightTitle = styled.p`
+  color: #eea6a6;
   font-weight: bold;
   text-align: center;
   padding: 0;
