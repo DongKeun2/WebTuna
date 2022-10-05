@@ -213,7 +213,7 @@ function WebtoonPage() {
           <FilterBtn onClick={switchModal}>필터</FilterBtn>
           {modal ? (
             <ModalFrame
-              top="0.3vw"
+              top="10vh"
               width="75%"
               height="auto"
               _handleModal={switchModal}
