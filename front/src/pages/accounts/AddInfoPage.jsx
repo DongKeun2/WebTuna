@@ -6,6 +6,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import {
   changeSelectImg,
   changeThumbnail,
+  cleanupsSelectImg,
   signup,
 } from "../../features/accounts/signupSlice";
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
@@ -18,9 +19,12 @@ function AddInfoPage() {
   const dispatch = useDispatch();
 
   const signupInfo = useSelector((state) => state.signup.signupInfo);
-  
+
   useEffect(() => {
     dispatch(changeCurrentpage(""));
+    return () => {
+      dispatch(cleanupsSelectImg());
+    };
   }, [dispatch]);
 
   useEffect(() => {

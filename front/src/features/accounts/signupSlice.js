@@ -80,6 +80,9 @@ export const singupSlice = createSlice({
     changeIsPossibleEmail: (state, action) => {
       state.isPossibleEmail = action.payload;
     },
+    cleanupsSelectImg: (state) => {
+      state.selectImg = [];
+    },
   },
   extraReducers: {
     [checkEmail.fulfilled]: (state, action) => {
@@ -111,6 +114,7 @@ export const {
   changeSelectImg,
   changeThumbnail,
   changeIsPossibleEmail,
+  cleanupsSelectImg,
 } = singupSlice.actions;
 
 export default singupSlice.reducer;
