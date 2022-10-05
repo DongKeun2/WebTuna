@@ -91,6 +91,7 @@ function SignupPage() {
   };
 
   function onNicknameHandler(e) {
+    e.target.value = e.target.value.replace(" ", "");
     e.preventDefault();
     dispatch(changeNickname(e.target.value));
   }
@@ -182,7 +183,7 @@ function SignupPage() {
               ? isPossibleEmail
                 ? "사용 가능한 이메일입니다."
                 : isRightEmail
-                ? "사용 불가능한 이메일입니다."
+                ? "이미 사용중인 이메일입니다."
                 : "이메일 형식이 올바르지 않습니다."
               : null}
           </ConfirmMsg>
@@ -193,6 +194,7 @@ function SignupPage() {
               value={signupInfo.nickname}
               autoComplete="on"
               placeholder="닉네임을 입력해주세요."
+              maxLength="10"
               onChange={onNicknameHandler}
               error={isCheckNickname && !isPossibleNickname}
               onKeyPress={handleOnKeyPress}
