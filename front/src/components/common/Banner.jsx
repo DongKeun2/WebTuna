@@ -141,10 +141,10 @@ const CarouselBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: 900px) {
-    height: 30vh;
+  @media screen and (max-width: 1250px) {
+    height: 40vh;
   }
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 900px) {
     height: 30vh;
   }
 `;
@@ -158,11 +158,13 @@ const OuterBox = styled.div`
   background-color: ${(props) => props.color || "white"};
   border: 3px solid black;
   border-radius: 15px;
+  @media screen and (max-width: 1250px) {
+    height: 37vh;
+    border: 2px solid black;
+  }
   @media screen and (max-width: 900px) {
     height: 26vh;
-  }
-  @media screen and (max-width: 650px) {
-    height: 26vh;
+    /* border: 1px solid black; */
   }
 `;
 
@@ -172,10 +174,10 @@ const ImgBox = styled.div`
   width: 98%;
   height: 44vh;
   overflow: hidden;
-  @media screen and (max-width: 900px) {
-    height: 23vh;
+  @media screen and (max-width: 1250px) {
+    height: 34vh;
   }
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 900px) {
     height: 23vh;
   }
 `;
