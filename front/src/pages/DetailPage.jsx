@@ -399,8 +399,11 @@ function DetailPage() {
     }
   }
 
-  function left() {
+  function left(e) {
     slide = document.getElementById("slide");
+    let tempClassName = e.target.className;
+    e.target.className += " disabledbutton";
+    slide.className += " trans";
     if (count === 1) {
       return;
     } else {
@@ -409,11 +412,18 @@ function DetailPage() {
       );
       slide.style.left = temp + 72 + "vw";
       setCount((prev) => prev - 1);
+      setTimeout(() => {
+        slide.className = "SARecommends";
+        e.target.className = tempClassName;
+      }, 1000);
     }
   }
 
-  function right() {
+  function right(e) {
     slide = document.getElementById("slide");
+    let tempClassName = e.target.className;
+    e.target.className += " disabledbutton";
+    slide.className += " trans";
     if (count === slideCount) {
       return;
     } else {
@@ -422,6 +432,10 @@ function DetailPage() {
       );
       slide.style.left = temp - 72 + "vw";
       setCount((prev) => prev + 1);
+      setTimeout(() => {
+        slide.className = "SARecommends";
+        e.target.className = tempClassName;
+      }, 1000);
     }
   }
 
@@ -755,7 +769,7 @@ function DetailPage() {
                 </>
               ) : null}
               <SARecommendsBack>
-                <SARecommends id="slide">
+                <div className="SARecommends" id="slide">
                   {otherWebToons.length === 0 || otherWebToons === undefined ? (
                     <OtherWebToonEmpty>
                       <EmptyImg src={Empty} />
@@ -792,7 +806,7 @@ function DetailPage() {
                       </OtherWebToon>
                     ))
                   )}
-                </SARecommends>
+                </div>
               </SARecommendsBack>
             </SameAuthorRecommendZone>
             <WebToonAnalysisZone>
@@ -1188,12 +1202,12 @@ const SARecommendsBack = styled.div`
 `;
 
 const SARecommends = styled.div`
-  position: relative;
+  /* position: relative;
   display: flex;
   left: 0vw;
   background-color: white;
-  padding: 0.8vw;
-  transition: all 1s;
+  padding: 0.8vw; */
+  /* transition: all 1s; */
 `;
 
 const OtherWebToonEmpty = styled.div`

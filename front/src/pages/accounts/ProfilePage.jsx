@@ -19,6 +19,7 @@ import Right from "../../../src/assets/detail/Right.png";
 import Empty from "../../../src/assets/tuntunEmpty.png";
 import MySwal from "../../components/common/SweetAlert";
 import { hover } from "../../assets/cursor/cursorItem";
+import "./ProfilePage.css";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -55,12 +56,12 @@ function ProfilePage() {
       let gValue = [];
       let tempLikedTags = [];
       res.payload.data.tags.map((tag) => tempLikedTags.push(tag.tag_id));
-      imageType.push(res.payload.image_type.image_type1 / 2 + 15,);
-      imageType.push(res.payload.image_type.image_type2 / 2 + 15,);
-      imageType.push(res.payload.image_type.image_type3 / 2 + 15,);
-      imageType.push(res.payload.image_type.image_type4 / 2 + 15,);
-      imageType.push(res.payload.image_type.image_type5 / 2 + 15,);
-      imageType.push(res.payload.image_type.image_type6 / 2 + 15,);
+      imageType.push(res.payload.image_type.image_type1 / 2 + 15);
+      imageType.push(res.payload.image_type.image_type2 / 2 + 15);
+      imageType.push(res.payload.image_type.image_type3 / 2 + 15);
+      imageType.push(res.payload.image_type.image_type4 / 2 + 15);
+      imageType.push(res.payload.image_type.image_type5 / 2 + 15);
+      imageType.push(res.payload.image_type.image_type6 / 2 + 15);
       setPaintGraphData(imageType);
       Object.keys(res.payload.genre_list).map((key) => gName.push(key));
       setgGenreName(gName);
@@ -101,8 +102,11 @@ function ProfilePage() {
     setTagModal((prev) => !prev);
   }
 
-  function left() {
+  function left(e) {
     slide = document.getElementById("slide");
+    let tempClassName = e.target.className;
+    e.target.className += " disabledbutton";
+    slide.className += " trans";
     if (count === 1) {
       return;
     } else {
@@ -111,11 +115,18 @@ function ProfilePage() {
       );
       slide.style.left = temp + 83 + "vw";
       setCount((prev) => prev - 1);
+      setTimeout(() => {
+        slide.className = "LikedWebToons";
+        e.target.className = tempClassName;
+      }, 1000);
     }
   }
 
-  function right() {
+  function right(e) {
     slide = document.getElementById("slide");
+    let tempClassName = e.target.className;
+    e.target.className += " disabledbutton";
+    slide.className += " trans";
     if (count === slideCount) {
       return;
     } else {
@@ -124,6 +135,10 @@ function ProfilePage() {
       );
       slide.style.left = temp - 83 + "vw";
       setCount((prev) => prev + 1);
+      setTimeout(() => {
+        slide.className = "LikedWebToons";
+        e.target.className = tempClassName;
+      }, 1000);
     }
   }
 
@@ -345,15 +360,15 @@ function ProfilePage() {
                       {filteredTags === undefined || searchWord.length === 0
                         ? ""
                         : filteredTags.map((filteredTag) => (
-                          <SearchTag
-                            key={filteredTag.tag_id}
-                            id={filteredTag.tag_id}
-                            onClick={tagSwitch}
-                          >
-                            <TagName>{filteredTag.name}</TagName>
-                            <PlusButton>+</PlusButton>
-                          </SearchTag>
-                        ))}
+                            <SearchTag
+                              key={filteredTag.tag_id}
+                              id={filteredTag.tag_id}
+                              onClick={tagSwitch}
+                            >
+                              <TagName>{filteredTag.name}</TagName>
+                              <PlusButton>+</PlusButton>
+                            </SearchTag>
+                          ))}
                     </FilterZone>
                   </ModalFrame>
                 ) : null}
@@ -365,18 +380,18 @@ function ProfilePage() {
                     <PreferGenreTitle>선호하는 장르</PreferGenreTitle>
                     <SubTitleZone>
                       {userInfo.genre_list.length === 0 ||
-                        userInfo.genre_list === undefined
+                      userInfo.genre_list === undefined
                         ? "텅~"
                         : Object.keys(userInfo.genre_list).map((key) => (
-                          <PreferGenreSubTitle key={key}>
-                            {key}
-                            <Square
-                              style={{
-                                backgroundColor: boxColor[boxColorIndex++],
-                              }}
-                            ></Square>
-                          </PreferGenreSubTitle>
-                        ))}
+                            <PreferGenreSubTitle key={key}>
+                              {key}
+                              <Square
+                                style={{
+                                  backgroundColor: boxColor[boxColorIndex++],
+                                }}
+                              ></Square>
+                            </PreferGenreSubTitle>
+                          ))}
                     </SubTitleZone>
                   </PreferGenreTitleZone>
                   <PreferPaintStyleTitleZone>
@@ -398,7 +413,8 @@ function ProfilePage() {
                         <PreferGenreEmpty>
                           <EmptyImg src={Empty} />
                           <Bubble>
-                            마음에 드는 웹툰이 있으면 찜해주세요!<br />
+                            마음에 드는 웹툰이 있으면 찜해주세요!
+                            <br />
                             찜한 웹툰을 기반으로 그래프를 그려드려요!
                           </Bubble>
                         </PreferGenreEmpty>
@@ -413,7 +429,7 @@ function ProfilePage() {
                   <ChartBox>
                     <PreferPaintStyle>
                       {paintGraphData === undefined ||
-                        paintGraphData.length === 0 ? (
+                      paintGraphData.length === 0 ? (
                         "데이터가 부족해요!"
                       ) : (
                         <ChartShow
@@ -446,7 +462,7 @@ function ProfilePage() {
               <ModalTitle>태그 추가/제거</ModalTitle>
               <LikedTagZone>
                 {userInfo.data.tags.length === 0 ||
-                  userInfo.data.tags === undefined ? (
+                userInfo.data.tags === undefined ? (
                   <LikedTagEmptyMessage>
                     추천에 반영될 태그를 검색 후 추가해 주세요!
                   </LikedTagEmptyMessage>
@@ -473,21 +489,21 @@ function ProfilePage() {
                 {filteredTags === undefined || searchWord.length === 0
                   ? ""
                   : filteredTags.map((filteredTag) => (
-                    <SearchTag
-                      key={filteredTag.tag_id}
-                      id={filteredTag.tag_id}
-                      onClick={tagSwitch}
-                    >
-                      <TagName>{filteredTag.name}</TagName>
-                      <PlusButton>+</PlusButton>
-                    </SearchTag>
-                  ))}
+                      <SearchTag
+                        key={filteredTag.tag_id}
+                        id={filteredTag.tag_id}
+                        onClick={tagSwitch}
+                      >
+                        <TagName>{filteredTag.name}</TagName>
+                        <PlusButton>+</PlusButton>
+                      </SearchTag>
+                    ))}
               </FilterZone>
             </ModalFrame>
           ) : null}
           <TagZone>
             {userInfo.data.tags.length === 0 ||
-              userInfo.data.tags === undefined ? (
+            userInfo.data.tags === undefined ? (
               <LikedWebToonEmpty>
                 <EmptyImg src={Empty} />
                 <Bubble>찜한 태그가 없어요...</Bubble>
@@ -521,13 +537,13 @@ function ProfilePage() {
           ) : null}
           <LikedWebToonBack>
             {userInfo.data.liked_webtoons.length === 0 ||
-              userInfo.data.liked_webtoons === undefined ? (
+            userInfo.data.liked_webtoons === undefined ? (
               <LikedWebToonEmpty>
                 <EmptyImg src={Empty} />
                 <Bubble>찜한 웹툰이 없어요...</Bubble>
               </LikedWebToonEmpty>
             ) : (
-              <LikedWebToons id="slide">
+              <div className="LikedWebToons" id="slide">
                 {userInfo.data.liked_webtoons.map((likedWebtoon) => (
                   <LikedWebToon
                     key={likedWebtoon.webtoon_id}
@@ -546,7 +562,7 @@ function ProfilePage() {
                     </ToonInfo>
                   </LikedWebToon>
                 ))}
-              </LikedWebToons>
+              </div>
             )}
           </LikedWebToonBack>
           <TagTitleZone>

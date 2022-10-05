@@ -1,0 +1,15 @@
+.disabledbutton {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.LikedWebToons {
+  position: relative;
+  display: flex;
+  left: 0vw;
+  background-color: #feec91;
+}
+
+.trans {
+  transition: all 1s;
+}

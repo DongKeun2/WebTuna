@@ -27,3 +27,15 @@ img.heartClickEffect {
   pointer-events: none;
   opacity: 0.4;
 }
+
+.SARecommends {
+  position: relative;
+  display: flex;
+  left: 0vw;
+  background-color: white;
+  padding: 0.8vw;
+}
+
+.trans {
+  transition: all 1s;
+}
