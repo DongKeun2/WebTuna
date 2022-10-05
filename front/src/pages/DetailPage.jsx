@@ -76,6 +76,14 @@ function DetailPage() {
     if (!loginState) {
       dispatch(noLoginDetail(toonId)).then((res) => {
         console.log(res.payload);
+        let temp = 0;
+        let total = 0;
+        for (let i = 1; i < 11; i++) {
+          temp += res.payload.data.webtoon_rate[i] * (0.5 * i);
+          total += res.payload.data.webtoon_rate[i];
+        }
+        setAverageRating(Math.round((temp / total) * 10) / 10);
+
         setWebToonInfo(res.payload);
         setPaintGraphData([
           res.payload.data.image_type1 / 2 + 15,
@@ -86,26 +94,19 @@ function DetailPage() {
           res.payload.data.image_type6 / 2 + 15,
         ]);
         setRatingGraphData([
-          res.payload.data.webtoon_rate[1],
-          res.payload.data.webtoon_rate[2],
-          res.payload.data.webtoon_rate[3],
-          res.payload.data.webtoon_rate[4],
-          res.payload.data.webtoon_rate[5],
-          res.payload.data.webtoon_rate[6],
-          res.payload.data.webtoon_rate[7],
-          res.payload.data.webtoon_rate[8],
-          res.payload.data.webtoon_rate[9],
-          res.payload.data.webtoon_rate[10],
+          ((res.payload.data.webtoon_rate[1] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[2] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[3] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[4] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[5] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[6] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[7] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[8] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[9] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[10] * 100) / total).toFixed(2),
         ]);
-
+        getAgeGroupData();
         setRatingCount(getRatingCount(res.payload.data));
-        let temp = 0;
-        let total = 0;
-        for (let i = 1; i < 11; i++) {
-          temp += res.payload.data.webtoon_rate[i] * (0.5 * i);
-          total += res.payload.data.webtoon_rate[i];
-        }
-        setAverageRating(Math.round((temp / total) * 10) / 10);
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
           Math.ceil(Number(res.payload.author_webtoons.length) / 4)
@@ -130,6 +131,14 @@ function DetailPage() {
     } else {
       dispatch(detail(toonId)).then((res) => {
         console.log(res.payload);
+        let temp = 0;
+        let total = 0;
+        for (let i = 1; i < 11; i++) {
+          temp += res.payload.data.webtoon_rate[i] * (0.5 * i);
+          total += res.payload.data.webtoon_rate[i];
+        }
+        setAverageRating(Math.round((temp / total) * 10) / 10);
+
         setWebToonInfo(res.payload);
         setPaintGraphData([
           res.payload.data.image_type1 / 2 + 15,
@@ -140,26 +149,19 @@ function DetailPage() {
           res.payload.data.image_type6 / 2 + 15,
         ]);
         setRatingGraphData([
-          res.payload.data.webtoon_rate[1],
-          res.payload.data.webtoon_rate[2],
-          res.payload.data.webtoon_rate[3],
-          res.payload.data.webtoon_rate[4],
-          res.payload.data.webtoon_rate[5],
-          res.payload.data.webtoon_rate[6],
-          res.payload.data.webtoon_rate[7],
-          res.payload.data.webtoon_rate[8],
-          res.payload.data.webtoon_rate[9],
-          res.payload.data.webtoon_rate[10],
+          ((res.payload.data.webtoon_rate[1] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[2] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[3] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[4] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[5] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[6] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[7] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[8] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[9] * 100) / total).toFixed(2),
+          ((res.payload.data.webtoon_rate[10] * 100) / total).toFixed(2),
         ]);
-
+        getAgeGroupData();
         setRatingCount(getRatingCount(res.payload.data));
-        let temp = 0;
-        let total = 0;
-        for (let i = 1; i < 11; i++) {
-          temp += res.payload.data.webtoon_rate[i] * (0.5 * i);
-          total += res.payload.data.webtoon_rate[i];
-        }
-        setAverageRating(Math.round((temp / total) * 10) / 10);
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
           Math.ceil(Number(res.payload.author_webtoons.length) / 4)
@@ -215,8 +217,14 @@ function DetailPage() {
           setAgeGroupLabel(tempLabel);
           setAgeGroupColor(tempColor);
           let tempData = [];
+          let total = 0;
           for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempData.push(res.payload.gender_age[i][1]);
+            total += res.payload.gender_age[i][1];
+          }
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempData.push(
+              ((res.payload.gender_age[i][1] * 100) / total).toFixed(2)
+            );
           }
           setAgeGroupData(tempData);
         } else {
@@ -248,8 +256,14 @@ function DetailPage() {
           setAgeGroupLabel(tempLabel);
           setAgeGroupColor(tempColor);
           let tempData = [];
+          let total = 0;
           for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempData.push(res.payload.gender_age[i][1]);
+            total += res.payload.gender_age[i][1];
+          }
+          for (let i = 0; i < res.payload.gender_age.length; i++) {
+            tempData.push(
+              ((res.payload.gender_age[i][1] * 100) / total).toFixed(2)
+            );
           }
           setAgeGroupData(tempData);
         } else {
@@ -261,20 +275,6 @@ function DetailPage() {
 
   function getRatingData() {
     dispatch(detail(toonId)).then((res) => {
-      setRatingGraphData([
-        res.payload.data.webtoon_rate[1],
-        res.payload.data.webtoon_rate[2],
-        res.payload.data.webtoon_rate[3],
-        res.payload.data.webtoon_rate[4],
-        res.payload.data.webtoon_rate[5],
-        res.payload.data.webtoon_rate[6],
-        res.payload.data.webtoon_rate[7],
-        res.payload.data.webtoon_rate[8],
-        res.payload.data.webtoon_rate[9],
-        res.payload.data.webtoon_rate[10],
-      ]);
-      webToonInfo.is_rated = 1;
-      setRatingCount(getRatingCount(res.payload.data));
       let temp = 0;
       let total = 0;
       for (let i = 1; i < 11; i++) {
@@ -282,6 +282,21 @@ function DetailPage() {
         total += res.payload.data.webtoon_rate[i];
       }
       setAverageRating(Math.round((temp / total) * 10) / 10);
+
+      setRatingGraphData([
+        ((res.payload.data.webtoon_rate[1] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[2] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[3] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[4] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[5] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[6] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[7] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[8] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[9] * 100) / total).toFixed(2),
+        ((res.payload.data.webtoon_rate[10] * 100) / total).toFixed(2),
+      ]);
+      webToonInfo.is_rated = 1;
+      setRatingCount(getRatingCount(res.payload.data));
     });
   }
 
@@ -336,6 +351,7 @@ function DetailPage() {
       if (res.error) {
         console.log("하트 실패");
       } else {
+        getAgeGroupData();
         dispatch(fetchInfo()).then(() => {
           console.log("하트 스위치~");
           if (document.getElementById("test") != null) {
@@ -372,7 +388,6 @@ function DetailPage() {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 200);
-    getDetail();
   }
 
   function tagSwitch(e) {
@@ -468,9 +483,9 @@ function DetailPage() {
     getDetail();
   }, [toonId]);
 
-  useEffect(() => {
-    getAgeGroupData();
-  }, [heartClick]);
+  // useEffect(() => {
+  //   getAgeGroupData();
+  // }, [heartClick]);
 
   const PaintStyleData = {
     margintop: 3,
@@ -538,6 +553,15 @@ function DetailPage() {
         display: true,
         text: "이 웹툰을 좋아하는 성별 연령 TOP5",
       },
+      tooltip: {
+        enabled: true,
+        usePointStyle: true,
+        callbacks: {
+          label: (data) => {
+            return data.formattedValue + "%";
+          },
+        },
+      },
     },
   };
 
@@ -571,6 +595,27 @@ function DetailPage() {
         data: ratingGraphData,
       },
     ],
+  };
+
+  const RatingGraphOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "이 웹툰의 별점 분포",
+      },
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          label: (data) => {
+            return data.formattedValue + "%";
+          },
+        },
+      },
+    },
   };
 
   return (
@@ -828,6 +873,7 @@ function DetailPage() {
                     {count === 1 ? null : (
                       <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>
                     )}
+<<<<<<< HEAD
                     {count === slideCount ? null : (
                       <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
                     )}
@@ -875,6 +921,21 @@ function DetailPage() {
                 </SARecommendsBack>
               </Box>
             </SameAuthorRecommendZone>
+=======
+                  </AgeGroupAnalysis>
+                </Analysis>
+                <Graph>
+                  <RatingGraph>
+                    <ChartTitle2>별점 그래프</ChartTitle2>
+                    <ChartShow
+                      data={RatingGraphData}
+                      options={RatingGraphOptions}
+                    ></ChartShow>
+                  </RatingGraph>
+                </Graph>
+              </AnalysisBack>
+            </WebToonAnalysisZone>
+>>>>>>> e139eed (fix: 그래프 숫자가아닌 퍼센트로 표시)
           </BackGround>
         </PageBox>
       )}

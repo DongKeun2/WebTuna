@@ -54,6 +54,7 @@ function ProfilePage() {
       let imageType = [];
       let gName = [];
       let gValue = [];
+      let total = 0;
       let tempLikedTags = [];
       res.payload.data.tags.map((tag) => tempLikedTags.push(tag.tag_id));
       imageType.push(res.payload.image_type.image_type1 / 2 + 15);
@@ -66,6 +67,13 @@ function ProfilePage() {
       Object.keys(res.payload.genre_list).map((key) => gName.push(key));
       setgGenreName(gName);
       Object.values(res.payload.genre_list).map((value) => gValue.push(value));
+      for (let i = 0; i < gValue.length; i++) {
+        total += gValue[i];
+      }
+      for (let i = 0; i < gValue.length; i++) {
+        gValue[i] = ((gValue[i] * 100) / total).toFixed(2);
+      }
+
       setgGenreValue(gValue);
       setSlideCount(
         Math.ceil(Number(res.payload.data.liked_webtoons.length) / 4)
@@ -282,6 +290,15 @@ function ProfilePage() {
     plugins: {
       legend: {
         display: false,
+      },
+      tooltip: {
+        enabled: true,
+        usePointStyle: true,
+        callbacks: {
+          label: (data) => {
+            return data.formattedValue + "%";
+          },
+        },
       },
     },
   };
