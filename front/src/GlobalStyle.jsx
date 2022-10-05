@@ -3,10 +3,10 @@ import { common, hover, input } from "./assets/cursor/cursorItem";
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-      font-family: 'Pretendard-Regular';
-      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
+    font-family: 'Atomy-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Atomy-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
   }
   html {
     :hover {
@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     background-color: #D1E2FF;
-    font-family: 'Pretendard-Regular';
+    font-family: 'Atomy-Bold';
     margin: 0;
     :hover {
       cursor:  url(${common}) 13 13, auto;
@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
   }
   body button {
     cursor: url(${hover}) 13 13, auto;
+    font-family: 'Atomy-Bold';
+  }
+  body ::placeholder {
+    font-family: 'Atomy-Bold';
   }
   .swal2-styled {
     cursor: url(${hover}) 13 13, auto !important;

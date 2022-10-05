@@ -38,7 +38,7 @@ function AudioBar() {
     <AudioBox onMouseEnter={sourceBoxOn} onMouseLeave={sourceBoxOff}>
       <ResetButton onClick={reset}>■</ResetButton>
       {playing ? (
-        <StopButton onClick={stop}>∥</StopButton>
+        <StopButton onClick={stop}>II</StopButton>
       ) : (
         <PlayButton onClick={play}>▶</PlayButton>
       )}
@@ -66,10 +66,11 @@ const ResetButton = styled.button`
   width: 20px;
   height: 24px;
   padding: 0;
-  margin-bottom: 5px;
+  margin-left: 4px;
+  margin-bottom: 2px;
   border: 0;
   background-color: white;
-  font-size: 20px;
+  font-size: 16px;
   cursor: url(${hover}) 13 13, auto;
 `;
 
@@ -77,10 +78,11 @@ const StopButton = styled.button`
   width: 20px;
   height: 24px;
   padding: 0;
-  margin-bottom: 5px;
+  margin-right: 3px;
+  margin-bottom: 2px;
   border: 0;
   background-color: white;
-  font-size: 18.5px;
+  font-size: 16px;
   cursor: url(${hover}) 13 13, auto;
 `;
 
@@ -88,7 +90,8 @@ const PlayButton = styled.button`
   width: 20px;
   height: 24px;
   padding: 0;
-  margin-bottom: 5px;
+  margin-right: 2px;
+  margin-bottom: 2px;
   border: 0;
   background-color: white;
   font-size: 16px;

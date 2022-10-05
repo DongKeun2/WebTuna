@@ -508,13 +508,13 @@ const BtnGroup = styled.div`
 const OuterBtn = styled.div`
   background-color: white;
   border-radius: 14px;
-  padding: 14px 6px;
+  padding: 13px 6px 12px;
   margin-top: 21px;
 `;
 
 const InputBtn = styled.label`
   background-color: #feec91;
-  padding: 10px 16px;
+  padding: 8px 16px 10px;
   border-radius: 10px;
   font-weight: 700;
   cursor: url(${hover}) 13 13, auto;
