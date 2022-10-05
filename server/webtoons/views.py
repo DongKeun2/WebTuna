@@ -1257,7 +1257,7 @@ def genreRecommend(user):
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
-    msg = f"'{member.nickname}'님이 좋아하시는 '{genre_list[0]}','{genre_list[1]}','{genre_list[2]}' 웹툰"
+    msg = f"'{member.nickname}'님이 좋아하는 '{genre_list[0]}','{genre_list[1]}','{genre_list[2]}' 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
     send_data = [webtoons_list.data, msg]
 
