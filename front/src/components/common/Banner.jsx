@@ -30,7 +30,9 @@ function Banner() {
   return (
     <CarouselBox>
       <Carousel
+        swiping={false}
         disableAnimation={true}
+        dragging={false}
         disableEdgeSwiping={true}
         dragThreshold="5"
         animation="fade"
