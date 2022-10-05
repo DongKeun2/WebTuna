@@ -37,8 +37,10 @@ function Today() {
         </>
       ) : (
         <>
-          <ModalTitle>당신의 운세를 확인해드립니다!</ModalTitle>
-          <ModalText>마음에 드는 카드를 한 장 고르세요!</ModalText>
+          <TextBox>
+            <ModalTitle>당신의 운세를 확인해드립니다!</ModalTitle>
+            <ModalText>마음에 드는 카드를 한 장 고르세요!</ModalText>
+          </TextBox>
           <CardContainer>
             <CardBox onClick={() => setIsSelected(true)}>
               <CardImg src={cardImg} alt="card_back_img"></CardImg>
@@ -61,13 +63,19 @@ function Today() {
 
 export default Today;
 
+const TextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const ModalTitle = styled.p`
-  margin-top: 3vw;
+  /* margin-top: 10vh; */
   margin-bottom: 0;
-  font-size: 2vw;
-  @media screen and (max-width: 1100px) {
+  font-size: 3vw;
+  /* @media screen and (max-width: 1100px) {
     font-size: 4vw;
-  }
+  } */
 `;
 
 const ModalText = styled.p`
@@ -78,21 +86,21 @@ const ModalText = styled.p`
 const ItemBox = styled.div``;
 
 const CardContainer = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
 
 const CardBox = styled.div`
-  width: 15vw;
+  width: 100%;
   height: auto;
   overflow: hidden;
   :hover {
     cursor: url(${hover}) 13 13, auto;
   }
   @media screen and (max-width: 1100px) {
-    width: 20vw;
+    width: 80%;
   }
 `;
 
@@ -110,9 +118,8 @@ const Container = styled.div`
   top: 0;
   bottom: 0;
   right: 0;
-  bottom: 0;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -135,17 +142,20 @@ const Background = styled.div`
 
 const ModalBlock = styled.div`
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px black solid;
   border-radius: 10px;
-  padding: 0 1.5rem 5rem;
+  padding: 1rem 1.5rem;
   background-color: white;
-  top: 10rem;
-  width: 70%;
-  height: auto;
+  top: 7rem;
+  width: 60vw;
+  height: 60vh;
   animation: modal-show 1s;
-  @media screen and (max-width: 1100px) {
-    width: 90%;
-  }
+  /* @media screen and (max-width: 1100px) {
+    width: 50vw;
+  } */
   @keyframes modal-show {
     from {
       opacity: 0;
@@ -172,12 +182,15 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
 `;
 
 const BtnBox = styled.div``;
 
 const OutBtn = styled.button`
-  font-size: 20px;
+  font-size: 1vw;
   font-weight: bold;
   background-color: #feec91;
   padding: 10px 20px;
