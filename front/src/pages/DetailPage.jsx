@@ -44,10 +44,23 @@ function DetailPage() {
   const [ageGroupLabel, setAgeGroupLabel] = useState();
   const [ageGroupData, setAgeGroupData] = useState();
   const [ageGroupColor, setAgeGroupColor] = useState();
+  const [averageRating, setAverageRating] = useState();
   // const [modalRating, setModalRating] = useState(5);
   const day = ["None", "월", "화", "수", "목", "금", "토", "일", "완결"];
-  const maleColor = ["rgba(46, 157, 248, 0.2)", "rgba(47, 147, 229, 0.593)", "rgba(101, 193, 243, 0.73)", "rgba(77, 119, 236, 0.451)", "rgba(37, 163, 191, 0.451)"];
-  const femaleColor = ["rgba(255, 99, 132, 0.2)", "rgba(213, 70, 101, 0.358)", "rgba(213, 70, 168, 0.358)", "rgba(206, 97, 97, 0.37)", "rgba(200, 78, 38, 0.37)"];
+  const maleColor = [
+    "rgba(46, 157, 248, 0.2)",
+    "rgba(47, 147, 229, 0.593)",
+    "rgba(101, 193, 243, 0.73)",
+    "rgba(77, 119, 236, 0.451)",
+    "rgba(37, 163, 191, 0.451)",
+  ];
+  const femaleColor = [
+    "rgba(255, 99, 132, 0.2)",
+    "rgba(213, 70, 101, 0.358)",
+    "rgba(213, 70, 168, 0.358)",
+    "rgba(206, 97, 97, 0.37)",
+    "rgba(200, 78, 38, 0.37)",
+  ];
   let maleIndex = 0;
   let femaleIndex = 0;
 
@@ -86,6 +99,13 @@ function DetailPage() {
         ]);
 
         setRatingCount(getRatingCount(res.payload.data));
+        let temp = 0;
+        let total = 0;
+        for (let i = 1; i < 11; i++) {
+          temp += res.payload.data.webtoon_rate[i] * (0.5 * i);
+          total += res.payload.data.webtoon_rate[i];
+        }
+        setAverageRating(Math.round((temp / total) * 10) / 10);
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
           Math.ceil(Number(res.payload.author_webtoons.length) / 4)
@@ -133,6 +153,13 @@ function DetailPage() {
         ]);
 
         setRatingCount(getRatingCount(res.payload.data));
+        let temp = 0;
+        let total = 0;
+        for (let i = 1; i < 11; i++) {
+          temp += res.payload.data.webtoon_rate[i] * (0.5 * i);
+          total += res.payload.data.webtoon_rate[i];
+        }
+        setAverageRating(Math.round((temp / total) * 10) / 10);
         setOtherWebToons(res.payload.author_webtoons);
         setSlideCount(
           Math.ceil(Number(res.payload.author_webtoons.length) / 4)
@@ -153,8 +180,10 @@ function DetailPage() {
           slide.style.left = "0vw";
           setCount(1);
           if (document.getElementById("test") != null) {
-            document.getElementById("test").addEventListener("click", heartClickEffect);
-          };
+            document
+              .getElementById("test")
+              .addEventListener("click", heartClickEffect);
+          }
         }, 100);
       });
     }
@@ -167,8 +196,19 @@ function DetailPage() {
           let tempLabel = [];
           let tempColor = [];
           for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempLabel.push((res.payload.gender_age[i][0].substr(0, 2) === "00" ? "10대 미만" : res.payload.gender_age[i][0].substr(0, 2) + "대") + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
-            tempColor.push(res.payload.gender_age[i][0].substr(-1) === 'F' ? femaleColor[femaleIndex++] : maleColor[maleIndex++]);
+            tempLabel.push(
+              (res.payload.gender_age[i][0].substr(0, 2) === "00"
+                ? "10대 미만"
+                : res.payload.gender_age[i][0].substr(0, 2) + "대") +
+                (res.payload.gender_age[i][0].substr(-1) === "F"
+                  ? " 여성"
+                  : " 남성")
+            );
+            tempColor.push(
+              res.payload.gender_age[i][0].substr(-1) === "F"
+                ? femaleColor[femaleIndex++]
+                : maleColor[maleIndex++]
+            );
           }
           setAgeGroupLabel(tempLabel);
           setAgeGroupColor(tempColor);
@@ -180,16 +220,26 @@ function DetailPage() {
         } else {
           setAgeGroupData(0);
         }
-      }
-      )
+      });
     } else {
       dispatch(detail(toonId)).then((res) => {
         if (res.payload.gender_age.length !== 0) {
           let tempLabel = [];
           let tempColor = [];
           for (let i = 0; i < res.payload.gender_age.length; i++) {
-            tempLabel.push((res.payload.gender_age[i][0].substr(0, 2) === "00" ? "10대 미만" : res.payload.gender_age[i][0].substr(0, 2) + "대") + (res.payload.gender_age[i][0].substr(-1) === 'F' ? " 여성" : " 남성"));
-            tempColor.push(res.payload.gender_age[i][0].substr(-1) === 'F' ? femaleColor[femaleIndex++] : maleColor[maleIndex++]);
+            tempLabel.push(
+              (res.payload.gender_age[i][0].substr(0, 2) === "00"
+                ? "10대 미만"
+                : res.payload.gender_age[i][0].substr(0, 2) + "대") +
+                (res.payload.gender_age[i][0].substr(-1) === "F"
+                  ? " 여성"
+                  : " 남성")
+            );
+            tempColor.push(
+              res.payload.gender_age[i][0].substr(-1) === "F"
+                ? femaleColor[femaleIndex++]
+                : maleColor[maleIndex++]
+            );
           }
           setAgeGroupLabel(tempLabel);
           setAgeGroupColor(tempColor);
@@ -201,11 +251,35 @@ function DetailPage() {
         } else {
           setAgeGroupData(0);
         }
-      }
-      )
+      });
     }
   }
 
+  function getRatingData() {
+    dispatch(detail(toonId)).then((res) => {
+      setRatingGraphData([
+        res.payload.data.webtoon_rate[1],
+        res.payload.data.webtoon_rate[2],
+        res.payload.data.webtoon_rate[3],
+        res.payload.data.webtoon_rate[4],
+        res.payload.data.webtoon_rate[5],
+        res.payload.data.webtoon_rate[6],
+        res.payload.data.webtoon_rate[7],
+        res.payload.data.webtoon_rate[8],
+        res.payload.data.webtoon_rate[9],
+        res.payload.data.webtoon_rate[10],
+      ]);
+      webToonInfo.is_rated = 1;
+      setRatingCount(getRatingCount(res.payload.data));
+      let temp = 0;
+      let total = 0;
+      for (let i = 1; i < 11; i++) {
+        temp += res.payload.data.webtoon_rate[i] * (0.5 * i);
+        total += res.payload.data.webtoon_rate[i];
+      }
+      setAverageRating(Math.round((temp / total) * 10) / 10);
+    });
+  }
 
   function getRatingCount(data) {
     let total = 0;
@@ -221,6 +295,7 @@ function DetailPage() {
   }
 
   function changeRating(e) {
+    let ratingBtn = document.getElementById("ratingButton");
     MySwal.fire({
       title: `${e.target.value}점 확실합니까?`,
       text: "한번 준 별점은 변경할 수 없습니다!",
@@ -237,16 +312,14 @@ function DetailPage() {
           title: "별점이 반영되었습니다!",
           confirmButtonColor: "#faaf00",
         });
+        ratingBtn.className += " disabledbutton";
         let data = { toonId, rating: e.target.value };
         console.log(data);
         dispatch(webtoonRating(data)).then((res) => {
           if (res.error) {
             console.log("실패");
           } else {
-            dispatch(fetchInfo()).then(() => {
-              console.log("별점 주기 성공");
-              getDetail();
-            });
+            getRatingData();
           }
         });
         setModal(false);
@@ -262,8 +335,10 @@ function DetailPage() {
         dispatch(fetchInfo()).then(() => {
           console.log("하트 스위치~");
           if (document.getElementById("test") != null) {
-            document.getElementById("test").addEventListener("click", heartClickEffect);
-          };
+            document
+              .getElementById("test")
+              .addEventListener("click", heartClickEffect);
+          }
         });
       }
     });
@@ -369,7 +444,6 @@ function DetailPage() {
     });
   }
 
-
   useEffect(() => {
     dispatch(changeCurrentpage(""));
     setIsLoading(true);
@@ -378,7 +452,7 @@ function DetailPage() {
 
   useEffect(() => {
     getAgeGroupData();
-  }, [heartClick])
+  }, [heartClick]);
 
   const PaintStyleData = {
     margintop: 3,
@@ -426,13 +500,7 @@ function DetailPage() {
         label: "이 웹툰을 좋아하는 연령대",
         fill: true,
         backgroundColor: ageGroupColor,
-        borderColor: [
-          "white",
-          "white",
-          "white",
-          "white",
-          "white"
-        ],
+        borderColor: ["white", "white", "white", "white", "white"],
         pointBorderColor: "#fff",
         pointBackgroundColor: "rgba(179,181,198,1)",
         data: ageGroupData,
@@ -505,14 +573,13 @@ function DetailPage() {
                 </TitleAuthor>
                 <RatingGenreDay>
                   <RatingZone>
-                    별점 ★ {Math.round(webToonInfo.data.rating * 10) / 10} (
-                    {ratingCount}명)
+                    별점 ★ {averageRating} ({ratingCount}명)
                     {loginState === null ? (
                       <RatingButton onClick={toLogin}>별점 주기</RatingButton>
                     ) : webToonInfo.is_rated === 1 ? (
                       <AlreadyRating>참여 완료</AlreadyRating>
                     ) : (
-                      <RatingButton onClick={switchModal}>
+                      <RatingButton onClick={switchModal} id="ratingButton">
                         별점 주기
                       </RatingButton>
                     )}
@@ -552,8 +619,8 @@ function DetailPage() {
                     {webToonInfo.data.days[0].day_id === 8
                       ? "완결 웹툰"
                       : webToonInfo.data.days.length === 1
-                        ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                        : webToonInfo.data.days
+                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                      : webToonInfo.data.days
                           .slice(0, -1)
                           .map((dayy) => day[dayy.day_id]) +
                         " , " +
@@ -597,7 +664,7 @@ function DetailPage() {
               ? <NoTag></NoTag> :
 =======
             {webToonInfo.data.tags.length === 0 ||
-              webToonInfo.data.tags === undefined ? (
+            webToonInfo.data.tags === undefined ? (
               <NoTag></NoTag>
             ) : (
 >>>>>>> ae3b8f2 (feat: 프로필&상세페이지 커서 변경)
@@ -633,7 +700,7 @@ function DetailPage() {
               <div>그림체가 비슷한 웹툰</div>
               <PSRecommends>
                 {webToonInfo.similar_webtoon.length === 0 ||
-                  webToonInfo.similar_webtoon === undefined ? (
+                webToonInfo.similar_webtoon === undefined ? (
                   <OtherWebToonEmpty>
                     <EmptyImg src={Empty} />
                     <Bubble>그림체가 비슷한 웹툰이 없어요...</Bubble>
@@ -658,12 +725,12 @@ function DetailPage() {
                           {similarWebtoon.author_name.length === 1
                             ? similarWebtoon.author_name[0]
                             : similarWebtoon.author_name
-                              .slice(0, -1)
-                              .map((author) => author) +
-                            " / " +
-                            similarWebtoon.author_name
-                              .slice(-1)
-                              .map((author) => author)}
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              similarWebtoon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
                         </OtherWebToonAuthor>
                       </ToonInfo>
                     </OtherWebToon>
@@ -710,12 +777,12 @@ function DetailPage() {
                             {otherWebToon.author_name.length === 1
                               ? otherWebToon.author_name[0]
                               : otherWebToon.author_name
-                                .slice(0, -1)
-                                .map((author) => author) +
-                              " / " +
-                              otherWebToon.author_name
-                                .slice(-1)
-                                .map((author) => author)}
+                                  .slice(0, -1)
+                                  .map((author) => author) +
+                                " / " +
+                                otherWebToon.author_name
+                                  .slice(-1)
+                                  .map((author) => author)}
                           </OtherWebToonAuthor>
                         </ToonInfo>
                       </OtherWebToon>
@@ -737,15 +804,21 @@ function DetailPage() {
                   </PaintStyleAnalysis>
                   <AgeGroupAnalysis>
                     <ChartTitle1>연령대 분석</ChartTitle1>
-                    {ageGroupData === 0 ?
+                    {ageGroupData === 0 ? (
                       <AgeGroupEmpty>
                         <EmptyImg src={Empty} />
-                        <Bubble>데이터가 부족해요...<br /> 이 웹툰을 찜해서 <br />그래프를 만들어주세요</Bubble>
-                      </AgeGroupEmpty> : <ChartShow
+                        <Bubble>
+                          데이터가 부족해요...
+                          <br /> 이 웹툰을 찜해서 <br />
+                          그래프를 만들어주세요
+                        </Bubble>
+                      </AgeGroupEmpty>
+                    ) : (
+                      <ChartShow
                         data={AgeGroupData}
                         options={AgeGrouoOptions}
-                      ></ChartShow>}
-
+                      ></ChartShow>
+                    )}
                   </AgeGroupAnalysis>
                 </Analysis>
                 <Graph>
@@ -1127,11 +1200,11 @@ const OtherWebToonEmpty = styled.div`
 `;
 
 const AgeGroupEmpty = styled.div`
-    height: 100%;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
-`
+`;
 
 const EmptyImg = styled.img`
   width: 10vw;
