@@ -443,10 +443,8 @@ function RightToon({ toons, type, msg }) {
 const RightContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  @media screen and (max-width: 850px) {
-    flex-direction: column;
-    align-items: flex-end;
-  }
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 const RightTitleBox = styled.div`
