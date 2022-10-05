@@ -1221,9 +1221,11 @@ def genreRecommend(user):
     
     if webtoons_length == 0:
         reco_lst = []
+        msg = ""
         webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+        send_data = [webtoons_list.data, msg]
         
-        return webtoons_list
+        return send_data
     
     else:
         for webtoon in like_webtoons:
@@ -1276,9 +1278,11 @@ def tagRecommend(user):
     # 찜한 태그가 3개 미만일 때 빈 리스트 반환
     if len(like_tags) < 3:
         reco_lst = []
+        msg = ""
         webtoons_list = WebtoonListSerializer(reco_lst, many=True)
+        send_data = [webtoons_list.data, msg]
         
-        return webtoons_list
+        return send_data
 
     reco_lst = set()
     tag_lst = {}
