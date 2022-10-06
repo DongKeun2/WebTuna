@@ -28,7 +28,7 @@ const LoadingBox = styled.div`
 `;
 
 const LoadingMsg = styled.p`
-  font-size: 3vw;
+  font-size: 4vw;
   font-weight: bold;
   @media screen and (max-width: 600px) {
     font-size: 25px;
@@ -73,15 +73,18 @@ const move = keyframes`
 
 const ImgBox = styled.div`
   position: absolute;
-  margin-top: -20vh;
-  margin-left: -150px;
-  top: 45%;
-  left: 50%;
-  width: 300px;
-  height: 300px;
+  margin-top: -15vh;
+  margin-left: -15vh;
+  left: 50vw;
+  width: 30vh;
+  height: 30vh;
   border-radius: 70%;
+  border: 3px double white;
   overflow: hidden;
-  animation: ${move} 1.3s 0.1s infinite; ;
+  animation: ${move} 1.3s 0.1s infinite;
+  @media screen and (max-width: 600px) {
+    margin-top: -10vh;
+  }
 `;
 
 const ProfileImg = styled.img`
