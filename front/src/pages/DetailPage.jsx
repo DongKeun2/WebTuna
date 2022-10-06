@@ -425,7 +425,7 @@ function DetailPage() {
       let temp = Number(
         slide.style.left.substring(0, slide.style.left.length - 2)
       );
-      slide.style.left = temp + 68 + "vw";
+      slide.style.left = temp + 68.1 + "vw";
       setCount((prev) => prev - 1);
       setTimeout(() => {
         slide.className = "SARecommends";
@@ -445,7 +445,7 @@ function DetailPage() {
       let temp = Number(
         slide.style.left.substring(0, slide.style.left.length - 2)
       );
-      slide.style.left = temp - 68 + "vw";
+      slide.style.left = temp - 68.1 + "vw";
       setCount((prev) => prev + 1);
       setTimeout(() => {
         slide.className = "SARecommends";

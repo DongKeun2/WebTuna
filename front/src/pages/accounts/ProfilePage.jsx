@@ -42,7 +42,6 @@ function ProfilePage() {
   const [searchWord, setSearchWord] = useState("");
   const [filteredTags, setFilteredTags] = useState();
   const [profileImageId, setProfileImageId] = useState(0);
-  const [toolTipDisplay, setToolTipDisplay] = useState("none");
   let slide;
   let myProfile;
   useSelector((state) => (myProfile = state.login.currentUser));
@@ -111,6 +110,7 @@ function ProfilePage() {
 
   function switchTagModal() {
     setTagModal((prev) => !prev);
+    setSearchWord("");
   }
 
   function left(e) {
@@ -231,22 +231,14 @@ function ProfilePage() {
     });
   }
 
-  function toolTipOn() {
-    setToolTipDisplay("");
-  }
-
-  function toolTipOff() {
-    setToolTipDisplay("none");
-  }
-
   useEffect(() => {
     dispatch(changeCurrentpage(""));
     getUserInfo();
   }, []);
 
   const RatingGraphData = {
-    margintop: 0,
-    marginleft: 11,
+    margintop: 5,
+    marginleft: 0,
     width: 20,
     mwidth: 200,
     labels: genreName,
@@ -265,8 +257,8 @@ function ProfilePage() {
   };
 
   const PaintStyleData = {
-    margintop: -1,
-    marginleft: 8.5,
+    margintop: 3,
+    marginleft: 0,
     width: 25,
     mwidth: 280,
     labels: [
@@ -319,9 +311,6 @@ function ProfilePage() {
         suggestedMin: 0,
         suggestedMax: 70,
         pointLabels: {
-          font: {
-            size: 20,
-          },
         },
       },
     },
@@ -338,15 +327,10 @@ function ProfilePage() {
             <UserBorder>
               <UserBack>
                 <UserInfo>
-                  <ToolTip id="ToolTip" data={toolTipDisplay}>
-                    프로필 사진 바꿀래?
-                  </ToolTip>
                   <BorderImg
                     src={ProfileBorder}
                     alt="테두리"
                     onClick={switchProfileModal}
-                    onMouseEnter={toolTipOn}
-                    onMouseLeave={toolTipOff}
                   />
                   <ProfileImg src={userImg} alt="프로필사진" />
                   {profileModal ? (
@@ -383,78 +367,50 @@ function ProfilePage() {
                         {" "}
                         변경{" "}
                       </ChangeButton>
-                      <FilterZone>
-                        {filteredTags === undefined || searchWord.length === 0
-                          ? ""
-                          : filteredTags.map((filteredTag) => (
-                              <SearchTag
-                                key={filteredTag.tag_id}
-                                id={filteredTag.tag_id}
-                                onClick={tagSwitch}
-                              >
-                                <TagName>{filteredTag.name}</TagName>
-                                <PlusButton>+</PlusButton>
-                              </SearchTag>
-                            ))}
-                      </FilterZone>
                     </ModalFrame>
                   ) : null}
                   <Name>{userInfo.data.nickname} 님의 관심사</Name>
                 </UserInfo>
                 <ChartZone>
-                  <ChartTitleZone>
-                    <PreferGenreTitleZone>
-                      <PreferGenreTitle>선호하는 장르</PreferGenreTitle>
-                      <SubTitleZone>
+                  <Analysis>
+                    <GenreAnalysis>
+                      <ChartTitle>선호하는 장르</ChartTitle>
+                      <GenreBox>
                         {userInfo.genre_list.length === 0 ||
                         userInfo.genre_list === undefined
                           ? "텅~"
                           : Object.keys(userInfo.genre_list).map((key) => (
-                              <PreferGenreSubTitle key={key}>
-                                {key}
-                                <Square
-                                  style={{
-                                    backgroundColor: boxColor[boxColorIndex++],
-                                  }}
-                                ></Square>
-                              </PreferGenreSubTitle>
-                            ))}
-                      </SubTitleZone>
-                    </PreferGenreTitleZone>
-                    <PreferPaintStyleTitleZone>
-                      <PreferPaintStyleTitle>
-                        선호하는 그림체
-                      </PreferPaintStyleTitle>
-                      <SubTitleZone>
-                        <PreferGenreSubTitle>
-                          {" "}
-                          나는 어떤 그림체를 좋아할까?
-                          <PaintSquare></PaintSquare>
-                        </PreferGenreSubTitle>
-                      </SubTitleZone>
-                    </PreferPaintStyleTitleZone>
-                  </ChartTitleZone>
-                  <ChartsBox>
-                    <ChartBox>
-                      <PreferGenre>
-                        {genreName === undefined || genreName.length === 0 ? (
-                          <PreferGenreEmpty>
-                            <EmptyImg src={Empty} />
-                            <Bubble>
-                              마음에 드는 웹툰이 있으면 찜해주세요!
-                              <br />
-                              찜한 웹툰을 기반으로 그래프를 그려드려요!
-                            </Bubble>
-                          </PreferGenreEmpty>
-                        ) : (
-                          <ChartShow
-                            data={RatingGraphData}
-                            options={RatingGraphOptions}
-                          ></ChartShow>
-                        )}
-                      </PreferGenre>
-                    </ChartBox>
-                    <ChartBox>
+                            <PreferGenreSubTitle key={key}>
+                              {key}
+                              <Square
+                                style={{
+                                  backgroundColor: boxColor[boxColorIndex++],
+                                }}
+                              ></Square>
+                            </PreferGenreSubTitle>
+                          ))}
+                      </GenreBox>
+                      {genreName === undefined || genreName.length === 0 ? (
+                        <PreferGenreEmpty>
+                          <EmptyImg src={Empty} />
+                          <Bubble>
+                            웹툰을 찜 해주세요!
+                          </Bubble>
+                        </PreferGenreEmpty>
+                      ) : (
+                        <ChartShow
+                          data={RatingGraphData}
+                          options={RatingGraphOptions}
+                        ></ChartShow>
+                      )}
+                    </GenreAnalysis>
+                    <PaintAnalysis>
+                      <ChartTitle>선호하는 그림체</ChartTitle>
+                      <PreferGenreSubTitle>
+                        {" "}
+                        나는 어떤 그림체를 좋아할까?
+                        <PaintSquare></PaintSquare>
+                      </PreferGenreSubTitle>
                       <PreferPaintStyle>
                         {paintGraphData === undefined ||
                         paintGraphData.length === 0 ? (
@@ -466,8 +422,8 @@ function ProfilePage() {
                           ></ChartShow>
                         )}
                       </PreferPaintStyle>
-                    </ChartBox>
-                  </ChartsBox>
+                    </PaintAnalysis>
+                  </Analysis>
                 </ChartZone>
               </UserBack>
             </UserBorder>
@@ -479,13 +435,13 @@ function ProfilePage() {
                   : `(${userInfo.data.tags.length})`}
               </TagTitle>
               <TagAddRemove onClick={switchTagModal}>
-                태그 추가/제거
+                <>태그 추가/제거</>
               </TagAddRemove>
             </TagTitleZone>
             {tagModal ? (
               <ModalFrame
                 top="5vw"
-                width="75%"
+                width="70%"
                 height="auto"
                 _handleModal={switchTagModal}
               >
@@ -555,17 +511,7 @@ function ProfilePage() {
                   : `(${userInfo.data.liked_webtoons.length})`}
               </TagTitle>
             </WebToonTitleZone>
-            {slideCount >= 2 ? (
-              <>
-                {count === 1 ? null : (
-                  <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>
-                )}
-                {count === slideCount ? null : (
-                  <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
-                )}
-              </>
-            ) : null}
-            <LikedWebToonBack>
+            <LikedWebToonBack> 
               {userInfo.data.liked_webtoons.length === 0 ||
               userInfo.data.liked_webtoons === undefined ? (
                 <LikedWebToonEmpty>
@@ -573,26 +519,40 @@ function ProfilePage() {
                   <Bubble>찜한 웹툰이 없어요...</Bubble>
                 </LikedWebToonEmpty>
               ) : (
-                <div className="LikedWebToons" id="slide">
-                  {userInfo.data.liked_webtoons.map((likedWebtoon) => (
-                    <LikedWebToon
-                      key={likedWebtoon.webtoon_id}
-                      id={likedWebtoon.webtoon_id}
-                    >
-                      <ThumnailBox onClick={moveDetail}>
-                        <LikedWebToonThumbnail
-                          src={likedWebtoon.thumbnail}
-                          alt="찜한 웹툰 이미지"
-                        ></LikedWebToonThumbnail>
-                      </ThumnailBox>
-                      <ToonInfo>
-                        <LikedWebToonTitle onClick={moveDetail}>
-                          {likedWebtoon.title}
-                        </LikedWebToonTitle>
-                      </ToonInfo>
-                    </LikedWebToon>
-                  ))}
-                </div>
+                <Box>
+                  {slideCount >= 2 ? (
+                    <>
+                      {count === 1 ? null : (
+                        <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>
+                      )}
+                      {count === slideCount ? null : (
+                        <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
+                      )}
+                    </>
+                  ) : null}
+                  <LikedBack>
+                    <div className="LikedWebToons" id="slide">
+                      {userInfo.data.liked_webtoons.map((likedWebtoon) => (
+                        <LikedWebToon
+                          key={likedWebtoon.webtoon_id}
+                          id={likedWebtoon.webtoon_id}
+                        >
+                          <ThumnailBox onClick={moveDetail}>
+                            <LikedWebToonThumbnail
+                              src={likedWebtoon.thumbnail}
+                              alt="찜한 웹툰 이미지"
+                            ></LikedWebToonThumbnail>
+                          </ThumnailBox>
+                          <ToonInfo>
+                            <LikedWebToonTitle onClick={moveDetail}>
+                              {likedWebtoon.title}
+                            </LikedWebToonTitle>
+                          </ToonInfo>
+                        </LikedWebToon>
+                      ))}
+                    </div>
+                  </LikedBack>
+                </Box>
               )}
             </LikedWebToonBack>
             <TagTitleZone>
@@ -653,59 +613,55 @@ const UserBack = styled.div`
 const BorderImg = styled.img`
   cursor: url(${hover}) 13 13, auto;
   position: absolute;
-  margin-top: 0.5vw;
-  margin-left: 0.5vw;
   width: 7vw;
   overflow: hidden;
   z-index: 1;
 `;
 
 const ProfileImg = styled.img`
-  margin-top: 1.2vw;
-  margin-left: 1.7vw;
   width: 4.8vw;
   height: 4.8vw;
+  margin-left: 1.1vw;
   border-radius: 70%;
   object-fit: cover;
   z-index: 0;
 `;
 
 const ChangeButton = styled.div`
+  background-color: #d1e2ff;
+  padding: 0.6vw 2vw;
+  @media screen and (max-width: 750px) {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+  border-radius: 12px;
+  border: 0.2vw solid #d1e2ff;
+  margin-top: 1.2vw;
+  margin-bottom: 2vw;
   cursor: url(${hover}) 13 13, auto;
-  font-size: 1.5vw;
-  padding: 0.25vw;
-  border: 0.1vw solid black;
-  border-radius: 1vw;
-  background-color: white;
-  margin-top: 1.1vw;
   &:hover {
-    background-color: pink;
+    background-color: #99c0ff;
+    border: 0.2vw solid #99c0ff;
   }
 `;
 
 const UserInfo = styled.div`
+  position: relative;
+  width: 96%;
+  margin: 2vw auto 1.5vw;
   display: flex;
-`;
-
-const ToolTip = styled.div`
-  display: ${(props) => props.data};
-  position: absolute;
-  padding: 0.3vw;
-  border-radius: 0.3vw;
-  background-color: #4f4f4fb4;
-  color: white;
-  margin-top: -1vw;
-  margin-left: 1vw;
-  font-size: 0.6vw;
-  z-index: 1;
-  transition: 0.3s;
+  align-items: center;
+  gap: 1.5vw;
 `;
 
 const Name = styled.div`
-  font-size: 1.2vw;
-  margin-top: 3vw;
-  margin-left: 1vw;
-  font-weight: 600;
+  font-size: 1.5vw;
+  @media screen and (max-width: 1100px) {
+    font-size: 1.4vw;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+  }
 `;
 
 const TagTitleZone = styled.div`
@@ -731,52 +687,59 @@ const TagTitle = styled.div`
 const TagZone = styled.div`
   display: flex;
   flex-flow: wrap;
-  padding: 1.5vw;
+  padding: 1vw 0.8vw;
   border: 0.15vw solid black;
   border-radius: 1.5vw;
   background-color: #fff5c3;
 `;
 
 const TagAddRemove = styled.div`
-  cursor: url(${hover}) 13 13, auto;
-  font-size: 1.5vw;
-  padding: 0.25vw;
-  z-index: 1;
-  border: 0.1vw solid black;
-  border-top-left-radius: 1vw;
-  border-top-right-radius: 1vw;
+  display: inline;
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  font-size: 1.2vw;
+  @media screen and (max-width: 1100px) {
+    font-size: 10px;
+  }
+  margin-top: 0.4vw;
+  padding: 0.4vw 1.6vw;
+  border: 0.2vw solid #d1e2ff;
+  border-radius: 1vw;
   background-color: white;
-  margin-top: 1.1vw;
-  margin-bottom: -1.05vw;
+  cursor: url(${hover}) 13 13, auto;
   &:hover {
-    background-color: pink;
+    background-color: #99c0ff;
+    border: 0.2vw solid #99c0ff;
   }
 `;
 
 const Tag = styled.div`
+  margin: 0.5vw;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
   display: flex;
-  border: 0.1vw solid black;
+  border: 0.15vw solid white;
   border-radius: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 0.5vw;
   background-color: white;
 `;
 
 const SearchTag = styled.div`
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
   display: flex;
   cursor: url(${hover}) 13 13, auto;
-  border: 0.1vw solid black;
+  border: 0.15vw solid white;
   border-radius: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0.5vw;
-  transition: 0.5s;
   &:hover {
-    background-color: pink;
+    background-color: #99c0ff;
   }
+  margin: 0.5vw;
 `;
 
 const BookMarkImage = styled.img`
@@ -814,15 +777,24 @@ const PlusButton = styled.div`
 const ModalTitle = styled.div`
   margin-top: 2vw;
   font-size: 1.5vw;
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+    margin-top: 20px;
+  }
 `;
 const LikedTagZone = styled.div`
   display: flex;
   flex-flow: wrap;
-  margin-top: 3vw;
+  margin-top: 2vw;
 `;
 
 const LikedTagEmptyMessage = styled.div`
-  font-size: 1.5vw;
+  margin: 1.5vw 0;
+  font-size: 1.4vw;
+  @media screen and (max-width: 750px) {
+    font-size: 14px;
+    margin: 15px 0;
+  }
 `;
 
 const Line = styled.div`
@@ -832,12 +804,13 @@ const Line = styled.div`
 `;
 
 const ProfileZone = styled.div`
-  flex-flow: wrap;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 `;
 
 const ChoosedProfileCandidate = styled.img`
   cursor: url(${hover}) 13 13, auto;
-  margin: 1.5vw;
+  margin: 2vw 1vw;
   width: 8vw;
   height: 8vw;
   border-radius: 70%;
@@ -850,49 +823,52 @@ const ChoosedProfileCandidate = styled.img`
 
 const ProfileCandidate = styled.img`
   cursor: url(${hover}) 13 13, auto;
-  margin: 2vw;
+  margin: 2vw 1vw;
   width: 8vw;
   height: 8vw;
+  border: 0.5vw solid white;
   border-radius: 70%;
   object-fit: cover;
   z-index: 0;
-  transition: 0.3s;
   &:hover {
     transform: scale(1.3);
   }
 `;
 
 const SearchBar = styled.input`
+  padding: 3px 8px;
   margin-top: 3vw;
-  width: 25vw;
+  width: 70%;
   height: 3vw;
   font-size: 1.5vw;
+  border-radius: 1vw;
 `;
 
 const FilterZone = styled.div`
   display: flex;
   flex-flow: wrap;
   margin-top: 3vw;
-  padding: 1.5vw;
+  padding: 0 1.5vw 1.5vw;
   border-top-left-radius: 1vw;
   border-bottom-left-radius: 1vw;
   border-bottom-right-radius: 1vw;
 `;
 
 const LikedTag = styled.div`
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
   display: flex;
   cursor: url(${hover}) 13 13, auto;
-  background-color: pink;
-  border: 0.1vw solid black;
+  background-color: #d1e2ff;
+  border: 0.15vw solid white;
   border-radius: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0.5vw;
-  transition: 0.5s;
   &:hover {
-    background-color: white;
+    background-color: #99c0ff;
   }
+  margin: 0.5vw;
 `;
 
 const WebToonTitleZone = styled.div`
@@ -904,43 +880,49 @@ const WebToonTitleZone = styled.div`
 const PrevBtn = styled.img`
   cursor: url(${hover}) 13 13, auto;
   position: absolute;
-  width: 3vw;
-  margin-top: 7.5vw;
-  margin-left: 0.5vw;
+  width: 1.8vw;
+  top: 9vw;
+  left: 0.2vw;
   z-index: 1;
 `;
 
 const NextBtn = styled.img`
   cursor: url(${hover}) 13 13, auto;
   position: absolute;
-  width: 3vw;
-  margin-top: 7.5vw;
-  margin-left: 84.5vw;
+  width: 1.8vw;
+  top: 9vw;
+  right: 0.2vw;
   z-index: 1;
 `;
 
 const LikedWebToonBack = styled.div`
+  position: relative;
   display: flex;
   background-color: #fff5c3;
   border: 0.15vw solid black;
   border-radius: 1.5vw;
   background-color: #fff5c3;
-  height: 20vw;
+  padding: 2vw 0.8vw;
+  margin: 1vw 0vw 1vw 0vw;
   overflow: hidden;
 `;
 
-const LikedWebToons = styled.div`
-  position: relative;
+const Box = styled.div`
+  width: 96%;
+  margin: 0 auto;
+`;
+
+const LikedBack = styled.div`
   display: flex;
-  left: 0vw;
-  background-color: #fff5c3;
-  transition: all 1s;
+  overflow: hidden;
 `;
 
 const LikedWebToon = styled.div`
-  width: 16vw;
-  margin-top: 1.5vw;
-  margin-left: 4.75vw;
+  cursor: url(${hover}) 13 13, auto;
+  width: 15vw;
+  margin: 0 1.6vw 0.2vw 0;
+  border-radius: 0.8vw;
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
 `;
 
 const LikedWebToonEmpty = styled.div`
@@ -957,6 +939,7 @@ const Bubble = styled.div`
   align-items: center;
   position: relative;
   font-size: 1.2vw;
+  max-height: 80px;
   @media screen and (max-width: 1100px) {
     font-size: 1vw;
   }
@@ -1033,8 +1016,7 @@ const LikedWebToonTitle = styled.div`
   font-size: 1.3vw;
   font-weight: 600;
   margin: 0;
-  padding-left: 0.5vw;
-  padding-right: 0.5vw;
+  padding: 0.2vw 0.5vw;
 `;
 const ViewWebToonBack = styled.div`
   display: flex;
@@ -1046,7 +1028,7 @@ const ViewWebToonBack = styled.div`
 const ViewWebToon = styled.div`
   display: grid;
   width: 100%;
-  margin: 1.5vw 1vw 2vw;
+  margin: 1.5vw 0.8vw 2vw;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
 
@@ -1062,53 +1044,63 @@ const ChartZone = styled.div`
   border: 0.15vw solid black;
   border-radius: 1.5vw;
   margin: 1vw;
-  height: 30vw;
-  overflow: hidden;
 `;
 
-const ChartTitleZone = styled.div`
+const Analysis = styled.div`
+  padding: 1vw;
+  border-radius: 1vw;
   display: flex;
-  margin-top: 1vw;
+  justify-content: space-evenly;
+  @media screen and (max-width: 750px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
 `;
 
-const PreferGenreTitleZone = styled.div`
-  flex: 1;
-  text-align: center;
-`;
-
-const PreferGenreTitle = styled.div`
-  font-size: 1.5vw;
-  margin-bottom: 1vw;
-`;
-
-const SubTitleZone = styled.div`
+const GenreAnalysis = styled.div`
   display: flex;
-  margin-bottom: 1.5vw;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vw;
+  border-radius: 1vw;
+`;
+
+const ChartTitle = styled.div`
+  font-size: 1.6vw;
+  @media screen and (max-width: 1100px) {
+    font-size: 1.4vw;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 11px;
+  }
+`;
+
+const GenreBox = styled.div`
+  display: flex;
   justify-content: center;
+`;
+
+const PaintAnalysis = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1vw;
+  padding: 1vw;
 `;
 
 const PreferGenreSubTitle = styled.div`
   display: flex;
   font-size: 1vw;
   height: 1vw;
-  margin: 0.5vw;
+  margin: 1vw 0.5vw 0.5vw;
 `;
 
 const Square = styled.div`
   width: 1vw;
   height: 1vw;
   margin-left: 0.2vw;
-`;
-
-const PreferPaintStyleTitleZone = styled.div`
-  flex: 1;
-  text-align: center;
-  font-size: 1.5vw;
-`;
-
-const PreferPaintStyleTitle = styled.div`
-  font-size: 1.5vw;
-  margin-bottom: 1vw;
 `;
 
 const PaintSquare = styled.div`
@@ -1119,27 +1111,11 @@ const PaintSquare = styled.div`
   border: solid 0.15vw #29adf07d;
 `;
 
-const ChartsBox = styled.div`
-  display: flex;
-`;
-
-const ChartBox = styled.div`
-  flex: 1;
-  background-color: white;
-  height: 27.5vw;
-`;
-
-const PreferGenre = styled.div`
-  object-fit: fill;
-  width: 100%;
-  height: 100%;
-`;
-
 const PreferGenreEmpty = styled.div`
   height: 100%;
   width: 100%;
-  margin-top: 5vw;
   display: flex;
+  align-items: center;
 `;
 
 const PreferPaintStyle = styled.div`
