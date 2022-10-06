@@ -788,7 +788,6 @@ function DetailPage() {
             )}
 
             <WebToonAnalysisZone>
-              <GroupHeader>웹툰 분석</GroupHeader>
               <AnalysisBack>
                 <Analysis>
                   <PaintStyleAnalysis>
@@ -1307,7 +1306,7 @@ const MSummary = styled.div`
 
 const GroupHeader = styled.p`
   width: 80%;
-  margin: 3vw 0 0.5vw;
+  margin: 3vw 0 0.5vw 1vw;
   font-size: 1.8vw;
   @media screen and (max-width: 1100px) {
     font-size: 1.6vw;
@@ -1378,7 +1377,7 @@ const TagName = styled.div`
 
 const MinusButton = styled.div`
   flex: 1;
-  margin-left: 0.6vw;
+  margin-left: 0.38vw;
   margin-right: 0.2vw;
   margin-top: -0.2vw;
   padding-right: 0.36vw;
