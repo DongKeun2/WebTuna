@@ -604,7 +604,7 @@ function DetailPage() {
         position: "top",
       },
       title: {
-        display: true,
+        display: false,
         text: "이 웹툰의 별점 분포",
       },
       tooltip: {
@@ -819,7 +819,10 @@ function DetailPage() {
                 </Analysis>
                 <RatingGraph>
                   <ChartTitle2>별점 그래프</ChartTitle2>
-                  <ChartShow data={RatingGraphData}></ChartShow>
+                  <ChartShow
+                      data={RatingGraphData}
+                      options={RatingGraphOptions}
+                  ></ChartShow>
                 </RatingGraph>
               </AnalysisBack>
             </WebToonAnalysisZone>
