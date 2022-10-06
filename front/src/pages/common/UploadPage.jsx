@@ -95,6 +95,7 @@ function UploadPage() {
 >>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)
   const [fileImage, setFileImage] = useState("");
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
 <<<<<<< HEAD
   const [fetchError, setIsFetchError] = useState(false);
@@ -104,6 +105,9 @@ function UploadPage() {
 =======
   const [isLoading, setIsLoading] = useState(true);
 >>>>>>> 67ff885 (feat: 로딩페이지 메시지 중앙정렬)
+=======
+  const [isLoading, setIsLoading] = useState(false);
+>>>>>>> 530ff98 (fix: 작업을 위한 수정 롤백)
 
   const saveFileImage = event => {
     setFileImage(URL.createObjectURL(event.target.files[0]))
