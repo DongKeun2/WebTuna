@@ -75,6 +75,7 @@ const ImgBox = styled.div`
   position: absolute;
   margin-top: -15vh;
   margin-left: -15vh;
+  top: 45%;
   left: 50vw;
   width: 30vh;
   height: 30vh;
