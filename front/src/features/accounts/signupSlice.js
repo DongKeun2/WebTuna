@@ -43,7 +43,7 @@ export const singupSlice = createSlice({
       nickname: "",
       password: "",
       pwdVerify: "",
-      gender: "M",
+      gender: "F",
       birth: "",
       liked_thumbnail: "",
     },
@@ -83,6 +83,17 @@ export const singupSlice = createSlice({
     cleanupsSelectImg: (state) => {
       state.selectImg = [];
     },
+    fetchSingup: (state) => {
+      state.signupInfo = {
+        email: "",
+        nickname: "",
+        password: "",
+        pwdVerify: "",
+        gender: "F",
+        birth: "",
+        liked_thumbnail: "",
+      };
+    },
   },
   extraReducers: {
     [checkEmail.fulfilled]: (state, action) => {
@@ -115,6 +126,7 @@ export const {
   changeThumbnail,
   changeIsPossibleEmail,
   cleanupsSelectImg,
+  fetchSingup,
 } = singupSlice.actions;
 
 export default singupSlice.reducer;

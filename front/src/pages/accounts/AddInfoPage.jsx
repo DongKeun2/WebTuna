@@ -189,7 +189,7 @@ const ImgBox = styled.div`
   width: 15vw;
   height: 15vw;
   border-radius: 0.8vw;
-  box-shadow: 3px 5px 2px rgba(0,0,0,0.5);
+  box-shadow: 3px 5px 2px rgba(0, 0, 0, 0.5);
   background-color: white;
   overflow: hidden;
   :hover {

@@ -14,6 +14,7 @@ import {
   changeGender,
   changeBirth,
   changeIsPossibleEmail,
+  fetchSingup,
 } from "../../features/accounts/signupSlice";
 import { changePossibleSearch } from "../../features/toons/searchSlice";
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
@@ -37,6 +38,7 @@ function SignupPage() {
   }, [navigate]);
 
   useEffect(() => {
+    dispatch(fetchSingup());
     dispatch(changeCurrentpage(""));
     dispatch(changePossibleSearch(false));
     return () => {
@@ -168,7 +170,7 @@ function SignupPage() {
             <FormTitle>이메일</FormTitle>
             <SignupInput
               type="email"
-              value={signupInfo.email}
+              // value={signupInfo.email}
               autoComplete="on"
               placeholder="이메일을 입력해주세요."
               onChange={onEmailHandler}
@@ -191,7 +193,7 @@ function SignupPage() {
             <FormTitle>닉네임</FormTitle>
             <SignupInput
               type="text"
-              value={signupInfo.nickname}
+              // value={signupInfo.nickname}
               autoComplete="on"
               placeholder="닉네임을 입력해주세요."
               maxLength="10"
@@ -212,7 +214,7 @@ function SignupPage() {
             <FormTitle>비밀번호</FormTitle>
             <SignupInput
               type="password"
-              value={signupInfo.password}
+              // value={signupInfo.password}
               autoComplete="off"
               placeholder="비밀번호를 입력해주세요."
               onChange={onPasswordHandler}
@@ -224,7 +226,7 @@ function SignupPage() {
             <FormTitle>비밀번호 확인</FormTitle>
             <SignupInput
               type="password"
-              value={signupInfo.pwdVerify}
+              // value={signupInfo.pwdVerify}
               autoComplete="off"
               placeholder="비밀번호를 입력해주세요."
               onChange={onPwdVerifyHandler}
