@@ -145,6 +145,7 @@ const ActiveItem = styled.div`
   border-radius: 30px;
   font-weight: 600;
   background-color: #fddc35;
+  /* border: 2px solid black; */
   @media screen and (min-width: 750px) {
     width: 150px;
   }

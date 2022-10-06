@@ -1006,6 +1006,9 @@ const Thumbnail = styled.div`
   background-color: white;
   width: 20vw;
   height: 20vw;
+  border: 0.3vw solid white;
+  border-radius: 0.8vw;
+  box-shadow: 3px 5px 2px rgba(0,0,0,0.5);
   @media screen and (max-width: 750px) {
     width: 140px;
     height: 150px;
@@ -1014,6 +1017,7 @@ const Thumbnail = styled.div`
 
 const ThumbnailImage = styled.img`
   object-fit: fill;
+  border-radius: 0.8vw;
   width: 100%;
   height: 100%;
 `;
@@ -1070,19 +1074,20 @@ const RatingText = styled.div`
 `;
 
 const RatingButton = styled.div`
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
   font-size: 0.9vw;
   @media screen and (max-width: 1100px) {
     font-size: 10px;
   }
   margin: 1.2vw 0 0.4vw;
   padding: 0.2vw 0.8vw 0.4vw;
-  border: 1px solid #d1e2ff;
+  border: 0.2vw solid white;
   border-radius: 0.6vw;
-  background-color: white;
+  background-color: #d1e2ff;
   cursor: url(${hover}) 13 13, auto;
   &:hover {
-    background-color: pink;
-    border: 1px solid pink;
+    background-color: #99c0ff;
+    border: 0.2vw solid #99c0ff;
   }
 `;
 
@@ -1096,13 +1101,14 @@ const StarZone = styled.div`
 margin-top: 2vw;
 =======
 const AlreadyRating = styled.div`
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
   font-size: 0.9vw;
   @media screen and (max-width: 1100px) {
     font-size: 10px;
   }
   margin: 1.2vw 0 0.4vw;
   padding: 0.2vw 0.8vw 0.4vw;
-  border: 1px solid #d1e2ff;
+  border: 0.2vw solid white;
   border-radius: 0.6vw;
 <<<<<<< HEAD
   background-color: lightgray;
@@ -1190,6 +1196,7 @@ const MWebToonLink = styled.div`
 `;
 
 const LinkButton = styled.div`
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   font-size: 1.2vw;
@@ -1197,13 +1204,13 @@ const LinkButton = styled.div`
     font-size: 10px;
   }
   padding: 0.5vw 1.6vw;
-  border: 1px solid #d1e2ff;
+  border: 0.2vw solid white;
   border-radius: 1.2vw;
-  background-color: white;
+  background-color: #d1e2ff;
   cursor: url(${hover}) 13 13, auto;
   &:hover {
-    background-color: pink;
-    border: 1px solid pink;
+    background-color: #99c0ff;
+    border: 0.2vw solid #99c0ff;
   }
 `;
 
@@ -1317,31 +1324,32 @@ const TagZone = styled.div`
 `;
 
 const LikedTag = styled.div`
+  box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
   display: flex;
   cursor: url(${hover}) 13 13, auto;
-  background-color: pink;
-  border: 0.1vw solid black;
+  background-color: #d1e2ff;
+  border: 0.15vw solid white;
   border-radius: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0.5vw;
   &:hover {
-    background-color: white;
+    background-color: #99c0ff;
   }
 `;
 
 const Tag = styled.div`
+  box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
   display: flex;
   cursor: url(${hover}) 13 13, auto;
-  border: 0.1vw solid black;
   border-radius: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0.5vw;
   &:hover {
-    background-color: pink;
+    background-color: #99c0ff;
   }
 `;
 
@@ -1388,7 +1396,7 @@ const PSRecommends = styled.div`
   background-color: white;
   border-radius: 1vw;
   border: 0.1vw solid black;
-  padding: 1vw 0;
+  padding: 2vw 0;
   justify-content: space-evenly;
 `;
 
@@ -1506,12 +1514,16 @@ const Bubble = styled.div`
 const DrawingWebToon = styled.div`
   cursor: url(${hover}) 13 13, auto;
   width: 15vw;
+  border-radius: 0.8vw;
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
 `;
 
 const OtherWebToon = styled.div`
   cursor: url(${hover}) 13 13, auto;
   width: 15vw;
   margin: 0 1vw;
+  border-radius: 0.8vw;
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
 `;
 
 const ImgBox = styled.div`

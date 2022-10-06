@@ -137,7 +137,7 @@ function Item({ item }) {
 }
 
 const CarouselBox = styled.div`
-  width: 85vw;
+  width: 80vw;
   height: 50vh;
   margin-bottom: 40px;
   display: flex;
