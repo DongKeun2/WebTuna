@@ -1188,6 +1188,7 @@ const MWebToonLink = styled.div`
   bottom: 0;
   right: 0;
   display: flex;
+  align-items: center;
   @media screen and (min-width: 750px) {
     display: none;
   }
@@ -1217,11 +1218,14 @@ const LinkButton = styled.div`
 const FHeart = styled.img`
   cursor: url(${hover}) 13 13, auto;
   width: 40px;
+  height: 40px;
   @media screen and (max-width: 1100px) {
     width: 32px;
+    height: 32px;
   }
   @media screen and (max-width: 750px) {
     width: 24px;
+    height: 24px;
   }
   transition: 0.5s;
   &:hover {
@@ -1232,11 +1236,14 @@ const FHeart = styled.img`
 const EHeart = styled.img`
   cursor: url(${hover}) 13 13, auto;
   width: 40px;
+  height: 40px;
   @media screen and (max-width: 1100px) {
     width: 32px;
+    height: 32px;
   }
   @media screen and (max-width: 750px) {
     width: 24px;
+    height: 24px;
   }
   transition: 0.5s;
   &:hover {
@@ -1343,6 +1350,7 @@ const Tag = styled.div`
   box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
   display: flex;
   cursor: url(${hover}) 13 13, auto;
+  border: 0.15vw solid white;
   border-radius: 1vw;
   white-space: nowrap;
   overflow: hidden;
