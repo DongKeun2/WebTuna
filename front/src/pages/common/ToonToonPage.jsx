@@ -144,7 +144,7 @@ function LeftToon({ toons, type, msg }) {
         confirmButtonColor: "#feec91",
         confirmButtonText: "확인",
       });
-    } else if (!toons.length) {
+    } else if (type === 4 && (!toons.length || toons.length < 3)) {
       MySwal.fire({
         title: "추천 불가!",
         html: "회원님과 비슷한 나이, 연령대의 유저가 없습니다!<br/>  회원님이 기준이 되어주세요!",
