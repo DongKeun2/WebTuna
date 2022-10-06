@@ -104,7 +104,7 @@ function UploadResultPage() {
     return (
       <Container>
         <PageBox>
-          <ResultHeader>분석 결과</ResultHeader>
+          <ResultHeader>찾았다 웹툰!!</ResultHeader>
           <ResultBox>
             <ImgBox>
               <ToonImg src={toonInfo.thumbnail} alt="thumbnail_image" />

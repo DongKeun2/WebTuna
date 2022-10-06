@@ -209,7 +209,7 @@ function UploadPage() {
         <div>
           <Loading
             type={"upload"}
-            text={"\u00A0 그림체를 분석하는 중..."}
+            text={"\u00A0 비슷한 썸네일 찾는 중..."}
           ></Loading>
           {fileImage && (
             <img
@@ -239,7 +239,7 @@ function UploadPage() {
               <>
                 <TitleBox>
                   <UploadTitle>너의 그림과</UploadTitle>
-                  <UploadTitle>그림체가 비슷한 웹툰을 찾아줄게!</UploadTitle>
+                  <UploadTitle>비슷한 썸네일의 웹툰을 찾아줄게!</UploadTitle>
                 </TitleBox>
                 <TunImgBox>
                   <TunImg src={tuntun} alt="toon_img" />
