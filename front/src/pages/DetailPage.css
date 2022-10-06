@@ -33,6 +33,7 @@ img.heartClickEffect {
   display: flex;
   left: 0vw;
   background-color: white;
+  margin-left: 0.13vw;
   padding: 0.8vw;
 }
 
