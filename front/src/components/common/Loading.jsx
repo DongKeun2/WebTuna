@@ -20,19 +20,17 @@ function Loading({ type, text }) {
 
 const LoadingBox = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
   width: 100%;
-  height: 790px;
+  height: 70vh;
 `;
 
 const LoadingMsg = styled.p`
-  position: absolute;
-  top: 60%;
-  left: 40%;
   font-size: 3vw;
   font-weight: bold;
   @media screen and (max-width: 600px) {
-    top: 70%;
-  left: 33%;
     font-size: 25px;
   }
 `;

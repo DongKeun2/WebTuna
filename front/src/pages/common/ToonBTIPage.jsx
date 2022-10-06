@@ -217,7 +217,7 @@ const TunImg = styled.img`
 `;
 
 const StartBtn = styled.button`
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
   border: 0.2vw solid white;
   border-radius: 0.6vw;
   background-color: #d1e2ff;
@@ -353,7 +353,6 @@ const MArrowBox = styled.div`
   }
 `;
 
-
 const QuestionTitle = styled.p`
   position: relative;
   font-size: 1.5vw;
@@ -383,7 +382,7 @@ function ToonBTIResult({ setPage }) {
   }
 
   function toonBTIText() {
-    return "웹툰 취향을 분석하는 중..";
+    return "\u00A0 웹툰 취향을 분석하는 중..";
   }
 
   if (isLoading) {
@@ -437,7 +436,6 @@ const ResultHeader = styled.p`
 `;
 
 const ResultBox = styled.div`
-
   width: 90%;
   height: 100%;
   margin-left: auto;
@@ -451,7 +449,7 @@ const ResultBox = styled.div`
 const ImgBox = styled.div`
   border: 0.3vw solid white;
   border-radius: 0.8vw;
-  box-shadow: 3px 5px 2px rgba(0,0,0,0.5);
+  box-shadow: 3px 5px 2px rgba(0, 0, 0, 0.5);
   width: 20vw;
   height: 20vw;
   min-width: 300px;
@@ -520,7 +518,7 @@ const BtnGroup = styled.div`
 `;
 
 const ResultBtn = styled.button`
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
   border: 0.3vw solid white;
   border-radius: 0.6vw;
   background-color: #d1e2ff;

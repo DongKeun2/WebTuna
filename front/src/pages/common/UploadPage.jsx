@@ -94,12 +94,16 @@ function UploadPage() {
 
 >>>>>>> 4cb92be (fix: 명툰이 로그인여부 확인 수정)
   const [fileImage, setFileImage] = useState("");
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
 <<<<<<< HEAD
   const [fetchError, setIsFetchError] = useState(false);
 >>>>>>> 1d997a0 (feat: 모델 생성 실패 시 경고창 / 그림체 result페이지 cleanup 추가)
 =======
 >>>>>>> 8be362d (fix: 업로드 에러 핸들링)
+=======
+  const [isLoading, setIsLoading] = useState(true);
+>>>>>>> 67ff885 (feat: 로딩페이지 메시지 중앙정렬)
 
   const saveFileImage = event => {
     setFileImage(URL.createObjectURL(event.target.files[0]))
@@ -199,7 +203,10 @@ function UploadPage() {
     <div>
       {isLoading ? (
         <div>
-          <Loading type={"upload"} text={"그림체를 분석하는 중..."}></Loading>
+          <Loading
+            type={"upload"}
+            text={"\u00A0 그림체를 분석하는 중..."}
+          ></Loading>
           {fileImage && (
             <img
               id="canvas"
@@ -388,6 +395,7 @@ const SubmitBtn = styled.button`
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   background-color: ${props => (props.active ? '#feec91' : 'AFAFAF')};
   border-radius: 5%;
   width: '50px';
@@ -400,6 +408,9 @@ const SubmitBtn = styled.button`
 >>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
 =======
   box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+=======
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
+>>>>>>> 67ff885 (feat: 로딩페이지 메시지 중앙정렬)
   border: 0.3vw solid white;
   border-radius: 0.6vw;
   background-color: ${(props) => (props.active ? "#feec91" : "#e2e8f0")};
@@ -427,8 +438,13 @@ const SubmitBtn = styled.button`
 >>>>>>> 68bf4c3 (feat: 프로필&상세페이지 제외 모든 페이지 커서 수정)
 =======
     background-color: ${(props) => (props.active ? "#ffef62" : "#e2e8f0")};
+<<<<<<< HEAD
     border: ${(props) => (props.active ? "0.3vw solid #ffef62" : "0.3vw solid white;")};
 >>>>>>> 08541e4 (fix: 전반적인 썸네일, 버튼 UI 수정)
+=======
+    border: ${(props) =>
+      props.active ? "0.3vw solid #ffef62" : "0.3vw solid white;"};
+>>>>>>> 67ff885 (feat: 로딩페이지 메시지 중앙정렬)
   }
 `
 
@@ -518,7 +534,7 @@ const BtnGroup = styled.div`
 `;
 
 const InputBtn = styled.label`
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
   border: 0.3vw solid white;
   border-radius: 0.6vw;
   background-color: #d1e2ff;
