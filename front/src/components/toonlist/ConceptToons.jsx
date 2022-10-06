@@ -14,8 +14,8 @@ function ConceptToons({ toons }) {
 
 const ToonBox = styled.div`
   display: grid;
-  width: 90%;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  width: 75%;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   @media screen and (max-width: 930px) {
     margin-bottom: 100px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
