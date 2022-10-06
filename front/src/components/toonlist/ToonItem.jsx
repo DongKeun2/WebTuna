@@ -47,7 +47,7 @@ const ImgBox = styled.div`
   border-top-left-radius: 0.8vw;
   border-top-right-radius: 0.8vw;
   cursor: url(${hover}) 13 13, auto;
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
 `;
 
 const ToonThumbnail = styled.img`
@@ -68,7 +68,7 @@ const ToonInfo = styled.div`
   border-bottom-left-radius: 0.8vw;
   border-bottom-right-radius: 0.8vw;
   cursor: url(${hover}) 13 13, auto;
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
 `;
 
 const ToonTitle = styled.p`

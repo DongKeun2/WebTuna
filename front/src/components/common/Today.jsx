@@ -5,10 +5,11 @@ import {
   changeLuckyModal,
   changeIsPossibleModal,
 } from "../../features/accounts/loginSlice";
-import cardImg from "../../assets/card.jpg";
+// import cardImg from "../../assets/card.jpg";
 import close from "../../assets/detail/Close.png";
 import { hover } from "../../assets/cursor/cursorItem";
 import ToonItem from "../toonlist/ToonItem";
+import cardImg from "../../assets/toon/conanTun.png";
 
 function Today() {
   const dispatch = useDispatch();
@@ -25,16 +26,16 @@ function Today() {
   return (
     <ModalFrame _handleModal={switchModal}>
       {isSelected ? (
-        <>
+        <ResultBox>
           <ModalTitle>당신의 오늘 운세!</ModalTitle>
-          <ModalText>{luckyMsg}</ModalText>
           <ItemBox onClick={switchModal}>
+            <ModalText>{luckyMsg}</ModalText>
             <ToonItem item={luckyToon[0]}></ToonItem>
           </ItemBox>
           <BtnBox>
             <OutBtn onClick={switchModal}>나가기</OutBtn>
           </BtnBox>
-        </>
+        </ResultBox>
       ) : (
         <>
           <TextBox>
@@ -63,6 +64,15 @@ function Today() {
 
 export default Today;
 
+const ResultBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+`;
+
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,31 +93,41 @@ const ModalText = styled.p`
   margin-bottom: 2vw;
 `;
 
-const ItemBox = styled.div``;
+const ItemBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
 
 const CardContainer = styled.div`
-  width: 80%;
+  width: 100%;
+  height: 30vh;
   display: flex;
+
   align-items: center;
-  justify-content: space-between;
+  gap: 1vw;
+  /* justify-content: center; */
+  @media screen and (max-width: 1100px) {
+    /* width: 80vw; */
+  }
 `;
 
 const CardBox = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: hidden;
   :hover {
     cursor: url(${hover}) 13 13, auto;
-  }
-  @media screen and (max-width: 1100px) {
-    width: 80%;
   }
 `;
 
 const CardImg = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: hidden;
 `;
 
 const Container = styled.div`
@@ -150,12 +170,13 @@ const ModalBlock = styled.div`
   padding: 1rem 1.5rem;
   background-color: white;
   top: 7rem;
-  width: 60vw;
-  height: 60vh;
+  width: 70vw;
+  height: 70vh;
   animation: modal-show 1s;
-  /* @media screen and (max-width: 1100px) {
-    width: 50vw;
-  } */
+  @media screen and (max-width: 1100px) {
+    width: 80vw;
+    padding: 0 1rem;
+  }
   @keyframes modal-show {
     from {
       opacity: 0;
@@ -181,10 +202,10 @@ const Close = styled.img.attrs({
 const Contents = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-  height: 100%;
-  justify-content: space-around;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
 `;
 
 const BtnBox = styled.div``;
