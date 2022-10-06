@@ -14,6 +14,7 @@ import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
 import ModalFrame from "../../components/common/ModalFrame";
+import MoveTop from "../../components/common/MoveTop";
 import Left from "../../../src/assets/detail/Left.png";
 import Right from "../../../src/assets/detail/Right.png";
 import Empty from "../../../src/assets/tuntunEmpty.png";
@@ -327,277 +328,280 @@ function ProfilePage() {
       {isLoading ? (
         <Loading></Loading>
       ) : (
-        <Profile>
-          <UserBorder>
-            <UserBack>
-              <UserInfo>
-                <ToolTip id="ToolTip" data={toolTipDisplay}>
-                  프사 바꿀래?
-                </ToolTip>
-                <BorderImg
-                  src={ProfileBorder}
-                  alt="테두리"
-                  onClick={switchProfileModal}
-                  onMouseEnter={toolTipOn}
-                  onMouseLeave={toolTipOff}
-                />
-                <ProfileImg src={userImg} alt="프로필사진" />
-                {profileModal ? (
-                  <ModalFrame
-                    top="10vw"
-                    width="75%"
-                    height="auto"
-                    _handleModal={switchProfileModal}
-                  >
-                    <ModalTitle>
-                      마음에 드는 프로필 이미지를 골라주세요
-                    </ModalTitle>
-                    <Line></Line>
-                    <ProfileZone>
-                      {profileNumbers.map((profileNumber) =>
-                        profileNumber === Number(profileImageId) ? (
-                          <ChoosedProfileCandidate
-                            src={profileImgItem[profileNumber].img}
-                            id={profileNumber}
-                            onClick={chooseProfile}
-                            key={profileNumbers}
-                          ></ChoosedProfileCandidate>
-                        ) : (
-                          <ProfileCandidate
-                            src={profileImgItem[profileNumber].img}
-                            id={profileNumber}
-                            onClick={chooseProfile}
-                            key={profileNumber}
-                          ></ProfileCandidate>
-                        )
-                      )}
-                    </ProfileZone>
-                    <ChangeButton onClick={profileChange}> 변경 </ChangeButton>
-                    <FilterZone>
-                      {filteredTags === undefined || searchWord.length === 0
-                        ? ""
-                        : filteredTags.map((filteredTag) => (
-                            <SearchTag
-                              key={filteredTag.tag_id}
-                              id={filteredTag.tag_id}
-                              onClick={tagSwitch}
-                            >
-                              <TagName>{filteredTag.name}</TagName>
-                              <PlusButton>+</PlusButton>
-                            </SearchTag>
-                          ))}
-                    </FilterZone>
-                  </ModalFrame>
-                ) : null}
-                <Name>{userInfo.data.nickname} 님의 관심사</Name>
-              </UserInfo>
-              <ChartZone>
-                <ChartTitleZone>
-                  <PreferGenreTitleZone>
-                    <PreferGenreTitle>선호하는 장르</PreferGenreTitle>
-                    <SubTitleZone>
-                      {userInfo.genre_list.length === 0 ||
-                      userInfo.genre_list === undefined
-                        ? "텅~"
-                        : Object.keys(userInfo.genre_list).map((key) => (
-                            <PreferGenreSubTitle key={key}>
-                              {key}
-                              <Square
-                                style={{
-                                  backgroundColor: boxColor[boxColorIndex++],
-                                }}
-                              ></Square>
-                            </PreferGenreSubTitle>
-                          ))}
-                    </SubTitleZone>
-                  </PreferGenreTitleZone>
-                  <PreferPaintStyleTitleZone>
-                    <PreferPaintStyleTitle>
-                      선호하는 그림체
-                    </PreferPaintStyleTitle>
-                    <SubTitleZone>
-                      <PreferGenreSubTitle>
-                        {" "}
-                        나는 어떤 그림체를 좋아할까?<PaintSquare></PaintSquare>
-                      </PreferGenreSubTitle>
-                    </SubTitleZone>
-                  </PreferPaintStyleTitleZone>
-                </ChartTitleZone>
-                <ChartsBox>
-                  <ChartBox>
-                    <PreferGenre>
-                      {genreName === undefined || genreName.length === 0 ? (
-                        <PreferGenreEmpty>
-                          <EmptyImg src={Empty} />
-                          <Bubble>
-                            마음에 드는 웹툰이 있으면 찜해주세요!
-                            <br />
-                            찜한 웹툰을 기반으로 그래프를 그려드려요!
-                          </Bubble>
-                        </PreferGenreEmpty>
-                      ) : (
-                        <ChartShow
-                          data={RatingGraphData}
-                          options={RatingGraphOptions}
-                        ></ChartShow>
-                      )}
-                    </PreferGenre>
-                  </ChartBox>
-                  <ChartBox>
-                    <PreferPaintStyle>
-                      {paintGraphData === undefined ||
-                      paintGraphData.length === 0 ? (
-                        "데이터가 부족해요!"
-                      ) : (
-                        <ChartShow
-                          data={PaintStyleData}
-                          options={PaintStyleOptions}
-                        ></ChartShow>
-                      )}
-                    </PreferPaintStyle>
-                  </ChartBox>
-                </ChartsBox>
-              </ChartZone>
-            </UserBack>
-          </UserBorder>
-          <TagTitleZone>
-            <TagTitle>
-              찜한 태그{" "}
-              {userInfo.data.tags.length === 0
-                ? null
-                : `(${userInfo.data.tags.length})`}
-            </TagTitle>
-            <TagAddRemove onClick={switchTagModal}>태그 추가/제거</TagAddRemove>
-          </TagTitleZone>
-          {tagModal ? (
-            <ModalFrame
-              top="5vw"
-              width="75%"
-              height="auto"
-              _handleModal={switchTagModal}
-            >
-              <ModalTitle>태그 추가/제거</ModalTitle>
-              <LikedTagZone>
-                {userInfo.data.tags.length === 0 ||
-                userInfo.data.tags === undefined ? (
-                  <LikedTagEmptyMessage>
-                    추천에 반영될 태그를 검색 후 추가해 주세요!
-                  </LikedTagEmptyMessage>
-                ) : (
-                  userInfo.data.tags.map((tag) => (
-                    <LikedTag
-                      key={tag.tag_id}
-                      id={tag.tag_id}
-                      onClick={tagSwitch}
+        <>
+          <MoveTop></MoveTop>
+          <Profile>
+            <UserBorder>
+              <UserBack>
+                <UserInfo>
+                  <ToolTip id="ToolTip" data={toolTipDisplay}>
+                    프사 바꿀래?
+                  </ToolTip>
+                  <BorderImg
+                    src={ProfileBorder}
+                    alt="테두리"
+                    onClick={switchProfileModal}
+                    onMouseEnter={toolTipOn}
+                    onMouseLeave={toolTipOff}
+                  />
+                  <ProfileImg src={userImg} alt="프로필사진" />
+                  {profileModal ? (
+                    <ModalFrame
+                      top="10vw"
+                      width="75%"
+                      height="auto"
+                      _handleModal={switchProfileModal}
                     >
-                      <TagName>{tag.name}</TagName>
-                      <MinusButton>-</MinusButton>
-                    </LikedTag>
-                  ))
-                )}
-              </LikedTagZone>
-              <Line></Line>
-              <SearchBar
-                placeholder="추가하고 싶은 태그를 입력하세요"
-                value={searchWord}
-                onChange={search}
-              ></SearchBar>
-              <FilterZone>
-                {filteredTags === undefined || searchWord.length === 0
-                  ? ""
-                  : filteredTags.map((filteredTag) => (
-                      <SearchTag
-                        key={filteredTag.tag_id}
-                        id={filteredTag.tag_id}
+                      <ModalTitle>
+                        마음에 드는 프로필 이미지를 골라주세요
+                      </ModalTitle>
+                      <Line></Line>
+                      <ProfileZone>
+                        {profileNumbers.map((profileNumber) =>
+                          profileNumber === Number(profileImageId) ? (
+                            <ChoosedProfileCandidate
+                              src={profileImgItem[profileNumber].img}
+                              id={profileNumber}
+                              onClick={chooseProfile}
+                              key={profileNumbers}
+                            ></ChoosedProfileCandidate>
+                          ) : (
+                            <ProfileCandidate
+                              src={profileImgItem[profileNumber].img}
+                              id={profileNumber}
+                              onClick={chooseProfile}
+                              key={profileNumber}
+                            ></ProfileCandidate>
+                          )
+                        )}
+                      </ProfileZone>
+                      <ChangeButton onClick={profileChange}> 변경 </ChangeButton>
+                      <FilterZone>
+                        {filteredTags === undefined || searchWord.length === 0
+                          ? ""
+                          : filteredTags.map((filteredTag) => (
+                              <SearchTag
+                                key={filteredTag.tag_id}
+                                id={filteredTag.tag_id}
+                                onClick={tagSwitch}
+                              >
+                                <TagName>{filteredTag.name}</TagName>
+                                <PlusButton>+</PlusButton>
+                              </SearchTag>
+                            ))}
+                      </FilterZone>
+                    </ModalFrame>
+                  ) : null}
+                  <Name>{userInfo.data.nickname} 님의 관심사</Name>
+                </UserInfo>
+                <ChartZone>
+                  <ChartTitleZone>
+                    <PreferGenreTitleZone>
+                      <PreferGenreTitle>선호하는 장르</PreferGenreTitle>
+                      <SubTitleZone>
+                        {userInfo.genre_list.length === 0 ||
+                        userInfo.genre_list === undefined
+                          ? "텅~"
+                          : Object.keys(userInfo.genre_list).map((key) => (
+                              <PreferGenreSubTitle key={key}>
+                                {key}
+                                <Square
+                                  style={{
+                                    backgroundColor: boxColor[boxColorIndex++],
+                                  }}
+                                ></Square>
+                              </PreferGenreSubTitle>
+                            ))}
+                      </SubTitleZone>
+                    </PreferGenreTitleZone>
+                    <PreferPaintStyleTitleZone>
+                      <PreferPaintStyleTitle>
+                        선호하는 그림체
+                      </PreferPaintStyleTitle>
+                      <SubTitleZone>
+                        <PreferGenreSubTitle>
+                          {" "}
+                          나는 어떤 그림체를 좋아할까?<PaintSquare></PaintSquare>
+                        </PreferGenreSubTitle>
+                      </SubTitleZone>
+                    </PreferPaintStyleTitleZone>
+                  </ChartTitleZone>
+                  <ChartsBox>
+                    <ChartBox>
+                      <PreferGenre>
+                        {genreName === undefined || genreName.length === 0 ? (
+                          <PreferGenreEmpty>
+                            <EmptyImg src={Empty} />
+                            <Bubble>
+                              마음에 드는 웹툰이 있으면 찜해주세요!
+                              <br />
+                              찜한 웹툰을 기반으로 그래프를 그려드려요!
+                            </Bubble>
+                          </PreferGenreEmpty>
+                        ) : (
+                          <ChartShow
+                            data={RatingGraphData}
+                            options={RatingGraphOptions}
+                          ></ChartShow>
+                        )}
+                      </PreferGenre>
+                    </ChartBox>
+                    <ChartBox>
+                      <PreferPaintStyle>
+                        {paintGraphData === undefined ||
+                        paintGraphData.length === 0 ? (
+                          "데이터가 부족해요!"
+                        ) : (
+                          <ChartShow
+                            data={PaintStyleData}
+                            options={PaintStyleOptions}
+                          ></ChartShow>
+                        )}
+                      </PreferPaintStyle>
+                    </ChartBox>
+                  </ChartsBox>
+                </ChartZone>
+              </UserBack>
+            </UserBorder>
+            <TagTitleZone>
+              <TagTitle>
+                찜한 태그{" "}
+                {userInfo.data.tags.length === 0
+                  ? null
+                  : `(${userInfo.data.tags.length})`}
+              </TagTitle>
+              <TagAddRemove onClick={switchTagModal}>태그 추가/제거</TagAddRemove>
+            </TagTitleZone>
+            {tagModal ? (
+              <ModalFrame
+                top="5vw"
+                width="75%"
+                height="auto"
+                _handleModal={switchTagModal}
+              >
+                <ModalTitle>태그 추가/제거</ModalTitle>
+                <LikedTagZone>
+                  {userInfo.data.tags.length === 0 ||
+                  userInfo.data.tags === undefined ? (
+                    <LikedTagEmptyMessage>
+                      추천에 반영될 태그를 검색 후 추가해 주세요!
+                    </LikedTagEmptyMessage>
+                  ) : (
+                    userInfo.data.tags.map((tag) => (
+                      <LikedTag
+                        key={tag.tag_id}
+                        id={tag.tag_id}
                         onClick={tagSwitch}
                       >
-                        <TagName>{filteredTag.name}</TagName>
-                        <PlusButton>+</PlusButton>
-                      </SearchTag>
-                    ))}
-              </FilterZone>
-            </ModalFrame>
-          ) : null}
-          <TagZone>
-            {userInfo.data.tags.length === 0 ||
-            userInfo.data.tags === undefined ? (
-              <LikedWebToonEmpty>
-                <EmptyImg src={Empty} />
-                <Bubble>찜한 태그가 없어요...</Bubble>
-              </LikedWebToonEmpty>
-            ) : (
-              userInfo.data.tags.map((tag) => (
-                <Tag key={tag.tag_id} id={tag.tag_id}>
-                  <BookMarkImage src={BookMark} alt="북마크" />
-                  <TagName>{tag.name}</TagName>
-                </Tag>
-              ))
-            )}
-          </TagZone>
-          <WebToonTitleZone>
-            <TagTitle>
-              찜한 웹툰{" "}
-              {userInfo.data.liked_webtoons.length === 0
-                ? null
-                : `(${userInfo.data.liked_webtoons.length})`}
-            </TagTitle>
-          </WebToonTitleZone>
-          {slideCount >= 2 ? (
-            <>
-              {count === 1 ? null : (
-                <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>
-              )}
-              {count === slideCount ? null : (
-                <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
-              )}
-            </>
-          ) : null}
-          <LikedWebToonBack>
-            {userInfo.data.liked_webtoons.length === 0 ||
-            userInfo.data.liked_webtoons === undefined ? (
-              <LikedWebToonEmpty>
-                <EmptyImg src={Empty} />
-                <Bubble>찜한 웹툰이 없어요...</Bubble>
-              </LikedWebToonEmpty>
-            ) : (
-              <div className="LikedWebToons" id="slide">
-                {userInfo.data.liked_webtoons.map((likedWebtoon) => (
-                  <LikedWebToon
-                    key={likedWebtoon.webtoon_id}
-                    id={likedWebtoon.webtoon_id}
-                  >
-                    <ThumnailBox onClick={moveDetail}>
-                      <LikedWebToonThumbnail
-                        src={likedWebtoon.thumbnail}
-                        alt="찜한 웹툰 이미지"
-                      ></LikedWebToonThumbnail>
-                    </ThumnailBox>
-                    <ToonInfo>
-                      <LikedWebToonTitle onClick={moveDetail}>
-                        {likedWebtoon.title}
-                      </LikedWebToonTitle>
-                    </ToonInfo>
-                  </LikedWebToon>
-                ))}
-              </div>
-            )}
-          </LikedWebToonBack>
-          <TagTitleZone>
-            <TagTitle>최근에 본 웹툰</TagTitle>
-          </TagTitleZone>
-          <ViewWebToonBack>
-            <ViewWebToon>
-              {userInfo.data.member_viewed_webtoons.length === 0 ? (
-                <ViewWebToonEmpty>
+                        <TagName>{tag.name}</TagName>
+                        <MinusButton>-</MinusButton>
+                      </LikedTag>
+                    ))
+                  )}
+                </LikedTagZone>
+                <Line></Line>
+                <SearchBar
+                  placeholder="추가하고 싶은 태그를 입력하세요"
+                  value={searchWord}
+                  onChange={search}
+                ></SearchBar>
+                <FilterZone>
+                  {filteredTags === undefined || searchWord.length === 0
+                    ? ""
+                    : filteredTags.map((filteredTag) => (
+                        <SearchTag
+                          key={filteredTag.tag_id}
+                          id={filteredTag.tag_id}
+                          onClick={tagSwitch}
+                        >
+                          <TagName>{filteredTag.name}</TagName>
+                          <PlusButton>+</PlusButton>
+                        </SearchTag>
+                      ))}
+                </FilterZone>
+              </ModalFrame>
+            ) : null}
+            <TagZone>
+              {userInfo.data.tags.length === 0 ||
+              userInfo.data.tags === undefined ? (
+                <LikedWebToonEmpty>
                   <EmptyImg src={Empty} />
-                  <Bubble>최근에 본 웹툰이 없어요...</Bubble>
-                </ViewWebToonEmpty>
+                  <Bubble>찜한 태그가 없어요...</Bubble>
+                </LikedWebToonEmpty>
               ) : (
-                viewdWebtoon()
+                userInfo.data.tags.map((tag) => (
+                  <Tag key={tag.tag_id} id={tag.tag_id}>
+                    <BookMarkImage src={BookMark} alt="북마크" />
+                    <TagName>{tag.name}</TagName>
+                  </Tag>
+                ))
               )}
-            </ViewWebToon>
-          </ViewWebToonBack>
-        </Profile>
+            </TagZone>
+            <WebToonTitleZone>
+              <TagTitle>
+                찜한 웹툰{" "}
+                {userInfo.data.liked_webtoons.length === 0
+                  ? null
+                  : `(${userInfo.data.liked_webtoons.length})`}
+              </TagTitle>
+            </WebToonTitleZone>
+            {slideCount >= 2 ? (
+              <>
+                {count === 1 ? null : (
+                  <PrevBtn src={Left} onClick={left} alt="좌"></PrevBtn>
+                )}
+                {count === slideCount ? null : (
+                  <NextBtn src={Right} onClick={right} alt="우"></NextBtn>
+                )}
+              </>
+            ) : null}
+            <LikedWebToonBack>
+              {userInfo.data.liked_webtoons.length === 0 ||
+              userInfo.data.liked_webtoons === undefined ? (
+                <LikedWebToonEmpty>
+                  <EmptyImg src={Empty} />
+                  <Bubble>찜한 웹툰이 없어요...</Bubble>
+                </LikedWebToonEmpty>
+              ) : (
+                <div className="LikedWebToons" id="slide">
+                  {userInfo.data.liked_webtoons.map((likedWebtoon) => (
+                    <LikedWebToon
+                      key={likedWebtoon.webtoon_id}
+                      id={likedWebtoon.webtoon_id}
+                    >
+                      <ThumnailBox onClick={moveDetail}>
+                        <LikedWebToonThumbnail
+                          src={likedWebtoon.thumbnail}
+                          alt="찜한 웹툰 이미지"
+                        ></LikedWebToonThumbnail>
+                      </ThumnailBox>
+                      <ToonInfo>
+                        <LikedWebToonTitle onClick={moveDetail}>
+                          {likedWebtoon.title}
+                        </LikedWebToonTitle>
+                      </ToonInfo>
+                    </LikedWebToon>
+                  ))}
+                </div>
+              )}
+            </LikedWebToonBack>
+            <TagTitleZone>
+              <TagTitle>최근에 본 웹툰</TagTitle>
+            </TagTitleZone>
+            <ViewWebToonBack>
+              <ViewWebToon>
+                {userInfo.data.member_viewed_webtoons.length === 0 ? (
+                  <ViewWebToonEmpty>
+                    <EmptyImg src={Empty} />
+                    <Bubble>최근에 본 웹툰이 없어요...</Bubble>
+                  </ViewWebToonEmpty>
+                ) : (
+                  viewdWebtoon()
+                )}
+              </ViewWebToon>
+            </ViewWebToonBack>
+          </Profile>
+        </>
       )}
     </PageBox>
   );

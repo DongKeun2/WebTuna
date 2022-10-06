@@ -16,6 +16,7 @@ import BookMark from "../assets/detail/BookMark.png";
 import ChartShow from "../components/common/Chart";
 import Loading from "../components/common/Loading";
 import ModalFrame from "../components/common/ModalFrame";
+import MoveTop from "../components/common/MoveTop";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import FullHeart from "../assets/detail/FullHeart.png";
@@ -624,6 +625,7 @@ function DetailPage() {
         <Loading></Loading>
       ) : (
         <PageBox>
+          <MoveTop></MoveTop>
           <BackGround>
             <DetailZone>
               <Thumbnail>
