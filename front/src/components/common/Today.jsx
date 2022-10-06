@@ -5,11 +5,10 @@ import {
   changeLuckyModal,
   changeIsPossibleModal,
 } from "../../features/accounts/loginSlice";
-// import cardImg from "../../assets/card.jpg";
 import close from "../../assets/detail/Close.png";
 import { hover } from "../../assets/cursor/cursorItem";
 import ToonItem from "../toonlist/ToonItem";
-import cardImg from "../../assets/toon/conanTun.png";
+import cardImg from "../../assets/BokToon.png";
 
 function Today() {
   const dispatch = useDispatch();
@@ -119,8 +118,16 @@ const CardBox = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in;
+  background-color: #a9c9ff;
+  border-radius: 15px;
+  border: 3px double #ffe357;
+  background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
   :hover {
     cursor: url(${hover}) 13 13, auto;
+    top: -2px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   }
 `;
 
