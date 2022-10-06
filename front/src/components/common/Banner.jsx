@@ -137,18 +137,18 @@ function Item({ item }) {
 }
 
 const CarouselBox = styled.div`
-  /* width: 80vw; */
+  width: 68vw;
   height: 50vh;
   margin-bottom: 40px;
-  margin-left : 15vw;
-  margin-right: 15vw;
   display: flex;
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 1250px) {
+    width: 80vw;
     height: 40vh;
   }
   @media screen and (max-width: 900px) {
+    width: 90vw;
     height: 30vh;
   }
 `;
@@ -158,16 +158,16 @@ const OuterBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 99%;
-  height: 47vh;
+  height: 43vh;
   background-color: ${(props) => props.color || "white"};
   border: 3px solid black;
   border-radius: 15px;
   @media screen and (max-width: 1250px) {
-    height: 37vh;
+    height: 33vh;
     border: 2px solid black;
   }
   @media screen and (max-width: 900px) {
-    height: 26vh;
+    height: 23vh;
     /* border: 1px solid black; */
   }
 `;
@@ -176,13 +176,13 @@ const ImgBox = styled.div`
   /* border: 2px solid black; */
   border-radius: 10px;
   width: 98%;
-  height: 44vh;
+  height: 40vh;
   overflow: hidden;
   @media screen and (max-width: 1250px) {
-    height: 34vh;
+    height: 31vh;
   }
   @media screen and (max-width: 900px) {
-    height: 23vh;
+    height: 20vh;
   }
 `;
 

@@ -36,3 +36,15 @@
 .active:hover {
   opacity: 1;
 }
+
+@media screen and (max-width: 900px) {
+  .active {
+    height: 1.2em;
+  }
+  .paging-item {
+    height: 0.8em;
+  }
+  .slider-control-bottomcenter {
+    top: 1.4rem;
+  }
+}
