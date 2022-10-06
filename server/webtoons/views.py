@@ -340,12 +340,12 @@ from datetime import datetime
 # 메인 페이지
 @api_view(['GET'])
 def mainPage(request):
-    webtoon1 = Webtoon.objects.filter(image_type1__gte = 90).order_by('-rating')[:6]
-    webtoon2 = Webtoon.objects.filter(image_type2__gte = 90).order_by('-rating')[:6]
-    webtoon3 = Webtoon.objects.filter(image_type3__gte = 90).order_by('-rating')[:6]
-    webtoon4 = Webtoon.objects.filter(image_type4__gte = 90).order_by('-rating')[:6]
-    webtoon5 = Webtoon.objects.filter(image_type5__gte = 90).order_by('-rating')[:6]
-    webtoon6 = Webtoon.objects.filter(image_type6__gte = 90).order_by('-rating')[:6]
+    webtoon1 = Webtoon.objects.filter(image_type1__gte = 90).order_by('-rating')[:5]
+    webtoon2 = Webtoon.objects.filter(image_type2__gte = 90).order_by('-rating')[:5]
+    webtoon3 = Webtoon.objects.filter(image_type3__gte = 90).order_by('-rating')[:5]
+    webtoon4 = Webtoon.objects.filter(image_type4__gte = 90).order_by('-rating')[:5]
+    webtoon5 = Webtoon.objects.filter(image_type5__gte = 90).order_by('-rating')[:5]
+    webtoon6 = Webtoon.objects.filter(image_type6__gte = 90).order_by('-rating')[:5]
 
     webtoon_1 = WebtoonListSerializer(webtoon1, many = True)
     webtoon_2 = WebtoonListSerializer(webtoon2, many = True)
@@ -1257,7 +1257,7 @@ def genreRecommend(user):
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
-    msg = f"'{member.nickname}'님이 좋아하는 '{genre_list[0]}','{genre_list[1]}','{genre_list[2]}' 웹툰"
+    msg = f"'{member.nickname}'님이 좋아하는 장르의 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
     send_data = [webtoons_list.data, msg]
 
@@ -1315,7 +1315,7 @@ def tagRecommend(user):
     reco_lst = sorted(reco_lst, key = lambda x: -x.rating)
     reco_lst = reco_lst[:20]
         
-    msg = f"'{tag_lst[0]}', '{tag_lst[1]}', '{tag_lst[2]}' 태그의 웹툰"
+    msg = f"'{member.nickname}'님이 좋아하는 태그의 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
     send_data = [webtoons_list.data, msg]
 
@@ -1424,7 +1424,7 @@ def drawRecommend(user):
 
     reco_lst = choice_lst[:15] + random.sample(choice_lst[15:], 5)
 
-    msg = f"'{member.nickname}'님이 좋아하는 그림체 웹툰"
+    msg = f"'{member.nickname}'님이 좋아하는 그림체의 웹툰"
     webtoons_list = WebtoonListSerializer(reco_lst, many=True)
 <<<<<<< HEAD
 >>>>>>> 30a0ac7 (fix : 추천 함수 수정, 변수 수정)
