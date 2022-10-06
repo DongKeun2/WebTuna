@@ -99,7 +99,6 @@ function WebtoonPage() {
 
   useEffect(() => {
     dispatch(getTags()).then((res) => {
-      console.log(res.payload);
       setAllTags(res.payload);
       setNoPickTags(res.payload);
     });
@@ -196,7 +195,6 @@ function WebtoonPage() {
 
   function search(e) {
     setSearchWord(e.target.value);
-    console.log(e.target.value);
     let tempFilteredTags = [];
     tempFilteredTags = noPickTags.filter((allTag) =>
       allTag.name.includes(e.target.value)
@@ -441,20 +439,20 @@ function WebtoonPage() {
                         ))
                       )}
                     </PickTagGroup>
-                      {searchWord === ""
-                        ? null
-                        : 
-                          <SearchTagGroup>
-                            {searchedTags.map((searchTag) => (
-                              <TagBtn
-                                key={searchTag.tag_id}
-                                onClick={AddTagList}
-                                value={searchTag.tag_id}
-                              >
-                                {searchTag.name}
-                              </TagBtn>
-                            ))}
-                          </SearchTagGroup>}
+                    {searchWord === ""
+                      ? null
+                      :
+                      <SearchTagGroup>
+                        {searchedTags.map((searchTag) => (
+                          <TagBtn
+                            key={searchTag.tag_id}
+                            onClick={AddTagList}
+                            value={searchTag.tag_id}
+                          >
+                            {searchTag.name}
+                          </TagBtn>
+                        ))}
+                      </SearchTagGroup>}
                   </TagBox>
                 </FilterBox>
                 <ImgBox>

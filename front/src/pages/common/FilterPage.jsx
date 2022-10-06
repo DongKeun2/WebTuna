@@ -95,12 +95,10 @@ function FilterPage() {
 
   useEffect(() => {
     dispatch(getTags()).then((res) => {
-      console.log(res.payload);
       setAllTags(res.payload);
       let tempNoPickTags = res.payload.filter(
         (tag) => !tagList.includes(tag.tag_id)
       );
-      console.log(tempNoPickTags);
       setNoPickTags(tempNoPickTags);
     });
   }, []);
@@ -183,7 +181,6 @@ function FilterPage() {
 
   function search(e) {
     setSearchWord(e.target.value);
-    console.log(e.target.value);
     let tempFilteredTags = [];
     tempFilteredTags = noPickTags.filter((allTag) =>
       allTag.name.includes(e.target.value)
@@ -453,20 +450,20 @@ function FilterPage() {
                         ))
                       )}
                     </PickTagGroup>
-                      {searchWord === ""
-                        ? null
-                        : 
-                          <SearchTagGroup>
-                            {searchedTags.map((searchTag) => (
-                              <TagBtn
-                                key={searchTag.tag_id}
-                                onClick={AddTagList}
-                                value={searchTag.tag_id}
-                              >
-                                {searchTag.name}
-                              </TagBtn>
-                            ))}
-                          </SearchTagGroup>}
+                    {searchWord === ""
+                      ? null
+                      :
+                      <SearchTagGroup>
+                        {searchedTags.map((searchTag) => (
+                          <TagBtn
+                            key={searchTag.tag_id}
+                            onClick={AddTagList}
+                            value={searchTag.tag_id}
+                          >
+                            {searchTag.name}
+                          </TagBtn>
+                        ))}
+                      </SearchTagGroup>}
                   </TagBox>
                 </FilterBox>
                 <ImgBox>
