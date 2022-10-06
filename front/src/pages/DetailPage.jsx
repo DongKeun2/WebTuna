@@ -203,11 +203,11 @@ function DetailPage() {
               (res.payload.gender_age[i][0].substr(0, 2) === "00"
                 ? "10세 미만"
                 : res.payload.gender_age[i][0].substr(0, 2) === "90"
-                  ? "90세 이상"
-                  : res.payload.gender_age[i][0].substr(0, 2) + "대") +
-              (res.payload.gender_age[i][0].substr(-1) === "F"
-                ? " 여성"
-                : " 남성")
+                ? "90세 이상"
+                : res.payload.gender_age[i][0].substr(0, 2) + "대") +
+                (res.payload.gender_age[i][0].substr(-1) === "F"
+                  ? " 여성"
+                  : " 남성")
             );
             tempColor.push(
               res.payload.gender_age[i][0].substr(-1) === "F"
@@ -242,11 +242,11 @@ function DetailPage() {
               (res.payload.gender_age[i][0].substr(0, 2) === "00"
                 ? "10세 미만"
                 : res.payload.gender_age[i][0].substr(0, 2) === "90"
-                  ? "90세 이상"
-                  : res.payload.gender_age[i][0].substr(0, 2) + "대") +
-              (res.payload.gender_age[i][0].substr(-1) === "F"
-                ? " 여성"
-                : " 남성")
+                ? "90세 이상"
+                : res.payload.gender_age[i][0].substr(0, 2) + "대") +
+                (res.payload.gender_age[i][0].substr(-1) === "F"
+                  ? " 여성"
+                  : " 남성")
             );
             tempColor.push(
               res.payload.gender_age[i][0].substr(-1) === "F"
@@ -397,8 +397,9 @@ function DetailPage() {
         if (res.error) {
           console.log("태그 찜 실패");
         } else {
-          dispatch(fetchInfo()).then(() => {
+          dispatch(fetchInfo()).then((res) => {
             console.log("태그 스위치~");
+            sessionStorage.setItem("user", JSON.stringify(res.payload.user));
           });
         }
       });
@@ -407,8 +408,9 @@ function DetailPage() {
         if (res.error) {
           console.log("태그 찜 실패");
         } else {
-          dispatch(fetchInfo()).then(() => {
+          dispatch(fetchInfo()).then((res) => {
             console.log("태그 스위치~");
+            sessionStorage.setItem("user", JSON.stringify(res.payload.user));
           });
         }
       });
@@ -651,7 +653,11 @@ function DetailPage() {
                     </RatingButton>
                   )}
                   {modal ? (
-                    <ModalFrame _handleModal={switchModal} width="30%" height="auto">
+                    <ModalFrame
+                      _handleModal={switchModal}
+                      width="30%"
+                      height="auto"
+                    >
                       <ModalTitle>당신의 별점은?</ModalTitle>
                       <StarZone>
                         <Rating
@@ -686,8 +692,8 @@ function DetailPage() {
                   {webToonInfo.data.days[0].day_id === 8
                     ? "완결 웹툰"
                     : webToonInfo.data.days.length === 1
-                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                      : webToonInfo.data.days
+                    ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                    : webToonInfo.data.days
                         .slice(0, -1)
                         .map((dayy) => day[dayy.day_id]) +
                       " , " +
@@ -717,7 +723,9 @@ function DetailPage() {
                       id="test"
                     ></EHeart>
                   )}
-                  <LinkButton onClick={logAndLink}><>웹툰 보러가기</></LinkButton>
+                  <LinkButton onClick={logAndLink}>
+                    <>웹툰 보러가기</>
+                  </LinkButton>
                 </MWebToonLink>
               </Info>
               <SubInfo>
@@ -742,7 +750,9 @@ function DetailPage() {
                       id="test"
                     ></EHeart>
                   )}
-                  <LinkButton onClick={logAndLink}><>웹툰 보러가기</></LinkButton>
+                  <LinkButton onClick={logAndLink}>
+                    <>웹툰 보러가기</>
+                  </LinkButton>
                 </WebToonLink>
                 <Summary>{webToonInfo.data.summary}</Summary>
               </SubInfo>
@@ -757,8 +767,10 @@ function DetailPage() {
             <MSummary>{webToonInfo.data.summary}</MSummary>
 >>>>>>> 2e73c1e (feat: 상세정보 페이지 UI 완료)
             {webToonInfo.data.tags.length === 0 ||
-              webToonInfo.data.tags === undefined ? (
-              <NoTag><>태그가 존재하지 않습니다.</></NoTag>
+            webToonInfo.data.tags === undefined ? (
+              <NoTag>
+                <>태그가 존재하지 않습니다.</>
+              </NoTag>
             ) : (
 >>>>>>> ae3b8f2 (feat: 프로필&상세페이지 커서 변경)
               <TagZone>
@@ -805,9 +817,11 @@ function DetailPage() {
                       <AgeGroupEmpty>
                         <EmptyImg src={Empty} />
                         <Bubble>
-                          <>데이터가 부족해요...
+                          <>
+                            데이터가 부족해요...
                             <br /> 이 웹툰을 찜해서 <br />
-                            그래프를 만들어주세요</>
+                            그래프를 만들어주세요
+                          </>
                         </Bubble>
                       </AgeGroupEmpty>
                     ) : (
@@ -831,7 +845,7 @@ function DetailPage() {
               <GroupHeader>그림체가 비슷한 웹툰</GroupHeader>
               <PSRecommends>
                 {webToonInfo.similar_webtoon.length === 0 ||
-                  webToonInfo.similar_webtoon === undefined ? (
+                webToonInfo.similar_webtoon === undefined ? (
                   <OtherWebToonEmpty>
                     <EmptyImg src={Empty} />
                     <Bubble>그림체가 비슷한 웹툰이 없어요...</Bubble>
@@ -856,12 +870,12 @@ function DetailPage() {
                           {similarWebtoon.author_name.length === 1
                             ? similarWebtoon.author_name[0]
                             : similarWebtoon.author_name
-                              .slice(0, -1)
-                              .map((author) => author) +
-                            " / " +
-                            similarWebtoon.author_name
-                              .slice(-1)
-                              .map((author) => author)}
+                                .slice(0, -1)
+                                .map((author) => author) +
+                              " / " +
+                              similarWebtoon.author_name
+                                .slice(-1)
+                                .map((author) => author)}
                         </OtherWebToonAuthor>
                       </ToonInfo>
                     </DrawingWebToon>
@@ -885,7 +899,8 @@ function DetailPage() {
                 ) : null}
                 <SARecommendsBack>
                   <div className="SARecommends" id="slide">
-                    {otherWebToons.length === 0 || otherWebToons === undefined ? (
+                    {otherWebToons.length === 0 ||
+                    otherWebToons === undefined ? (
                       <OtherWebToonEmpty>
                         <EmptyImg src={Empty} />
                         <Bubble>작가님의 다른 웹툰이 없어요...</Bubble>
@@ -910,12 +925,12 @@ function DetailPage() {
                               {otherWebToon.author_name.length === 1
                                 ? otherWebToon.author_name[0]
                                 : otherWebToon.author_name
-                                  .slice(0, -1)
-                                  .map((author) => author) +
-                                " / " +
-                                otherWebToon.author_name
-                                  .slice(-1)
-                                  .map((author) => author)}
+                                    .slice(0, -1)
+                                    .map((author) => author) +
+                                  " / " +
+                                  otherWebToon.author_name
+                                    .slice(-1)
+                                    .map((author) => author)}
                             </OtherWebToonAuthor>
                           </ToonInfo>
                         </OtherWebToon>
@@ -956,7 +971,6 @@ const PageBox = styled.div`
   border-radius: 1rem;
   background-color: white;
 `;
-
 
 const BackGround = styled.div`
   width: 96%;
@@ -1010,7 +1024,7 @@ const Thumbnail = styled.div`
   height: 20vw;
   border: 0.3vw solid white;
   border-radius: 0.8vw;
-  box-shadow: 3px 5px 2px rgba(0,0,0,0.5);
+  box-shadow: 3px 5px 2px rgba(0, 0, 0, 0.5);
   @media screen and (max-width: 750px) {
     width: 140px;
     height: 150px;
@@ -1076,7 +1090,7 @@ const RatingText = styled.div`
 `;
 
 const RatingButton = styled.div`
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
   font-size: 0.9vw;
   @media screen and (max-width: 1100px) {
     font-size: 10px;
@@ -1103,7 +1117,7 @@ const StarZone = styled.div`
 margin-top: 2vw;
 =======
 const AlreadyRating = styled.div`
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
   font-size: 0.9vw;
   @media screen and (max-width: 1100px) {
     font-size: 10px;
@@ -1199,7 +1213,7 @@ const MWebToonLink = styled.div`
 `;
 
 const LinkButton = styled.div`
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   font-size: 1.2vw;
@@ -1333,7 +1347,7 @@ const TagZone = styled.div`
 `;
 
 const LikedTag = styled.div`
-  box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
   display: flex;
   cursor: url(${hover}) 13 13, auto;
   background-color: #d1e2ff;
@@ -1349,7 +1363,7 @@ const LikedTag = styled.div`
 `;
 
 const Tag = styled.div`
-  box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
   display: flex;
   cursor: url(${hover}) 13 13, auto;
   border: 0.15vw solid white;
@@ -1525,7 +1539,7 @@ const DrawingWebToon = styled.div`
   cursor: url(${hover}) 13 13, auto;
   width: 15vw;
   border-radius: 0.8vw;
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
 `;
 
 const OtherWebToon = styled.div`
@@ -1533,7 +1547,7 @@ const OtherWebToon = styled.div`
   width: 15vw;
   margin: 0 1vw;
   border-radius: 0.8vw;
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
 `;
 
 const ImgBox = styled.div`

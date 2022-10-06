@@ -9,7 +9,10 @@ import BookMark from "../../../src/assets/detail/BookMark.png";
 import { profile, profileImage } from "../../features/accounts/profileSlice";
 import { getTags } from "../../features/toons/searchSlice";
 import { tagLike } from "../../features/details/detailSlice";
-import { changeCurrentUser } from "../../features/accounts/loginSlice";
+import {
+  changeCurrentUser,
+  fetchInfo,
+} from "../../features/accounts/loginSlice";
 import { changeCurrentpage } from "../../features/toons/navBarSlice";
 import profileImgItem from "../../assets/profile/profileImgItem";
 import ToonItem from "../../components/toonlist/ToonItem";
@@ -165,6 +168,9 @@ function ProfilePage() {
           console.log("태그 찜 실패");
         } else {
           getUserInfo();
+          dispatch(fetchInfo()).then((res) => {
+            sessionStorage.setItem("user", JSON.stringify(res.payload.user));
+          });
           let tempFilteredTags = [];
           tempFilteredTags = unLikedTags.filter((unLikedTag) =>
             unLikedTag.name.includes(searchWord)
@@ -180,6 +186,9 @@ function ProfilePage() {
           console.log("태그 찜 실패");
         } else {
           getUserInfo();
+          dispatch(fetchInfo()).then((res) => {
+            sessionStorage.setItem("user", JSON.stringify(res.payload.user));
+          });
           let tempFilteredTags = [];
           tempFilteredTags = unLikedTags.filter((unLikedTag) =>
             unLikedTag.name.includes(searchWord)
@@ -375,7 +384,10 @@ function ProfilePage() {
                           )
                         )}
                       </ProfileZone>
-                      <ChangeButton onClick={profileChange}> 변경 </ChangeButton>
+                      <ChangeButton onClick={profileChange}>
+                        {" "}
+                        변경{" "}
+                      </ChangeButton>
                       <FilterZone>
                         {filteredTags === undefined || searchWord.length === 0
                           ? ""
@@ -421,7 +433,8 @@ function ProfilePage() {
                       <SubTitleZone>
                         <PreferGenreSubTitle>
                           {" "}
-                          나는 어떤 그림체를 좋아할까?<PaintSquare></PaintSquare>
+                          나는 어떤 그림체를 좋아할까?
+                          <PaintSquare></PaintSquare>
                         </PreferGenreSubTitle>
                       </SubTitleZone>
                     </PreferPaintStyleTitleZone>
@@ -470,7 +483,9 @@ function ProfilePage() {
                   ? null
                   : `(${userInfo.data.tags.length})`}
               </TagTitle>
-              <TagAddRemove onClick={switchTagModal}>태그 추가/제거</TagAddRemove>
+              <TagAddRemove onClick={switchTagModal}>
+                태그 추가/제거
+              </TagAddRemove>
             </TagTitleZone>
             {tagModal ? (
               <ModalFrame
