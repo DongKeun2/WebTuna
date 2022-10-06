@@ -76,7 +76,6 @@ function DetailPage() {
     window.scrollTo(0, 0);
     if (!loginState) {
       dispatch(noLoginDetail(toonId)).then((res) => {
-        console.log(res.payload);
         let temp = 0;
         let total = 0;
         for (let i = 1; i < 11; i++) {
@@ -131,7 +130,6 @@ function DetailPage() {
       });
     } else {
       dispatch(detail(toonId)).then((res) => {
-        console.log(res.payload);
         let temp = 0;
         let total = 0;
         for (let i = 1; i < 11; i++) {
@@ -334,10 +332,8 @@ function DetailPage() {
         });
         ratingBtn.className += " disabledbutton";
         let data = { toonId, rating: e.target.value };
-        console.log(data);
         dispatch(webtoonRating(data)).then((res) => {
           if (res.error) {
-            console.log("실패");
           } else {
             getRatingData();
           }
@@ -350,11 +346,9 @@ function DetailPage() {
   function heartClick() {
     dispatch(webtoonLike(toonId)).then((res) => {
       if (res.error) {
-        console.log("하트 실패");
       } else {
         getAgeGroupData();
         dispatch(fetchInfo()).then(() => {
-          console.log("하트 스위치~");
           if (document.getElementById("test") != null) {
             document
               .getElementById("test")
@@ -367,14 +361,11 @@ function DetailPage() {
 
   function logAndLink() {
     if (loginState === null) {
-      console.log("넌 로그인 안했으니까 로그 안남겨줄거야");
     } else {
       dispatch(webtoonLog(toonId)).then((res) => {
         if (res.error) {
-          console.log("로그 남기기 실패");
         } else {
           dispatch(fetchInfo()).then(() => {
-            console.log("로그 남기기 ㅋ");
           });
         }
       });
@@ -395,22 +386,28 @@ function DetailPage() {
     if (e.target.id) {
       dispatch(tagLike(e.target.id)).then((res) => {
         if (res.error) {
-          console.log("태그 찜 실패");
         } else {
+<<<<<<< HEAD
           dispatch(fetchInfo()).then((res) => {
             console.log("태그 스위치~");
             sessionStorage.setItem("user", JSON.stringify(res.payload.user));
+=======
+          dispatch(fetchInfo()).then(() => {
+>>>>>>> 175aa71 (feat: 프로필페이지 UI 50% 완료)
           });
         }
       });
     } else {
       dispatch(tagLike(e.target.parentNode.id)).then((res) => {
         if (res.error) {
-          console.log("태그 찜 실패");
         } else {
+<<<<<<< HEAD
           dispatch(fetchInfo()).then((res) => {
             console.log("태그 스위치~");
             sessionStorage.setItem("user", JSON.stringify(res.payload.user));
+=======
+          dispatch(fetchInfo()).then(() => {
+>>>>>>> 175aa71 (feat: 프로필페이지 UI 50% 완료)
           });
         }
       });
@@ -485,10 +482,6 @@ function DetailPage() {
     setIsLoading(true);
     getDetail();
   }, [toonId]);
-
-  // useEffect(() => {
-  //   getAgeGroupData();
-  // }, [heartClick]);
 
   const PaintStyleData = {
     margintop: 3,

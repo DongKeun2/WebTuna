@@ -51,7 +51,6 @@ function ProfilePage() {
   const profileNumbers = [0, 1, 2, 3, 4, 5];
   function getUserInfo() {
     dispatch(profile()).then((res) => {
-      console.log(res.payload);
       setUserInfo(res.payload);
       setUserImg(profileImgItem[res.payload.data.profile_image_id].img);
       setProfileImageId(res.payload.data.profile_image_id);
@@ -165,7 +164,6 @@ function ProfilePage() {
     if (e.target.id) {
       dispatch(tagLike(e.target.id)).then((res) => {
         if (res.error) {
-          console.log("태그 찜 실패");
         } else {
           getUserInfo();
           dispatch(fetchInfo()).then((res) => {
@@ -177,13 +175,11 @@ function ProfilePage() {
           );
           setFilteredTags(tempFilteredTags);
           setSearchWord("");
-          console.log("태그 스위치~");
         }
       });
     } else {
       dispatch(tagLike(e.target.parentNode.id)).then((res) => {
         if (res.error) {
-          console.log("태그 찜 실패");
         } else {
           getUserInfo();
           dispatch(fetchInfo()).then((res) => {
@@ -195,7 +191,6 @@ function ProfilePage() {
           );
           setFilteredTags(tempFilteredTags);
           setSearchWord("");
-          console.log("태그 스위치~");
         }
       });
     }
@@ -208,7 +203,6 @@ function ProfilePage() {
       unLikedTag.name.includes(e.target.value)
     );
     setFilteredTags(tempFilteredTags);
-    console.log(e.target.value);
   }
 
   function switchProfileModal() {
@@ -216,7 +210,6 @@ function ProfilePage() {
   }
 
   function chooseProfile(e) {
-    console.log(e.target.id);
     setProfileImageId(e.target.id);
   }
 
@@ -255,6 +248,7 @@ function ProfilePage() {
     margintop: 0,
     marginleft: 11,
     width: 20,
+    mwidth: 200,
     labels: genreName,
     datasets: [
       {
@@ -274,6 +268,7 @@ function ProfilePage() {
     margintop: -1,
     marginleft: 8.5,
     width: 25,
+    mwidth: 280,
     labels: [
       "동글납작",
       "반짝섬세",
@@ -344,7 +339,7 @@ function ProfilePage() {
               <UserBack>
                 <UserInfo>
                   <ToolTip id="ToolTip" data={toolTipDisplay}>
-                    프사 바꿀래?
+                    프로필 사진 바꿀래?
                   </ToolTip>
                   <BorderImg
                     src={ProfileBorder}
@@ -633,7 +628,10 @@ const PageBox = styled.div`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10vw;
+  margin-bottom: 8vw;
+  @media screen and (max-width: 750px) {
+    margin-bottom: 100px;
+  }
   padding: 0.5vw;
 `;
 
@@ -643,14 +641,12 @@ const Profile = styled.div`
 
 const UserBorder = styled.div`
   border: 0.15vw solid black;
-  background-color: white;
+  background-color: #fff5c3;
   border-radius: 1.5vw;
 `;
 
 const UserBack = styled.div`
-  background-color: #feec91;
-  border: 0.15vw solid black;
-  border-radius: 1.2vw;
+  background-color: #fff5c3;
   margin: 0.65vw;
 `;
 
@@ -699,7 +695,7 @@ const ToolTip = styled.div`
   background-color: #4f4f4fb4;
   color: white;
   margin-top: -1vw;
-  margin-left: 1.8vw;
+  margin-left: 1vw;
   font-size: 0.6vw;
   z-index: 1;
   transition: 0.3s;
@@ -720,20 +716,25 @@ const TagTitleZone = styled.div`
 
 const TagTitle = styled.div`
   display: inline;
+  margin-top: 1vw;
+  margin-left: 1.5vw;
   font-size: 1.7vw;
-  margin-top: 0.5vw;
-  margin-left: 0.5vw;
+  @media screen and (max-width: 1100px) {
+    font-size: 1.5vw;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 16px;
+    margin-top: 20px;
+  }
 `;
 
 const TagZone = styled.div`
   display: flex;
   flex-flow: wrap;
   padding: 1.5vw;
-  border: solid 0.15vw;
-  border-top-left-radius: 1vw;
-  border-bottom-left-radius: 1vw;
-  border-bottom-right-radius: 1vw;
-  background-color: #feec91;
+  border: 0.15vw solid black;
+  border-radius: 1.5vw;
+  background-color: #fff5c3;
 `;
 
 const TagAddRemove = styled.div`
@@ -897,7 +898,7 @@ const LikedTag = styled.div`
 const WebToonTitleZone = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 1vw 0vw 1vw 0vw;
+  margin: 1vw 0 0.5vw;
 `;
 
 const PrevBtn = styled.img`
@@ -920,18 +921,19 @@ const NextBtn = styled.img`
 
 const LikedWebToonBack = styled.div`
   display: flex;
-  background-color: #feec91;
+  background-color: #fff5c3;
+  border: 0.15vw solid black;
+  border-radius: 1.5vw;
+  background-color: #fff5c3;
   height: 20vw;
   overflow: hidden;
-  border-radius: 0.6vw;
-  border: 0.15vw solid black;
 `;
 
 const LikedWebToons = styled.div`
   position: relative;
   display: flex;
   left: 0vw;
-  background-color: #feec91;
+  background-color: #fff5c3;
   transition: all 1s;
 `;
 
@@ -950,11 +952,19 @@ const LikedWebToonEmpty = styled.div`
 
 const Bubble = styled.div`
   margin-top: 0vw;
+  margin-left: 1vw;
+  display: flex;
+  align-items: center;
   position: relative;
   font-size: 1.2vw;
-  padding: 0px 50px;
-  height: 8vh;
-  display: inline-block;
+  @media screen and (max-width: 1100px) {
+    font-size: 1vw;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    margin-left: 15px;
+  }
+  padding: 16px 10px 20px;
   background: #ffffff;
   border: 3px solid black;
   border-radius: 10px;
@@ -1028,7 +1038,7 @@ const LikedWebToonTitle = styled.div`
 `;
 const ViewWebToonBack = styled.div`
   display: flex;
-  background-color: #feec91;
+  background-color: #fff5c3;
   border: 0.15vw solid black;
   border-radius: 1.5vw;
 `;
@@ -1036,7 +1046,7 @@ const ViewWebToonBack = styled.div`
 const ViewWebToon = styled.div`
   display: grid;
   width: 100%;
-  margin-bottom: 2vw;
+  margin: 1.5vw 1vw 2vw;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
 
