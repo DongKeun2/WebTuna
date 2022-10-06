@@ -25,11 +25,14 @@
 }
 
 .paging-item:hover {
-  /* background-color: #afafaf; */
-  background-color: white;
+  opacity: 0.5;
 }
 
 .active {
   height: 1.8em;
   border-top: none;
+}
+
+.active:hover {
+  opacity: 1;
 }
