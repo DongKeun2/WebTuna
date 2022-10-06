@@ -217,15 +217,20 @@ const TunImg = styled.img`
 `;
 
 const StartBtn = styled.button`
-  background-color: #feec91;
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  border: 0.2vw solid white;
+  border-radius: 0.6vw;
+  background-color: #d1e2ff;
   font-size: 1.2vw;
   font-weight: 700;
   padding: 15px 30px;
-  border-radius: 12px;
-  border: 6px solid white;
   margin-top: 20px;
   width: "50px";
   height: "30px";
+  &:hover {
+    background-color: #99c0ff;
+    border: 0.2vw solid #99c0ff;
+  }
   @media screen and (max-width: 750px) {
     font-size: 12px;
   }
@@ -432,6 +437,7 @@ const ResultHeader = styled.p`
 `;
 
 const ResultBox = styled.div`
+
   width: 90%;
   height: 100%;
   margin-left: auto;
@@ -443,7 +449,9 @@ const ResultBox = styled.div`
 `;
 
 const ImgBox = styled.div`
-  border: 3px solid;
+  border: 0.3vw solid white;
+  border-radius: 0.8vw;
+  box-shadow: 3px 5px 2px rgba(0,0,0,0.5);
   width: 20vw;
   height: 20vw;
   min-width: 300px;
@@ -512,7 +520,15 @@ const BtnGroup = styled.div`
 `;
 
 const ResultBtn = styled.button`
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  border: 0.3vw solid white;
+  border-radius: 0.6vw;
+  background-color: #d1e2ff;
   width: 40%;
+  &:hover {
+    background-color: #99c0ff;
+    border: 0.3vw solid #99c0ff;
+  }
   @media screen and (max-width: 1100px) {
     width: 48%;
   }
@@ -520,11 +536,8 @@ const ResultBtn = styled.button`
   @media screen and (max-width: 750px) {
     padding: 5px 0;
   }
-  background-color: #feec91;
   font-size: 0.8vw;
   font-weight: 700;
-  border-radius: 12px;
-  border: 6px solid white;
 `;
 
 const FlexBox = styled.div`

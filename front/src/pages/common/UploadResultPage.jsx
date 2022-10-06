@@ -200,11 +200,13 @@ const ResultBox = styled.div`
 `;
 
 const ImgBox = styled.div`
-  border: 3px solid;
   width: 20vw;
   height: 20vw;
   min-width: 300px;
   min-height: 300px;
+  border: 0.3vw solid white;
+  border-radius: 0.8vw;
+  box-shadow: 3px 5px 2px rgba(0,0,0,0.5);
   @media screen and (max-width: 800px) {
     width: 240px;
     height: 240px;
@@ -212,7 +214,6 @@ const ImgBox = styled.div`
     margin-right: auto;
   }
   background-color: white;
-  border-radius: 10%;
   overflow: hidden;
 `;
 
@@ -295,16 +296,21 @@ const BtnGroup = styled.div`
 `;
 
 const ResultBtn = styled.button`
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  border: 0.2vw solid white;
+  border-radius: 0.6vw;
+  background-color: #d1e2ff;
   width: 40%;
   @media screen and (max-width: 1100px) {
     width: 48%;
   }
   padding: 5px 0;
-  background-color: #feec91;
   font-size: 0.8vw;
   font-weight: 700;
-  border-radius: 12px;
-  border: 6px solid white;
+  &:hover {
+    background-color: #99c0ff;
+    border: 0.2vw solid #99c0ff;
+  }
 `;
 
 const FlexBox = styled.div`

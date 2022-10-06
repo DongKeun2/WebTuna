@@ -237,13 +237,11 @@ function UploadPage() {
               </>
             )}
             <BtnGroup>
-              <OuterBtn>
-                {fileImage ? (
-                  <InputBtn htmlFor="input_img">다시 업로드 하기</InputBtn>
-                ) : (
-                  <InputBtn htmlFor="input_img">그림 업로드 하기</InputBtn>
-                )}
-              </OuterBtn>
+              {fileImage ? (
+                <InputBtn htmlFor="input_img">다시 업로드 하기</InputBtn>
+              ) : (
+                <InputBtn htmlFor="input_img">그림 업로드 하기</InputBtn>
+              )}
               <input
                 id="input_img"
                 name="imggeUpload"
@@ -390,6 +388,7 @@ const MyeongToon = styled.p`
 const SubmitBtn = styled.button`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   background-color: ${props => (props.active ? '#feec91' : 'AFAFAF')};
   border-radius: 5%;
   width: '50px';
@@ -400,13 +399,22 @@ const SubmitBtn = styled.button`
   background-color: ${(props) => (props.active ? "#feec91" : "#e2e8f0")};
   font-weight: ${(props) => (props.active ? "700" : "500")};
 >>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
+=======
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  border: 0.3vw solid white;
+  border-radius: 0.6vw;
+  background-color: ${(props) => (props.active ? "#feec91" : "#e2e8f0")};
+>>>>>>> 08541e4 (fix: 전반적인 썸네일, 버튼 UI 수정)
   padding: 10px 30px;
-  border-radius: 12px;
-  border: 6px solid white;
   margin-top: 20px;
+<<<<<<< HEAD
   width: "50px";
   height: "30px";
 >>>>>>> c1a2072 (feat: upload 페이지 기본 이미지 추가 / 버튼 스타일링 / 반응형 구현)
+=======
+  font-weight: 700;
+  font-size: 1vw;
+>>>>>>> 08541e4 (fix: 전반적인 썸네일, 버튼 UI 수정)
   :hover {
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -416,7 +424,12 @@ const SubmitBtn = styled.button`
 >>>>>>> 0f305fa (feat: 명탐정툰툰 초기 페이지 반응형 UI)
 =======
     cursor: ${(props) => !props.active && `url(${forbidden}) 13 13, auto`};
+<<<<<<< HEAD
 >>>>>>> 68bf4c3 (feat: 프로필&상세페이지 제외 모든 페이지 커서 수정)
+=======
+    background-color: ${(props) => (props.active ? "#ffef62" : "#e2e8f0")};
+    border: ${(props) => (props.active ? "0.3vw solid #ffef62" : "0.3vw solid white;")};
+>>>>>>> 08541e4 (fix: 전반적인 썸네일, 버튼 UI 수정)
   }
 `
 
@@ -505,19 +518,20 @@ const BtnGroup = styled.div`
   min-width: 300px;
 `;
 
-const OuterBtn = styled.div`
-  background-color: white;
-  border-radius: 14px;
-  padding: 13px 6px 12px;
-  margin-top: 21px;
-`;
-
 const InputBtn = styled.label`
-  background-color: #feec91;
-  padding: 8px 16px 10px;
-  border-radius: 10px;
+  box-shadow: 2px 3px 2px rgba(0,0,0,0.5);  
+  border: 0.3vw solid white;
+  border-radius: 0.6vw;
+  background-color: #d1e2ff;
+  padding: 10px 10px;
+  margin-top: 20px;
   font-weight: 700;
+  font-size: 1vw;
   cursor: url(${hover}) 13 13, auto;
+  &:hover {
+    background-color: #99c0ff;
+    border: 0.3vw solid #99c0ff;
+  }
 `;
 
 export default UploadPage;
