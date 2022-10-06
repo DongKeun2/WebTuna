@@ -16,7 +16,7 @@ const searchToons = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 const addToons = createAsyncThunk(
@@ -33,7 +33,7 @@ const addToons = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 const getTags = createAsyncThunk(
@@ -45,7 +45,7 @@ const getTags = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 export const searchSlice = createSlice({
@@ -102,12 +102,8 @@ export const searchSlice = createSlice({
         state.toonList = toons;
       }
     },
-    [getTags.fulfilled]: (action) => {
-      console.log("태그 가져오기 성공");
-    },
-    [getTags.rejected]: (action) => {
-      console.log("태그 가져오기 실패ㅠㅠ");
-    },
+    [getTags.fulfilled]: (action) => {},
+    [getTags.rejected]: (action) => {},
   },
 });
 

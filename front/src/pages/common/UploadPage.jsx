@@ -143,7 +143,6 @@ function UploadPage() {
       const data = {
         probability,
       };
-      console.log(data);
       dispatch(fetchUpload(data)).then((res) => {
         if (res.type === "fetchUpload/fulfilled") {
           dispatch(fetchProbability(probability));

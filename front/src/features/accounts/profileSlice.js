@@ -12,7 +12,7 @@ const profile = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 const profileImage = createAsyncThunk(
@@ -24,7 +24,7 @@ const profileImage = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 export const profileSlice = createSlice({
@@ -32,22 +32,10 @@ export const profileSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: {
-    [profile.fulfilled]: (action) => {
-      console.log("프로필 가져오기 성공!");
-      console.log(action.payload);
-    },
-    [profile.rejected]: (action) => {
-      console.log("프로필 가져오기 실패 ㅠㅠ");
-      console.log(action.payload);
-    },
-    [profileImage.fulfilled]: (action) => {
-      console.log("프로필 사진 변경 성공!");
-      console.log(action.payload);
-    },
-    [profileImage.rejected]: (action) => {
-      console.log("프로필 사진 변경 실패 ㅠㅠ");
-      console.log(action.payload);
-    },
+    [profile.fulfilled]: (action) => {},
+    [profile.rejected]: (action) => {},
+    [profileImage.fulfilled]: (action) => {},
+    [profileImage.rejected]: (action) => {},
   },
 });
 
