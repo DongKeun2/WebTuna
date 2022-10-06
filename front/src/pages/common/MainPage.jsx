@@ -30,6 +30,7 @@ const MainBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: -1vh;
+  margin-bottom: 8vw;
   align-items: center;
 `;
 

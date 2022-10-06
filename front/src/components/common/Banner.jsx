@@ -138,17 +138,17 @@ function Item({ item }) {
 
 const CarouselBox = styled.div`
   width: 68vw;
-  height: 50vh;
+  height: 45vh;
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 1250px) {
-    width: 80vw;
+    width: 78vw;
     height: 40vh;
   }
   @media screen and (max-width: 900px) {
-    width: 90vw;
+    width: 70vw;
     height: 30vh;
   }
 `;
