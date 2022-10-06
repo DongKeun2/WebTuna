@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import Checkmark from "../../assets/checkmark.png";
 import {
   changeSelectImg,
   changeThumbnail,
@@ -22,6 +22,7 @@ function AddInfoPage() {
 
   useEffect(() => {
     dispatch(changeCurrentpage(""));
+    dispatch(changeThumbnail(""));
     return () => {
       dispatch(cleanupsSelectImg());
     };
@@ -116,10 +117,7 @@ function ImgItems({ item }) {
       />
       {selectImg.find((i) => i === item.id) ? (
         <CheckCircleBox>
-          <CheckCircleOutlineIcon
-            color="success"
-            sx={checkCircleSt}
-          ></CheckCircleOutlineIcon>
+          <CheckImg src={Checkmark} alt="check_img" />
         </CheckCircleBox>
       ) : null}
     </ImgBox>
@@ -127,16 +125,20 @@ function ImgItems({ item }) {
 }
 
 const CheckCircleBox = styled.div`
-  position: relative;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15vw;
+  height: 15vw;
+  top: 0;
+  left: 0;
 `;
 
-const checkCircleSt = {
-  position: "absolute",
-  top: -205,
-  left: 100,
-  fontSize: 100,
-  color: "#edff28",
-};
+const CheckImg = styled.img`
+  width: 5vw;
+  height: 5vw;
+`;
 
 const PageBox = styled.div`
   display: flex;
@@ -154,7 +156,15 @@ const PageBox = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 3vw;
+  margin-top: 3.2vw;
+  font-size: 2.4vw;
+  @media screen and (max-width: 1100px) {
+    font-size: 2.2vw;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 16px;
+    margin-top: 20px;
+  }
 `;
 
 const AddInfoBox = styled.div`
@@ -166,23 +176,27 @@ const AddInfoBox = styled.div`
 `;
 
 const ItemBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2vw;
+  @media screen and (max-width: 750px) {
+    gap: 10px;
+  }
 `;
 
 const ImgBox = styled.div`
-  width: 300px;
-  height: 300px;
-  border-radius: 10%;
+  position: relative;
+  width: 15vw;
+  height: 15vw;
+  border-radius: 0.8vw;
+  box-shadow: 3px 5px 2px rgba(0,0,0,0.5);
+  background-color: white;
   overflow: hidden;
   :hover {
     cursor: url(${hover}) 13 13, auto;
-    opacity: 0.4;
   }
   border: ${(props) =>
-    props.selected ? "5px solid #ffc628" : "5px solid black"};
+    props.selected ? "4px solid #edff28" : "4px solid white"};
 `;
 
 const ToonImg = styled.img`
@@ -194,7 +208,7 @@ const ToonImg = styled.img`
 
 const BtnBox = styled.div`
   display: flex;
-  align-self: end;
+  justify-content: center;
 `;
 
 const SubmitBtn = styled.button`
@@ -207,14 +221,20 @@ const SubmitBtn = styled.button`
   border-radius: 15px;
   border: 3px solid white;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  width: "50px";
-  height: "30px";
+  margin: 2vw 0;
   :hover {
     cursor: ${(props) =>
       props.deactive
         ? `url(${forbidden}) 13 13, auto`
         : `url(${hover}) 13 13, auto`};
   }
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+  }
 `;
+
 export default AddInfoPage;
