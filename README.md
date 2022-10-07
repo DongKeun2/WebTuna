@@ -32,7 +32,7 @@
 3. 장르(47%)
 4. 작가(35%)
 
- 그리고 현재 다양한 웹툰 플랫폼에서 여러 방법으로 추천해주고 있지만, 웹투나에서는 기존 플랫폼들과 차별화를 두기 위해 그림체를 위
+ 그리고 현재 다양한 웹툰 플랫폼에서 여러 방법으로 추천해주고 있지만, 웹투나에서는 기존 플랫폼들과 차별화를 두기 위해 그림체를 주력으로 추천해준다. 메인페이지에서 그림체를 기반으로 추천해주는것을 기본으로, 툰툰이의 추천페이지에서는 그림체 외에도, 장르, 기반, 연령대 등 다양한 추천을 제공해준다. 이런 추천 기능들은 기존의 웹툰 플랫폼에 있는 것이라고 생각할 수 있지만, 기존 추천은 플랫폼 내부에서만 추천을 해주고 다른 플랫폼은 추천을 해주지 않는다. 하지만 웹투나에서는 다양한 플랫폼에서 비슷한 그림체, 장르, 태그 등으로 추천을 받을 수 있기 때문에 새로운 작품을 더 많이 접할 수 있다.
 
 ### 서비스 설명
 
@@ -152,17 +152,17 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 =======
 <table>
     <tr>
-        <td height="140px" align="center"> <a href="https://github.com/PowerBBear">
+        <td height="140px" align="center">
             <img src="/uploads/a5d79076583fe2333a635d6b4eae7daf/김영준.jpg" width="140px" /> <br><br> 👑 김영준 <br>(Front-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="https://github.com/JunPark364">
+        <td height="140px" align="center">
             <img src="/uploads/0934f722c4124be33805f003cfcdc532/이동근.jpg" width="140px" /> <br><br> 🙂 이동근 <br>(Front-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="https://github.com/pch8349">
+        <td height="140px" align="center">
             <img src="/uploads/51d3e99dbbaecdb19c4f48c82c8fa4bf/배윤호.jpg" width="140px" /> <br><br> 😆 배윤호 <br>(Front-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="https://github.com/SilverLight96">
+        <td height="140px" align="center">
             <img src="/uploads/2de9c544b4221bafa500a6ae52ec3fed/김민성.jpg" width="140px" /> <br><br> 😁 김민성 <br>(Back-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="https://github.com/heunhanireum">
+        <td height="140px" align="center">
             <img src="/uploads/1e655808d8a5b14f7490abc6ad43203e/김우석.jpg" width="140px" /> <br><br> 🙄 김우석 <br>(Back-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="https://github.com/kkh9700">
+        <td height="140px" align="center">
             <img src="/uploads/43ea7316184eca09106a91e0198f289d/이홍주.jpg" width="140px" /> <br><br> 😶 이홍주 <br>(Back-End) </a> <br></td>
     </tr>
     <tr>
