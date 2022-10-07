@@ -169,9 +169,9 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
         <td align="center">UI/UX<br/>React<br/>팀장<br/></td>
         <td align="center">UI/UX<br/>React<br/>컴포넌트설계<br/>일정관리</td>
         <td align="center">UI/UX<br/>React<br/>비즈니스 로직 설계<br/>기록물 관리</td>
-        <td align="center">REST API<br/>DB</td>
-        <td align="center">REST API<br/>ML<br/>발표</td>
-        <td align="center">REST API<br/>배포<br/>디자인</td>
+        <td align="center">Django<br/>REST API<br/>DB</td>
+        <td align="center">Django<br/>REST API<br/>ML<br/>발표</td>
+        <td align="center">Django<br/>REST API<br/>배포<br/>디자인</td>
     </tr>
 </table>
 >>>>>>> 22e474c (fix:readme)
