@@ -176,6 +176,7 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 </table>
 >>>>>>> 22e474c (fix:readme)
 
+<<<<<<< HEAD
 
 
 # 위키에 넣을 내용 (추후 작성O)
@@ -277,3 +278,5 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 - 이동근
 - 이홍주
 >>>>>>> 9dfc6cf (fix:readme)
+=======
+>>>>>>> 7cac67c (Update README.md)
