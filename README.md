@@ -1,6 +1,6 @@
 # README.md
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d404ad21-a3b0-46e0-952d-60c2b46ad1da/Untitled.png)
+![logo2](/uploads/d4335d16ba0c48cdc17dd821525f016c/logo2.png)
 
 Python 3.9.10
 
@@ -9,11 +9,6 @@ node: 16.15.0
 
 [DDOK-Di/README.md at main · NKLCBAE/DDOK-Di (github.com)](https://github.com/NKLCBAE/DDOK-Di/blob/main/DDOK-Di/README.md)
 
-여긴 들어와지지? 예스
-
-- 김영준, 김우석 공통 팀 리드미
-
-[README](https://www.notion.so/README-2023d6b813f3486ca6b0320dbfe7dad3)
 
 ================================================================ =============================절취선==============================
 
@@ -173,7 +168,6 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 - 시연 시나리오 (모든 기능)
 
-여기 산출물 구역인가?
 
 [웹툰원정대ERD (erdcloud.com)](https://www.erdcloud.com/d/Sd7QG6pyrNQ8bEYFN)
 
@@ -241,9 +235,6 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 - 각자 맡은 기능에 맞게 `front`, `back` 에서 브랜치를 생성하고 기능 구현을 완료하면  다시`front`, `back` 브랜치로 머지 했습니다. 일정 주기로 `develop` 브랜치로 프론트와 백을 통합하였습니다.
 - 현재 feat-b/deploy에 front, back 브랜치를 머지하고 Jenkins로 자동 빌드 및 배포중입니다.
 - 충돌 상황을 최소화하기 위해 깃 푸시를 하기 전 공유를 하였습니다.
-    
-    
-    영준우석이네 리드미처럼 낼 오전에 다 통합하고 브랜치 그래프 촤라락 하는 gif 있으면 좋을듯
     
 
 ### 2. JIRA
