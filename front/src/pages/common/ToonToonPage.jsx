@@ -241,7 +241,6 @@ const LeftBox = styled.div`
 `;
 
 const LeftTitleBox = styled.div`
-  background-color: white;
   width: fit-content;
   border-radius: 10px;
   padding: 0 1vw;
@@ -249,18 +248,19 @@ const LeftTitleBox = styled.div`
   justify-content: start;
   align-items: center;
   margin-left: 1vw;
-  font-size: 3vw;
+  font-size: 2vw;
   @media screen and (max-width: 850px) {
     margin-left: 1vh;
-    font-size: 3.5vw;
+    font-size: 3vw;
   }
 `;
 const LeftTitle = styled.p`
+  text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
   font-weight: bold;
   color: #feec91;
   text-align: center;
   padding: 0;
-  margin: 1vw 0;
+  margin: 1vw 0 0;
   @media screen and (max-width: 850px) {
     vertical-align: bottom;
   }
@@ -461,7 +461,6 @@ const RightContainer = styled.div`
 `;
 
 const RightTitleBox = styled.div`
-  background-color: white;
   border-radius: 10px;
   padding: 0 1vw;
   width: fit-content;
@@ -469,19 +468,20 @@ const RightTitleBox = styled.div`
   justify-content: end;
   align-items: center;
   margin-right: 1vw;
-  font-size: 3vw;
+  font-size: 2vw;
   @media screen and (max-width: 850px) {
     margin-left: 1vh;
-    font-size: 3.5vw;
+    font-size: 3vw;
   }
 `;
 
 const RightTitle = styled.p`
+  text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
   color: #eea6a6;
   font-weight: bold;
   text-align: center;
   padding: 0;
-  margin: 1vw 0;
+  margin: 1vw 0 0;
   @media screen and (max-width: 850px) {
     vertical-align: bottom;
   }
