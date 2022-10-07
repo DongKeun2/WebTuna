@@ -8,7 +8,6 @@ const BGM = new Audio(bgm);
 function AudioBar() {
   const [playing, setPlaying] = useState(false);
   const [sourceBoxDisplay, setSourceBoxDisplay] = useState("none");
-
   function reset() {
     BGM.currentTime = 0;
     BGM.pause();
@@ -21,6 +20,7 @@ function AudioBar() {
   }
 
   function play() {
+    BGM.volume = 0.2;
     BGM.play();
     BGM.loop = true;
     setPlaying(true);
