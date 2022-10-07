@@ -2,17 +2,6 @@
 
 ![logo2](/uploads/d4335d16ba0c48cdc17dd821525f016c/logo2.png)
 
-Python 3.9.10
-
-npm: 8.7.0
-node: 16.15.0
-
-[DDOK-Di/README.md at main · NKLCBAE/DDOK-Di (github.com)](https://github.com/NKLCBAE/DDOK-Di/blob/main/DDOK-Di/README.md)
-
-
-================================================================ =============================절취선==============================
-
-================================================================
 
 # WebTuna: 웹툰 추천 플랫폼
 
