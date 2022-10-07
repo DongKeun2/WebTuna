@@ -26,10 +26,10 @@ function Today() {
     <ModalFrame _handleModal={switchModal}>
       {isSelected ? (
         <ResultBox>
-          <ModalTitle>당신의 오늘 운세!</ModalTitle>
+          <ResultTitle>당신의 오늘 운세!</ResultTitle>
           <ItemBox onClick={switchModal}>
             <ModalText>{luckyMsg}</ModalText>
-            <ToonItem item={luckyToon[0]}></ToonItem>
+            <ToonItem item={luckyToon[0]} today={true}></ToonItem>
           </ItemBox>
           <BtnBox>
             <OutBtn onClick={switchModal}>나가기</OutBtn>
@@ -76,6 +76,11 @@ const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const ResultTitle = styled.p`
+  margin: 0;
+  font-size: 3vw;
 `;
 
 const ModalTitle = styled.p`
@@ -215,7 +220,9 @@ const Contents = styled.div`
   align-items: center;
 `;
 
-const BtnBox = styled.div``;
+const BtnBox = styled.div`
+  height: 100%;
+`;
 
 const OutBtn = styled.button`
   font-size: 1vw;
