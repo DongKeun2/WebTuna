@@ -203,11 +203,11 @@ function DetailPage() {
               (res.payload.gender_age[i][0].substr(0, 2) === "00"
                 ? "10세 미만"
                 : res.payload.gender_age[i][0].substr(0, 2) === "90"
-                ? "90세 이상"
-                : res.payload.gender_age[i][0].substr(0, 2) + "대") +
-                (res.payload.gender_age[i][0].substr(-1) === "F"
-                  ? " 여성"
-                  : " 남성")
+                  ? "90세 이상"
+                  : res.payload.gender_age[i][0].substr(0, 2) + "대") +
+              (res.payload.gender_age[i][0].substr(-1) === "F"
+                ? " 여성"
+                : " 남성")
             );
             tempColor.push(
               res.payload.gender_age[i][0].substr(-1) === "F"
@@ -242,11 +242,11 @@ function DetailPage() {
               (res.payload.gender_age[i][0].substr(0, 2) === "00"
                 ? "10세 미만"
                 : res.payload.gender_age[i][0].substr(0, 2) === "90"
-                ? "90세 이상"
-                : res.payload.gender_age[i][0].substr(0, 2) + "대") +
-                (res.payload.gender_age[i][0].substr(-1) === "F"
-                  ? " 여성"
-                  : " 남성")
+                  ? "90세 이상"
+                  : res.payload.gender_age[i][0].substr(0, 2) + "대") +
+              (res.payload.gender_age[i][0].substr(-1) === "F"
+                ? " 여성"
+                : " 남성")
             );
             tempColor.push(
               res.payload.gender_age[i][0].substr(-1) === "F"
@@ -666,14 +666,14 @@ function DetailPage() {
                           precision={0.5}
                           icon={
                             <StarIcon
-                              style={{ width: "64px", height: "64px" }}
+                              style={{ width: "5.2vw", height: "5.2vw" }}
                             ></StarIcon>
                           }
                           emptyIcon={
                             <StarIcon
                               style={{
-                                width: "64px",
-                                height: "64px",
+                                width: "5.2vw",
+                                height: "5.2vw",
                               }}
                             />
                           }
@@ -692,8 +692,8 @@ function DetailPage() {
                   {webToonInfo.data.days[0].day_id === 8
                     ? "완결 웹툰"
                     : webToonInfo.data.days.length === 1
-                    ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
-                    : webToonInfo.data.days
+                      ? `${day[webToonInfo.data.days[0].day_id]}요일 연재`
+                      : webToonInfo.data.days
                         .slice(0, -1)
                         .map((dayy) => day[dayy.day_id]) +
                       " , " +
@@ -767,7 +767,7 @@ function DetailPage() {
             <MSummary>{webToonInfo.data.summary}</MSummary>
 >>>>>>> 2e73c1e (feat: 상세정보 페이지 UI 완료)
             {webToonInfo.data.tags.length === 0 ||
-            webToonInfo.data.tags === undefined ? (
+              webToonInfo.data.tags === undefined ? (
               <NoTag>
                 <>태그가 존재하지 않습니다.</>
               </NoTag>
@@ -845,7 +845,7 @@ function DetailPage() {
               <GroupHeader>그림체가 비슷한 웹툰</GroupHeader>
               <PSRecommends>
                 {webToonInfo.similar_webtoon.length === 0 ||
-                webToonInfo.similar_webtoon === undefined ? (
+                  webToonInfo.similar_webtoon === undefined ? (
                   <OtherWebToonEmpty>
                     <EmptyImg src={Empty} />
                     <Bubble>그림체가 비슷한 웹툰이 없어요...</Bubble>
@@ -870,12 +870,12 @@ function DetailPage() {
                           {similarWebtoon.author_name.length === 1
                             ? similarWebtoon.author_name[0]
                             : similarWebtoon.author_name
-                                .slice(0, -1)
-                                .map((author) => author) +
-                              " / " +
-                              similarWebtoon.author_name
-                                .slice(-1)
-                                .map((author) => author)}
+                              .slice(0, -1)
+                              .map((author) => author) +
+                            " / " +
+                            similarWebtoon.author_name
+                              .slice(-1)
+                              .map((author) => author)}
                         </OtherWebToonAuthor>
                       </ToonInfo>
                     </DrawingWebToon>
@@ -900,7 +900,7 @@ function DetailPage() {
                 <SARecommendsBack>
                   <div className="SARecommends" id="slide">
                     {otherWebToons.length === 0 ||
-                    otherWebToons === undefined ? (
+                      otherWebToons === undefined ? (
                       <OtherWebToonEmpty>
                         <EmptyImg src={Empty} />
                         <Bubble>작가님의 다른 웹툰이 없어요...</Bubble>
@@ -925,12 +925,12 @@ function DetailPage() {
                               {otherWebToon.author_name.length === 1
                                 ? otherWebToon.author_name[0]
                                 : otherWebToon.author_name
-                                    .slice(0, -1)
-                                    .map((author) => author) +
-                                  " / " +
-                                  otherWebToon.author_name
-                                    .slice(-1)
-                                    .map((author) => author)}
+                                  .slice(0, -1)
+                                  .map((author) => author) +
+                                " / " +
+                                otherWebToon.author_name
+                                  .slice(-1)
+                                  .map((author) => author)}
                             </OtherWebToonAuthor>
                           </ToonInfo>
                         </OtherWebToon>
