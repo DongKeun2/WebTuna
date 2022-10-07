@@ -75,7 +75,7 @@ Chart.js를 활용한 데이터 시각화
 
 ### 추천 페이지
 
-사진
+![메인추천페이지](/uploads/cd92f7f6fa8c8b13b84d4db1c1c3c21c/메인추천페이지.gif)
 
 Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
@@ -83,13 +83,13 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 ### 명탐정 툰툰이
 
-사진
+![명탐정툰툰](/uploads/21fab027ed69add64788fdef42a72ffd/명탐정툰툰.gif)
 
 유저가 업로드한 파일의 그림체를 분석하여 학습시킨 데이터를 뽑아내고 유사도가 높은 웹툰을 찾아준다.
 
 ### ToonBTI
 
-사진
+![toonbti](/uploads/9e62b1894a139d584bd7a60bccd09741/toonbti.gif)
 
 다양한 질문을 통해 유저의 성향을 파악한 뒤, 그것을 기준으로 다양한 웹툰을 추천해준다.
 
@@ -103,7 +103,7 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 ### 웹툰 상세 정보
 
-사진
+![디테일페이지](/uploads/f5e1d255c898d184881958d88fc6835a/디테일페이지.gif)
 
 웹툰의 작가와 장르 및 줄거리와 같은 기본정보와 태그와 별점, 해당 웹툰을 선호하는 유저들의 정보를 포함한 다양한 분석 그래프도 함께 제공한다.
 
