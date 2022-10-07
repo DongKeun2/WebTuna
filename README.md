@@ -135,6 +135,7 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 ### 역할
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - 김민성 : BE
 - 김영준 : FE / 팀장
 - 김우석 : BE / Data 추출 및 분석
@@ -148,10 +149,34 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 배윤호 : FrontEnd, 비즈니스 로직 설계, 기록물 관리
 이동근 : FrontEnd, 컴포넌트 설계, 일정 관리
 이홍주 : BackEnd, 배포, 디자인
+=======
+<table>
+    <tr>
+        <td height="140px" align="center"> <a href="https://github.com/PowerBBear">
+            <img src="/uploads/a5d79076583fe2333a635d6b4eae7daf/김영준.jpg" width="140px" /> <br><br> 👑 김영준 <br>(Front-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="https://github.com/JunPark364">
+            <img src="/uploads/0934f722c4124be33805f003cfcdc532/이동근.jpg" width="140px" /> <br><br> 🙂 이동근 <br>(Front-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="https://github.com/pch8349">
+            <img src="/uploads/51d3e99dbbaecdb19c4f48c82c8fa4bf/배윤호.jpg" width="140px" /> <br><br> 😆 배윤호 <br>(Front-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="https://github.com/SilverLight96">
+            <img src="/uploads/2de9c544b4221bafa500a6ae52ec3fed/김민성.jpg" width="140px" /> <br><br> 😁 김민성 <br>(Back-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="https://github.com/heunhanireum">
+            <img src="/uploads/1e655808d8a5b14f7490abc6ad43203e/김우석.jpg" width="140px" /> <br><br> 🙄 김우석 <br>(Back-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="https://github.com/kkh9700">
+            <img src="/uploads/43ea7316184eca09106a91e0198f289d/이홍주.jpg" width="140px" /> <br><br> 😶 이홍주 <br>(Back-End) </a> <br></td>
+    </tr>
+    <tr>
+        <td align="center">UI/UX<br/>React<br/>팀장<br/></td>
+        <td align="center">UI/UX<br/>React<br/>컴포넌트설계<br/>일정관리</td>
+        <td align="center">UI/UX<br/>React<br/>비즈니스 로직 설계<br/>기록물 관리</td>
+        <td align="center">REST API<br/>DB</td>
+        <td align="center">REST API<br/>ML<br/>발표</td>
+        <td align="center">REST API<br/>배포<br/>디자인</td>
+    </tr>
+</table>
+>>>>>>> 22e474c (fix:readme)
 
-================================================================ =============================절취선==============================
 
-================================================================
 
 # 위키에 넣을 내용 (추후 작성O)
 
