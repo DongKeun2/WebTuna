@@ -118,7 +118,7 @@ function LoginPage() {
 const PageBox = styled.div`
   display: flex;
   gap: 50px;
-  height: 80vh;
+  height: 85vh;
   justify-content: center;
   @media screen and (max-width: 750px) {
     gap: 20px;

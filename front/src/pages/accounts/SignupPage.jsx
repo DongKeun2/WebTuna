@@ -177,18 +177,21 @@ function SignupPage() {
               error={isCheckEmail && !isPossibleEmail}
               onkeyup={onCheckEmailHandler}
             />
-
             <CheckBtn onClick={onCheckEmailHandler}>중복확인</CheckBtn>
           </FormItem>
-          <ConfirmMsg error={isCheckEmail && !isPossibleEmail}>
-            {isCheckEmail
-              ? isPossibleEmail
-                ? "사용 가능한 이메일입니다."
-                : isRightEmail
-                ? "이미 사용중인 이메일입니다."
-                : "이메일 형식이 올바르지 않습니다."
-              : null}
-          </ConfirmMsg>
+          <FormItem error={isCheckEmail && !isPossibleEmail}>
+            <BlankHeader></BlankHeader>
+            <ConfirmMsg error={isCheckEmail && !isPossibleEmail}>
+              {isCheckEmail
+                ? isPossibleEmail
+                  ? "사용 가능한 이메일입니다."
+                  : isRightEmail
+                  ? "이미 사용중인 이메일입니다."
+                  : "이메일 형식이 올바르지 않습니다."
+                : null}
+            </ConfirmMsg>
+            <BlankBox>중복확인</BlankBox>
+          </FormItem>
           <FormItem>
             <FormTitle>닉네임</FormTitle>
             <SignupInput
@@ -203,13 +206,17 @@ function SignupPage() {
             />
             <CheckBtn onClick={onCheckNicknameHandler}>중복확인</CheckBtn>
           </FormItem>
-          <ConfirmMsg error={isCheckNickname && !isPossibleNickname}>
-            {isCheckNickname
-              ? isPossibleNickname
-                ? "사용 가능한 닉네임입니다."
-                : "사용 불가능한 닉네임입니다."
-              : null}
-          </ConfirmMsg>
+          <FormItem error={isCheckNickname && !isPossibleNickname}>
+            <BlankHeader></BlankHeader>
+            <ConfirmMsg error={isCheckNickname && !isPossibleNickname}>
+              {isCheckNickname
+                ? isPossibleNickname
+                  ? "사용 가능한 닉네임입니다."
+                  : "사용 불가능한 닉네임입니다."
+                : null}
+            </ConfirmMsg>
+            <BlankBox>중복확인</BlankBox>
+          </FormItem>
           <FormItem>
             <FormTitle>비밀번호</FormTitle>
             <SignupInput
@@ -220,8 +227,13 @@ function SignupPage() {
               onChange={onPasswordHandler}
               error={signupInfo.password !== signupInfo.pwdVerify}
             />
+            <BlankBox>중복확인</BlankBox>
           </FormItem>
-          <ConfirmMsg error={true}>{passwordError}</ConfirmMsg>
+          <FormItem error={true}>
+            <BlankHeader></BlankHeader>
+            <ConfirmMsg error={true}>{passwordError}</ConfirmMsg>
+            <BlankBox>중복확인</BlankBox>
+          </FormItem>
           <FormItem>
             <FormTitle>비밀번호 확인</FormTitle>
             <SignupInput
@@ -231,11 +243,16 @@ function SignupPage() {
               placeholder="비밀번호를 입력해주세요."
               onChange={onPwdVerifyHandler}
             />
+            <BlankBox>중복확인</BlankBox>
           </FormItem>
-          <ConfirmMsg error={true}>
-            {signupInfo.password !== signupInfo.pwdVerify &&
-              "비밀번호가 일치하지 않습니다."}
-          </ConfirmMsg>
+          <FormItem error={true}>
+            <BlankHeader></BlankHeader>
+            <ConfirmMsg error={true}>
+              {signupInfo.password !== signupInfo.pwdVerify &&
+                "비밀번호가 일치하지 않습니다."}
+            </ConfirmMsg>
+            <BlankBox>중복확인</BlankBox>
+          </FormItem>
           <SelectBox>
             <GenderBox onChange={onGenderHandler}>
               <GenderTitle>성별</GenderTitle>
@@ -281,11 +298,9 @@ function SignupPage() {
 
 const PageBox = styled.div`
   display: flex;
-  height: 80vh;
+  height: 85vh;
   justify-content: center;
-  @media screen and (max-width: 800px) {
-    width: 100%;
-    height: 100%;
+  @media screen and (max-width: 750px) {
     gap: 20px;
   }
   p {
@@ -294,7 +309,11 @@ const PageBox = styled.div`
 `;
 
 const PageTitle = styled.p`
-  font-size: 4vh;
+  font-size: 2vw;
+  @media screen and (max-width: 750px) {
+    font-size: 20px;
+  }
+  padding: 20px;
 `;
 
 const SignupBox = styled.div`
@@ -305,130 +324,144 @@ const SignupBox = styled.div`
   background-color: white;
   border: 3px solid black;
   border-radius: 10px;
-  height: 80vh;
-  overflow: hidden;
-  @media screen and (max-width: 800px) {
+  height: 100%;
+  @media screen and (max-width: 750px) {
     width: 95%;
   }
 `;
 
 const FormGroup = styled.form`
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  @media screen and (max-width: 800px) {
+  gap: 0.5vw;
+  width: 60%;
+  @media screen and (max-width: 1100px) {
+    width: 70%;
+  }
+  @media screen and (max-width: 750px) {
     width: 90%;
   }
 `;
 
 const FormItem = styled.div`
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  margin-left: 40vw;
   width: 100%;
-  justify-content: start;
-  @media screen and (max-width: 900px) {
-    margin-left: 25vw;
-    align-items: center;
-  }
-  @media screen and (max-width: 800px) {
-    margin-left: 15vw;
-    align-items: center;
-  }
 `;
 
-const FormTitle = styled.p`
-  width: 10vw;
-  font-size: 2vh;
-  @media screen and (max-width: 1000px) {
-    width: 15vw;
-    font-size: 1.8vh;
+const FormTitle = styled.div`
+  font-size: 1.5vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
   }
-  @media screen and (max-width: 800px) {
-    width: 15vw;
-    font-size: 1.5vh;
-  }
+  width: 20%;
+`;
+
+const BlankHeader = styled.div`
+font-size: 1.5vw;
+@media screen and (max-width: 750px) {
+  font-size: 11px;
+}
+width: 20%;
 `;
 
 const GenderBox = styled.div`
+  width: 30%;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const GenderTitle = styled.p`
-  width: 5vw;
-  font-size: 2vh;
-  @media screen and (max-width: 800px) {
-    width: 5vh;
-    font-size: 1.5vh;
+  width: 30%;
+  font-size: 1.4vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
   }
 `;
 
 const BirthBox = styled.div`
+  width: 63%;
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 const BirthTitle = styled.p`
-  width: 8vw;
-  font-size: 2vh;
-  @media screen and (max-width: 800px) {
-    width: 10vw;
-    font-size: 1.5vh;
+  width: 20%;
+  font-size: 1.4vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
   }
 `;
 
 const CheckBtn = styled.button`
-  border: none;
-  /* width: 50%; */
-  font-weight: bold;
-  background-color: white;
-  :hover {
-    font-size: 90%;
+  font-size: 12px;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
   }
+  padding: 5px 8px;
+  border: 1px solid #d1e2ff;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #d1e2ff;
+  :hover {
+    background-color: #99c0ff;
+  }
+`;
+
+const BlankBox = styled.div`
+  font-size: 12px;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+  }
+  padding: 0 8px;
+  border: none;
+  color: white;
+  background-color: white;
 `;
 
 const SignupInput = styled.input`
-  width: 50vh;
-  height: 4vh;
+  width: 60%;
+  padding: 0.8vw;
+  @media screen and (max-width: 750px) {
+    padding: 10px;
+  }
   border: ${(props) =>
     props.error ? "2px solid #EEA6A6" : "2px solid #D1E2FF"};
   border-radius: 10px;
   text-align: center;
-  @media screen and (max-width: 800px) {
-    width: 40%;
-  }
 `;
 
 const BirthInput = styled.input`
-  width: 30vh;
-  height: 4vh;
+  width: 60%;
+  padding: 0.8vw;
+  @media screen and (max-width: 750px) {
+    padding: 10px;
+  }
   border: ${(props) =>
     props.error ? "2px solid #EEA6A6" : "2px solid #D1E2FF"};
   border-radius: 10px;
   text-align: center;
-  @media screen and (max-width: 800px) {
-    width: 40%;
-  }
 `;
 
 const ConfirmMsg = styled.p`
-  margin-left: -5vw;
-  font-size: 1.8vh;
+  margin: 0.2vw;
+  font-size: 1vw;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+  }
   color: ${(props) => (props.error ? "#EEA6A6" : " #48618d")};
 `;
 
 const SelectBox = styled.div`
   display: flex;
-  margin-left: 40vw;
   width: 100%;
+  justify-content: space-around;
   align-items: center;
-  justify-content: start;
-
-  @media screen and (max-width: 800px) {
-    margin-left: 15vw;
-    align-items: center;
-  }
 `;
 const GenderInput = styled.input`
   display: none;
@@ -438,18 +471,19 @@ const MaleLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px 30px;
   padding: 5px;
   width: 40px;
-  height: 30px;
+  height: 24px;
   border: 1px solid #d1e2ff;
   border-radius: 5px;
   background-color: ${(props) => props.active && " #d1e2ff"};
   :hover {
     cursor: url(${hover}) 13 13, auto;
   }
-  @media screen and (max-width: 800px) {
-    margin: 0px 15px;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    width: 30%;
+    margin-right: 10px;
   }
 `;
 
@@ -458,14 +492,15 @@ const FemaleLabel = styled.label`
   justify-content: center;
   align-items: center;
   padding: 5px;
-  margin-left: 20%;
   width: 40px;
-  height: 30px;
+  height: 24px;
   border: 1px solid #d1e2ff;
   border-radius: 5px;
   background-color: ${(props) => props.active && " #d1e2ff"};
-  @media screen and (max-width: 800px) {
-    margin-left: 5%;
+  @media screen and (max-width: 750px) {
+    font-size: 10px;
+    width: 30%;
+    margin-right: 10px;
   }
   :hover {
     cursor: url(${hover}) 13 13, auto;
@@ -473,15 +508,17 @@ const FemaleLabel = styled.label`
 `;
 
 const BtnBox = styled.div`
+  width: 96%;
+  margin: 0 auto 8vw;
   display: flex;
   justify-content: end;
 `;
 
 const SubmitBtn = styled.button`
-  position: absolute;
-  bottom: 12%;
-  right: 10%;
-  font-size: 20px;
+  font-size: 16px;
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+  }
   font-weight: bold;
   background-color: ${(props) => (props.active ? "#feec91" : "AFAFAF")};
   padding: 10px 20px;
