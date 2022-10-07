@@ -64,7 +64,7 @@ Chart.js를 활용한 데이터 시각화
 
 ### 추천 페이지
 
-![메인추천페이지](/uploads/cd92f7f6fa8c8b13b84d4db1c1c3c21c/메인추천페이지.gif)
+![추천](/uploads/5aa7d47b6e081c737f75b5d3faf5098b/추천.gif)
 
 Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
