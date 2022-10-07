@@ -130,7 +130,7 @@ const PageTitle = styled.p`
   @media screen and (max-width: 750px) {
     font-size: 24px;
   }
-  padding: 40px;
+  padding: 20px;
 `;
 
 const LoginBox = styled.div`
