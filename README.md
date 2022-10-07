@@ -186,18 +186,24 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 ### 회원가입 (아직 하는 중)
 
 ### 로그인
+![로그인](/uploads/9f123931645a75317bfdfb7099f0fa97/로그인.gif)
 
 ### 로그아웃
+![로그아웃](/uploads/11aa282ad4667222a4d495fa0b450951/로그아웃.gif)
 
 ### 정보 수정
+![정보수정](/uploads/ace3fa553deeec024c55af26824f38ad/정보수정.gif)
 
 ### 오늘의 운세 (아직 하는 중)
 
 ### 메인 추천 페이지
+![메인추천페이지](/uploads/cd92f7f6fa8c8b13b84d4db1c1c3c21c/메인추천페이지.gif)
 
 ### 검색 기능
+![검색](/uploads/58cd4eaa25919e09c4e02ea45a0010ff/검색.gif)
 
 ### 필터 검색
+![필터](/uploads/86786cce9c13d5becae8b5fbb8a48169/필터.gif)
 
 ### 웹툰 디테일 페이지
 ![디테일페이지](/uploads/f5e1d255c898d184881958d88fc6835a/디테일페이지.gif)
