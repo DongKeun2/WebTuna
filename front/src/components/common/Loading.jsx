@@ -82,6 +82,7 @@ const ImgBox = styled.div`
   border-radius: 70%;
   border: 3px double white;
   overflow: hidden;
+  box-shadow: 3px 5px 2px rgba(0, 0, 0, 0.5);
   animation: ${move} 1.3s 0.1s infinite;
   @media screen and (max-width: 600px) {
     margin-top: -10vh;
