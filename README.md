@@ -166,7 +166,7 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
             <img src="/uploads/43ea7316184eca09106a91e0198f289d/이홍주.jpg" width="140px" /> <br><br> 😶 이홍주 <br>(Back-End) </a> <br></td>
     </tr>
     <tr>
-        <td align="center">UI/UX<br/>React<br/>팀장<br/></td>
+        <td align="center">UI/UX<br/>React<br/>팀장<br/>페이지 반응형</td>
         <td align="center">UI/UX<br/>React<br/>컴포넌트설계<br/>일정관리</td>
         <td align="center">UI/UX<br/>React<br/>비즈니스 로직 설계<br/>기록물 관리</td>
         <td align="center">Django<br/>REST API<br/>DB</td>
