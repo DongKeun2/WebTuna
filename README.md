@@ -69,7 +69,7 @@ Chart.js를 활용한 데이터 시각화
 
 ### 메인 페이지
 
-사진
+![메인페이지](/uploads/a2d750334fa6755901063f4f681aa5bf/메인페이지.gif)
 
 6가지 그림체 별로 실시간 인기 TOP5 웹툰을 전시한다.
 
@@ -95,7 +95,7 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 ### 태그 찜 추가 및 삭제
 
-사진
+![태그](/uploads/13bf0dd348eea494830e2e9ce4c957de/태그.gif)
 
 웹툰마다 존재하는 태그들 중 좋아하는 태그를 찜하여 유저의 취향기반 알고리즘에 사용한다.
 
