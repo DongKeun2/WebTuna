@@ -142,7 +142,7 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 ## 서버 아키텍처
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6ded1e55-69e2-4687-8506-7bcb105d0c59/Untitled.png)
+![아키텍처](/uploads/15c59549c506dd5cc26ed55e83fdd8d6/아키텍처.png)
 
 ## 프로젝트 명 : 웹투나
 
@@ -223,15 +223,15 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 ### 1. 와이어 프레임 [🔗](https://docs.google.com/presentation/d/1lls6BrnZksCDGVXeZn-ehaxjNcrOqQno/edit#slide=id.g150220aeff0_3_214)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2aa3dcd7-cb6e-4285-975f-03f15486a311/Untitled.png)
+![와이어프레임](/uploads/8142c0222ae61d5aee881db1abbeb845/와이어프레임.png)
 
 ### 2. Figma [🔗](https://www.figma.com/file/a9LicgltWtTQe5dRMRP05N/Webtuna?node-id=0%3A1)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a18562a5-6c81-4d2a-a436-077357b196de/Untitled.png)
+![figma](/uploads/55caedd4178336aad5c0a0fadb6b0afe/figma.png)
 
 ### 3. ERD
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4e5d5206-2d7a-4d75-9b71-75b392f14607/Untitled.png)
+![erd](/uploads/75ae91e1db0837ecbc0f4bdd9571810a/erd.png)
 
 ## 협업
 
@@ -252,16 +252,16 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 - FE, BE 등의 라벨을 추가하여, 각 파트의 할 일을 한눈에 볼 수 있도록 했습니다.
 - 매주 월요일 마다 백로그에 이슈들을 생성한 후 스프린트를 시작하였습니다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f30a5295-df01-49e7-bfdb-f8d5b2d0faf8/Untitled.png)
+![jira](/uploads/92c7d754af10ab4fa1708c6c32fc39f5/jira.png)
 
 ## 3. **Notion** [📎](https://www.notion.so/A403-4a1acd3d850f44f0aed8765d6056cfd2)
 
 - 팀원들 간에 공유해야할 자료들은 노션에 백업하여 불필요한 소통을 줄였습니다.
 - 프로젝트 종료 후에도 리마인드하기 쉽도록, 사용한 기술들이나 개발 과정에서 고민했던 부분들 또한 백업하였습니다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f062d5f7-f4e4-4b55-a1fd-2e181053b376/Untitled.png)
+![notion](/uploads/ccbc08dfad76293b736eea00a4bd66a6/notion.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/585ab69c-e0c5-4b91-9a00-6f79bd81f4da/Untitled.png)
+![notion2](/uploads/c9aa6ce9a57fc8d98169dfb12336e089/notion2.png)
 
 ## 4. 소감
 
