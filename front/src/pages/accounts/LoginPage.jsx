@@ -120,15 +120,16 @@ const PageBox = styled.div`
   gap: 50px;
   height: 80vh;
   justify-content: center;
-  @media screen and (max-width: 600px) {
-    width: 100%;
+  @media screen and (max-width: 750px) {
     gap: 20px;
   }
 `;
 
 const PageTitle = styled.p`
-  font-size: 4vw;
-  margin-bottom: 50px;
+  font-size: 3vw;
+  @media screen and (max-width: 750px) {
+    font-size: 24px;
+  }
   padding: 40px;
 `;
 
@@ -141,43 +142,45 @@ const LoginBox = styled.div`
   border: 3px solid black;
   border-radius: 10px;
   height: 100%;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 750px) {
     width: 95%;
   }
 `;
 
 const FormGroup = styled.form`
+  width: 60%;
+  margin: 0 auto;
   display: flex;
-  gap: 20px;
   flex-direction: column;
-  width: 60vw;
-  @media screen and (max-width: 600px) {
-    width: 80%;
+  @media screen and (max-width: 1100px) {
+    width: 70%;
+  }
+  @media screen and (max-width: 750px) {
+    width: 90%;
   }
 `;
 
 const FormItem = styled.div`
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  justify-content: start;
-  @media screen and (max-width: 600px) {
-    justify-content: space-between;
-    align-items: center;
-  }
 `;
 
 const FormTitle = styled.p`
-  width: 18%;
-  @media screen and (max-width: 600px) {
-    width: 30%;
+  font-size: 2vw;
+  @media screen and (max-width: 750px) {
+    font-size: 16px;
   }
+  width: 15%;
 `;
 
 const LoginInput = styled.input`
-  width: 40vw;
-  height: 30px;
-  margin-right: 30px;
+  width: 60%;
+  padding: 0.8vw;
+  @media screen and (max-width: 750px) {
+    padding: 10px;
+  }
   border: 2px solid #d1e2ff;
   border-radius: 10px;
   text-align: center;
@@ -185,11 +188,14 @@ const LoginInput = styled.input`
 
 const BtnBox = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: center;
 `;
 
 const SubmitBtn = styled.button`
-  font-size: 20px;
+  font-size: 16px;
+  @media screen and (max-width: 750px) {
+    font-size: 12px;
+  }
   font-weight: bold;
   background-color: #feec91;
   padding: 10px 20px;
