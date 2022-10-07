@@ -200,14 +200,18 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 ### 필터 검색
 
 ### 웹툰 디테일 페이지
+![디테일페이지](/uploads/f5e1d255c898d184881958d88fc6835a/디테일페이지.gif)
 
 ### 프로필 페이지
+![프로필페이지](/uploads/0adbee5e1f7f1518acdcd902eeafc7bd/프로필페이지.gif)
 
 ### 추천 페이지 (아직 하는 중)
 
 ### 명탐정 툰툰 페이지
+![명탐정툰툰](/uploads/21fab027ed69add64788fdef42a72ffd/명탐정툰툰.gif)
 
 ### ToonBTI 페이지
+![toonbti](/uploads/9e62b1894a139d584bd7a60bccd09741/toonbti.gif)
 
 ## 서비스 설계
 
