@@ -126,9 +126,9 @@ const ToonBox = styled.div`
   width: 96%;
   margin-left: auto;
   margin-right: auto;
-  min-height: 75vh;
+  min-height: 73vh;
   @media screen and (min-width: 1100px) {
-    min-height: 73vh;
+    min-height: 68vh;
   }
   padding-top: 3vw;
   padding-bottom: 70px;
@@ -138,8 +138,6 @@ const ToonBox = styled.div`
   }
   border: solid 2px;
   border-radius: 0.8rem;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
   background-color: #fff5c3;
   display: flex;
   flex-direction: column;

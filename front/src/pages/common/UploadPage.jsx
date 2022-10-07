@@ -487,8 +487,6 @@ const PageBox = styled.div`
   }
   border: solid 2px;
   border-radius: 0.8rem;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
   background-color: #fff5c3;
   display: flex;
   flex-direction: column;
