@@ -52,7 +52,7 @@ Chart.js를 활용한 데이터 시각화
 
 ### 회원가입 시 선호 그림체 선택
 
-사진
+![회원가입](/uploads/67b0286453c7c9d488a8cec5a2ff6066/회원가입.gif)
 
 콜드스타트 문제를 방지하기 위해 사전 선호 그림체를 수집한다.
 
@@ -191,7 +191,8 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 ## 시연 시나리오
 
-### 회원가입 (아직 하는 중)
+### 회원가입
+![회원가입](/uploads/67b0286453c7c9d488a8cec5a2ff6066/회원가입.gif)
 
 ### 로그인
 ![로그인](/uploads/9f123931645a75317bfdfb7099f0fa97/로그인.gif)
@@ -202,7 +203,8 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 ### 정보 수정
 ![정보수정](/uploads/ace3fa553deeec024c55af26824f38ad/정보수정.gif)
 
-### 오늘의 운세 (아직 하는 중)
+### 오늘의 운세
+![오늘의운세](/uploads/bd9c81ca87c3787f48f7887a475905ea/오늘의운세.gif)
 
 ### 메인 추천 페이지
 ![메인추천페이지](/uploads/cd92f7f6fa8c8b13b84d4db1c1c3c21c/메인추천페이지.gif)
@@ -218,8 +220,6 @@ Collaborative Filtering(Item-based Filtering & User-based Filtering) 추천
 
 ### 프로필 페이지
 ![프로필페이지](/uploads/0adbee5e1f7f1518acdcd902eeafc7bd/프로필페이지.gif)
-
-### 추천 페이지 (아직 하는 중)
 
 ### 명탐정 툰툰 페이지
 ![명탐정툰툰](/uploads/21fab027ed69add64788fdef42a72ffd/명탐정툰툰.gif)
